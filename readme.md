@@ -8,6 +8,12 @@ generated graphs.
 
 See the <https://striezel.github.io/corona/> for a snapshot of those graphs.
 
+## Data source
+
+The tool uses the data provided by the European Centre for Disease Prevention
+and Control (ECDC) at
+<https://data.europa.eu/euodp/data/dataset/covid-19-coronavirus-data>.
+
 ## Copyright and Licensing
 
 Copyright 2020  Dirk Stolle
