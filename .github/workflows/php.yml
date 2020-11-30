@@ -1,0 +1,15 @@
+name: PHP syntax check
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  syntax_check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Check PHP files for correct syntax
+      run: ./ci/phplint.sh
