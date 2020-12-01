@@ -24,7 +24,7 @@ GitHub:
 ### Prerequisites
 
 To generate the HTML files containing the graphs for the Coronavirus case
-numbers you need PHP 7 and the SQLite3 extension for PHP.
+numbers you need PHP 7 and the JSON and SQLite3 (PDO) extensions for PHP.
 
 It also helps to have Git, a distributed version control system, on your system
 to get the latest source code directly from the Git repository.
