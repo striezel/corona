@@ -31,7 +31,18 @@ to get the latest source code directly from the Git repository.
 
 All of that can usually be installed be typing
 
-    apt-get install git php-cli php-sqlite
+    # Debian-based Linux distribution
+    apt-get install git php-cli php-json php-sqlite3
+
+or
+
+    # CentOS 8
+    yum install git php-cli php-json php-pdo
+
+or
+
+    # Alpine
+    apk add git php-cli php-json php-pdo_sqlite
 
 into a root terminal.
 

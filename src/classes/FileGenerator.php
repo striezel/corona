@@ -25,8 +25,8 @@ require 'Template.php';
 /** Generator for HTML files. */
 class FileGenerator
 {
-  private string $dbFile;
-  private string $outputDirectory;
+  private $dbFile;
+  private $outputDirectory;
 
   /**
    * Constructs a new generator.
