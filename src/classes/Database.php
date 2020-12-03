@@ -109,5 +109,34 @@ class Database
     unset($stmt);
     return $data;
   }
+
+  /**
+   * Get total Covid-19 numbers worldwide.
+   *
+   * @return Returns an array of arrays containing the date, infections and deaths.
+   */
+  public function numbersWorld()
+  {
+    if (null === $this->pdo)
+      throw new Exception('There is no database connection!');
+
+    $stmt = $this->pdo->query(
+           'SELECT date, SUM(cases), SUM(deaths) FROM covid19'
+         . ' GROUP BY date'
+         . ' ORDER BY date ASC;');
+    $data = array();
+    while (false !== ($row = $stmt->fetch(PDO::FETCH_NUM)))
+    {
+      $data[] = array(
+        'date' => $row[0],
+        'cases' => intval($row[1]),
+        'deaths' => intval($row[2])
+      );
+    }
+    $stmt->closeCursor();
+    unset($stmt);
+    return $data;
+  }
+
 }
 ?>

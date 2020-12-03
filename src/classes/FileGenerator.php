@@ -75,6 +75,12 @@ class FileGenerator
         return false;
       }
     }
+    // Handle accumulated numbers worldwide.
+    if (!$this->generateWorld($db))
+    {
+      echo "Error while generating file for worldwide numbers!\n";
+      return false;
+    }
     // Copy assets.
     if (!$this->createAssets())
       return false;
@@ -124,6 +130,46 @@ class FileGenerator
   }
 
   /**
+     * Generates the HTML file for worldwide numbers.
+     *
+     * @param db       reference to the Database instance
+     * @return Returns whether the generation was successful.
+     */
+    private function generateWorld(Database &$db)
+    {
+      $tpl = new Template();
+      if (!$tpl->fromFile(GENERATOR_ROOT . '/templates/main.tpl'))
+      {
+        echo "Error: Could not load main template file!\n";
+        return false;
+      }
+      // scripts
+      if (!$tpl->loadSection('script'))
+        return false;
+      $tpl->tag('path', './assets/plotly-1.57.1.min.js');
+      $scripts = $tpl->generate();
+      // header
+      if (!$tpl->loadSection('header'))
+            return false;
+      $tpl->integrate('scripts', $scripts);
+      $tpl->tag('title', 'Accumulated Coronavirus cases worldwide');
+      $header = $tpl->generate();
+      // graph
+      $graph = $this->generateGraphWorld($db, $tpl);
+      if ($graph === false)
+        return false;
+      // full
+      if (!$tpl->loadSection('full'))
+        return false;
+      $tpl->integrate('header', $header);
+      $tpl->integrate('content', $graph);
+      $full = $tpl->generate();
+      // write it to a file
+      $written = file_put_contents($this->outputDirectory . '/world.html', $full);
+      return ($written !== false && ($written == strlen($full)));
+    }
+
+  /**
    * Generates the HTML snippet containing the graph of a single country.
    *
    * @param db       reference to the Database instance
@@ -137,7 +183,7 @@ class FileGenerator
     // load graph section
     if (!$tpl->loadSection('graph'))
       return false;
-    $tpl->tag('title', 'Corona cases in ' . $country['name'] . ' (' . $country['geoId'] . ')');
+    $tpl->tag('title', 'Coronavirus cases in ' . $country['name'] . ' (' . $country['geoId'] . ')');
     $tpl->tag('plotId', 'graph_' . strtolower($country['geoId']));
     // prepare numbers
     $dates = array();
@@ -178,6 +224,59 @@ class FileGenerator
   }
 
   /**
+     * Generates the HTML snippet containing the graph for worldwide data.
+     *
+     * @param db       reference to the Database instance
+     * @param tpl      loaded template instance of main.tpl
+     * @return Returns a string containing the HTML snippet, if the generation was successful.
+     *         Returns false, if an error occurred.
+     */
+    private function generateGraphWorld(Database &$db, &$tpl)
+    {
+      // load graph section
+      if (!$tpl->loadSection('graph'))
+        return false;
+      $tpl->tag('title', 'Coronavirus cases worldwide');
+      $tpl->tag('plotId', 'graph_world');
+      // prepare numbers
+      $dates = array();
+      $infections = array();
+      $deaths = array();
+      $data = $db->numbersWorld();
+      foreach($data as $d)
+      {
+        $dates[] = $d['date'];
+        $infections[] = $d['cases'];
+        $deaths[] = $d['deaths'];
+      }
+      // graph: date values
+      $dates = json_encode($dates);
+      if (false === $dates)
+      {
+        echo "Error: JSON encoding of date array failed!\n";
+        return false;
+      }
+      $tpl->integrate('dates', $dates);
+      // graph: infection values
+      $infections = json_encode($infections);
+      if (false === $infections)
+      {
+        echo "Error: JSON encoding of cases array failed!\n";
+        return false;
+      }
+      $tpl->integrate('infections', $infections);
+      // graph: deaths
+      $deaths = json_encode($deaths);
+      if (false === $deaths)
+      {
+        echo "Error: JSON encoding of deaths array failed!\n";
+        return false;
+      }
+      $tpl->integrate('deaths', $deaths);
+      return $tpl->generate();
+    }
+
+  /**
    * Creates any assets (i. e. library files) in the output directory.
    *
    * @return Returns whether the operation was successful.
@@ -206,9 +305,11 @@ class FileGenerator
       return false;
     }
     // links
-    $links = '';
     if (!$tpl->loadSection('indexLink'))
       return false;
+    $tpl->tag('url', './world.html');
+    $tpl->tag('text', 'All countries accumulated');
+    $links = $tpl->generate();
     foreach($countries as $country)
     {
       $tpl->tag('url', './' . strtolower($country['geoId']) . '.html');
