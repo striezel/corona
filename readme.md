@@ -16,8 +16,10 @@ and Control (ECDC) at
 
 ## Status
 
-GitHub:
+* GitHub:
 [![GitHub CI PHP status](https://github.com/striezel/corona/workflows/PHP%20syntax%20check/badge.svg)](https://github.com/striezel/corona/actions)
+* GitLab:
+[![GitLab pipeline status](https://gitlab.com/striezel/corona/badges/master/pipeline.svg)](https://gitlab.com/striezel/corona/)
 
 ## Generating the HTML files
 
