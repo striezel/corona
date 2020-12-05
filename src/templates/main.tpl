@@ -49,6 +49,39 @@
 </script>
 <!--section-end::graph-->
 
+<!--section-start::graphAccumulated-->
+<div id="{{plotId}}"> </div>
+<script>
+  var dates = {{>dates}};
+  var totalInfections = {{>infections}};
+  var totalDeaths = {{>deaths}};
+  var traces = [];
+
+  traces.push({
+      x: dates,
+      y: totalInfections,
+      type: 'scatter',
+      name: 'Infections'
+  });
+  traces.push({
+      x: dates,
+      y: totalDeaths,
+      type: 'scatter',
+      name: 'Deaths'
+  });
+  var layout = {
+    title: '{{title}}',
+    yaxis: {
+       title: 'Accumulated number of cases'
+    }
+  };
+  Plotly.newPlot('{{plotId}}', traces, layout, {
+      displaylogo: false,
+      modeBarButtonsToRemove: ['sendDataToCloud']
+  });
+</script>
+<!--section-end::graphAccumulated-->
+
 <!--section-start::index--><h1>Corona cases in various countries</h1>
 <br />
 <ul>{{>links}}</ul>
