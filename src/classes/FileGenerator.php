@@ -116,7 +116,7 @@ class FileGenerator
     $scripts = $tpl->generate();
     // header
     if (!$tpl->loadSection('header'))
-          return false;
+      return false;
     $tpl->integrate('scripts', $scripts);
     $tpl->tag('title', 'Corona cases in ' . $country['name'] . ' (' . $country['geoId'] . ')');
     $header = $tpl->generate();
@@ -126,7 +126,7 @@ class FileGenerator
       return false;
     $graph_accu = $this->generateAccumulatedGraph($db, $country, $tpl);
     if ($graph_accu === false)
-          return false;
+      return false;
     $graph = $graph . "\n<br />\n" . $graph_accu;
     unset($graph_accu);
     // full
@@ -161,7 +161,7 @@ class FileGenerator
     $scripts = $tpl->generate();
     // header
     if (!$tpl->loadSection('header'))
-          return false;
+      return false;
     $tpl->integrate('scripts', $scripts);
     $tpl->tag('title', 'Coronavirus cases worldwide');
     $header = $tpl->generate();
