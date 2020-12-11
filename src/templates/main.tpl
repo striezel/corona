@@ -6,7 +6,7 @@
 <!--section-start::script--><script src="{{path}}"></script><!--section-end::script-->
 
 <!--section-start::full--><!DOCTYPE html>
-<html>
+<html lang="en">
 {{>header}}
   <body>
     <div class="container">
@@ -81,6 +81,34 @@
   });
 </script>
 <!--section-end::graphAccumulated-->
+
+<!--section-start::graphIncidence-->
+<div id="{{plotId}}"> </div>
+<script>
+  var dates = {{>dates}};
+  var incidence = {{>incidence}};
+  var traces = [];
+
+  traces.push({
+      x: dates,
+      y: incidence,
+      type: 'scatter',
+      name: '14-day incidence'
+  });
+  var layout = {
+    title: '{{title}}',
+    yaxis: {
+       title: '14-day incidence'
+    }
+  };
+  Plotly.newPlot('{{plotId}}', traces, layout, {
+      displaylogo: false,
+      modeBarButtonsToRemove: ['sendDataToCloud']
+  });
+</script>
+<br />
+<div style="text-align: center; font-style: italic;">The 14-day incidence is the number of infections per 100000 inhabitants over the last 14 days.</div>
+<!--section-end::graphIncidence-->
 
 <!--section-start::index--><h1>Corona cases in various countries</h1>
 <br />

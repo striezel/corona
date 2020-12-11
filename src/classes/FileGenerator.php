@@ -129,6 +129,14 @@ class FileGenerator
       return false;
     $graph = $graph . "\n<br />\n" . $graph_accu;
     unset($graph_accu);
+    $graph_incidence = $this->generateIncidenceGraph($db, $country, $tpl);
+    if ($graph_incidence === false)
+      return false;
+    if ($graph_incidence !== '')
+    {
+      $graph = $graph_incidence . "\n<br />\n" . $graph;
+    }
+    unset($graph_incidence);
     // full
     if (!$tpl->loadSection('full'))
       return false;
@@ -398,6 +406,55 @@ class FileGenerator
     $tpl->integrate('deaths', $deaths);
     return $tpl->generate();
   }
+
+  /**
+   * Generates the HTML snippet containing the graph with 14-day incidence numbers of a single country.
+   *
+   * @param db       reference to the Database instance
+   * @param country  country data (id, name, etc.)
+   * @param tpl      loaded template instance of main.tpl
+   * @return Returns a string containing the HTML snippet, if the generation was successful.
+   *         Returns false, if an error occurred.
+   */
+  private function generateIncidenceGraph(Database &$db, array $country, &$tpl)
+  {
+    // load graph section
+    if (!$tpl->loadSection('graphIncidence'))
+      return false;
+    // prepare numbers
+    $dates = array();
+    $incidence = array();
+    $data = $db->incidence($country['countryId']);
+    // May be an empty array, if there is no known incidence.
+    if (empty($data))
+    {
+      return '';
+    }
+    $tpl->tag('title', 'Coronavirus: 14-day incidence in ' . $country['name'] . ' (' . $country['geoId'] . ')');
+    $tpl->tag('plotId', 'graph_incidence14_' . strtolower($country['geoId']));
+    foreach($data as $d)
+    {
+      $dates[] = $d['date'];
+      $incidence[] = $d['incidence'];
+    }
+    // graph: date values
+    $dates = json_encode($dates);
+    if (false === $dates)
+    {
+      echo "Error: JSON encoding of date array failed!\n";
+      return false;
+    }
+    $tpl->integrate('dates', $dates);
+    // graph: indicence values
+    $incidence = json_encode($incidence);
+    if (false === $incidence)
+    {
+      echo "Error: JSON encoding of incidence array failed!\n";
+      return false;
+    }
+    $tpl->integrate('incidence', $incidence);
+    return $tpl->generate();
+    }
 
   /**
    * Creates any assets (i. e. library files) in the output directory.

@@ -200,6 +200,39 @@ class Database
   }
 
   /**
+   * Get the 14-day incidence values of Covid-19 for a specific country.
+   *
+   * @param countryId   id of the country
+   * @return Returns an array of arrays containing the date and incidence values for those dates.
+   *         This may be an empty array, if no values are known.
+   */
+  public function incidence(int $countryId)
+  {
+    if (null === $this->pdo)
+      throw new Exception('There is no database connection!');
+
+    $stmt = $this->pdo->prepare(
+            'SELECT date, round(incidence14, 2) FROM covid19'
+          . ' WHERE countryId = :cid AND IFNULL(incidence14, -1.0) >= 0.0'
+          . ' ORDER BY date ASC;');
+    if (!$stmt->execute(array(':cid' => $countryId)))
+    {
+      throw new Exception('Could not execute prepared statement to get numbers for id ' . $countryId . '!');
+    }
+    $data = array();
+    while (false !== ($row = $stmt->fetch(PDO::FETCH_NUM)))
+    {
+      $data[] = array(
+        'date' => $row[0],
+        'incidence' => floatval($row[1])
+      );
+    }
+    $stmt->closeCursor();
+    unset($stmt);
+    return $data;
+  }
+
+  /**
    * Checks whether the table covid19 already has the columns totalCases and
    * totalDeaths, and creates them, if they are missing.
    *
