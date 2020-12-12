@@ -81,6 +81,63 @@ class Database
   }
 
   /**
+   * Lists all continents in the database.
+   *
+   * @return Returns an array of continent names.
+   */
+  public function continents()
+  {
+    if (null === $this->pdo)
+      throw new Exception('There is no database connection!');
+    $sql = 'SELECT DISTINCT continent FROM country'
+         . " WHERE continent <> 'Other'"
+         . ' ORDER BY continent ASC;';
+    $stmt = $this->pdo->query($sql);
+    $data = array();
+    while (false !== ($row = $stmt->fetch(PDO::FETCH_NUM)))
+    {
+      $data[] = $row[0];
+    }
+    $stmt->closeCursor();
+    unset($stmt);
+    return $data;
+  }
+
+  /**
+   * Lists all countries of a given continent.
+   *
+   * @param continent   name of the continent
+   * @return Returns an array of arrays containing country data.
+   */
+  public function countriesOfContinent(string $continent)
+  {
+    if (null === $this->pdo)
+      throw new Exception('There is no database connection!');
+    $sql = 'SELECT countryId, name, population, geoId, continent FROM country'
+         . " WHERE geoId <> '' AND continent = :conti"
+         . ' ORDER BY name ASC;';
+    $stmt = $this->pdo->prepare($sql);
+    if (!$stmt->execute(array(':conti' => $continent)))
+    {
+      throw new Exception('Could not execute prepared statement to get countries of ' . $continent . '!');
+    }
+    $data = array();
+    while (false !== ($row = $stmt->fetch(PDO::FETCH_ASSOC)))
+    {
+      $data[] = array(
+        'countryId' => $row['countryId'],
+        'name' => $row['name'],
+        'population' => $row['population'],
+        'geoId' => $row['geoId'],
+        'continent' => $row['continent']
+      );
+    }
+    $stmt->closeCursor();
+    unset($stmt);
+    return $data;
+  }
+
+  /**
    * Get Covid-19 numbers for a specific country.
    *
    * @param countryId   id of the country

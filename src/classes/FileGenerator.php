@@ -194,6 +194,51 @@ class FileGenerator
   }
 
   /**
+   * Generates the HTML files for different continents.
+   *
+   * @param db       reference to the Database instance
+   * @return Returns whether the generation was successful.
+   */
+  private function generateContinents(Database &$db)
+  {
+    $tpl = new Template();
+    if (!$tpl->fromFile(GENERATOR_ROOT . '/templates/main.tpl'))
+    {
+      echo "Error: Could not load main template file!\n";
+      return false;
+    }
+
+    $continents = $db->continents();
+    foreach ($continents as $continent)
+    {
+      // template: scripts
+      if (!$tpl->loadSection('script'))
+        return false;
+      $tpl->tag('path', './assets/plotly-1.57.1.min.js');
+      $scripts = $tpl->generate();
+      // template: header
+      if (!$tpl->loadSection('header'))
+        return false;
+      $tpl->integrate('scripts', $scripts);
+      $tpl->tag('title', 'Coronavirus incidence in ' . $continent);
+      $header = $tpl->generate();
+      // template: graph
+      $graph = 'This is a placeholder.'; // $this->generateGraphContinent($db, $continent, $tpl);
+      if ($graph === false)
+        return false;
+      // template: full
+      if (!$tpl->loadSection('full'))
+        return false;
+      $tpl->integrate('header', $header);
+      $tpl->integrate('content', $graph);
+      $full = $tpl->generate();
+      // write it to a file
+      $written = file_put_contents($this->outputDirectory . '/continent_' . strtolower($continent) . '.html', $full);
+      return ($written !== false && ($written == strlen($full)));
+    }
+  }
+
+  /**
    * Generates the HTML snippet containing the graph of a single country.
    *
    * @param db       reference to the Database instance
