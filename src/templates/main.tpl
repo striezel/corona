@@ -110,10 +110,45 @@
 <div style="text-align: center; font-style: italic;">The 14-day incidence is the number of infections per 100000 inhabitants over the last 14 days.</div>
 <!--section-end::graphIncidence-->
 
+<!--section-start::graphContinent-->
+<div id="{{plotId}}"> </div>
+<script>
+  var traces = [];
+
+{{>traces}}
+  var layout = {
+    title: '{{title}}',
+    yaxis: {
+       title: '14-day incidence'
+    }
+  };
+  Plotly.newPlot('{{plotId}}', traces, layout, {
+      displaylogo: false,
+      modeBarButtonsToRemove: ['sendDataToCloud'],
+      responsive: true
+  });
+</script>
+<br />
+<div style="text-align: center; font-style: italic;">The 14-day incidence is the number of infections per 100000 inhabitants over the last 14 days.</div>
+<!--section-end::graphContinent-->
+
+<!--section-start::trace-->
+  traces.push({
+      x: {{>dates}},
+      y: {{>incidence}},
+      type: 'scatter',
+      name: '{{name}}'
+  });<!--section-end::trace-->
+
 <!--section-start::index--><h1>Corona cases in various countries</h1>
 <br />
 <ul>{{>links}}</ul>
 <!--section-end::index-->
+
+<!--section-start::indexContinents--><h1>Coronavirus incidence by continent</h1>
+<br />
+<ul>{{>links}}</ul>
+<!--section-end::indexContinents-->
 
 <!--section-start::indexLink--><li><a href="{{url}}">{{text}}</a></li>
 <!--section-end::indexLink-->

@@ -87,11 +87,17 @@ class FileGenerator
       echo "Error while generating file for worldwide numbers!\n";
       return false;
     }
+    // Generate graphs per continent (incidence only).
+    if (!$this->generateContinents($db))
+    {
+      echo "Error while generating files for continents!\n";
+      return false;
+    }
     // Copy assets.
     if (!$this->createAssets())
       return false;
     // Site index comes last.
-    return $this->createIndex($countries);
+    return $this->createIndex($countries, $db->continents());
   }
 
   /**
@@ -223,7 +229,7 @@ class FileGenerator
       $tpl->tag('title', 'Coronavirus incidence in ' . $continent);
       $header = $tpl->generate();
       // template: graph
-      $graph = 'This is a placeholder.'; // $this->generateGraphContinent($db, $continent, $tpl);
+      $graph = $this->generateGraphContinent($db, $continent, $tpl);
       if ($graph === false)
         return false;
       // template: full
@@ -234,8 +240,11 @@ class FileGenerator
       $full = $tpl->generate();
       // write it to a file
       $written = file_put_contents($this->outputDirectory . '/continent_' . strtolower($continent) . '.html', $full);
-      return ($written !== false && ($written == strlen($full)));
+      if ($written === false || ($written != strlen($full)))
+        return false;
     }
+    // All is done here.
+    return true;
   }
 
   /**
@@ -499,7 +508,69 @@ class FileGenerator
     }
     $tpl->integrate('incidence', $incidence);
     return $tpl->generate();
+  }
+
+  /**
+   * Generates the HTML snippet containing the graph with 14-day incidence numbers of the continent.
+   *
+   * @param db         reference to the Database instance
+   * @param continent  name of the continent
+   * @param tpl        loaded template instance of main.tpl
+   * @return Returns a string containing the HTML snippet, if the generation was successful.
+   *         Returns false, if an error occurred.
+   */
+  private function generateGraphContinent(Database &$db, string $continent, &$tpl)
+  {
+    $traces = '';
+    // load graph section
+    if (!$tpl->loadSection('trace'))
+      return false;
+    // iterate over countries
+    $countries = $db->countriesOfContinent($continent);
+    foreach ($countries as $country)
+    {
+      $data = $db->incidence($country['countryId']);
+      // May be an empty array, if there is no known incidence.
+      if (empty($data))
+      {
+        continue;
+      }
+      // prepare data for plot
+      $dates = array();
+      $incidence = array();
+      foreach($data as $d)
+      {
+        $dates[] = $d['date'];
+        $incidence[] = $d['incidence'];
+      }
+      // graph: date values
+      $dates = json_encode($dates);
+      if (false === $dates)
+      {
+        echo "Error: JSON encoding of date array failed!\n";
+        return false;
+      }
+      // graph: indicence values
+      $incidence = json_encode($incidence);
+      if (false === $incidence)
+      {
+        echo "Error: JSON encoding of incidence array failed!\n";
+        return false;
+      }
+      // template generation for data
+      $tpl->integrate('dates', $dates);
+      $tpl->integrate('incidence', $incidence);
+      $tpl->tag('name', $country['name']);
+      $traces .= $tpl->generate();
     }
+    // template: graph
+    if (!$tpl->loadSection('graphContinent'))
+      return false;
+    $tpl->integrate('traces', $traces);
+    $tpl->tag('plotId', 'continent_' . strtolower($continent));
+    $tpl->tag('title', 'Coronavirus: 14-day incidence in ' . $continent);
+    return $tpl->generate();
+  }
 
   /**
    * Creates any assets (i. e. library files) in the output directory.
@@ -519,9 +590,10 @@ class FileGenerator
    * Creates the index.hml in the output directory.
    *
    * @param countries   array containing names and ids of the countries
+   * @param countries   array containing names of the continents
    * @return Returns whether the operation was successful.
    */
-  private function createIndex(array $countries)
+  private function createIndex(array $countries, array $continents)
   {
     $tpl = new Template();
     if (!$tpl->fromFile(GENERATOR_ROOT . '/templates/main.tpl'))
@@ -532,6 +604,7 @@ class FileGenerator
     // links
     if (!$tpl->loadSection('indexLink'))
       return false;
+    // worldwide links + country links
     $tpl->tag('url', './world.html');
     $tpl->tag('text', 'All countries accumulated');
     $links = $tpl->generate();
@@ -541,11 +614,24 @@ class FileGenerator
       $tpl->tag('text', $country['name'] . ' (' . $country['geoId'] . ')');
       $links .= $tpl->generate();
     }
+    // continent links
+    $continentLinks = '';
+    foreach ($continents as $continent)
+    {
+      $tpl->tag('url', './continent_' . strtolower($continent) . '.html');
+      $tpl->tag('text', $continent);
+      $continentLinks .= $tpl->generate();
+    }
     // index template
     if (!$tpl->loadSection('index'))
       return false;
     $tpl->integrate('links', $links);
     $content = $tpl->generate();
+    // continent index template
+    if (!$tpl->loadSection('indexContinents'))
+      return false;
+    $tpl->integrate('links', $continentLinks);
+    $content .= "<br />\n" . $tpl->generate();
     // main page template
     // -- header
     if (!$tpl->loadSection('header'))
