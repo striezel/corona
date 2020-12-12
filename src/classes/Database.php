@@ -35,9 +35,12 @@ class Database
 
     // create PDO
     $dsn = 'sqlite:' . $path;
-    try {
+    try
+    {
       $this->pdo = new PDO($dsn);
-    } catch (PDOException $e) {
+    }
+    catch (PDOException $e)
+    {
       $this->pdo = null;
       // Logging to LOG_USER, because that is the only one available on Windows
       // systems and we want to be cross-platform.
