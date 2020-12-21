@@ -118,7 +118,7 @@ class FileGenerator
     // scripts
     if (!$tpl->loadSection('script'))
       return false;
-    $tpl->tag('path', './assets/plotly-1.57.1.min.js');
+    $tpl->tag('path', './assets/plotly-1.58.3.min.js');
     $scripts = $tpl->generate();
     // header
     if (!$tpl->loadSection('header'))
@@ -171,7 +171,7 @@ class FileGenerator
     // scripts
     if (!$tpl->loadSection('script'))
       return false;
-    $tpl->tag('path', './assets/plotly-1.57.1.min.js');
+    $tpl->tag('path', './assets/plotly-1.58.3.min.js');
     $scripts = $tpl->generate();
     // header
     if (!$tpl->loadSection('header'))
@@ -220,7 +220,7 @@ class FileGenerator
       // template: scripts
       if (!$tpl->loadSection('script'))
         return false;
-      $tpl->tag('path', './assets/plotly-1.57.1.min.js');
+      $tpl->tag('path', './assets/plotly-1.58.3.min.js');
       $scripts = $tpl->generate();
       // template: header
       if (!$tpl->loadSection('header'))
@@ -583,7 +583,7 @@ class FileGenerator
     // there are more files. Or use directory iterator instead.
     if (!mkdir($this->outputDirectory . '/assets'))
       return false;
-    return copy(GENERATOR_ROOT . '/assets/plotly-1.57.1.min.js', $this->outputDirectory . '/assets/plotly-1.57.1.min.js');
+    return copy(GENERATOR_ROOT . '/assets/plotly-1.58.3.min.js', $this->outputDirectory . '/assets/plotly-1.58.3.min.js');
   }
 
   /**
