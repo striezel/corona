@@ -13,3 +13,6 @@ comes with various features - among them the ability to show Coronavirus case
 numbers per country, if requested. Since the code already existed, it was used
 to create the database file. The PHP scripts in this repository work with that
 database file.
+
+For reference, the original CSV data from the ECDC is also provided as
+`corona-daily.csv`.
