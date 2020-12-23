@@ -74,11 +74,15 @@ impl Template
       return false;
     }
 
-    let pattern = "<!--section-start::(.*)-->(.*)<!--section-end::(.*)-->";
-    let re = regex::Regex::new(pattern).unwrap();
+    let pattern = "<!--section-start::(.*?)-->(.*?)<!--section-end::(.*?)-->";
+    // Use regular expression builder with pattern above.
+    let re = regex::RegexBuilder::new(pattern)
+        // Dots also need to match new lines for template data.
+        .dot_matches_new_line(true)
+        // Build it and unwrap it, because it does not error out with proper pattern.
+        .build().unwrap();
     if re.captures_len() == 0
     {
-      eprintln!("No match / captures found!");
       return false;
     }
     self.sections.clear();
@@ -87,8 +91,7 @@ impl Template
       if cap[1].to_string() != cap[3].to_string()
       {
         // Section start and end names do not match!
-        self.sections.clear();
-        return false;
+        continue;
       }
       self.sections.insert(cap[1].to_string(), cap[2].to_string());
     }
@@ -217,15 +220,75 @@ mod tests {
   }
 
   #[test]
-  fn from_file()
+  fn from_file_single_section()
   {
-    let path = env::temp_dir().join("foo_1.tpl");
+    let path = env::temp_dir().join("from_file_single_section.tpl");
     let simple_template = "<!--section-start::test--><li><a href=\"{{url}}\">{{text}}</a></li><!--section-end::test-->";
     fs::write(&path, simple_template).expect("Unable to write template file for test!");
     let path = path.to_str().unwrap();
 
     let mut tpl = Template::new();
     assert!(tpl.from_file(path));
+    assert_eq!(1, tpl.sections.len());
+    assert!(tpl.sections.contains_key("test"));
+    assert_eq!(Some(&String::from("<li><a href=\"{{url}}\">{{text}}</a></li>")), tpl.sections.get("test"));
+
+    fs::remove_file(path).expect("Unable to delete template file!");
+  }
+
+  #[test]
+  fn from_file_newlines()
+  {
+    let path = env::temp_dir().join("from_file_newlines.tpl");
+    let simple_template = "<!--section-start::test--><li>\n  <a href=\"{{url}}\">{{text}}</a>\r\n</li><!--section-end::test-->";
+    fs::write(&path, simple_template).expect("Unable to write template file for test!");
+    let path = path.to_str().unwrap();
+
+    let mut tpl = Template::new();
+    assert!(tpl.from_file(path));
+    assert_eq!(1, tpl.sections.len());
+    assert!(tpl.sections.contains_key("test"));
+    assert_eq!(Some(&String::from("<li>\n  <a href=\"{{url}}\">{{text}}</a>\r\n</li>")), tpl.sections.get("test"));
+
+    fs::remove_file(path).expect("Unable to delete template file!");
+  }
+
+  #[test]
+  fn from_file_multiple_sections()
+  {
+    let path = env::temp_dir().join("from_file_multiple_sections.tpl");
+    let simple_template = "<!--section-start::test--><a href=\"{{url}}\">{{text}}</a><!--section-end::test-->\n<!--section-start::foo--><b>Info:</b> {{info}}<!--section-end::foo-->";
+    fs::write(&path, simple_template).expect("Unable to write template file for test!");
+    let path = path.to_str().unwrap();
+
+    let mut tpl = Template::new();
+    assert!(tpl.from_file(path));
+
+    assert_eq!(2, tpl.sections.len());
+    assert!(tpl.sections.contains_key("test"));
+    assert_eq!(Some(&String::from("<a href=\"{{url}}\">{{text}}</a>")), tpl.sections.get("test"));
+    assert!(tpl.sections.contains_key("foo"));
+    assert_eq!(Some(&String::from("<b>Info:</b> {{info}}")), tpl.sections.get("foo"));
+
+    fs::remove_file(path).expect("Unable to delete template file!");
+  }
+
+  #[test]
+  fn from_file_multiple_sections_newlines()
+  {
+    let path = env::temp_dir().join("from_file_multiple_sections_newlines.tpl");
+    let simple_template = "<!--section-start::test--><li>\n  <a href=\"{{url}}\">{{text}}</a>\r\n</li><!--section-end::test-->\n<!--section-start::foo--><b>Info\nFoo\r\nBar\rBaz:</b> {{info}}<!--section-end::foo-->";
+    fs::write(&path, simple_template).expect("Unable to write template file for test!");
+    let path = path.to_str().unwrap();
+
+    let mut tpl = Template::new();
+    assert!(tpl.from_file(path));
+
+    assert_eq!(2, tpl.sections.len());
+    assert!(tpl.sections.contains_key("test"));
+    assert_eq!(Some(&String::from("<li>\n  <a href=\"{{url}}\">{{text}}</a>\r\n</li>")), tpl.sections.get("test"));
+    assert!(tpl.sections.contains_key("foo"));
+    assert_eq!(Some(&String::from("<b>Info\nFoo\r\nBar\rBaz:</b> {{info}}")), tpl.sections.get("foo"));
 
     fs::remove_file(path).expect("Unable to delete template file!");
   }
@@ -233,7 +296,7 @@ mod tests {
   #[test]
   fn load_section()
   {
-    let path = env::temp_dir().join("foo_2.tpl");
+    let path = env::temp_dir().join("load_section.tpl");
     let simple_template = "<!--section-start::test--><a href=\"{{url}}\">{{text}}</a><!--section-end::test-->";
     fs::write(&path, simple_template).expect("Unable to write template file for test!");
     let path = path.to_str().unwrap();
@@ -253,7 +316,7 @@ mod tests {
   #[test]
   fn generate_simple()
   {
-    let path = env::temp_dir().join("foo_3.tpl");
+    let path = env::temp_dir().join("generate_simple.tpl");
     let simple_template = "<!--section-start::test--><a href=\"{{url}}\">{{text}}</a><!--section-end::test-->";
     fs::write(&path, simple_template).expect("Unable to write template file for test!");
     let path = path.to_str().unwrap();
