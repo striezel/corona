@@ -2,22 +2,22 @@ alpine:
   image: alpine:latest
   stage: build
   before_script:
-    - apk update update
-    - apk add bash php-cli php-json php-pdo_sqlite
+    - apk update
+    - apk add bash cargo rust
   script:
-    - php --version
-    - ./ci/phplint.sh
-    - php ./src/generate.php ./data/corona.db /tmp/output_directory
+    - rustc --version
+    - cargo --version
+    - cd rust && cargo test
 
 centos:
   image: centos:8
   stage: build
   before_script:
-    - yum install -y bash php-cli php-json php-pdo
+    - yum install -y bash cargo rust
   script:
-    - php --version
-    - ./ci/phplint.sh
-    - php ./src/generate.php ./data/corona.db /tmp/output_directory
+    - rustc --version
+    - cargo --version
+    - cd rust && cargo test
 
 debian:
   image: debian:10-slim
@@ -25,8 +25,8 @@ debian:
   before_script:
     - apt-get update
     - export DEBIAN_FRONTEND=noninteractive
-    - apt-get install -y bash php-cli php-json php-sqlite3
+    - apt-get install -y bash cargo rustc
   script:
-    - php --version
-    - ./ci/phplint.sh
-    - php ./src/generate.php ./data/corona.db /tmp/output_directory
+    - rustc --version
+    - cargo --version
+    - cd rust && cargo test
