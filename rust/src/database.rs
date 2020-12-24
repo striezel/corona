@@ -179,6 +179,47 @@ impl Database
 
     data
   }
+
+  /**
+   * Get total Covid-19 numbers worldwide.
+   *
+   * @return Returns an array of arrays containing the date, infections and deaths on that day.
+   */
+  pub fn numbers_world(&self) -> Vec<Numbers>
+  {
+    let sql = "SELECT date, SUM(cases), SUM(deaths) FROM covid19".to_owned()
+        + " GROUP BY date"
+        + " ORDER BY date ASC;";
+    let stmt = self.conn.prepare(&sql);
+    let mut stmt = match stmt
+    {
+      Ok(x) => x,
+      Err(_) => return vec![]
+    };
+    let rows = stmt.query(params![]);
+    let mut rows: rusqlite::Rows = match rows
+    {
+      Ok(r) => r,
+      Err(_) => return vec![]
+    };
+    let mut data: Vec<Numbers> = Vec::new();
+    loop // potential infinite loop
+    {
+      let row = rows.next();
+      match row
+      {
+        Ok(Some(row)) => data.push(Numbers {
+          date: row.get(0).unwrap_or_else(|_e| { String::from("") }),
+          cases: row.get(1).unwrap_or(0),
+          deaths: row.get(2).unwrap_or(0),
+        }),
+        Ok(None) => break,
+        _ => return vec![]
+      }
+    }
+
+    data
+  }
 }
 
 #[cfg(test)]
@@ -192,7 +233,6 @@ mod tests {
    */
   fn get_sqlite_db() -> Database
   {
-    use std::path::Path;
     let db_path = Path::new(file!()) // current file: src/database.rs
         .parent().unwrap() // parent: src/
         .join("..").join("..") // up two directories
@@ -285,5 +325,42 @@ mod tests {
     assert_eq!(germany_2020_03_28.date, found.date);
     assert_eq!(germany_2020_03_28.cases, found.cases);
     assert_eq!(germany_2020_03_28.deaths, found.deaths);
+  }
+
+  #[test]
+  fn numbers_world()
+  {
+    let db = get_sqlite_db();
+
+    let numbers = db.numbers_world();
+    // Vector of data must not be empty.
+    assert!(!numbers.is_empty());
+    // There should be more than 300 entries, ...
+    assert!(numbers.len() > 300);
+    // Check whether a specific value is in the vector.
+    // 2020-06-30|161815|3704
+    let world_2020_06_30 = Numbers {
+      date: String::from("2020-06-30"),
+      cases: 161815,
+      deaths: 3704
+    };
+    let found = numbers.iter().find(|&n| n.date == "2020-06-30");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(world_2020_06_30.date, found.date);
+    assert_eq!(world_2020_06_30.cases, found.cases);
+    assert_eq!(world_2020_06_30.deaths, found.deaths);
+    // Check another value (2020-01-30|1757|38).
+    let world_2020_01_30 = Numbers {
+      date: String::from("2020-01-30"),
+      cases: 1757,
+      deaths: 38
+    };
+    let found = numbers.iter().find(|&n| n.date == "2020-01-30");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(world_2020_01_30.date, found.date);
+    assert_eq!(world_2020_01_30.cases, found.cases);
+    assert_eq!(world_2020_01_30.deaths, found.deaths);
   }
 }
