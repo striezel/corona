@@ -29,6 +29,14 @@ pub struct Country
   continent: String
 }
 
+/// struct to hold the case numbers for a single day in a single country
+pub struct Numbers
+{
+  date: String,
+  cases: i32,
+  deaths: i32
+}
+
 pub struct Database
 {
   conn: rusqlite::Connection
@@ -129,6 +137,48 @@ impl Database
     }
     data
   }
+
+  /**
+   * Get Covid-19 numbers for a specific country.
+   *
+   * @param country_id   id of the country
+   * @return Returns an array of arrays containing the date, infections and deaths on that day.
+   */
+  pub fn numbers(&self, country_id: &i32) -> Vec<Numbers>
+  {
+    let sql = "SELECT date, cases, deaths FROM covid19".to_owned()
+            + " WHERE countryId = ?"
+            + " ORDER BY date ASC;";
+    let stmt = self.conn.prepare(&sql);
+    let mut stmt = match stmt
+    {
+      Ok(x) => x,
+      Err(_) => return vec![]
+    };
+    let rows = stmt.query(params![&country_id]);
+    let mut rows: rusqlite::Rows = match rows
+    {
+      Ok(r) => r,
+      Err(_) => return vec![]
+    };
+    let mut data: Vec<Numbers> = Vec::new();
+    loop // potential infinite loop
+    {
+      let row = rows.next();
+      match row
+      {
+        Ok(Some(row)) => data.push(Numbers {
+          date: row.get(0).unwrap_or_else(|_e| { String::from("") }),
+          cases: row.get(1).unwrap_or(0),
+          deaths: row.get(2).unwrap_or(0),
+        }),
+        Ok(None) => break,
+        _ => return vec![]
+      }
+    }
+
+    data
+  }
 }
 
 #[cfg(test)]
@@ -197,5 +247,43 @@ mod tests {
     assert_eq!(germany.population, found.population);
     assert_eq!(germany.geo_id, found.geo_id);
     assert_eq!(germany.continent, found.continent);
+  }
+
+  #[test]
+  fn numbers()
+  {
+    let db = get_sqlite_db();
+
+    let numbers = db.numbers(&76);
+    // Vector of data must not be empty.
+    assert!(!numbers.is_empty());
+    // There should be more than 300 entries, ...
+    assert!(numbers.len() > 300);
+    // ... but less than 600, because vector has only data from one country.
+    assert!(numbers.len() < 600);
+    // Check whether a specific value is in the vector.
+    let germany_2020_12_10 = Numbers {
+      date: String::from("2020-12-10"),
+      cases: 23679,
+      deaths: 440
+    };
+    let found = numbers.iter().find(|&n| n.date == "2020-12-10");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(germany_2020_12_10.date, found.date);
+    assert_eq!(germany_2020_12_10.cases, found.cases);
+    assert_eq!(germany_2020_12_10.deaths, found.deaths);
+    // Check another similar value.
+    let germany_2020_03_28 = Numbers {
+      date: String::from("2020-03-28"),
+      cases: 6294,
+      deaths: 72
+    };
+    let found = numbers.iter().find(|&n| n.date == "2020-03-28");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(germany_2020_03_28.date, found.date);
+    assert_eq!(germany_2020_03_28.cases, found.cases);
+    assert_eq!(germany_2020_03_28.deaths, found.deaths);
   }
 }
