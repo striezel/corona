@@ -156,6 +156,21 @@ impl Database
       Err(_) => return vec![]
     };
     let rows = stmt.query(params![&country_id]);
+    Database::extract_numbers(rows)
+  }
+
+  /**
+   * Extracts a vector of Numbers from a query result.
+   * The query has to contain three columns, where the first column is a date
+   * string, the second column is the number of cases and the third column is
+   * the number of deaths. Second and third columns must be able to convert to
+   * an integer (i32).
+   *
+   * @param rows  the return value of rusqlite::Statement::query
+   * @return  Returns a vector of Numbers.
+   */
+  fn extract_numbers(rows: Result<rusqlite::Rows, rusqlite::Error>) -> Vec<Numbers>
+  {
     let mut rows: rusqlite::Rows = match rows
     {
       Ok(r) => r,
@@ -197,28 +212,48 @@ impl Database
       Err(_) => return vec![]
     };
     let rows = stmt.query(params![]);
-    let mut rows: rusqlite::Rows = match rows
+    Database::extract_numbers(rows)
+  }
+
+  /**
+   * Get accumulated Covid-19 numbers for a specific country.
+   *
+   * @param countryId   id of the country
+   * @return Returns an array of arrays containing the date, total infections and total deaths until this date.
+   */
+  pub fn accumulated_numbers(&self, country_id: &i32) -> Vec<Numbers>
+  {
+    let sql = "SELECT date, totalCases, totalDeaths FROM covid19".to_owned()
+        + " WHERE countryId = ?"
+        + " ORDER BY date ASC;";
+    let stmt = self.conn.prepare(&sql);
+    let mut stmt = match stmt
     {
-      Ok(r) => r,
+      Ok(x) => x,
       Err(_) => return vec![]
     };
-    let mut data: Vec<Numbers> = Vec::new();
-    loop // potential infinite loop
-    {
-      let row = rows.next();
-      match row
-      {
-        Ok(Some(row)) => data.push(Numbers {
-          date: row.get(0).unwrap_or_else(|_e| { String::from("") }),
-          cases: row.get(1).unwrap_or(0),
-          deaths: row.get(2).unwrap_or(0),
-        }),
-        Ok(None) => break,
-        _ => return vec![]
-      }
-    }
+    let rows = stmt.query(params![&country_id]);
+    Database::extract_numbers(rows)
+  }
 
-    data
+  /**
+   * Get accumulated total Covid-19 numbers worldwide.
+   *
+   * @return Returns a vector of Numbers containing the date, infections and deaths up to that date.
+   */
+  pub fn accumulated_numbers_world(&self) -> Vec<Numbers>
+  {
+    let sql = "SELECT date, SUM(totalCases), SUM(totalDeaths) FROM covid19".to_owned()
+        + " GROUP BY date"
+        + " ORDER BY date ASC;";
+    let stmt = self.conn.prepare(&sql);
+    let mut stmt = match stmt
+    {
+      Ok(x) => x,
+      Err(_) => return vec![]
+    };
+    let rows = stmt.query(params![]);
+    Database::extract_numbers(rows)
   }
 }
 
@@ -362,5 +397,80 @@ mod tests {
     assert_eq!(world_2020_01_30.date, found.date);
     assert_eq!(world_2020_01_30.cases, found.cases);
     assert_eq!(world_2020_01_30.deaths, found.deaths);
+  }
+
+  #[test]
+  fn accumulated_numbers()
+  {
+    let db = get_sqlite_db();
+
+    let numbers = db.accumulated_numbers(&76);
+    // Vector of data must not be empty.
+    assert!(!numbers.is_empty());
+    // There should be more than 300 entries, ...
+    assert!(numbers.len() > 300);
+    // ... but less than 600, because vector has only data from one country.
+    assert!(numbers.len() < 600);
+    // Check whether a specific value is in the vector.
+    let germany_accumulated_2020_03_30 = Numbers {
+      date: String::from("2020-03-30"),
+      cases: 57298,
+      deaths: 455
+    };
+    let found = numbers.iter().find(|&n| n.date == "2020-03-30");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(germany_accumulated_2020_03_30.date, found.date);
+    assert_eq!(germany_accumulated_2020_03_30.cases, found.cases);
+    assert_eq!(germany_accumulated_2020_03_30.deaths, found.deaths);
+    // Check another similar value.
+    let germany_accumulated_2020_06_30 = Numbers {
+      date: String::from("2020-06-30"),
+      cases: 194259,
+      deaths: 8973
+    };
+    let found = numbers.iter().find(|&n| n.date == "2020-06-30");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(germany_accumulated_2020_06_30.date, found.date);
+    assert_eq!(germany_accumulated_2020_06_30.cases, found.cases);
+    assert_eq!(germany_accumulated_2020_06_30.deaths, found.deaths);
+  }
+
+  #[test]
+  fn accumulated_numbers_world()
+  {
+    let db = get_sqlite_db();
+
+    let numbers = db.accumulated_numbers_world();
+    // Vector of data must not be empty.
+    assert!(!numbers.is_empty());
+    // There should be more than 300 entries, ...
+    assert!(numbers.len() > 300);
+    // Check whether a specific value is in the vector.
+    // 2020-04-03|1038420|53448
+    let world_one_million = Numbers {
+      date: String::from("2020-04-03"),
+      cases: 1038420,
+      deaths: 53448
+    };
+    let found = numbers.iter().find(|&n| n.date == "2020-04-03");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(world_one_million.date, found.date);
+    assert_eq!(world_one_million.cases, found.cases);
+    assert_eq!(world_one_million.deaths, found.deaths);
+    // Check another value (2020-09-29|33483079|1002884).
+    let world_one_million_gone = Numbers {
+      date: String::from("2020-09-29"),
+      cases: 33483079,
+      deaths: 1002884
+    };
+    let found = numbers.iter().find(|&n| n.date == "2020-09-29");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(world_one_million_gone.date, found.date);
+    assert_eq!(world_one_million_gone.cases, found.cases);
+    assert_eq!(world_one_million_gone.deaths, found.deaths);
   }
 }
