@@ -3,7 +3,7 @@ alpine:
   stage: build
   before_script:
     - apk update
-    - apk add bash cargo rust
+    - apk add bash cargo rust sqlite-dev
   script:
     - rustc --version
     - cargo --version
@@ -13,7 +13,7 @@ centos:
   image: centos:8
   stage: build
   before_script:
-    - yum install -y bash cargo rust
+    - yum install -y bash cargo rust sqlite-devel
   script:
     - rustc --version
     - cargo --version
@@ -25,7 +25,7 @@ debian:
   before_script:
     - apt-get update
     - export DEBIAN_FRONTEND=noninteractive
-    - apt-get install -y bash cargo rustc
+    - apt-get install -y bash cargo rustc libsqlite3-dev
   script:
     - rustc --version
     - cargo --version
