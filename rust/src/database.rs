@@ -37,6 +37,13 @@ pub struct Numbers
   deaths: i32
 }
 
+/// struct to hold 14-day incidence value for a single day in a single country
+pub struct Incidence14
+{
+  date: String,
+  incidence: f64
+}
+
 pub struct Database
 {
   conn: rusqlite::Connection
@@ -255,6 +262,48 @@ impl Database
     let rows = stmt.query(params![]);
     Database::extract_numbers(rows)
   }
+
+  /**
+   * Get the 14-day incidence values of Covid-19 for a specific country.
+   *
+   * @param countryId   id of the country
+   * @return Returns a vector of Incidences.
+   *         This may be an empty vector, if no values are known.
+   */
+  pub fn incidence(&self, country_id: &i32) -> Vec<Incidence14>
+  {
+    let sql = "SELECT date, round(incidence14, 2) FROM covid19".to_owned()
+            + " WHERE countryId = ? AND IFNULL(incidence14, -1.0) >= 0.0"
+            + " ORDER BY date ASC;";
+    let stmt = self.conn.prepare(&sql);
+    let mut stmt = match stmt
+    {
+      Ok(x) => x,
+      Err(_) => return vec![]
+    };
+    let rows = stmt.query(params![&country_id]);
+    let mut rows = match rows
+    {
+      Ok(r) => r,
+      Err(_) => return vec![]
+    };
+    let mut data: Vec<Incidence14> = Vec::new();
+    loop // potential infinite loop
+    {
+      let row = rows.next();
+      match row
+      {
+        Ok(Some(row)) => data.push(Incidence14 {
+          date: row.get(0).unwrap_or_else(|_e| { String::from("") }),
+          incidence: row.get(1).unwrap_or(0.0)
+        }),
+        Ok(None) => break,
+        _ => return vec![]
+      }
+    }
+
+    data
+  }
 }
 
 #[cfg(test)]
@@ -472,5 +521,39 @@ mod tests {
     assert_eq!(world_one_million_gone.date, found.date);
     assert_eq!(world_one_million_gone.cases, found.cases);
     assert_eq!(world_one_million_gone.deaths, found.deaths);
+  }
+
+  #[test]
+  fn incidence()
+  {
+    let db = get_sqlite_db();
+
+    let incidences = db.incidence(&76);
+    // Vector of data must not be empty.
+    assert!(!incidences.is_empty());
+    // There should be more than 300 entries, ...
+    assert!(incidences.len() > 300);
+    // ... but less than 600, because vector has only data from one country.
+    assert!(incidences.len() < 600);
+    // Check whether a specific value is in the vector.
+    let germany_2020_10_23 = Incidence14 {
+      date: String::from("2020-10-23"),
+      incidence: 106.76 // 106.759624, rounded to two decimals after the point
+    };
+    let found = incidences.iter().find(|&i| i.date == "2020-10-23");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(germany_2020_10_23.date, found.date);
+    assert_eq!(germany_2020_10_23.incidence, found.incidence);
+    // Check another value (2020-02-12|0.01325).
+    let germany_2020_02_12 = Incidence14 {
+      date: String::from("2020-02-12"),
+      incidence: 0.01 // 0.01325, rounded to two decimals after the point
+    };
+    let found = incidences.iter().find(|&i| i.date == "2020-02-12");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(germany_2020_02_12.date, found.date);
+    assert_eq!(germany_2020_02_12.incidence, found.incidence);
   }
 }
