@@ -15,6 +15,8 @@
  -------------------------------------------------------------------------------
 */
 
+mod html;
+
 use std::collections::HashMap;
 use std::env;
 use std::fs;
@@ -169,9 +171,7 @@ impl Template
     for (tag_name, tag_value) in self.tags.iter()
     {
       let find = String::from(TAG_OPENER) + &tag_name + TAG_CLOSER;
-      // TODO: Escape HTML entities and special characters!
-      // FIXME: Introduce proper HTML escaping like in PHP's htmlentities().
-      out = out.replace(&find, &tag_value);
+      out = out.replace(&find, &html::special_chars(&tag_value));
     }
     for (inc_name, inc_value) in self.includes.iter()
     {
@@ -328,6 +328,28 @@ mod tests {
     tpl.tag("text", "home");
 
     assert_eq!(Some(String::from("<a href=\"http://localhost/\">home</a>")), tpl.generate());
+
+    fs::remove_file(path).expect("Unable to delete template file!");
+  }
+
+  #[test]
+  fn generate_special_characters()
+  {
+    let path = env::temp_dir().join("generate_special_characters.tpl");
+    let simple_template = "<!--section-start::test--><a href=\"{{url}}\">{{text}}</a><!--section-end::test-->";
+    fs::write(&path, simple_template).expect("Unable to write template file for test!");
+    let path = path.to_str().unwrap();
+
+    let mut tpl = Template::new();
+    assert!(tpl.from_file(path));
+    assert!(tpl.load_section("test"));
+    tpl.tag("url", "http://localhost/");
+    tpl.tag("text", "<< foo & 'bar' >>");
+
+    // Text should be escaped properly.
+    assert_eq!(
+      Some(String::from("<a href=\"http://localhost/\">&lt;&lt; foo &amp; &#39;bar&#39; &gt;&gt;</a>")),
+      tpl.generate());
 
     fs::remove_file(path).expect("Unable to delete template file!");
   }
