@@ -1,0 +1,23 @@
+name: Rust application tests
+
+on:
+  push:
+    branches: [ rust ]
+  pull_request:
+    branches: [ rust ]
+
+jobs:
+  rust_tests:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install packages
+      run: sudo apt-get install -y cargo rustc
+    - name: Build application
+      run: |
+        cd rust
+        cargo build
+    - name: Run tests
+      run: |
+        cd rust
+        cargo test
