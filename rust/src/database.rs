@@ -22,26 +22,26 @@ use rusqlite::{Connection, params};
 /// struct that contains data of a single country
 pub struct Country
 {
-  country_id: i32,
-  name: String,
-  population: i32,
-  geo_id: String,
-  continent: String
+  pub country_id: i32,
+  pub name: String,
+  pub population: i32,
+  pub geo_id: String,
+  pub continent: String
 }
 
 /// struct to hold the case numbers for a single day in a single country
 pub struct Numbers
 {
-  date: String,
-  cases: i32,
-  deaths: i32
+  pub date: String,
+  pub cases: i32,
+  pub deaths: i32
 }
 
 /// struct to hold 14-day incidence value for a single day in a single country
 pub struct Incidence14
 {
-  date: String,
-  incidence: f64
+  pub date: String,
+  pub incidence: f64
 }
 
 pub struct Database

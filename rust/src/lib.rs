@@ -17,6 +17,7 @@
 
 mod database;
 mod template;
+mod generator;
 
 use std::error::Error;
 
@@ -41,8 +42,13 @@ impl Configuration
   }
 }
 
-pub fn run(config: &Configuration) -> Result<(), Box<dyn Error>>
+pub fn run(config: &Configuration) -> Result<(), String>
 {
-  println!("This is not implemented yet.");
+  use generator::Generator;
+  let gen = Generator::new(&config)?;
+  if !gen.generate()
+  {
+    return Err("Generation of HTML files failed!".to_string());
+  }
   Ok(())
 }
