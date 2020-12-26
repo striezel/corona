@@ -499,7 +499,7 @@ class FileGenerator
       return false;
     }
     $tpl->integrate('dates', $dates);
-    // graph: indicence values
+    // graph: incidence values
     $incidence = json_encode($incidence);
     if (false === $incidence)
     {
@@ -550,7 +550,7 @@ class FileGenerator
         echo "Error: JSON encoding of date array failed!\n";
         return false;
       }
-      // graph: indicence values
+      // graph: incidence values
       $incidence = json_encode($incidence);
       if (false === $incidence)
       {
@@ -587,7 +587,7 @@ class FileGenerator
   }
 
   /**
-   * Creates the index.hml in the output directory.
+   * Creates the index.html in the output directory.
    *
    * @param countries   array containing names and ids of the countries
    * @param countries   array containing names of the continents
