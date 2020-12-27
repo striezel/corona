@@ -70,7 +70,7 @@ impl Database
     let conn = Connection::open(db_path);
     match conn
     {
-      Err(_e) => return Err(String::from("Failed to open database!")),
+      Err(_e) => Err(String::from("Failed to open database!")),
       Ok(c) => Ok(Database { conn: c })
     }
   }
@@ -94,10 +94,10 @@ impl Database
     let country_iter = stmt.query_map(params![], |row| {
       Ok(Country {
         country_id: row.get(0).unwrap_or(-1),
-        name: row.get(1).unwrap_or(String::from("")),
+        name: row.get(1).unwrap_or_else(|_| String::new()),
         population: row.get(2).unwrap_or(-1),
-        geo_id: row.get(3).unwrap_or(String::from("")),
-        continent: row.get(4).unwrap_or(String::from(""))
+        geo_id: row.get(3).unwrap_or_else(|_| String::new()),
+        continent: row.get(4).unwrap_or_else(|_| String::new())
       })
     });
     let country_iter = match country_iter
@@ -110,7 +110,7 @@ impl Database
     {
       data.push(country.unwrap());
     }
-    return data;
+    data
   }
 
   /**
@@ -130,7 +130,7 @@ impl Database
       Err(_) => return vec![]
     };
     let continent_iter = stmt.query_map(params![], |row| {
-      Ok(String::from(row.get(0).unwrap_or(String::from(""))))
+      Ok(row.get(0).unwrap_or_else(|_| String::new()))
     });
     let continent_iter = match continent_iter
     {

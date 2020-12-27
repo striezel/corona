@@ -107,7 +107,7 @@ impl Generator
       return false;
     }
     // Site index comes last.
-    return self.create_index(&countries, &db.continents());
+    self.create_index(&countries, &db.continents())
   }
 
   /**
@@ -205,7 +205,7 @@ impl Generator
     // write it to a file
     let file = format!("{}/{}.html", self.config.output_directory, country.geo_id.to_lowercase());
     let written = fs::write(&file, &full.as_bytes());
-    return written.is_ok();
+    written.is_ok()
   }
 
   // TODO: fn generate_world()
@@ -269,7 +269,7 @@ impl Generator
       true => "[]".to_string()
     };
     tpl.integrate("deaths", &deaths);
-    return tpl.generate();
+    tpl.generate()
   }
 
   // TODO: fn generate_graph_world()
@@ -328,7 +328,7 @@ impl Generator
       true => "[]".to_string()
     };
     tpl.integrate("deaths", &deaths);
-    return tpl.generate();
+    tpl.generate()
   }
 
   // TODO: fn generate_accumulated_graph_world()
@@ -381,7 +381,7 @@ impl Generator
       true => "[]".to_string()
     };
     tpl.integrate("incidence", &incidence);
-    return tpl.generate();
+    tpl.generate()
   }
 
   // TODO: fn generate_graph_continent()
@@ -420,7 +420,7 @@ impl Generator
     let plotly_origin = Generator::get_assets_path().join("plotly-1.58.3.min.js");
     let plotly_destination = path.join("plotly-1.58.3.min.js");
     let cp_success = fs::copy(&plotly_origin, &plotly_destination);
-    return match cp_success
+    match cp_success
     {
       Ok(_bytes_written) => true,
       Err(e) => {
@@ -438,7 +438,7 @@ impl Generator
    * @param countries   array containing names of the continents
    * @return Returns whether the operation was successful.
    */
-  fn create_index(&self, countries: &Vec<Country>, continents: &Vec<String>) -> bool
+  fn create_index(&self, countries: &[Country], continents: &[String]) -> bool
   {
     let mut tpl = Template::new();
     if !tpl.from_file(&Generator::get_template_file_name())
@@ -531,6 +531,6 @@ impl Generator
     // write it to a file
     let file = format!("{}/index.html", self.config.output_directory);
     let written = fs::write(&file, &full.as_bytes());
-    return written.is_ok();
+    written.is_ok()
   }
 }

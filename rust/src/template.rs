@@ -90,7 +90,7 @@ impl Template
     self.sections.clear();
     for cap in re.captures_iter(&content)
     {
-      if cap[1].to_string() != cap[3].to_string()
+      if cap[1] != cap[3]
       {
         // Section start and end names do not match!
         continue;
@@ -103,7 +103,7 @@ impl Template
     self.tags.clear();
     self.includes.clear();
     self.template = None;
-    return !self.sections.is_empty();
+    !self.sections.is_empty()
   }
 
   /**
