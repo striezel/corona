@@ -3,6 +3,16 @@ name = "corona"
 version = "0.1.0"
 authors = ["Dirk Stolle <striezel-dev@web.de>"]
 edition = "2018"
+repository = "https://github.com/striezel/corona"
+license = "GPL-3.0-or-later"
+keywords = ["Corona", "Coronavirus", "COVID-19"]
+categories = ["command-line-utilities"]
+
+[profile.release]
+# optimize for size
+opt-level = "s"
+debug = false
+lto = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
