@@ -89,6 +89,13 @@ impl Generator
 
     // Handle each country.
     let countries = db.countries();
+    if countries.is_empty()
+    {
+      // Something is wrong here, there is no data.
+      eprintln!("Error: Could not find any countries in the database {}!",
+                self.config.db_path);
+      return false;
+    }
     for country in countries.iter()
     {
       if !self.generate_country(&db, &country)

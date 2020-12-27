@@ -29,7 +29,9 @@ fn main()
 
   if let Err(e) = corona::run(&config)
   {
-    eprintln!("An error occurred: {}.", e);
+    eprintln!("An error occurred: {}", e);
     process::exit(1);
   }
+
+  println!("Generation of HTML files was successful.");
 }
