@@ -19,8 +19,6 @@ mod database;
 mod template;
 mod generator;
 
-use std::error::Error;
-
 pub struct Configuration
 {
   pub db_path: String,
