@@ -98,7 +98,11 @@ impl Generator
       }
     }
     // Handle accumulated numbers worldwide.
-    // TODO!
+    if !self.generate_world(&db)
+    {
+      eprintln!("Error while generating file for worldwide numbers!");
+      return false;
+    }
     // Generate graphs per continent (incidence only).
     // TODO!
     // Copy assets.
@@ -208,7 +212,72 @@ impl Generator
     written.is_ok()
   }
 
-  // TODO: fn generate_world()
+  /**
+   * Generates the HTML file for worldwide numbers.
+   *
+   * @param db       reference to the Database instance
+   * @return Returns whether the generation was successful.
+   */
+  fn generate_world(&self, db: &Database) -> bool
+  {
+    let mut tpl = Template::new();
+    if !tpl.from_file(&Generator::get_template_file_name())
+    {
+      eprintln!("Error: Could not load main template file!");
+      return false;
+    }
+    // scripts
+    if !tpl.load_section("script")
+    {
+      return false;
+    }
+    tpl.tag("path", "./assets/plotly-1.58.3.min.js");
+    let scripts = match tpl.generate()
+    {
+      Some(stringy) => stringy,
+      None => return false
+    };
+    // header
+    if !tpl.load_section("header")
+    {
+      return false;
+    }
+    tpl.integrate("scripts", &scripts);
+    tpl.tag("title", "Coronavirus cases worldwide");
+    let header = match tpl.generate()
+    {
+      Some(generated) => generated,
+      None => return false
+    };
+    // graph
+    let graph = match self.generate_graph_world(&db, &mut tpl)
+    {
+      Some(generated) => generated,
+      None => return false
+    };
+    let graph_accu = match self.generate_accumulated_graph_world(&db, &mut tpl)
+    {
+      Some(generated) => generated,
+      None => return false
+    };
+    let graph = graph + "\n<br />\n" + &graph_accu;
+    // full
+    if !tpl.load_section("full")
+    {
+      return false;
+    }
+    tpl.integrate("header", &header);
+    tpl.integrate("content", &graph);
+    let full = match tpl.generate()
+    {
+      Some(generated) => generated,
+      None => return false
+    };
+    // write it to a file
+    let file = format!("{}/world.html", self.config.output_directory);
+    let written = fs::write(&file, &full.as_bytes());
+    written.is_ok()
+  }
 
   // TODO: fn generate_continents()
 
@@ -272,7 +341,60 @@ impl Generator
     tpl.generate()
   }
 
-  // TODO: fn generate_graph_world()
+  /**
+   * Generates the HTML snippet containing the graph for worldwide data.
+   *
+   * @param db       reference to the Database instance
+   * @param tpl      loaded template instance of main.tpl
+   * @return Returns a string containing the HTML snippet, if the generation was successful.
+   *         Returns None, if an error occurred.
+   */
+  fn generate_graph_world(&self, db: &Database, tpl: &mut Template) -> Option<String>
+  {
+    // load graph section
+    if !tpl.load_section("graph")
+    {
+      return None;
+    }
+    tpl.tag("title", "Coronavirus cases worldwide");
+    tpl.tag("plotId", "graph_world");
+    // prepare numbers
+    let mut dates: Vec<String> = Vec::new();
+    let mut infections: Vec<String> = Vec::new();
+    let mut deaths: Vec<String> = Vec::new();
+    let data = db.numbers_world();
+    for d in data.iter()
+    {
+      dates.push(d.date.clone());
+      infections.push(d.cases.to_string());
+      deaths.push(d.deaths.to_string());
+    }
+    // graph: date values
+    // TODO: Use proper JSON library for encoding.
+    let dates = match dates.is_empty()
+    {
+      false => "[\"".to_owned() + &dates.join("\",\"") + "\"]",
+      true => "[]".to_string()
+    };
+    tpl.integrate("dates", &dates);
+    // graph: infection values
+    // TODO: Use proper JSON library for encoding.
+    let infections = match infections.is_empty()
+    {
+      false => "[".to_owned() + &infections.join(",") + "]",
+      true => "[]".to_string()
+    };
+    tpl.integrate("infections", &infections);
+    // graph: deaths
+    // TODO: Use proper JSON library for encoding.
+    let deaths = match deaths.is_empty()
+    {
+      false => "[".to_owned() + &deaths.join(",") + "]",
+      true => "[]".to_string()
+    };
+    tpl.integrate("deaths", &deaths);
+    tpl.generate()
+  }
 
   /**
    * Generates the HTML snippet containing the graph with accumulated numbers of a single country.
@@ -331,7 +453,60 @@ impl Generator
     tpl.generate()
   }
 
-  // TODO: fn generate_accumulated_graph_world()
+  /**
+   * Generates the HTML snippet containing the graph with accumulated worldwide data.
+   *
+   * @param db       reference to the Database instance
+   * @param tpl      loaded template instance of main.tpl
+   * @return Returns a string containing the HTML snippet, if the generation was successful.
+   *         Returns None, if an error occurred.
+   */
+  fn generate_accumulated_graph_world(&self, db: &Database, tpl: &mut Template) -> Option<String>
+  {
+    // load graph section
+    if !tpl.load_section("graphAccumulated")
+    {
+      return None;
+    }
+    tpl.tag("title", "Accumulated Coronavirus cases worldwide");
+    tpl.tag("plotId", "graph_world_accu");
+    // prepare numbers
+    let mut dates: Vec<String> = Vec::new();
+    let mut infections: Vec<String> = Vec::new();
+    let mut deaths: Vec<String> = Vec::new();
+    let data = db.accumulated_numbers_world();
+    for d in data.iter()
+    {
+      dates.push(d.date.clone());
+      infections.push(d.cases.to_string());
+      deaths.push(d.deaths.to_string());
+    }
+    // graph: date values
+    // TODO: Use proper JSON library for encoding.
+    let dates = match dates.is_empty()
+    {
+      false => "[\"".to_owned() + &dates.join("\",\"") + "\"]",
+      true => "[]".to_string()
+    };
+    tpl.integrate("dates", &dates);
+    // graph: infection values
+    // TODO: Use proper JSON library for encoding.
+    let infections = match infections.is_empty()
+    {
+      false => "[".to_owned() + &infections.join(",") + "]",
+      true => "[]".to_string()
+    };
+    tpl.integrate("infections", &infections);
+    // graph: deaths
+    // TODO: Use proper JSON library for encoding.
+    let deaths = match deaths.is_empty()
+    {
+      false => "[".to_owned() + &deaths.join(",") + "]",
+      true => "[]".to_string()
+    };
+    tpl.integrate("deaths", &deaths);
+    tpl.generate()
+  }
 
   /**
    * Generates the HTML snippet containing the graph with 14-day incidence numbers of a single country.
