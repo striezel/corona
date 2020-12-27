@@ -146,6 +146,45 @@ impl Database
   }
 
   /**
+   * Lists all countries of a given continent.
+   *
+   * @param continent   name of the continent
+   * @return Returns a vetor of country data.
+   */
+  pub fn countries_of_continent(&self, continent: &str) -> Vec<Country>
+  {
+    let sql = "SELECT countryId, name, population, geoId, continent FROM country".to_owned()
+           + " WHERE geoId <> '' AND continent = ?"
+           + " ORDER BY name ASC;";
+    let stmt = self.conn.prepare(&sql);
+    let mut stmt = match stmt
+    {
+      Ok(x) => x,
+      Err(_) => return vec![]
+    };
+    let country_iter = stmt.query_map(params![&continent], |row| {
+      Ok(Country {
+        country_id: row.get(0).unwrap_or(-1),
+        name: row.get(1).unwrap_or_else(|_| String::new()),
+        population: row.get(2).unwrap_or(-1),
+        geo_id: row.get(3).unwrap_or_else(|_| String::new()),
+        continent: row.get(4).unwrap_or_else(|_| String::new())
+      })
+    });
+    let country_iter = match country_iter
+    {
+      Ok(iter) => iter,
+      Err(_) => return vec![]
+    };
+    let mut data: Vec<Country> = Vec::new();
+    for country in country_iter
+    {
+      data.push(country.unwrap());
+    }
+    data
+  }
+
+  /**
    * Get Covid-19 numbers for a specific country.
    *
    * @param country_id   id of the country
@@ -371,6 +410,65 @@ mod tests {
     assert_eq!(germany.population, found.population);
     assert_eq!(germany.geo_id, found.geo_id);
     assert_eq!(germany.continent, found.continent);
+  }
+
+  #[test]
+  fn countries_of_continent()
+  {
+    let db = get_sqlite_db();
+
+    let countries = db.countries_of_continent("Europe");
+    // Vector of countries must not be empty.
+    assert!(!countries.is_empty());
+    // There should be less than 200 countries, because unlike countries() it
+    // does not list all countries.
+    assert!(countries.len() < 200);
+    // Check whether a specific country is in the vector.
+    let germany = Country {
+      country_id: 76,
+      name: String::from("Germany"),
+      population: 83019213,
+      geo_id: String::from("DE"),
+      continent: String::from("Europe")
+    };
+    let found = countries.iter().find(|&c| c.name == "Germany");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(germany.country_id, found.country_id);
+    assert_eq!(germany.name, found.name);
+    assert_eq!(germany.population, found.population);
+    assert_eq!(germany.geo_id, found.geo_id);
+    assert_eq!(germany.continent, found.continent);
+    // Check that some other country is not found.
+    let not_found = countries.iter().find(|&c| c.name == "China");
+    assert!(not_found.is_none());
+
+    // Check for another continent.
+    let countries = db.countries_of_continent("Asia");
+    // Vector of countries must not be empty.
+    assert!(!countries.is_empty());
+    // There should be less than 200 countries, because unlike countries() it
+    // does not list all countries.
+    assert!(countries.len() < 200);
+    // Check whether a specific country is in the vector.
+    let china = Country {
+      country_id: 43,
+      name: String::from("China"),
+      population: 1433783692,
+      geo_id: String::from("CN"),
+      continent: String::from("Asia")
+    };
+    let found = countries.iter().find(|&c| c.name == "China");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(china.country_id, found.country_id);
+    assert_eq!(china.name, found.name);
+    assert_eq!(china.population, found.population);
+    assert_eq!(china.geo_id, found.geo_id);
+    assert_eq!(china.continent, found.continent);
+    // Check that some other country is not found.
+    let not_found = countries.iter().find(|&c| c.name == "Germany");
+    assert!(not_found.is_none());
   }
 
   #[test]

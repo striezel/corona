@@ -111,7 +111,11 @@ impl Generator
       return false;
     }
     // Generate graphs per continent (incidence only).
-    // TODO!
+    if !self.generate_continents(&db)
+    {
+      eprintln!("Error while generating files for continents!");
+      return false;
+    }
     // Copy assets.
     if !self.create_assets()
     {
@@ -286,7 +290,77 @@ impl Generator
     written.is_ok()
   }
 
-  // TODO: fn generate_continents()
+  /**
+   * Generates the HTML files for different continents.
+   *
+   * @param db       reference to the Database instance
+   * @return Returns whether the generation was successful.
+   */
+  fn generate_continents(&self, db: &Database) -> bool
+  {
+    let mut tpl = Template::new();
+    if !tpl.from_file(&Generator::get_template_file_name())
+    {
+      eprintln!("Error: Could not load main template file!");
+      return false;
+    }
+
+    let continents = db.continents();
+    for continent in continents.iter()
+    {
+      // template: scripts
+      if !tpl.load_section("script")
+      {
+        return false;
+      }
+      tpl.tag("path", "./assets/plotly-1.58.3.min.js");
+      let scripts = match tpl.generate()
+      {
+        Some(generated) => generated,
+        None => return false
+      };
+      // template: header
+      if !tpl.load_section("header")
+      {
+        return false;
+      }
+      tpl.integrate("scripts", &scripts);
+      tpl.tag("title", &("Coronavirus incidence in ".to_owned() + &continent));
+      let header = match tpl.generate()
+      {
+        Some(generated) => generated,
+        None => return false
+      };
+      // template: graph
+      let graph = self.generate_graph_continent(&db, &continent, &mut tpl);
+      let graph = match graph
+      {
+        Some(g) => g,
+        None => return false
+      };
+      // template: full
+      if !tpl.load_section("full")
+      {
+        return false;
+      }
+      tpl.integrate("header", &header);
+      tpl.integrate("content", &graph);
+      let full = match tpl.generate()
+      {
+        Some(stuff) => stuff,
+        None => return false
+      };
+      // write it to a file
+      let file = format!("{}/continent_{}.html", self.config.output_directory, &continent.to_lowercase());
+      let written = fs::write(&file, &full.as_bytes());
+      if written.is_err()
+      {
+        return false;
+      }
+    }
+    // All is done here.
+    true
+  }
 
   /**
    * Generates the HTML snippet containing the graph of a single country.
@@ -330,7 +404,6 @@ impl Generator
     };
     tpl.integrate("dates", &dates);
     // graph: infection values
-    // TODO: Use proper JSON library for encoding.
     let infections = match infections.is_empty()
     {
       false => "[".to_owned() + &infections.join(",") + "]",
@@ -338,7 +411,6 @@ impl Generator
     };
     tpl.integrate("infections", &infections);
     // graph: deaths
-    // TODO: Use proper JSON library for encoding.
     let deaths = match deaths.is_empty()
     {
       false => "[".to_owned() + &deaths.join(",") + "]",
@@ -385,7 +457,6 @@ impl Generator
     };
     tpl.integrate("dates", &dates);
     // graph: infection values
-    // TODO: Use proper JSON library for encoding.
     let infections = match infections.is_empty()
     {
       false => "[".to_owned() + &infections.join(",") + "]",
@@ -393,7 +464,6 @@ impl Generator
     };
     tpl.integrate("infections", &infections);
     // graph: deaths
-    // TODO: Use proper JSON library for encoding.
     let deaths = match deaths.is_empty()
     {
       false => "[".to_owned() + &deaths.join(",") + "]",
@@ -442,7 +512,6 @@ impl Generator
     };
     tpl.integrate("dates", &dates);
     // graph: infection values
-    // TODO: Use proper JSON library for encoding.
     let infections = match infections.is_empty()
     {
       false => "[".to_owned() + &infections.join(",") + "]",
@@ -450,7 +519,6 @@ impl Generator
     };
     tpl.integrate("infections", &infections);
     // graph: deaths
-    // TODO: Use proper JSON library for encoding.
     let deaths = match deaths.is_empty()
     {
       false => "[".to_owned() + &deaths.join(",") + "]",
@@ -497,7 +565,6 @@ impl Generator
     };
     tpl.integrate("dates", &dates);
     // graph: infection values
-    // TODO: Use proper JSON library for encoding.
     let infections = match infections.is_empty()
     {
       false => "[".to_owned() + &infections.join(",") + "]",
@@ -505,7 +572,6 @@ impl Generator
     };
     tpl.integrate("infections", &infections);
     // graph: deaths
-    // TODO: Use proper JSON library for encoding.
     let deaths = match deaths.is_empty()
     {
       false => "[".to_owned() + &deaths.join(",") + "]",
@@ -567,6 +633,74 @@ impl Generator
   }
 
   // TODO: fn generate_graph_continent()
+  /**
+   * Generates the HTML snippet containing the graph with 14-day incidence numbers of the continent.
+   *
+   * @param db         reference to the Database instance
+   * @param continent  name of the continent
+   * @param tpl        loaded template instance of main.tpl
+   * @return Returns a string containing the HTML snippet, if the generation was successful.
+   *         Returns None, if an error occurred.
+   */
+  fn generate_graph_continent(&self, db: &Database, continent: &str, tpl: &mut Template) -> Option<String>
+  {
+    // load graph section
+    if !tpl.load_section("trace")
+    {
+      return None;
+    }
+    let mut traces = String::new();
+    // iterate over countries
+    let countries = db.countries_of_continent(&continent);
+    for country in countries.iter()
+    {
+      let data = db.incidence(&country.country_id);
+      // May be an empty array, if there is no known incidence.
+      if data.is_empty()
+      {
+        continue;
+      }
+      // prepare data for plot
+      let mut dates: Vec<String> = Vec::new();
+      let mut incidence: Vec<String> = Vec::new();
+      for d in data.iter()
+      {
+        dates.push(d.date.clone());
+        incidence.push(d.incidence.to_string());
+      }
+      // graph: date values
+      // TODO: Use proper JSON library for encoding.
+      let dates = match dates.is_empty()
+      {
+        false => "[\"".to_owned() + &dates.join("\",\"") + "\"]",
+        true => "[]".to_string()
+      };
+      // graph: indicence values
+      let incidence = match incidence.is_empty()
+      {
+        false => "[".to_owned() + &incidence.join(",") + "]",
+        true => "[]".to_string()
+      };
+      // template generation for data
+      tpl.integrate("dates", &dates);
+      tpl.integrate("incidence", &incidence);
+      tpl.tag("name", &country.name);
+      traces = match tpl.generate()
+      {
+        Some(generated) => traces + &generated,
+        None => return None
+      };
+    }
+    // template: graph
+    if !tpl.load_section("graphContinent")
+    {
+      return None;
+    }
+    tpl.integrate("traces", &traces);
+    tpl.tag("plotId", &("continent_".to_owned() + &continent.to_lowercase()));
+    tpl.tag("title", &("Coronavirus: 14-day incidence in ".to_owned() + &continent));
+    tpl.generate()
+  }
 
   /**
    * Gets the path of the assets directory.
