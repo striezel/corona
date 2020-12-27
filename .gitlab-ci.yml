@@ -30,3 +30,19 @@ debian:
     - rustc --version
     - cargo --version
     - cd rust && cargo test
+
+clippy:
+  image: alpine:latest
+  stage: build
+  before_script:
+    - apk update
+    - apk add bash curl wget sqlite-dev gcc g++
+    - wget -O /tmp/ru.sh https://sh.rustup.rs
+    - chmod u+x /tmp/ru.sh
+    - /tmp/ru.sh -y
+    - source $HOME/.cargo/env
+    - export PATH="$HOME/.cargo/bin:$PATH"
+  script:
+    - rustc --version
+    - cargo --version
+    - cd rust && cargo clippy
