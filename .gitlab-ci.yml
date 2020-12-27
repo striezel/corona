@@ -45,4 +45,4 @@ clippy:
   script:
     - rustc --version
     - cargo --version
-    - cd rust && cargo clippy
+    - cd rust && cargo clippy -- -D warnings
