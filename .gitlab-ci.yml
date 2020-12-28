@@ -57,4 +57,4 @@ php:
   script:
     - php --version
     - ./ci/phplint.sh
-    - php ./src/generate.php ./data/corona.db /tmp/output_directory
+    - php ./php/generate.php ./data/corona.db /tmp/output_directory
