@@ -26,5 +26,4 @@ jobs:
         cargo --version
     - name: Lint with clippy
       run: |
-        cd rust
         cargo clippy -- -D warnings

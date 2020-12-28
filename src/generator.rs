@@ -134,7 +134,7 @@ impl Generator
   {
     let db_path = Path::new(file!()) // current file: src/generator.rs
         .parent().unwrap() // parent: src/
-        .join("..").join("..") // up two directories
+        .join("..") // up one directory
         .join("src") // into directory src/
         .join("templates") // into directory src
         .join("main.tpl"); // and to the main.tpl file;
@@ -711,7 +711,7 @@ impl Generator
   {
     Path::new(file!()) // current file: src/generator.rs
         .parent().unwrap() // parent: src/
-        .join("..").join("..") // up two directories
+        .join("..") // up one directory
         .join("src") // into directory src/
         .join("assets") // into directory assets
   }
@@ -864,7 +864,7 @@ mod tests {
   {
     let db_path = Path::new(file!()) // current file: src/generator.rs
         .parent().unwrap() // parent: src/
-        .join("..").join("..") // up two directories
+        .join("..") // up one directory
         .join("data") // into directory data/
         .join("corona.db"); // and to the corona.db file;
     db_path.to_str().unwrap().to_string()

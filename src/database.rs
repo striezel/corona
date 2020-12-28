@@ -358,7 +358,7 @@ mod tests {
   {
     let db_path = Path::new(file!()) // current file: src/database.rs
         .parent().unwrap() // parent: src/
-        .join("..").join("..") // up two directories
+        .join("..") // up one directory
         .join("data") // into directory data/
         .join("corona.db"); // and to the corona.db file;
     let db = Database::new(db_path.to_str().unwrap());

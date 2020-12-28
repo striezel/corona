@@ -7,7 +7,7 @@ alpine:
   script:
     - rustc --version
     - cargo --version
-    - cd rust && cargo test
+    - cargo test
 
 centos:
   image: centos:8
@@ -17,7 +17,7 @@ centos:
   script:
     - rustc --version
     - cargo --version
-    - cd rust && cargo test
+    - cargo test
 
 debian:
   image: debian:10-slim
@@ -29,7 +29,7 @@ debian:
   script:
     - rustc --version
     - cargo --version
-    - cd rust && cargo test
+    - cargo test
 
 clippy:
   image: alpine:latest
@@ -45,7 +45,7 @@ clippy:
   script:
     - rustc --version
     - cargo --version
-    - cd rust && cargo clippy -- -D warnings
+    - cargo clippy -- -D warnings
 
 php:
   image: debian:10-slim
