@@ -110,7 +110,7 @@ class FileGenerator
   private function generateCountry(Database &$db, array $country)
   {
     $tpl = new Template();
-    if (!$tpl->fromFile(GENERATOR_ROOT . '/templates/main.tpl'))
+    if (!$tpl->fromFile(GENERATOR_ROOT . '/../src/templates/main.tpl'))
     {
       echo "Error: Could not load main template file!\n";
       return false;
@@ -163,7 +163,7 @@ class FileGenerator
   private function generateWorld(Database &$db)
   {
     $tpl = new Template();
-    if (!$tpl->fromFile(GENERATOR_ROOT . '/templates/main.tpl'))
+    if (!$tpl->fromFile(GENERATOR_ROOT . '/../src/templates/main.tpl'))
     {
       echo "Error: Could not load main template file!\n";
       return false;
@@ -208,7 +208,7 @@ class FileGenerator
   private function generateContinents(Database &$db)
   {
     $tpl = new Template();
-    if (!$tpl->fromFile(GENERATOR_ROOT . '/templates/main.tpl'))
+    if (!$tpl->fromFile(GENERATOR_ROOT . '/../src/templates/main.tpl'))
     {
       echo "Error: Could not load main template file!\n";
       return false;
@@ -583,7 +583,7 @@ class FileGenerator
     // there are more files. Or use directory iterator instead.
     if (!mkdir($this->outputDirectory . '/assets'))
       return false;
-    return copy(GENERATOR_ROOT . '/assets/plotly-1.58.3.min.js', $this->outputDirectory . '/assets/plotly-1.58.3.min.js');
+    return copy(GENERATOR_ROOT . '/../src/assets/plotly-1.58.3.min.js', $this->outputDirectory . '/assets/plotly-1.58.3.min.js');
   }
 
   /**
@@ -596,7 +596,7 @@ class FileGenerator
   private function createIndex(array $countries, array $continents)
   {
     $tpl = new Template();
-    if (!$tpl->fromFile(GENERATOR_ROOT . '/templates/main.tpl'))
+    if (!$tpl->fromFile(GENERATOR_ROOT . '/../src/templates/main.tpl'))
     {
       echo "Error: Could not load main template file!\n";
       return false;
