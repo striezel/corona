@@ -1,7 +1,8 @@
 # Coronavirus case numbers per country
 
-This repository contains a few PHP scripts that can generate graphs showing the
-Coronavirus (SARS-CoV-2, COVID-19) case numbers for various countries.
+This repository contains a Rust command line application that can generate
+graphs showing the Coronavirus (SARS-CoV-2, COVID-19) case numbers for various
+countries.
 
 It is still in an early stage of development and very simplistic. And so are the
 generated graphs.
@@ -17,7 +18,8 @@ and Control (ECDC) at
 ## Status
 
 * GitHub:
-[![GitHub CI PHP status](https://github.com/striezel/corona/workflows/PHP%20syntax%20check/badge.svg)](https://github.com/striezel/corona/actions)
+[![GitHub CI Rust tests](https://github.com/striezel/corona/workflows/Rust%20application%20tests/badge.svg)](https://github.com/striezel/corona/actions)
+[![GitHub CI Rust linting](https://github.com/striezel/corona/workflows/Clippy%20lints/badge.svg)](https://github.com/striezel/corona/actions)
 * GitLab:
 [![GitLab pipeline status](https://gitlab.com/striezel/corona/badges/master/pipeline.svg)](https://gitlab.com/striezel/corona/)
 
@@ -26,7 +28,7 @@ and Control (ECDC) at
 ### Prerequisites
 
 To generate the HTML files containing the graphs for the Coronavirus case
-numbers you need PHP 7 and the JSON and SQLite3 (PDO) extensions for PHP.
+numbers you need Rust, Cargo and the development libraries for SQLite3.
 
 It also helps to have Git, a distributed version control system, on your system
 to get the latest source code directly from the Git repository.
@@ -34,17 +36,17 @@ to get the latest source code directly from the Git repository.
 All of that can usually be installed be typing
 
     # Debian-based Linux distribution
-    apt-get install git php-cli php-json php-sqlite3
+    apt-get install cargo git libsqlite3-dev rustc
 
 or
 
     # CentOS 8
-    yum install git php-cli php-json php-pdo
+    yum install cargo git rust sqlite-devel
 
 or
 
     # Alpine
-    apk add git php-cli php-json php-pdo_sqlite
+    apk add cargo git rust sqlite-dev
 
 into a root terminal.
 
@@ -65,9 +67,9 @@ parameters / paths to the script.
 Starting in the root directory of the source, you can invoke the following
 command in a terminal to start the process:
 
-    php src/generate.php /path/to/corona.db /path/to/new/output/directory
+    cargo run /path/to/corona.db /path/to/new/output/directory
 
-That's it.
+That's it. Cargo will build the executable and run it afterwards.
 
 Replace `/path/to/corona.db` with the path to the database. If you do not have
 one ready, you can use the version provided in the `data/` subdirectory of this
@@ -76,10 +78,17 @@ on a regular schedule.
 
 Furthermore, replace `/path/to/new/output/directory` with a path where you want
 the created files to be located. Note that the directory must not exist yet,
-because the script will try to create it.
+because the application may overwrite existing files.
 
 After that, open the `index.html` file in that directory with the browser of
 your choice to get a list of available graphs by country.
+
+## Older PHP variant
+
+A PHP variant of the code is available in the `php/` subdirectory. These PHP
+scripts were the prototype of the application before it was implemented in Rust.
+You probably do not want to use those scripts, they are just there to have the
+archived scripts ready in case that I should ever need them again.
 
 ## Copyright and Licensing
 

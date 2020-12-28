@@ -8,6 +8,10 @@ generated graphs.
 
 See the <https://striezel.github.io/corona/> for a snapshot of those graphs.
 
+_Note: The PHP scripts have been ported to Rust, the code is available in the
+parent directory. Try to use that version, because the PHP scripts will not
+recieve any new features anymore._
+
 ## Data source
 
 The tool uses the data provided by the European Centre for Disease Prevention
