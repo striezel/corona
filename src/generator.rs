@@ -698,7 +698,7 @@ impl Generator
     }
     tpl.integrate("traces", &traces);
     tpl.tag("plotId", &("continent_".to_owned() + &continent.to_lowercase()));
-    tpl.tag("title", &("Coronavirus: 14-day incidence in ".to_owned() + &continent));
+    tpl.tag("title", &("Coronavirus: 14-day incidence in ".to_owned() + continent));
     tpl.generate()
   }
 
