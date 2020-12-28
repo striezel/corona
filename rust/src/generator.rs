@@ -850,3 +850,49 @@ impl Generator
     written.is_ok()
   }
 }
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  /**
+   * Gets a database instance connected to the corona.db file in data directory.
+   *
+   * @return Returns an open database.
+   */
+  fn get_sqlite_db_path() -> String
+  {
+    let db_path = Path::new(file!()) // current file: src/generator.rs
+        .parent().unwrap() // parent: src/
+        .join("..").join("..") // up two directories
+        .join("data") // into directory data/
+        .join("corona.db"); // and to the corona.db file;
+    db_path.to_str().unwrap().to_string()
+  }
+
+  #[test]
+  fn successful_execution()
+  {
+    use std::env;
+    use std::fs;
+
+    let directory = env::temp_dir().join("test_generation_of_files");
+    let config = Configuration {
+      db_path: get_sqlite_db_path(),
+      output_directory: directory.to_str().unwrap().to_string()
+    };
+    let gen = Generator::new(&config).unwrap();
+    assert!(gen.generate());
+    // Check that some paths exists.
+    assert!(directory.join("index.html").exists());
+    assert!(directory.join("world.html").exists());
+    assert!(directory.join("continent_asia.html").exists());
+    assert!(directory.join("cn.html").exists());
+    assert!(directory.join("de.html").exists());
+    assert!(directory.join("el.html").exists());
+    assert!(directory.join("ke.html").exists());
+    assert!(directory.join("us.html").exists());
+    // clean up
+    assert!(fs::remove_dir_all(directory).is_ok());
+  }
+}
