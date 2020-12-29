@@ -23,13 +23,12 @@ and Control (ECDC) at
 * GitLab:
 [![GitLab pipeline status](https://gitlab.com/striezel/corona/badges/master/pipeline.svg)](https://gitlab.com/striezel/corona/)
 
-## Generating the HTML files
+## Building the application from source
 
 ### Prerequisites
 
-To generate the HTML files containing the graphs for the Coronavirus case
-numbers you need the Rust compiler, Cargo (Rust's package manager) and the
-development libraries for SQLite3.
+To build the application you need the Rust compiler (1.30 or later should do),
+Cargo (Rust's package manager) and the development libraries for SQLite3.
 
 It also helps to have Git, a distributed version control system, on your system
 to get the latest source code directly from the Git repository.
@@ -61,14 +60,44 @@ the directory after the repository is completely cloned:
 
 That's it, you should now have the current source code on your machine.
 
-### File generation process
+### Build process
+
+The build process is relatively easy, because Cargo can handle that for you.
+Starting in the root directory of the source, you can invoke the following
+command in a terminal to build the application:
+
+    cargo build
+
+Or, if you want the optimized release version, type
+
+    cargo build --release
+
+instead.
+
+That's it. It may take a minute for Cargo to download the dependencies and
+compile them, but after that you are ready to start using the application.
+
+## Using the application
+
+Currently, the application supports two modes of operation:
+
+* `html`: creating HTML files that contain graphs showing the Coronavirus
+  (SARS-CoV-2, COVID-19) case numbers for various countries
+* `csv`: creating a CSV file that contains the data from the SQLite database
+
+The mode is passed as the first command line argument to the application.
+Only one mode of operation can be active during the application invocation.
+Of course, you can invoke the application several times and change the mode as
+you like.
+
+### HTML file generation process (`html`)
 
 The process is relatively easy, because you just have to pass the correct
-parameters / paths to the script.
+parameters / paths to Cargo.
 Starting in the root directory of the source, you can invoke the following
 command in a terminal to start the process:
 
-    cargo run /path/to/corona.db /path/to/new/output/directory
+    cargo run html /path/to/corona.db /path/to/new/output/directory
 
 That's it. Cargo will build the executable and run it afterwards.
 
@@ -83,6 +112,25 @@ because the application may overwrite existing files.
 
 After that, open the `index.html` file in that directory with the browser of
 your choice to get a list of available graphs by country.
+
+### Dump database content into CSV file (`csv`)
+
+Starting in the root directory of the source, you can invoke the following
+command in a terminal to create a CSV file that contains the data from the
+SQLite 3 database:
+
+    cargo run csv /path/to/corona.db /path/to/file.csv
+
+That's it. Cargo will build the executable and run it afterwards.
+
+Replace `/path/to/corona.db` with the path to the database. If you do not have
+one ready, you can use the version provided in the `data/` subdirectory of this
+Git repository. However, it may be slightly outdated, because it is not updated
+on a regular schedule.
+
+Furthermore, replace `/path/to/file.csv` with a path where you want the CSV file
+to be located. Note that the file must not exist yet, because the application
+will refuse to overwrite an existing CSV file.
 
 ## Older PHP variant
 
