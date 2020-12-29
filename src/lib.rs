@@ -38,7 +38,7 @@ impl Configuration
 {
   pub fn new(args: &[String]) -> Result<Configuration, String>
   {
-    if args.len() < 3
+    if args.len() < 2
     {
       return Err(String::from("Not enough command line parameters!"));
     }
@@ -51,7 +51,7 @@ impl Configuration
       // 3:   /path/to/output.csv
       if args.len() < 4
       {
-        return Err(String::from("Not enough command line parameters!"));
+        return Err(String::from("Not enough command line parameters for CSV mode!"));
       }
 
       let db_path = args[2].clone();
@@ -59,10 +59,24 @@ impl Configuration
       return Ok(Configuration { db_path, output_directory, op: Operation::Csv });
     }
 
-    // fall back to HTML generation
-    let db_path = args[1].clone();
-    let output_directory = args[2].clone();
-    Ok(Configuration { db_path, output_directory, op: Operation::HtmlGeneration })
+    if args[1] == "html"
+    {
+      // requires three parameters:
+      // 1:   html
+      // 2:   /path/to/corona.db
+      // 3:   /path/to/output.csv
+      if args.len() < 4
+      {
+        return Err(String::from("Not enough command line parameters for HTML generation!"));
+      }
+
+      let db_path = args[2].clone();
+      let output_directory = args[3].clone();
+      return Ok(Configuration { db_path, output_directory, op: Operation::HtmlGeneration });
+    }
+
+    // invalid command line parameters
+    Err(String::from("Invalid command line parameters have been specified!"))
   }
 }
 
