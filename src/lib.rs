@@ -18,11 +18,20 @@
 mod database;
 mod template;
 mod generator;
+mod csv;
+
+#[derive(Copy, Clone)]
+pub enum Operation
+{
+  HtmlGeneration, // generate HTML files
+  Csv             // write data to CSV
+}
 
 pub struct Configuration
 {
   pub db_path: String,
-  pub output_directory: String
+  pub output_directory: String,
+  pub op: Operation
 }
 
 impl Configuration
@@ -34,19 +43,53 @@ impl Configuration
       return Err(String::from("Not enough command line parameters!"));
     }
 
+    if args[1] == "csv"
+    {
+      // requires three parameters:
+      // 1:   csv
+      // 2:   /path/to/corona.db
+      // 3:   /path/to/output.csv
+      if args.len() < 4
+      {
+        return Err(String::from("Not enough command line parameters!"));
+      }
+
+      let db_path = args[2].clone();
+      let output_directory = args[3].clone();
+      return Ok(Configuration { db_path, output_directory, op: Operation::Csv });
+    }
+
+    // fall back to HTML generation
     let db_path = args[1].clone();
     let output_directory = args[2].clone();
-    Ok(Configuration { db_path, output_directory })
+    Ok(Configuration { db_path, output_directory, op: Operation::HtmlGeneration })
   }
 }
 
 pub fn run(config: &Configuration) -> Result<(), String>
 {
-  use generator::Generator;
-  let gen = Generator::new(&config)?;
-  if !gen.generate()
+  match &config.op
   {
-    return Err("Generation of HTML files failed!".to_string());
+    Operation::HtmlGeneration => {
+      use generator::Generator;
+      let gen = Generator::new(&config)?;
+      if !gen.generate()
+      {
+        return Err("Generation of HTML files failed!".to_string());
+      }
+      println!("Generation of HTML files was successful.");
+      Ok(())
+    },
+    Operation::Csv => {
+      use crate::csv::Csv;
+
+      let csv = Csv::new(&config)?;
+      if !csv.create_csv()
+      {
+        return Err("Failed to write CSV file!".to_string());
+      }
+
+      Ok(())
+    }
   }
-  Ok(())
 }

@@ -55,7 +55,8 @@ impl Generator
       config: Configuration
       {
         db_path: config.db_path.clone(),
-        output_directory: config.output_directory.clone()
+        output_directory: config.output_directory.clone(),
+        op: config.op.clone()
       }
     })
   }
