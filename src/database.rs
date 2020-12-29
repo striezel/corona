@@ -26,6 +26,7 @@ pub struct Country
   pub name: String,
   pub population: i32,
   pub geo_id: String,
+  pub country_code: String,
   pub continent: String
 }
 
@@ -82,7 +83,7 @@ impl Database
    */
   pub fn countries(&self) -> Vec<Country>
   {
-    let sql = "SELECT countryId, name, population, geoId, continent FROM country".to_owned()
+    let sql = "SELECT countryId, name, population, geoId, countryCode, continent FROM country".to_owned()
             + " WHERE geoId <> '' AND continent <> 'Other'"
             + " ORDER BY name ASC;";
     let stmt = self.conn.prepare(&sql);
@@ -97,7 +98,8 @@ impl Database
         name: row.get(1).unwrap_or_else(|_| String::new()),
         population: row.get(2).unwrap_or(-1),
         geo_id: row.get(3).unwrap_or_else(|_| String::new()),
-        continent: row.get(4).unwrap_or_else(|_| String::new())
+        country_code: row.get(4).unwrap_or_else(|_| String::new()),
+        continent: row.get(5).unwrap_or_else(|_| String::new())
       })
     });
     let country_iter = match country_iter
@@ -153,7 +155,7 @@ impl Database
    */
   pub fn countries_of_continent(&self, continent: &str) -> Vec<Country>
   {
-    let sql = "SELECT countryId, name, population, geoId, continent FROM country".to_owned()
+    let sql = "SELECT countryId, name, population, geoId, countryCode, continent FROM country".to_owned()
            + " WHERE geoId <> '' AND continent = ?"
            + " ORDER BY name ASC;";
     let stmt = self.conn.prepare(&sql);
@@ -168,7 +170,8 @@ impl Database
         name: row.get(1).unwrap_or_else(|_| String::new()),
         population: row.get(2).unwrap_or(-1),
         geo_id: row.get(3).unwrap_or_else(|_| String::new()),
-        continent: row.get(4).unwrap_or_else(|_| String::new())
+        country_code: row.get(4).unwrap_or_else(|_| String::new()),
+        continent: row.get(5).unwrap_or_else(|_| String::new())
       })
     });
     let country_iter = match country_iter
@@ -524,6 +527,7 @@ mod tests {
       name: String::from("Germany"),
       population: 83019213,
       geo_id: String::from("DE"),
+      country_code: String::from("DEU"),
       continent: String::from("Europe")
     };
     let found = countries.iter().find(|&c| c.name == "Germany");
@@ -533,6 +537,7 @@ mod tests {
     assert_eq!(germany.name, found.name);
     assert_eq!(germany.population, found.population);
     assert_eq!(germany.geo_id, found.geo_id);
+    assert_eq!(germany.country_code, found.country_code);
     assert_eq!(germany.continent, found.continent);
   }
 
@@ -553,6 +558,7 @@ mod tests {
       name: String::from("Germany"),
       population: 83019213,
       geo_id: String::from("DE"),
+      country_code: String::from("DEU"),
       continent: String::from("Europe")
     };
     let found = countries.iter().find(|&c| c.name == "Germany");
@@ -562,6 +568,7 @@ mod tests {
     assert_eq!(germany.name, found.name);
     assert_eq!(germany.population, found.population);
     assert_eq!(germany.geo_id, found.geo_id);
+    assert_eq!(germany.country_code, found.country_code);
     assert_eq!(germany.continent, found.continent);
     // Check that some other country is not found.
     let not_found = countries.iter().find(|&c| c.name == "China");
@@ -580,6 +587,7 @@ mod tests {
       name: String::from("China"),
       population: 1433783692,
       geo_id: String::from("CN"),
+      country_code: String::from("CHN"),
       continent: String::from("Asia")
     };
     let found = countries.iter().find(|&c| c.name == "China");
@@ -589,6 +597,7 @@ mod tests {
     assert_eq!(china.name, found.name);
     assert_eq!(china.population, found.population);
     assert_eq!(china.geo_id, found.geo_id);
+    assert_eq!(china.country_code, found.country_code);
     assert_eq!(china.continent, found.continent);
     // Check that some other country is not found.
     let not_found = countries.iter().find(|&c| c.name == "Germany");

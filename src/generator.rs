@@ -860,9 +860,9 @@ mod tests {
   use super::*;
 
   /**
-   * Gets a database instance connected to the corona.db file in data directory.
+   * Gets the path to the corona.db file in data directory.
    *
-   * @return Returns an open database.
+   * @return Returns path of the SQLite database.
    */
   fn get_sqlite_db_path() -> String
   {
@@ -879,11 +879,13 @@ mod tests {
   {
     use std::env;
     use std::fs;
+    use crate::Operation;
 
     let directory = env::temp_dir().join("test_generation_of_files");
     let config = Configuration {
       db_path: get_sqlite_db_path(),
-      output_directory: directory.to_str().unwrap().to_string()
+      output_directory: directory.to_str().unwrap().to_string(),
+      op: Operation::HtmlGeneration
     };
     let gen = Generator::new(&config).unwrap();
     assert!(gen.generate());

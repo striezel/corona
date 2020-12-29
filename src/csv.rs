@@ -122,7 +122,7 @@ impl Csv
       {
         let rec = vec![num.date.clone(), num.date[8..10].to_string(), num.date[5..7].to_string(), num.date[0..4].to_string(),
                        num.cases.to_string(), num.deaths.to_string(), country.name.clone(),
-                       country.geo_id.clone(), String::new(), country.population.to_string(), country.continent.clone()];
+                       country.geo_id.clone(), country.country_code.clone(), country.population.to_string(), country.continent.clone()];
         let success = writer.write_record(&rec);
         if success.is_err()
         {
@@ -142,5 +142,46 @@ impl Csv
         false
       }
     }
+  }
+}
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  /**
+   * Gets path to the corona.db file in data directory.
+   *
+   * @return Returns path of the SQLite database.
+   */
+  fn get_sqlite_db_path() -> String
+  {
+    let db_path = Path::new(file!()) // current file: src/generator.rs
+        .parent().unwrap() // parent: src/
+        .join("..") // up one directory
+        .join("data") // into directory data/
+        .join("corona.db"); // and to the corona.db file;
+    db_path.to_str().unwrap().to_string()
+  }
+
+  #[test]
+  fn successful_execution()
+  {
+    use std::env;
+    use std::fs;
+    use crate::Operation;
+
+    let csv_file_name = env::temp_dir().join("test_csv_corona.csv");
+    let config = Configuration {
+      db_path: get_sqlite_db_path(),
+      output_directory: csv_file_name.to_str().unwrap().to_string(),
+      op: Operation::Csv
+    };
+    let csv = Csv::new(&config).unwrap();
+    assert!(csv.create_csv());
+    // Check that CSV file exists.
+    assert!(csv_file_name.exists());
+    // clean up
+    assert!(fs::remove_file(csv_file_name).is_ok());
   }
 }
