@@ -84,9 +84,13 @@ impl Generator
                 self.config.output_directory, success.unwrap_err());
       return false;
     }
-
-    // TODO: Calculate total numbers, if they are missing.
-
+    // Perform calculations for total numbers in database, if necessary.
+    if !db.calculate_total_numbers()
+    {
+      eprintln!("Error: Database update failed. \
+                 Calculations for accumulated numbers could not be performed!");
+      return false;
+    }
     // Handle each country.
     let countries = db.countries();
     if countries.is_empty()
@@ -632,7 +636,6 @@ impl Generator
     tpl.generate()
   }
 
-  // TODO: fn generate_graph_continent()
   /**
    * Generates the HTML snippet containing the graph with 14-day incidence numbers of the continent.
    *

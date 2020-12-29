@@ -343,6 +343,136 @@ impl Database
 
     data
   }
+
+  /**
+   * Checks whether the table covid19 already has the columns totalCases and
+   * totalDeaths, and creates them, if they are missing.
+   *
+   * @return Returns whether the operation was successful.
+   */
+  pub fn calculate_total_numbers(&self) -> bool
+  {
+    let mut has_total_cases = false;
+    let mut has_total_deaths = false;
+    let mut stmt = match self.conn.prepare("PRAGMA table_info(covid19);")
+    {
+      Ok(x) => x,
+      Err(_) => return false
+    };
+    let mut rows = match stmt.query(params![])
+    {
+      Ok(r) => r,
+      Err(_) => return false
+    };
+    loop // potential infinite loop
+    {
+      match rows.next()
+      {
+        Ok(Some(row)) => {
+          let name = row.get(0).unwrap_or_else(|_e| { String::new() });
+          if name == "totalCases"
+          {
+            has_total_cases = true;
+          }
+          else if name == "totalDeaths"
+          {
+            has_total_deaths = true;
+          }
+        },
+        Ok(None) => break,
+        _ => return false
+      }
+    }
+
+    if !has_total_cases
+    {
+      if !self.calculate_total_cases()
+      {
+        return false;
+      }
+    }
+    if !has_total_deaths
+    {
+      if !self.calculate_total_deaths()
+      {
+        return false;
+      }
+    }
+
+    true
+  }
+
+  /**
+   * Creates the column totalCases and calculates all required values for it.
+   * This may take quite a while.
+   *
+   * @return Returns whether the operation was successful.
+   */
+  fn calculate_total_cases(&self) -> bool
+  {
+    // add new column
+    match self.conn.execute("ALTER TABLE covid19 ADD COLUMN totalCases INTEGER;", params![])
+    {
+      Ok(_) => println!("Info: Added column totalCases to table."),
+      Err(e) => {
+        eprintln!("Could not add column totalCases to table covid19! {}", e);
+        return false;
+      }
+    };
+    // perform actual calculation
+    eprintln!("Calculating accumulated number of cases for each day and \
+               country. This may take a while...");
+    match self.conn.execute(
+      "UPDATE covid19 AS c1 \
+       SET totalCases=(SELECT SUM(cases) FROM covid19 AS c2 \
+       WHERE c2.countryId = c1.countryId AND c2.date <= c1.date);",
+      params![])
+    {
+      Ok(affected) => println!("{} rows have been updated.", affected),
+      Err(e)=> {
+        eprintln!("Could not update totalCases in table covid19! {}", e);
+        return false;
+      }
+    };
+
+    true
+  }
+
+  /**
+   * Creates the column totalCases and calculates all required values for it.
+   * This may take quite a while.
+   *
+   * @return Returns whether the operation was successful.
+   */
+  fn calculate_total_deaths(&self) -> bool
+  {
+    // add new column
+    match self.conn.execute("ALTER TABLE covid19 ADD COLUMN totalDeaths INTEGER;", params![])
+    {
+      Ok(_) => println!("Info: Added column totalDeaths to table."),
+      Err(e)=> {
+        eprintln!("Could not add column totalDeaths to table covid19! {}", e);
+        return false;
+      }
+    };
+    // Update may take ca. two minutes.
+    println!("Calculating accumulated number of deaths for each day and country. \
+              This may take a while...");
+    match self.conn.execute(
+      "UPDATE covid19 AS c1 \
+       SET totalDeaths=(SELECT SUM(deaths) FROM covid19 AS c2 \
+       WHERE c2.countryId = c1.countryId AND c2.date <= c1.date);",
+      params![])
+    {
+      Ok(affected) => println!("{} rows have been updated.", affected),
+      Err(e)=> {
+        eprintln!("Could not update totalDeaths in table covid19! {}", e);
+        return false;
+      }
+    }
+
+    true
+  }
 }
 
 #[cfg(test)]
