@@ -1,6 +1,6 @@
 [package]
 name = "corona"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Dirk Stolle <striezel-dev@web.de>"]
 edition = "2018"
 repository = "https://github.com/striezel/corona"

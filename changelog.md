@@ -1,0 +1,16 @@
+# Version history of Corona command line application
+
+_(Note: This changelog focuses on the major changes between the different
+versions. Therefore, it may not contain all changes. Especially smaller fixes or
+improvements may be omitted.)_
+
+## Version 0.2.0 (2020-12-29)
+
+The generation of HTML files is now fully feature-complete and a full, working
+replacement for the PHP prototype.
+
+## Version 0.1.0 (2020-12-23 to 2020-12-28)
+
+Version 0.1.0 is not a real version but bascially just the first, incomplete
+implementation of the application. Do not use that version anymore, because the
+generation of the HTML files may not work or it may be incomplete.
