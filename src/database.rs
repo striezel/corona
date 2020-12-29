@@ -92,11 +92,10 @@ impl Database
    */
   pub fn countries(&self) -> Vec<Country>
   {
-    let sql = "SELECT countryId, name, population, geoId, countryCode, continent FROM country".to_owned()
-            + " WHERE geoId <> '' AND continent <> 'Other'"
-            + " ORDER BY name ASC;";
-    let stmt = self.conn.prepare(&sql);
-    let mut stmt = match stmt
+    let sql = "SELECT countryId, name, population, geoId, countryCode, continent FROM country \
+               WHERE geoId <> '' AND continent <> 'Other' \
+               ORDER BY name ASC;";
+    let mut stmt = match self.conn.prepare(&sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -131,11 +130,10 @@ impl Database
    */
   pub fn continents(&self) -> Vec<String>
   {
-    let sql = "SELECT DISTINCT continent FROM country".to_owned()
-            + " WHERE continent <> 'Other'"
-            + " ORDER BY continent ASC;";
-    let stmt = self.conn.prepare(&sql);
-    let mut stmt = match stmt
+    let sql = "SELECT DISTINCT continent FROM country \
+               WHERE continent <> 'Other' \
+               ORDER BY continent ASC;";
+    let mut stmt = match self.conn.prepare(&sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -164,11 +162,10 @@ impl Database
    */
   pub fn countries_of_continent(&self, continent: &str) -> Vec<Country>
   {
-    let sql = "SELECT countryId, name, population, geoId, countryCode, continent FROM country".to_owned()
-           + " WHERE geoId <> '' AND continent = ?"
-           + " ORDER BY name ASC;";
-    let stmt = self.conn.prepare(&sql);
-    let mut stmt = match stmt
+    let sql = "SELECT countryId, name, population, geoId, countryCode, continent FROM country \
+               WHERE geoId <> '' AND continent = ? \
+               ORDER BY name ASC;";
+    let mut stmt = match self.conn.prepare(&sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -204,11 +201,10 @@ impl Database
    */
   pub fn numbers(&self, country_id: &i32) -> Vec<Numbers>
   {
-    let sql = "SELECT date, cases, deaths FROM covid19".to_owned()
-            + " WHERE countryId = ?"
-            + " ORDER BY date ASC;";
-    let stmt = self.conn.prepare(&sql);
-    let mut stmt = match stmt
+    let sql = "SELECT date, cases, deaths FROM covid19 \
+               WHERE countryId = ? \
+               ORDER BY date ASC;";
+    let mut stmt = match self.conn.prepare(&sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -305,11 +301,10 @@ impl Database
    */
   pub fn numbers_world(&self) -> Vec<Numbers>
   {
-    let sql = "SELECT date, SUM(cases), SUM(deaths) FROM covid19".to_owned()
-        + " GROUP BY date"
-        + " ORDER BY date ASC;";
-    let stmt = self.conn.prepare(&sql);
-    let mut stmt = match stmt
+    let sql = "SELECT date, SUM(cases), SUM(deaths) FROM covid19 \
+               GROUP BY date \
+               ORDER BY date ASC;";
+    let mut stmt = match self.conn.prepare(&sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -326,11 +321,10 @@ impl Database
    */
   pub fn accumulated_numbers(&self, country_id: &i32) -> Vec<Numbers>
   {
-    let sql = "SELECT date, totalCases, totalDeaths FROM covid19".to_owned()
-        + " WHERE countryId = ?"
-        + " ORDER BY date ASC;";
-    let stmt = self.conn.prepare(&sql);
-    let mut stmt = match stmt
+    let sql = "SELECT date, totalCases, totalDeaths FROM covid19 \
+               WHERE countryId = ? \
+               ORDER BY date ASC;";
+    let mut stmt = match self.conn.prepare(&sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -346,11 +340,10 @@ impl Database
    */
   pub fn accumulated_numbers_world(&self) -> Vec<Numbers>
   {
-    let sql = "SELECT date, SUM(totalCases), SUM(totalDeaths) FROM covid19".to_owned()
-        + " GROUP BY date"
-        + " ORDER BY date ASC;";
-    let stmt = self.conn.prepare(&sql);
-    let mut stmt = match stmt
+    let sql = "SELECT date, SUM(totalCases), SUM(totalDeaths) FROM covid19 \
+               GROUP BY date \
+               ORDER BY date ASC;";
+    let mut stmt = match self.conn.prepare(&sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -368,11 +361,10 @@ impl Database
    */
   pub fn incidence(&self, country_id: &i32) -> Vec<Incidence14>
   {
-    let sql = "SELECT date, round(incidence14, 2) FROM covid19".to_owned()
-            + " WHERE countryId = ? AND IFNULL(incidence14, -1.0) >= 0.0"
-            + " ORDER BY date ASC;";
-    let stmt = self.conn.prepare(&sql);
-    let mut stmt = match stmt
+    let sql = "SELECT date, round(incidence14, 2) FROM covid19 \
+               WHERE countryId = ? AND IFNULL(incidence14, -1.0) >= 0.0 \
+               ORDER BY date ASC;";
+    let mut stmt = match self.conn.prepare(&sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
