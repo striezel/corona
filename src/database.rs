@@ -384,19 +384,13 @@ impl Database
       }
     }
 
-    if !has_total_cases
+    if !has_total_cases && !self.calculate_total_cases()
     {
-      if !self.calculate_total_cases()
-      {
-        return false;
-      }
+      return false;
     }
-    if !has_total_deaths
+    if !has_total_deaths && !self.calculate_total_deaths()
     {
-      if !self.calculate_total_deaths()
-      {
-        return false;
-      }
+      return false;
     }
 
     true
