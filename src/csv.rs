@@ -16,7 +16,9 @@
 */
 
 use super::Configuration;
+use crate::database::Country;
 use crate::database::Database;
+use crate::database::NumbersAndIncidence;
 
 use std::path::Path;
 
@@ -118,16 +120,7 @@ impl Csv
       }
       for num in numbers.iter()
       {
-        let rec = vec![num.date.clone(), num.date[8..10].to_string(), num.date[5..7].to_string(), num.date[0..4].to_string(),
-                       num.cases.to_string(), num.deaths.to_string(), country.name.clone(),
-                       country.geo_id.clone(), country.country_code.clone(),
-                       country.population.to_string(), country.continent.clone(),
-                       match num.incidence_14d
-                       {
-                         Some(i14d) => i14d.to_string(),
-                         None => String::new()
-                       }
-        ];
+        let rec = Csv::num_to_vec(&num, &country);
         let success = writer.write_record(&rec);
         if success.is_err()
         {
@@ -147,6 +140,32 @@ impl Csv
         false
       }
     }
+  }
+
+  /**
+   * Converts data from a NumbersAndIncidence and Country to a vector of strings
+   * that can be used to create a CSV record.
+   *
+   * @param num      Corona case numbers and 14-day incidence value
+   * @param country  country data
+   * @return Returns a vector of strings that is suitable for a CSV record.
+   */
+  fn num_to_vec(num: &NumbersAndIncidence, country: &Country) -> Vec<String>
+  {
+    let day: String = num.date[8..10].trim_start_matches('0').to_string();
+    let month = num.date[5..7].trim_start_matches('0').to_string();
+    let year = num.date[0..4].to_string();
+    let date_rep = format!("{}/{}/{}", num.date[8..10].to_string(), num.date[5..7].to_string(), year);
+    vec![date_rep, day, month, year,
+         num.cases.to_string(), num.deaths.to_string(), country.name.clone(),
+         country.geo_id.clone(), country.country_code.clone(),
+         country.population.to_string(), country.continent.clone(),
+         match num.incidence_14d
+         {
+           Some(i14d) => i14d.to_string(),
+           None => String::new()
+         }
+    ]
   }
 }
 
@@ -186,6 +205,25 @@ mod tests {
     assert!(csv.create_csv());
     // Check that CSV file exists.
     assert!(csv_file_name.exists());
+    // Check contents.
+    let contents = fs::read_to_string(&csv_file_name);
+    assert!(contents.is_ok());
+    let contents = contents.unwrap();
+    // -- Check header line.
+    let first_line = contents.lines().next();
+    assert!(first_line.is_some());
+    assert_eq!("dateRep,day,month,year,cases,deaths,\
+                countriesAndTerritories,geoId,countryterritoryCode,popData2019,continentExp,\
+                Cumulative_number_for_14_days_of_COVID-19_cases_per_100000",
+                first_line.unwrap());
+    // -- Check a single line with incidence value.
+    let line = "10/12/2020,10,12,2020,23679,440,Germany,DE,DEU,83019213,Europe,311.512228";
+    let found = contents.lines().find(|&l| l == line);
+    assert!(found.is_some());
+    // -- Check a single line without incidence value.
+    let line = "12/01/2020,12,1,2020,0,0,Germany,DE,DEU,83019213,Europe,";
+    let found = contents.lines().find(|&l| l == line);
+    assert!(found.is_some());
     // clean up
     assert!(fs::remove_file(csv_file_name).is_ok());
   }
