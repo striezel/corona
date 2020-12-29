@@ -52,7 +52,7 @@ impl Csv
       {
         db_path: config.db_path.clone(),
         output_directory: config.output_directory.clone(),
-        op: config.op.clone()
+        op: config.op
       }
     })
   }
@@ -101,13 +101,10 @@ impl Csv
     };
     const CSV_HEADER: [&str; 11] = ["dateRep", "day", "month", "year", "cases", "deaths",
       "countriesAndTerritories", "geoId","countryterritoryCode", "popData2019","continentExp"];
-    match writer.write_record(&CSV_HEADER)
+    if let Err(e) = writer.write_record(&CSV_HEADER)
     {
-      Err(e) => {
-        eprintln!("Error: Could not write CSV header! {}", e);
-        return false;
-      },
-      _ => ()
+      eprintln!("Error: Could not write CSV header! {}", e);
+      return false;
     }
     // Handle each country.
     for country in countries.iter()
