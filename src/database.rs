@@ -369,7 +369,7 @@ impl Database
       match rows.next()
       {
         Ok(Some(row)) => {
-          let name = row.get(0).unwrap_or_else(|_e| { String::new() });
+          let name = row.get(1).unwrap_or_else(|_e| { String::new() });
           if name == "totalCases"
           {
             has_total_cases = true;
@@ -777,5 +777,16 @@ mod tests {
     let found = found.unwrap();
     assert_eq!(germany_2020_02_12.date, found.date);
     assert_eq!(germany_2020_02_12.incidence, found.incidence);
+  }
+
+  #[test]
+  fn calculate_total_numbers_no_operation()
+  {
+    let db = get_sqlite_db();
+
+    // This is a no-op on the existing database, because it already has the
+    // columns with the total numbers. However, this test checks that the
+    // function works (i. e. returns true) in that case anyway.
+    assert!(db.calculate_total_numbers());
   }
 }
