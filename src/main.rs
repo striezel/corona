@@ -22,8 +22,14 @@ fn main()
 {
   let args: Vec<String> = env::args().collect();
 
-  let config = corona::Configuration::new(&args).unwrap_or_else(|_err| {
-    eprintln!("Usage: {} /path/to/corona.db /path/to/output/directory", args[0]);
+  let config = corona::Configuration::new(&args).unwrap_or_else(|err| {
+    if !err.is_empty()
+    {
+      eprintln!("Error: {}\n", err);
+    }
+    eprintln!("Usage: {} html /path/to/corona.db /path/to/output/directory", args[0]);
+    eprintln!("           or");
+    eprintln!("Usage: {} csv /path/to/corona.db /path/to/output.csv", args[0]);
     process::exit(1);
   });
 
@@ -32,6 +38,4 @@ fn main()
     eprintln!("An error occurred: {}", e);
     process::exit(1);
   }
-
-  println!("Generation of HTML files was successful.");
 }

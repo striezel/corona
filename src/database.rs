@@ -26,6 +26,7 @@ pub struct Country
   pub name: String,
   pub population: i32,
   pub geo_id: String,
+  pub country_code: String,
   pub continent: String
 }
 
@@ -35,6 +36,15 @@ pub struct Numbers
   pub date: String,
   pub cases: i32,
   pub deaths: i32
+}
+
+/// struct to hold the case numbers and 14-day incidence for a single day in a single country
+pub struct NumbersAndIncidence
+{
+  pub date: String,
+  pub cases: i32,
+  pub deaths: i32,
+  pub incidence_14d: Option<f64>
 }
 
 /// struct to hold 14-day incidence value for a single day in a single country
@@ -82,11 +92,10 @@ impl Database
    */
   pub fn countries(&self) -> Vec<Country>
   {
-    let sql = "SELECT countryId, name, population, geoId, continent FROM country".to_owned()
-            + " WHERE geoId <> '' AND continent <> 'Other'"
-            + " ORDER BY name ASC;";
-    let stmt = self.conn.prepare(&sql);
-    let mut stmt = match stmt
+    let sql = "SELECT countryId, name, population, geoId, countryCode, continent FROM country \
+               WHERE geoId <> '' AND continent <> 'Other' \
+               ORDER BY name ASC;";
+    let mut stmt = match self.conn.prepare(&sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -97,7 +106,8 @@ impl Database
         name: row.get(1).unwrap_or_else(|_| String::new()),
         population: row.get(2).unwrap_or(-1),
         geo_id: row.get(3).unwrap_or_else(|_| String::new()),
-        continent: row.get(4).unwrap_or_else(|_| String::new())
+        country_code: row.get(4).unwrap_or_else(|_| String::new()),
+        continent: row.get(5).unwrap_or_else(|_| String::new())
       })
     });
     let country_iter = match country_iter
@@ -120,11 +130,10 @@ impl Database
    */
   pub fn continents(&self) -> Vec<String>
   {
-    let sql = "SELECT DISTINCT continent FROM country".to_owned()
-            + " WHERE continent <> 'Other'"
-            + " ORDER BY continent ASC;";
-    let stmt = self.conn.prepare(&sql);
-    let mut stmt = match stmt
+    let sql = "SELECT DISTINCT continent FROM country \
+               WHERE continent <> 'Other' \
+               ORDER BY continent ASC;";
+    let mut stmt = match self.conn.prepare(&sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -153,11 +162,10 @@ impl Database
    */
   pub fn countries_of_continent(&self, continent: &str) -> Vec<Country>
   {
-    let sql = "SELECT countryId, name, population, geoId, continent FROM country".to_owned()
-           + " WHERE geoId <> '' AND continent = ?"
-           + " ORDER BY name ASC;";
-    let stmt = self.conn.prepare(&sql);
-    let mut stmt = match stmt
+    let sql = "SELECT countryId, name, population, geoId, countryCode, continent FROM country \
+               WHERE geoId <> '' AND continent = ? \
+               ORDER BY name ASC;";
+    let mut stmt = match self.conn.prepare(&sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -168,7 +176,8 @@ impl Database
         name: row.get(1).unwrap_or_else(|_| String::new()),
         population: row.get(2).unwrap_or(-1),
         geo_id: row.get(3).unwrap_or_else(|_| String::new()),
-        continent: row.get(4).unwrap_or_else(|_| String::new())
+        country_code: row.get(4).unwrap_or_else(|_| String::new()),
+        continent: row.get(5).unwrap_or_else(|_| String::new())
       })
     });
     let country_iter = match country_iter
@@ -192,17 +201,61 @@ impl Database
    */
   pub fn numbers(&self, country_id: &i32) -> Vec<Numbers>
   {
-    let sql = "SELECT date, cases, deaths FROM covid19".to_owned()
-            + " WHERE countryId = ?"
-            + " ORDER BY date ASC;";
-    let stmt = self.conn.prepare(&sql);
-    let mut stmt = match stmt
+    let sql = "SELECT date, cases, deaths FROM covid19 \
+               WHERE countryId = ? \
+               ORDER BY date ASC;";
+    let mut stmt = match self.conn.prepare(&sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
     };
     let rows = stmt.query(params![&country_id]);
     Database::extract_numbers(rows)
+  }
+
+  /**
+   * Get Covid-19 numbers and incidence values for a specific country.
+   *
+   * @param country_id   id of the country
+   * @return Returns an array of objects containing the date, infections and deaths on that day.
+   */
+  pub fn numbers_with_incidence(&self, country_id: &i32) -> Vec<NumbersAndIncidence>
+  {
+    let sql = "SELECT date, cases, deaths, IFNULL(incidence14, -1.0) FROM covid19 \
+               WHERE countryId = ? \
+               ORDER BY date DESC;";
+    let mut stmt = match self.conn.prepare(&sql)
+    {
+      Ok(x) => x,
+      Err(_) => return vec![]
+    };
+    let mut rows = match stmt.query(params![&country_id])
+    {
+      Ok(r) => r,
+      Err(_) => return vec![]
+    };
+
+    let mut data: Vec<NumbersAndIncidence> = Vec::new();
+    loop // potential infinite loop
+    {
+      let row = rows.next();
+      match row
+      {
+        Ok(Some(row)) => {
+          let i14d = row.get(3).unwrap_or(-1.0);
+          data.push(NumbersAndIncidence {
+            date: row.get(0).unwrap_or_else(|_e| { String::from("") }),
+            cases: row.get(1).unwrap_or(0),
+            deaths: row.get(2).unwrap_or(0),
+            incidence_14d: if i14d < 0.0 { None } else { Some(i14d) }
+          })
+        },
+        Ok(None) => break,
+        _ => return vec![]
+      }
+    }
+
+    data
   }
 
   /**
@@ -248,11 +301,10 @@ impl Database
    */
   pub fn numbers_world(&self) -> Vec<Numbers>
   {
-    let sql = "SELECT date, SUM(cases), SUM(deaths) FROM covid19".to_owned()
-        + " GROUP BY date"
-        + " ORDER BY date ASC;";
-    let stmt = self.conn.prepare(&sql);
-    let mut stmt = match stmt
+    let sql = "SELECT date, SUM(cases), SUM(deaths) FROM covid19 \
+               GROUP BY date \
+               ORDER BY date ASC;";
+    let mut stmt = match self.conn.prepare(&sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -269,11 +321,10 @@ impl Database
    */
   pub fn accumulated_numbers(&self, country_id: &i32) -> Vec<Numbers>
   {
-    let sql = "SELECT date, totalCases, totalDeaths FROM covid19".to_owned()
-        + " WHERE countryId = ?"
-        + " ORDER BY date ASC;";
-    let stmt = self.conn.prepare(&sql);
-    let mut stmt = match stmt
+    let sql = "SELECT date, totalCases, totalDeaths FROM covid19 \
+               WHERE countryId = ? \
+               ORDER BY date ASC;";
+    let mut stmt = match self.conn.prepare(&sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -289,11 +340,10 @@ impl Database
    */
   pub fn accumulated_numbers_world(&self) -> Vec<Numbers>
   {
-    let sql = "SELECT date, SUM(totalCases), SUM(totalDeaths) FROM covid19".to_owned()
-        + " GROUP BY date"
-        + " ORDER BY date ASC;";
-    let stmt = self.conn.prepare(&sql);
-    let mut stmt = match stmt
+    let sql = "SELECT date, SUM(totalCases), SUM(totalDeaths) FROM covid19 \
+               GROUP BY date \
+               ORDER BY date ASC;";
+    let mut stmt = match self.conn.prepare(&sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -311,11 +361,10 @@ impl Database
    */
   pub fn incidence(&self, country_id: &i32) -> Vec<Incidence14>
   {
-    let sql = "SELECT date, round(incidence14, 2) FROM covid19".to_owned()
-            + " WHERE countryId = ? AND IFNULL(incidence14, -1.0) >= 0.0"
-            + " ORDER BY date ASC;";
-    let stmt = self.conn.prepare(&sql);
-    let mut stmt = match stmt
+    let sql = "SELECT date, round(incidence14, 2) FROM covid19 \
+               WHERE countryId = ? AND IFNULL(incidence14, -1.0) >= 0.0 \
+               ORDER BY date ASC;";
+    let mut stmt = match self.conn.prepare(&sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -524,6 +573,7 @@ mod tests {
       name: String::from("Germany"),
       population: 83019213,
       geo_id: String::from("DE"),
+      country_code: String::from("DEU"),
       continent: String::from("Europe")
     };
     let found = countries.iter().find(|&c| c.name == "Germany");
@@ -533,6 +583,7 @@ mod tests {
     assert_eq!(germany.name, found.name);
     assert_eq!(germany.population, found.population);
     assert_eq!(germany.geo_id, found.geo_id);
+    assert_eq!(germany.country_code, found.country_code);
     assert_eq!(germany.continent, found.continent);
   }
 
@@ -553,6 +604,7 @@ mod tests {
       name: String::from("Germany"),
       population: 83019213,
       geo_id: String::from("DE"),
+      country_code: String::from("DEU"),
       continent: String::from("Europe")
     };
     let found = countries.iter().find(|&c| c.name == "Germany");
@@ -562,6 +614,7 @@ mod tests {
     assert_eq!(germany.name, found.name);
     assert_eq!(germany.population, found.population);
     assert_eq!(germany.geo_id, found.geo_id);
+    assert_eq!(germany.country_code, found.country_code);
     assert_eq!(germany.continent, found.continent);
     // Check that some other country is not found.
     let not_found = countries.iter().find(|&c| c.name == "China");
@@ -580,6 +633,7 @@ mod tests {
       name: String::from("China"),
       population: 1433783692,
       geo_id: String::from("CN"),
+      country_code: String::from("CHN"),
       continent: String::from("Asia")
     };
     let found = countries.iter().find(|&c| c.name == "China");
@@ -589,6 +643,7 @@ mod tests {
     assert_eq!(china.name, found.name);
     assert_eq!(china.population, found.population);
     assert_eq!(china.geo_id, found.geo_id);
+    assert_eq!(china.country_code, found.country_code);
     assert_eq!(china.continent, found.continent);
     // Check that some other country is not found.
     let not_found = countries.iter().find(|&c| c.name == "Germany");
@@ -631,6 +686,50 @@ mod tests {
     assert_eq!(germany_2020_03_28.date, found.date);
     assert_eq!(germany_2020_03_28.cases, found.cases);
     assert_eq!(germany_2020_03_28.deaths, found.deaths);
+  }
+
+  #[test]
+  fn numbers_with_incidence()
+  {
+    let db = get_sqlite_db();
+
+    let numbers = db.numbers_with_incidence(&76);
+    // Vector of data must not be empty.
+    assert!(!numbers.is_empty());
+    // There should be more than 300 entries, ...
+    assert!(numbers.len() > 300);
+    // ... but less than 600, because vector has only data from one country.
+    assert!(numbers.len() < 600);
+    // Check whether a specific value is in the vector.
+    let germany_2020_12_10 = NumbersAndIncidence {
+      date: String::from("2020-12-10"),
+      cases: 23679,
+      deaths: 440,
+      incidence_14d: Some(311.512228)
+    };
+    let found = numbers.iter().find(|&n| n.date == "2020-12-10");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(germany_2020_12_10.date, found.date);
+    assert_eq!(germany_2020_12_10.cases, found.cases);
+    assert_eq!(germany_2020_12_10.deaths, found.deaths);
+    assert!(found.incidence_14d.is_some());
+    assert_eq!(germany_2020_12_10.incidence_14d, found.incidence_14d);
+    // Check another value, but without incidence data.
+    let germany_2020_01_01 = NumbersAndIncidence {
+      date: String::from("2020-01-01"),
+      cases: 0,
+      deaths: 0,
+      incidence_14d: None
+    };
+    let found = numbers.iter().find(|&n| n.date == "2020-01-01");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(germany_2020_01_01.date, found.date);
+    assert_eq!(germany_2020_01_01.cases, found.cases);
+    assert_eq!(germany_2020_01_01.deaths, found.deaths);
+    assert!(found.incidence_14d.is_none());
+    assert_eq!(germany_2020_01_01.incidence_14d, found.incidence_14d);
   }
 
   #[test]

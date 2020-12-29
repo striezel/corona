@@ -39,7 +39,7 @@ clippy:
     - apk add bash curl wget sqlite-dev gcc g++
     - wget -O /tmp/ru.sh https://sh.rustup.rs
     - chmod u+x /tmp/ru.sh
-    - /tmp/ru.sh -y
+    - /tmp/ru.sh -y --profile minimal --component clippy
     - source $HOME/.cargo/env
     - export PATH="$HOME/.cargo/bin:$PATH"
   script:
