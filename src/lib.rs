@@ -24,7 +24,8 @@ mod csv;
 pub enum Operation
 {
   HtmlGeneration, // generate HTML files
-  Csv             // write data to CSV
+  Csv,            // write data to CSV
+  Version         // show version
 }
 
 pub struct Configuration
@@ -75,6 +76,16 @@ impl Configuration
       return Ok(Configuration { db_path, output_directory, op: Operation::HtmlGeneration });
     }
 
+    if args[1] == "version"
+    {
+      return Ok(Configuration
+      {
+        db_path: String::new(),
+        output_directory: String::new(),
+        op: Operation::Version
+      });
+    }
+
     // invalid command line parameters
     Err(String::from("Invalid command line parameters have been specified!"))
   }
@@ -102,6 +113,16 @@ pub fn run(config: &Configuration) -> Result<(), String>
       {
         return Err("Failed to write CSV file!".to_string());
       }
+
+      Ok(())
+    },
+    Operation::Version => {
+      let version = match option_env!("CARGO_PKG_VERSION")
+      {
+        None => String::from("corona, unknown version (executable was not built with Cargo)"),
+        Some(v) => format!("corona, version {}", v)
+      };
+      println!("{}", version);
 
       Ok(())
     }
