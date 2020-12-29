@@ -38,6 +38,15 @@ pub struct Numbers
   pub deaths: i32
 }
 
+/// struct to hold the case numbers and 14-day incidence for a single day in a single country
+pub struct NumbersAndIncidence
+{
+  pub date: String,
+  pub cases: i32,
+  pub deaths: i32,
+  pub incidence_14d: Option<f64>
+}
+
 /// struct to hold 14-day incidence value for a single day in a single country
 pub struct Incidence14
 {
@@ -206,6 +215,51 @@ impl Database
     };
     let rows = stmt.query(params![&country_id]);
     Database::extract_numbers(rows)
+  }
+
+  /**
+   * Get Covid-19 numbers and incidence values for a specific country.
+   *
+   * @param country_id   id of the country
+   * @return Returns an array of objects containing the date, infections and deaths on that day.
+   */
+  pub fn numbers_with_incidence(&self, country_id: &i32) -> Vec<NumbersAndIncidence>
+  {
+    let sql = "SELECT date, cases, deaths, IFNULL(incidence14, -1.0) FROM covid19 \
+               WHERE countryId = ? \
+               ORDER BY date DESC;";
+    let mut stmt = match self.conn.prepare(&sql)
+    {
+      Ok(x) => x,
+      Err(_) => return vec![]
+    };
+    let mut rows = match stmt.query(params![&country_id])
+    {
+      Ok(r) => r,
+      Err(_) => return vec![]
+    };
+
+    let mut data: Vec<NumbersAndIncidence> = Vec::new();
+    loop // potential infinite loop
+    {
+      let row = rows.next();
+      match row
+      {
+        Ok(Some(row)) => {
+          let i14d = row.get(3).unwrap_or(-1.0);
+          data.push(NumbersAndIncidence {
+            date: row.get(0).unwrap_or_else(|_e| { String::from("") }),
+            cases: row.get(1).unwrap_or(0),
+            deaths: row.get(2).unwrap_or(0),
+            incidence_14d: if i14d < 0.0 { None } else { Some(i14d) }
+          })
+        },
+        Ok(None) => break,
+        _ => return vec![]
+      }
+    }
+
+    data
   }
 
   /**
@@ -640,6 +694,50 @@ mod tests {
     assert_eq!(germany_2020_03_28.date, found.date);
     assert_eq!(germany_2020_03_28.cases, found.cases);
     assert_eq!(germany_2020_03_28.deaths, found.deaths);
+  }
+
+  #[test]
+  fn numbers_with_incidence()
+  {
+    let db = get_sqlite_db();
+
+    let numbers = db.numbers_with_incidence(&76);
+    // Vector of data must not be empty.
+    assert!(!numbers.is_empty());
+    // There should be more than 300 entries, ...
+    assert!(numbers.len() > 300);
+    // ... but less than 600, because vector has only data from one country.
+    assert!(numbers.len() < 600);
+    // Check whether a specific value is in the vector.
+    let germany_2020_12_10 = NumbersAndIncidence {
+      date: String::from("2020-12-10"),
+      cases: 23679,
+      deaths: 440,
+      incidence_14d: Some(311.512228)
+    };
+    let found = numbers.iter().find(|&n| n.date == "2020-12-10");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(germany_2020_12_10.date, found.date);
+    assert_eq!(germany_2020_12_10.cases, found.cases);
+    assert_eq!(germany_2020_12_10.deaths, found.deaths);
+    assert!(found.incidence_14d.is_some());
+    assert_eq!(germany_2020_12_10.incidence_14d, found.incidence_14d);
+    // Check another value, but without incidence data.
+    let germany_2020_01_01 = NumbersAndIncidence {
+      date: String::from("2020-01-01"),
+      cases: 0,
+      deaths: 0,
+      incidence_14d: None
+    };
+    let found = numbers.iter().find(|&n| n.date == "2020-01-01");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(germany_2020_01_01.date, found.date);
+    assert_eq!(germany_2020_01_01.cases, found.cases);
+    assert_eq!(germany_2020_01_01.deaths, found.deaths);
+    assert!(found.incidence_14d.is_none());
+    assert_eq!(germany_2020_01_01.incidence_14d, found.incidence_14d);
   }
 
   #[test]

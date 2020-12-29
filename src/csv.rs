@@ -99,8 +99,9 @@ impl Csv
         return false;
       }
     };
-    const CSV_HEADER: [&str; 11] = ["dateRep", "day", "month", "year", "cases", "deaths",
-      "countriesAndTerritories", "geoId","countryterritoryCode", "popData2019","continentExp"];
+    const CSV_HEADER: [&str; 12] = ["dateRep", "day", "month", "year", "cases", "deaths",
+      "countriesAndTerritories", "geoId","countryterritoryCode", "popData2019", "continentExp",
+      "Cumulative_number_for_14_days_of_COVID-19_cases_per_100000"];
     if let Err(e) = writer.write_record(&CSV_HEADER)
     {
       eprintln!("Error: Could not write CSV header! {}", e);
@@ -109,7 +110,7 @@ impl Csv
     // Handle each country.
     for country in countries.iter()
     {
-      let numbers = db.numbers(&country.country_id);
+      let numbers = db.numbers_with_incidence(&country.country_id);
       if numbers.is_empty()
       {
         eprintln!("Error while generating file for {} ({})!", &country.name, &country.geo_id);
@@ -119,7 +120,14 @@ impl Csv
       {
         let rec = vec![num.date.clone(), num.date[8..10].to_string(), num.date[5..7].to_string(), num.date[0..4].to_string(),
                        num.cases.to_string(), num.deaths.to_string(), country.name.clone(),
-                       country.geo_id.clone(), country.country_code.clone(), country.population.to_string(), country.continent.clone()];
+                       country.geo_id.clone(), country.country_code.clone(),
+                       country.population.to_string(), country.continent.clone(),
+                       match num.incidence_14d
+                       {
+                         Some(i14d) => i14d.to_string(),
+                         None => String::new()
+                       }
+        ];
         let success = writer.write_record(&rec);
         if success.is_err()
         {
