@@ -30,6 +30,8 @@ fn main()
     eprintln!("Usage: {} html /path/to/corona.db /path/to/output/directory", args[0]);
     eprintln!("           or");
     eprintln!("Usage: {} csv /path/to/corona.db /path/to/output.csv", args[0]);
+    eprintln!("           or");
+    eprintln!("Usage: {} db /path/to/input.csv /path/to/output.db", args[0]);
     process::exit(1);
   });
 
