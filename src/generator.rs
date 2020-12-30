@@ -15,7 +15,7 @@
  -------------------------------------------------------------------------------
 */
 
-use super::configuration::Configuration;
+use super::configuration::HtmlConfiguration;
 use crate::database::Database;
 use crate::database::Country;
 use crate::template::Template;
@@ -26,7 +26,7 @@ use std::path::PathBuf;
 
 pub struct Generator
 {
-  config: Configuration
+  config: HtmlConfiguration
 }
 
 impl Generator
@@ -39,7 +39,7 @@ impl Generator
    *           Returns a string with an error message, if the configuration
    *           seems to be invalid.
    */
-  pub fn new(config: &Configuration) -> Result<Generator, String>
+  pub fn new(config: &HtmlConfiguration) -> Result<Generator, String>
   {
     if config.db_path.is_empty()
     {
@@ -52,11 +52,10 @@ impl Generator
 
     Ok(Generator
     {
-      config: Configuration
+      config: HtmlConfiguration
       {
         db_path: config.db_path.clone(),
-        output_directory: config.output_directory.clone(),
-        op: config.op
+        output_directory: config.output_directory.clone()
       }
     })
   }
@@ -879,13 +878,11 @@ mod tests {
   {
     use std::env;
     use std::fs;
-    use crate::Operation;
 
     let directory = env::temp_dir().join("test_generation_of_files");
-    let config = Configuration {
+    let config = HtmlConfiguration {
       db_path: get_sqlite_db_path(),
-      output_directory: directory.to_str().unwrap().to_string(),
-      op: Operation::HtmlGeneration
+      output_directory: directory.to_str().unwrap().to_string()
     };
     let gen = Generator::new(&config).unwrap();
     assert!(gen.generate());

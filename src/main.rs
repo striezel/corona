@@ -22,7 +22,7 @@ fn main()
 {
   let args: Vec<String> = env::args().collect();
 
-  let config = corona::configuration::Configuration::new(&args).unwrap_or_else(|err| {
+  let config = corona::configuration::parse_args(&args).unwrap_or_else(|err| {
     if !err.is_empty()
     {
       eprintln!("Error: {}\n", err);

@@ -23,11 +23,11 @@ pub mod configuration;
 
 use crate::configuration::*;
 
-pub fn run(config: &Configuration) -> Result<(), String>
+pub fn run(op: &Operation) -> Result<(), String>
 {
-  match &config.op
+  match &op
   {
-    Operation::HtmlGeneration => {
+    Operation::Html(config) => {
       use generator::Generator;
       let gen = Generator::new(&config)?;
       if !gen.generate()
@@ -37,7 +37,7 @@ pub fn run(config: &Configuration) -> Result<(), String>
       println!("Generation of HTML files was successful.");
       Ok(())
     },
-    Operation::Csv => {
+    Operation::Csv(config) => {
       use crate::csv::Csv;
 
       let csv = Csv::new(&config)?;

@@ -15,7 +15,7 @@
  -------------------------------------------------------------------------------
 */
 
-use super::configuration::Configuration;
+use super::configuration::CsvConfiguration;
 use crate::database::Country;
 use crate::database::Database;
 use crate::database::NumbersAndIncidence;
@@ -24,7 +24,7 @@ use std::path::Path;
 
 pub struct Csv
 {
-  config: Configuration
+  config: CsvConfiguration
 }
 
 impl Csv
@@ -37,24 +37,23 @@ impl Csv
    *           Returns a string with an error message, if the configuration
    *           seems to be invalid.
    */
-  pub fn new(config: &Configuration) -> Result<Csv, String>
+  pub fn new(config: &CsvConfiguration) -> Result<Csv, String>
   {
     if config.db_path.is_empty()
     {
       return Err("Path to SQLite database must not be an empty string!".to_string());
     }
-    if config.output_directory.is_empty()
+    if config.csv_output_file.is_empty()
     {
       return Err("Path of CSV file must be set to a non-empty string!".to_string());
     }
 
     Ok(Csv
     {
-      config: Configuration
+      config: CsvConfiguration
       {
         db_path: config.db_path.clone(),
-        output_directory: config.output_directory.clone(),
-        op: config.op
+        csv_output_file: config.csv_output_file.clone(),
       }
     })
   }
@@ -84,16 +83,15 @@ impl Csv
       return false;
     }
     // Do not overwrite existing file.
-    let path = Path::new(&self.config.output_directory);
+    let path = Path::new(&self.config.csv_output_file);
     if path.exists()
     {
       eprintln!("Error: A file or directory named {} already exists!",
-                self.config.output_directory);
+                self.config.csv_output_file);
       return false;
     }
     // Write CSV header.
-    // TODO!
-    let mut writer = match csv::Writer::from_path(&self.config.output_directory)
+    let mut writer = match csv::Writer::from_path(&self.config.csv_output_file)
     {
       Ok(w) => w,
       Err(e) => {
@@ -125,7 +123,7 @@ impl Csv
         if success.is_err()
         {
           eprintln!("Error while writing data record for {} to {}! {}",
-                    &country.name, &self.config.output_directory,
+                    &country.name, &self.config.csv_output_file,
                     success.unwrap_err());
           return false;
         }
@@ -193,13 +191,11 @@ mod tests {
   {
     use std::env;
     use std::fs;
-    use crate::Operation;
 
     let csv_file_name = env::temp_dir().join("test_csv_corona.csv");
-    let config = Configuration {
+    let config = CsvConfiguration {
       db_path: get_sqlite_db_path(),
-      output_directory: csv_file_name.to_str().unwrap().to_string(),
-      op: Operation::Csv
+      csv_output_file: csv_file_name.to_str().unwrap().to_string()
     };
     let csv = Csv::new(&config).unwrap();
     assert!(csv.create_csv());
