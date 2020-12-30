@@ -16,6 +16,8 @@
 */
 
 use super::configuration::DbConfiguration;
+use crate::database::Database;
+use csv::Reader;
 
 pub struct Db
 {
@@ -60,9 +62,214 @@ impl Db
    */
   pub fn create_db(&self) -> bool
   {
-    // TODO: Implement function!
-    eprintln!("Error: Creation of SQLite database is not implemented yet.");
-    false
+    let db = match Database::create(&self.config.db_path)
+    {
+      Err(e) => {
+        eprintln!("Error while creating database: {}", e);
+        return false;
+      }
+      Ok(base) => base
+    };
+    self.read_csv(&db)
+  }
+
+  /**
+   * Fills the SQLite database with values from the CSV file.
+   *
+   * @param db    an open SQLite database with existing tables
+   * @param
+   */
+  fn read_csv(&self, db: &Database) -> bool
+  {
+    let mut reader = match Reader::from_path(&self.config.csv_input_file)
+    {
+      Ok(rdr) => rdr,
+      Err(e) => {
+        eprintln!("Error: Could not open CSV file {}: {}",
+                  &self.config.csv_input_file, e);
+        return false;
+      }
+    };
+    // Check headers.
+    if !self.check_headers(&mut reader)
+    {
+      return false;
+    }
+    // parse CSV values
+    let mut last_geo_id = String::new();
+    let mut country_id: i64 = -1;
+    let mut record = csv::StringRecord::new();
+    let mut batch = String::new();
+    let mut batch_count: u32 = 0;
+    loop
+    {
+      match reader.read_record(&mut record)
+      {
+        Ok(success) => {
+          if !success
+          {
+            // No more records to read.
+            break;
+          }
+        },
+        Err(e) => {
+          // Failed to read.
+          eprintln!("Failed to read CSV record! {}", e);
+          return false;
+        }
+      }
+      if record.len() != 12
+      {
+        eprintln!("Error: A line of CSV data does not have twelve data elements, \
+                   but {} elements instead!\nThe line position is '{}'. It will be skipped.",
+                   record.len(), record.position().unwrap().line());
+        return false;
+      }
+      let current_geo_id = record.get(7).unwrap();
+      if current_geo_id != last_geo_id
+      {
+        // new country
+        let name = record.get(6).unwrap().replace('_', " ");
+        let country_code = record.get(8).unwrap();
+        let population: i64 = match record.get(9).unwrap().parse()
+        {
+          Ok(int) => int,
+          Err(_) => -1 // default for values that cannot be parsed
+        };
+        let continent = record.get(10).unwrap();
+        // Get country id or insert country.
+        country_id = db.get_country_id_or_insert(&current_geo_id, &name, &population, &country_code, &continent);
+        if country_id == -1
+        {
+          eprintln!("Error: Could not insert country data into database!");
+          return false;
+        }
+        last_geo_id = current_geo_id.to_string();
+      }
+      // Add current record.
+      let day_str = record.get(1).unwrap();
+      let month_str = record.get(2).unwrap();
+      let year_str = record.get(3).unwrap();
+      let cases: i64 = match record.get(4).unwrap().is_empty()
+      {
+        false => record.get(4).unwrap().parse().unwrap_or(i64::MIN),
+        true => 0
+      };
+      let deaths: i64 = match record.get(5).unwrap().is_empty()
+      {
+        false => record.get(5).unwrap().parse().unwrap_or(i64::MIN),
+        true => 0
+      };
+      if cases == i64::MIN || deaths == i64::MIN
+      {
+        eprintln!("Error: Got invalid case numbers on line {}.",
+                  record.position().unwrap().line());
+        return false;
+      }
+      let incidence14: f64 = match record.get(11).unwrap().is_empty()
+      {
+        false => record.get(11).unwrap().parse().unwrap_or(0.0_f64 / 0.0_f64 /* NaN */),
+        true => 0.0_f64 / 0.0_f64 /* NaN */
+        // Note: The constant i64::NAN is only available in Rust 1.43 or later,
+        // but e. g. Debian 10 (current stable version) only has 1.41, so the
+        // use of that constant has to be avoided.
+      };
+      //C++: date = yearStr + "-" + std::string(monthStr.size() == 1, '0') + monthStr + "-" + std::string(dayStr.size() == 1, '0') + dayStr;
+      let date = format!("{}-{:0>2}-{:0>2}", year_str, month_str, day_str);
+      /*                           ^^^
+                                   |||
+                                   ||+- width
+                                   |+-- fill at left side
+                                   +--- fill character
+       */
+      if batch.is_empty()
+      {
+        batch = String::from("INSERT INTO covid19 (countryId, date, cases, deaths, incidence14) VALUES ");
+        batch_count = 0;
+      }
+
+      batch.push_str("(");
+      batch.push_str(&country_id.to_string());
+      batch.push_str(", ");
+      batch.push_str(&Database::quote(&date));
+      batch.push_str(", ");
+      batch.push_str(&cases.to_string());
+      batch.push_str(", ");
+      batch.push_str(&deaths.to_string());
+      batch.push_str(", ");
+      if incidence14.is_nan()
+      {
+        batch.push_str("NULL");
+      }
+      else
+      {
+        batch.push_str(&incidence14.to_string());
+      }
+      batch.push_str("),");
+      batch_count += 1;
+
+      // Perform one insert for every 250 data sets.
+      if batch_count >= 250 && !batch.is_empty()
+      {
+        // replace last ',' with ';' to make it valid SQL syntax
+        batch = batch[0..batch.len()-1].to_string();
+        batch.push(';');
+        if !db.batch(&batch)
+        {
+          eprintln!("Error: Could not batch-insert case numbers into database!");
+          return false;
+        }
+
+        batch.truncate(0);
+        batch_count = 0;
+      } // if batch
+    }
+    // Execute remaining batch inserts, if any are left.
+    if batch_count > 0 && !batch.is_empty()
+    {
+      // replace last ',' with ';' to make it valid SQL syntax
+      batch = batch[0..batch.len()-1].to_string();
+      batch.push(';');
+      if !db.batch(&batch)
+      {
+        eprintln!("Error: Could not batch-insert case numbers into database!");
+        return false;
+      }
+    } // if batch remains
+
+    // Done.
+    true
+  }
+
+  /**
+   * Checks whether the CSV headers match the expected headers.
+   *
+   * @param reader    an opened CSV reader
+   * @return Returns true, if the headers are correct. Returns false otherwise.
+   */
+  fn check_headers(&self, reader: &mut csv::Reader<std::fs::File>) -> bool
+  {
+    let headers = match reader.headers()
+    {
+      Ok(head) => head,
+      Err(e) => {
+        eprintln!("Error: Could not read header of CSV file {}: {}",
+                  &self.config.csv_input_file, e);
+        return false;
+      }
+    };
+    let expected_headers = vec!["dateRep", "day", "month", "year", "cases",
+                                "deaths", "countriesAndTerritories", "geoId",
+                                "countryterritoryCode", "popData2019", "continentExp",
+                                "Cumulative_number_for_14_days_of_COVID-19_cases_per_100000"];
+    if headers != expected_headers
+    {
+      eprintln!("Error: CSV headers do not match the expected headers. \
+                 Found the following headers: {:?}", headers);
+      return false;
+    }
+    // Headers match. :)
+    true
   }
 }
 
