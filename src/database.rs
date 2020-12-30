@@ -211,11 +211,11 @@ impl Database
       Ok(statement) => statement,
       Err(_) => return -1 // failed to prepare statement
     };
-    if let Err(_) = stmt.execute_named(&[("@countryname", &name),
-                                         ("@pop", population),
-                                         ("@geo", &geo_id),
-                                         ("@code", &country_code),
-                                         ("@continent", &continent)])
+    if stmt.execute_named(&[("@countryname", &name),
+                            ("@pop", population),
+                            ("@geo", &geo_id),
+                            ("@code", &country_code),
+                            ("@continent", &continent)]).is_err()
     {
       return -1;
     };

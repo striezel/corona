@@ -100,6 +100,10 @@ impl Db
     // but e. g. Debian 10 (current stable version) only has 1.41, so the
     // use of that constant has to be avoided.
     const I64_MIN: i64 = -9223372036854775808;
+    // Note: The constant f64::NAN is only available in Rust 1.43 or later,
+    // but e. g. Debian 10 (current stable version) only has 1.41, so the
+    // use of that constant has to be avoided.
+    const F64_NAN: f64 = 0.0_f64 / 0.0_f64;
     let mut last_geo_id = String::new();
     let mut country_id: i64 = -1;
     let mut record = csv::StringRecord::new();
@@ -172,11 +176,8 @@ impl Db
       }
       let incidence14: f64 = match record.get(11).unwrap().is_empty()
       {
-        false => record.get(11).unwrap().parse().unwrap_or(0.0_f64 / 0.0_f64 /* NaN */),
-        true => 0.0_f64 / 0.0_f64 /* NaN */
-        // Note: The constant i64::NAN is only available in Rust 1.43 or later,
-        // but e. g. Debian 10 (current stable version) only has 1.41, so the
-        // use of that constant has to be avoided.
+        false => record.get(11).unwrap().parse().unwrap_or(F64_NAN /* NaN */),
+        true => F64_NAN /* NaN */
       };
       //C++: date = yearStr + "-" + std::string(monthStr.size() == 1, '0') + monthStr + "-" + std::string(dayStr.size() == 1, '0') + dayStr;
       let date = format!("{}-{:0>2}-{:0>2}", year_str, month_str, day_str);
@@ -192,7 +193,7 @@ impl Db
         batch_count = 0;
       }
 
-      batch.push_str("(");
+      batch.push('(');
       batch.push_str(&country_id.to_string());
       batch.push_str(", ");
       batch.push_str(&Database::quote(&date));

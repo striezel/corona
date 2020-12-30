@@ -45,7 +45,7 @@ clippy:
   script:
     - rustc --version
     - cargo --version
-    - cargo clippy -- -D warnings
+    - cargo clippy -- -D warnings -A clippy::suspicious_else_formatting
 
 php:
   image: debian:10-slim
