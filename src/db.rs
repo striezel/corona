@@ -96,6 +96,10 @@ impl Db
       return false;
     }
     // parse CSV values
+    // Note: The constant i64::MIN is only available in Rust 1.43 or later,
+    // but e. g. Debian 10 (current stable version) only has 1.41, so the
+    // use of that constant has to be avoided.
+    const I64_MIN: i64 = -9223372036854775808;
     let mut last_geo_id = String::new();
     let mut country_id: i64 = -1;
     let mut record = csv::StringRecord::new();
@@ -152,15 +156,15 @@ impl Db
       let year_str = record.get(3).unwrap();
       let cases: i64 = match record.get(4).unwrap().is_empty()
       {
-        false => record.get(4).unwrap().parse().unwrap_or(i64::MIN),
+        false => record.get(4).unwrap().parse().unwrap_or(I64_MIN),
         true => 0
       };
       let deaths: i64 = match record.get(5).unwrap().is_empty()
       {
-        false => record.get(5).unwrap().parse().unwrap_or(i64::MIN),
+        false => record.get(5).unwrap().parse().unwrap_or(I64_MIN),
         true => 0
       };
-      if cases == i64::MIN || deaths == i64::MIN
+      if cases == I64_MIN || deaths == I64_MIN
       {
         eprintln!("Error: Got invalid case numbers on line {}.",
                   record.position().unwrap().line());
