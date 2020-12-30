@@ -19,77 +19,9 @@ mod database;
 mod template;
 mod generator;
 mod csv;
+pub mod configuration;
 
-#[derive(Copy, Clone)]
-pub enum Operation
-{
-  HtmlGeneration, // generate HTML files
-  Csv,            // write data to CSV
-  Version         // show version
-}
-
-pub struct Configuration
-{
-  pub db_path: String,
-  pub output_directory: String,
-  pub op: Operation
-}
-
-impl Configuration
-{
-  pub fn new(args: &[String]) -> Result<Configuration, String>
-  {
-    if args.len() < 2
-    {
-      return Err(String::from("Not enough command line parameters!"));
-    }
-
-    if args[1] == "csv"
-    {
-      // requires three parameters:
-      // 1:   csv
-      // 2:   /path/to/corona.db
-      // 3:   /path/to/output.csv
-      if args.len() < 4
-      {
-        return Err(String::from("Not enough command line parameters for CSV mode!"));
-      }
-
-      let db_path = args[2].clone();
-      let output_directory = args[3].clone();
-      return Ok(Configuration { db_path, output_directory, op: Operation::Csv });
-    }
-
-    if args[1] == "html"
-    {
-      // requires three parameters:
-      // 1:   html
-      // 2:   /path/to/corona.db
-      // 3:   /path/to/output.csv
-      if args.len() < 4
-      {
-        return Err(String::from("Not enough command line parameters for HTML generation!"));
-      }
-
-      let db_path = args[2].clone();
-      let output_directory = args[3].clone();
-      return Ok(Configuration { db_path, output_directory, op: Operation::HtmlGeneration });
-    }
-
-    if args[1] == "version"
-    {
-      return Ok(Configuration
-      {
-        db_path: String::new(),
-        output_directory: String::new(),
-        op: Operation::Version
-      });
-    }
-
-    // invalid command line parameters
-    Err(String::from("Invalid command line parameters have been specified!"))
-  }
-}
+use crate::configuration::*;
 
 pub fn run(config: &Configuration) -> Result<(), String>
 {

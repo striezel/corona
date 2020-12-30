@@ -15,7 +15,7 @@
  -------------------------------------------------------------------------------
 */
 
-use super::Configuration;
+use super::configuration::Configuration;
 use crate::database::Country;
 use crate::database::Database;
 use crate::database::NumbersAndIncidence;
