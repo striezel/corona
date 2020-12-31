@@ -213,7 +213,7 @@ mod tests {
                 Cumulative_number_for_14_days_of_COVID-19_cases_per_100000",
                 first_line.unwrap());
     // -- Check a single line with incidence value.
-    let line = "10/12/2020,10,12,2020,23679,440,Germany,DE,DEU,83019213,Europe,311.512228";
+    let line = "10/12/2020,10,12,2020,23679,440,Germany,DE,DEU,83019213,Europe,311.5122279";
     let found = contents.lines().find(|&l| l == line);
     assert!(found.is_some());
     // -- Check a single line without incidence value.

@@ -925,7 +925,7 @@ mod tests {
       date: String::from("2020-12-10"),
       cases: 23679,
       deaths: 440,
-      incidence_14d: Some(311.512228)
+      incidence_14d: Some(311.5122279)
     };
     let found = numbers.iter().find(|&n| n.date == "2020-12-10");
     assert!(found.is_some());
@@ -1042,7 +1042,7 @@ mod tests {
     let world_one_million = Numbers {
       date: String::from("2020-04-03"),
       cases: 1038420,
-      deaths: 53448
+      deaths: 53447
     };
     let found = numbers.iter().find(|&n| n.date == "2020-04-03");
     assert!(found.is_some());
@@ -1054,7 +1054,7 @@ mod tests {
     let world_one_million_gone = Numbers {
       date: String::from("2020-09-29"),
       cases: 33483079,
-      deaths: 1002884
+      deaths: 1002883
     };
     let found = numbers.iter().find(|&n| n.date == "2020-09-29");
     assert!(found.is_some());
