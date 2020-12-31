@@ -186,11 +186,8 @@ impl Db
         // new country
         let name = record.get(6).unwrap().replace('_', " ");
         let country_code = record.get(8).unwrap();
-        let population: i64 = match record.get(9).unwrap().parse()
-        {
-          Ok(int) => int,
-          Err(_) => -1 // default for values that cannot be parsed
-        };
+        // Default for population values that cannot be parsed is -1.
+        let population: i64 = record.get(9).unwrap().parse().unwrap_or(-1);
         let continent = record.get(10).unwrap();
         // Get country id or insert country.
         country_id = db.get_country_id_or_insert(&current_geo_id, &name, &population, &country_code, &continent);
