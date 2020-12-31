@@ -64,7 +64,7 @@ impl Database
   /**
    * Opens an existing SQLite database.
    *
-   * @db_path   path of the SQLite database file to open
+   * @param     db_path   path of the SQLite database file to open
    * @return    Returns a Result containing the Database object, if successful.
    *            Returns a string with an error message, if the database could
    *            not be opened.
@@ -83,6 +83,54 @@ impl Database
       Err(_e) => Err(String::from("Failed to open database!")),
       Ok(c) => Ok(Database { conn: c })
     }
+  }
+
+  /**
+   * Creates a new SQLite database containing empty tables.
+   *
+   * @param db_path   path of the SQLite database file to create
+   * @return Returns a Result containing the Database object, if successful.
+   *         Returns a string with an error message, if the database could not
+   *         be created.
+   */
+  pub fn create(db_path: &str) -> Result<Database, String>
+  {
+    let path = Path::new(db_path);
+    if path.exists()
+    {
+      return Err(format!("The file or directory {} already exists!", db_path));
+    }
+    // Create database file.
+    let conn = match Connection::open(db_path)
+    {
+      Err(_e) => return Err(String::from("Failed to create database!")),
+      Ok(c) => c
+    };
+    // Create tables.
+    let sql = "CREATE TABLE country (\n  \
+               countryId INTEGER PRIMARY KEY NOT NULL,\n  \
+               name TEXT NOT NULL,\n  \
+               population INTEGER,\n  \
+               geoId TEXT NOT NULL,\n  \
+               countryCode TEXT,\n  \
+               continent TEXT\n\
+               );";
+    if let Err(e) = conn.execute(sql, params![])
+    {
+      return Err(format!("Could not create table country in database. {}", e));
+    }
+    let sql = "CREATE TABLE covid19 (\n  \
+               countryId INTEGER NOT NULL,\n  \
+               date TEXT,\n  \
+               cases INTEGER,\n  \
+               deaths INTEGER,\n  \
+               incidence14 REAL\n\
+               );";
+    if let Err(e) = conn.execute(sql, params![])
+    {
+      return Err(format!("Could not create table covid19 in database. {}", e));
+    }
+    Ok(Database { conn })
   }
 
   /**
@@ -121,6 +169,58 @@ impl Database
       data.push(country.unwrap());
     }
     data
+  }
+
+  /**
+   * Gets the country id for given country data based on the geo id. If no match is found, a new
+   * record with the given data will be added into the database and its country id will be returned.
+   *
+   * @param geo_id        geo id of the country (e. g. "DE" for Germany)
+   * @param name          name of the country (e. g. "Germany")
+   * @param population    number of inhabitants of the country
+   * @param country_code  ISO-3166 ALPHA-3 country code (e.g. "DEU" for Germany)
+   * @param continent     name of the continent (e. g. "Europe")
+   */
+  pub fn get_country_id_or_insert(&self, geo_id: &str, name: &str, population: &i64, country_code: &str, continent: &str) -> i64
+  {
+    let mut stmt = match self.conn.prepare("SELECT countryId FROM country WHERE geoId= ? LIMIT 1;")
+    {
+      Ok(statement) => statement,
+      Err(_) => return -1
+    };
+    let rows = stmt.query_map(params![geo_id], |row| {
+      Ok(row.get(0).unwrap_or(-1i64))
+    });
+    let rows = match rows
+    {
+      Ok(mapped_rows) => mapped_rows,
+      Err(_) => return -1
+    };
+    for row in rows
+    {
+      if let Ok(id) = row
+      {
+        return id;
+      }
+    }
+    // The requested geo id was not found - insert new country.
+    let mut stmt = match self.conn.prepare(
+      "INSERT INTO country (name, population, geoId, countryCode, continent) \
+       VALUES (@countryname, @pop, @geo, @code, @continent);")
+    {
+      Ok(statement) => statement,
+      Err(_) => return -1 // failed to prepare statement
+    };
+    if stmt.execute_named(&[("@countryname", &name),
+                            ("@pop", population),
+                            ("@geo", &geo_id),
+                            ("@code", &country_code),
+                            ("@continent", &continent)]).is_err()
+    {
+      return -1;
+    };
+
+    self.conn.last_insert_rowid()
   }
 
   /**
@@ -516,6 +616,41 @@ impl Database
 
     true
   }
+
+  /**
+   * Executes a batch SQL statement.
+   *
+   * @param sql   the SQL statement(s) to execute
+   * @return  Returns whether the statements were executed successfully.
+   */
+  pub fn batch(&self, sql: &str) -> bool
+  {
+    self.conn.execute_batch(sql).is_ok()
+  }
+
+  /**
+   * Quotes an ASCII string for use in an SQLite statement.
+   *
+   * @param s   the string that shall be quoted.
+   * @return  Returns the quoted string.
+   */
+  pub fn quote(s: &str) -> String
+  {
+    let mut result = String::from("'");
+    for c in s.chars()
+    {
+      if c != '\''
+      {
+        result.push(c);
+      }
+      else
+      {
+        result.push_str("''");
+      }
+    }
+    result.push('\'');
+    result
+  }
 }
 
 #[cfg(test)]
@@ -537,6 +672,34 @@ mod tests {
     let db = Database::new(db_path.to_str().unwrap());
     assert!(db.is_ok());
     return db.unwrap();
+  }
+
+  #[test]
+  fn create_db()
+  {
+    let path = std::env::temp_dir().join("database_creation_test.db");
+    let created = Database::create(path.to_str().unwrap());
+    // Creation should be successful and file should exist.
+    assert!(created.is_ok());
+    assert!(path.exists());
+    assert!(path.is_file());
+    // clean up
+    assert!(std::fs::remove_file(path).is_ok());
+  }
+
+  #[test]
+  fn create_db_on_existing_path()
+  {
+    let path = std::env::temp_dir().join("database_creation_test_existing.db");
+    let created = Database::create(path.to_str().unwrap());
+    // Creation should be successful and file should exist.
+    assert!(created.is_ok());
+    assert!(path.exists());
+    // Second creation attempt at same path should fail!
+    let created_again = Database::create(path.to_str().unwrap());
+    assert!(created_again.is_err());
+    // clean up
+    assert!(std::fs::remove_file(path).is_ok());
   }
 
   #[test]
@@ -648,6 +811,63 @@ mod tests {
     // Check that some other country is not found.
     let not_found = countries.iter().find(|&c| c.name == "Germany");
     assert!(not_found.is_none());
+  }
+
+  #[test]
+  fn get_country_id_or_insert()
+  {
+    let path = std::env::temp_dir().join("get_country_id_test_simple.db");
+    let db = Database::create(&path.to_str().unwrap()).unwrap();
+
+    // geo_id: &str, name: &str, population: &i64, country_code: &str, continent
+    let id = db.get_country_id_or_insert("XX", "Wonderland", &421337, "WON", "Utopia");
+    // Id -1 means an error occurred.
+    assert!(id != -1);
+    // First country usually gets id one.
+    assert_eq!(1i64, id);
+    // Country list should now contain the country.
+    let countries = db.countries();
+    let wonderland = Country {
+      country_id: 1,
+      geo_id: String::from("XX"),
+      name: String::from("Wonderland"),
+      population: 421337,
+      country_code: String::from("WON"),
+      continent: String::from("Utopia")
+    };
+    let found = countries.iter().find(|&c| c.name == "Wonderland");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(wonderland.country_id, found.country_id);
+    assert_eq!(wonderland.name, found.name);
+    assert_eq!(wonderland.population, found.population);
+    assert_eq!(wonderland.geo_id, found.geo_id);
+    assert_eq!(wonderland.country_code, found.country_code);
+    assert_eq!(wonderland.continent, found.continent);
+    // clean up
+    assert!(std::fs::remove_file(path).is_ok());
+  }
+
+  #[test]
+  fn get_country_id_or_insert_twice()
+  {
+    let path = std::env::temp_dir().join("get_country_id_test_twice_inserted.db");
+    let db = Database::create(&path.to_str().unwrap()).unwrap();
+
+    // geo_id: &str, name: &str, population: &i64, country_code: &str, continent
+    let first_id = db.get_country_id_or_insert("XX", "Wonderland", &421337, "WON", "Utopia");
+    // Id -1 means an error occurred.
+    assert!(first_id != -1);
+    // Inserting the same country again should return the same id.
+    let second_id = db.get_country_id_or_insert("XX", "Wonderland", &421337, "WON", "Utopia");
+    assert!(second_id != -1);
+    assert_eq!(first_id, second_id);
+    // But inserting another country should not return the same id.
+    let third_id = db.get_country_id_or_insert("ZZ", "Neuland", &42, "TBL", "Internet");
+    assert!(third_id != -1);
+    assert!(first_id != third_id);
+    // clean up
+    assert!(std::fs::remove_file(path).is_ok());
   }
 
   #[test]
@@ -887,5 +1107,30 @@ mod tests {
     // columns with the total numbers. However, this test checks that the
     // function works (i. e. returns true) in that case anyway.
     assert!(db.calculate_total_numbers());
+  }
+
+  #[test]
+  fn quote()
+  {
+    assert_eq!(Database::quote(""), "''");
+    assert_eq!(Database::quote("'"), "''''");
+    assert_eq!(Database::quote("foobar"), "'foobar'");
+    assert_eq!(Database::quote("foo'bar"), "'foo''bar'");
+    assert_eq!(Database::quote("''"), "''''''");
+  }
+
+  #[test]
+  fn batch()
+  {
+    let path = std::env::temp_dir().join("test_batch_insert.db");
+    let db = Database::create(&path.to_str().unwrap()).unwrap();
+
+    let sql = "INSERT INTO country (\
+          countryId, name, population, geoId, countryCode, continent) VALUES \
+          (1, 'Wonderland', 42, 'XX', 'WON', 'Utopia'),\
+          (2, 'Neuland', 1337, 'ZZ', 'TBL', 'Internet');";
+    assert!(db.batch(&sql));
+    // clean up
+    assert!(std::fs::remove_file(path).is_ok());
   }
 }

@@ -19,6 +19,7 @@ mod database;
 mod template;
 mod generator;
 mod csv;
+mod db;
 pub mod configuration;
 
 use crate::configuration::*;
@@ -44,6 +45,17 @@ pub fn run(op: &Operation) -> Result<(), String>
       if !csv.create_csv()
       {
         return Err("Failed to write CSV file!".to_string());
+      }
+
+      Ok(())
+    },
+    Operation::Db(config) => {
+      use crate::db::Db;
+
+      let db = Db::new(&config)?;
+      if !db.create_db()
+      {
+        return Err("Failed to create SQLite database from CSV file!".to_string());
       }
 
       Ok(())

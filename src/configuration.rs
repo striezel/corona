@@ -20,6 +20,7 @@ pub enum Operation
 {
   Html(HtmlConfiguration), // generate HTML files
   Csv(CsvConfiguration),   // write data to CSV
+  Db(DbConfiguration),     // extract CSV data and write to DB
   Version                  // show version
 }
 
@@ -33,6 +34,12 @@ pub struct CsvConfiguration
 {
   pub db_path: String,
   pub csv_output_file: String,
+}
+
+pub struct DbConfiguration
+{
+  pub csv_input_file: String,
+  pub db_path: String
 }
 
 pub fn parse_args(args: &[String]) -> Result<Operation, String>
@@ -72,6 +79,22 @@ pub fn parse_args(args: &[String]) -> Result<Operation, String>
     let db_path = args[2].clone();
     let output_directory = args[3].clone();
     return Ok(Operation::Html(HtmlConfiguration{ db_path, output_directory }));
+  }
+
+  if args[1] == "db"
+  {
+    // requires three parameters:
+    // 1:   db
+    // 2:   /path/to/input.csv
+    // 3:   /path/to/corona.db
+    if args.len() < 4
+    {
+      return Err(String::from("Not enough command line parameters for DB operation!"));
+    }
+
+    let csv_input_file = args[2].clone();
+    let db_path = args[3].clone();
+    return Ok(Operation::Db(DbConfiguration { csv_input_file, db_path }));
   }
 
   if args[1] == "version"

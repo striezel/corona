@@ -83,11 +83,13 @@ compile them, but after that you are ready to start using the application.
 
 ## Using the application
 
-Currently, the application supports two modes of operation:
+Currently, the application supports three modes of operation:
 
 * `html`: creating HTML files that contain graphs showing the Coronavirus
   (SARS-CoV-2, COVID-19) case numbers for various countries
 * `csv`: creating a CSV file that contains the data from the SQLite database
+* `db`: creating a SQLite database file that contains the data from a given CSV
+  file, basically the reverse of the `csv` operation
 
 The mode is passed as the first command line argument to the application.
 Only one mode of operation can be active during the application invocation.
@@ -135,6 +137,25 @@ on a regular schedule.
 Furthermore, replace `/path/to/file.csv` with a path where you want the CSV file
 to be located. Note that the file must not exist yet, because the application
 will refuse to overwrite an existing CSV file.
+
+### Use CSV file to create SQLite database (`db`)
+
+Starting in the root directory of the source, you can invoke the following
+command in a terminal to create a SQLite 3 database that contains the data from
+a given CSV file:
+
+    cargo run db /path/to/corona-daily.csv /path/to/sqlite.db
+
+That's it. Cargo will build the executable and run it afterwards.
+
+Replace `/path/to/corona-daily.csv` with the path to the existing CSV file. If
+you do not have one ready, you can use the version provided in the `data/`
+subdirectory of this Git repository. However, it may be slightly outdated,
+because it is not updated on a regular schedule.
+
+Furthermore, replace `/path/to/sqlite.db` with a path where you want the SQLite
+database file to be located. Note that the file must not exist yet, because the
+application will refuse to overwrite an existing database file.
 
 ## Older PHP variant
 
