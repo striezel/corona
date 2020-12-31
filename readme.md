@@ -17,6 +17,8 @@ and Control (ECDC) at
 
 ## Status
 
+![It works. Why?](https://forthebadge.com/images/badges/it-works-why.svg)
+
 * GitHub:
 [![GitHub CI Rust tests](https://github.com/striezel/corona/workflows/Rust%20application%20tests/badge.svg)](https://github.com/striezel/corona/actions)
 [![GitHub CI Rust linting](https://github.com/striezel/corona/workflows/Clippy%20lints/badge.svg)](https://github.com/striezel/corona/actions)
@@ -27,8 +29,9 @@ and Control (ECDC) at
 
 ### Prerequisites
 
-To build the application you need the Rust compiler (1.30 or later should do),
-Cargo (Rust's package manager) and the development libraries for SQLite3.
+To build the application you need the Rust compiler. The Minimum Supported Rust
+Version (MSRV) is Rust 1.40. Furthermore, you need Cargo (Rust's package
+manager) and the development libraries for SQLite3.
 
 It also helps to have Git, a distributed version control system, on your system
 to get the latest source code directly from the Git repository.
