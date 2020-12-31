@@ -16,8 +16,8 @@
 */
 
 use super::configuration::HtmlConfiguration;
-use crate::database::Database;
 use crate::database::Country;
+use crate::database::Database;
 use crate::template::Template;
 
 use std::fs; // for create_dir_all() and copy()
@@ -137,11 +137,12 @@ impl Generator
   fn get_template_file_name() -> String
   {
     let db_path = Path::new(file!()) // current file: src/generator.rs
-        .parent().unwrap() // parent: src/
-        .join("..") // up one directory
-        .join("src") // into directory src/
-        .join("templates") // into directory src
-        .join("main.tpl"); // and to the main.tpl file;
+      .parent()
+      .unwrap() // parent: src/
+      .join("..") // up one directory
+      .join("src") // into directory src/
+      .join("templates") // into directory src
+      .join("main.tpl"); // and to the main.tpl file;
     db_path.to_str().unwrap().to_string()
   }
 
@@ -713,10 +714,11 @@ impl Generator
   fn get_assets_path() -> PathBuf
   {
     Path::new(file!()) // current file: src/generator.rs
-        .parent().unwrap() // parent: src/
-        .join("..") // up one directory
-        .join("src") // into directory src/
-        .join("assets") // into directory assets
+      .parent()
+      .unwrap() // parent: src/
+      .join("..") // up one directory
+      .join("src") // into directory src/
+      .join("assets") // into directory assets
   }
 
   /**
@@ -819,7 +821,7 @@ impl Generator
     tpl.integrate("links", &continent_links);
     content = match tpl.generate()
     {
-      Some(generated) => content+ "<br />\n" + &generated,
+      Some(generated) => content + "<br />\n" + &generated,
       None => return false
     };
     // main page template
@@ -855,7 +857,8 @@ impl Generator
 }
 
 #[cfg(test)]
-mod tests {
+mod tests
+{
   use super::*;
 
   /**
@@ -866,10 +869,11 @@ mod tests {
   fn get_sqlite_db_path() -> String
   {
     let db_path = Path::new(file!()) // current file: src/generator.rs
-        .parent().unwrap() // parent: src/
-        .join("..") // up one directory
-        .join("data") // into directory data/
-        .join("corona.db"); // and to the corona.db file;
+      .parent()
+      .unwrap() // parent: src/
+      .join("..") // up one directory
+      .join("data") // into directory data/
+      .join("corona.db"); // and to the corona.db file;
     db_path.to_str().unwrap().to_string()
   }
 

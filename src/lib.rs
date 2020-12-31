@@ -15,12 +15,12 @@
  -------------------------------------------------------------------------------
 */
 
-mod database;
-mod template;
-mod generator;
-mod csv;
-mod db;
 pub mod configuration;
+mod csv;
+mod database;
+mod db;
+mod generator;
+mod template;
 
 use crate::configuration::*;
 
@@ -28,7 +28,8 @@ pub fn run(op: &Operation) -> Result<(), String>
 {
   match &op
   {
-    Operation::Html(config) => {
+    Operation::Html(config) =>
+    {
       use generator::Generator;
       let gen = Generator::new(&config)?;
       if !gen.generate()
@@ -38,7 +39,8 @@ pub fn run(op: &Operation) -> Result<(), String>
       println!("Generation of HTML files was successful.");
       Ok(())
     },
-    Operation::Csv(config) => {
+    Operation::Csv(config) =>
+    {
       use crate::csv::Csv;
 
       let csv = Csv::new(&config)?;
@@ -49,7 +51,8 @@ pub fn run(op: &Operation) -> Result<(), String>
 
       Ok(())
     },
-    Operation::Db(config) => {
+    Operation::Db(config) =>
+    {
       use crate::db::Db;
 
       let db = Db::new(&config)?;
@@ -60,7 +63,8 @@ pub fn run(op: &Operation) -> Result<(), String>
 
       Ok(())
     },
-    Operation::Version => {
+    Operation::Version =>
+    {
       let version = match option_env!("CARGO_PKG_VERSION")
       {
         None => String::from("corona, unknown version (executable was not built with Cargo)"),

@@ -75,10 +75,11 @@ impl Template
     let pattern = "<!--section-start::(.*?)-->(.*?)<!--section-end::(.*?)-->";
     // Use regular expression builder with pattern above.
     let re = regex::RegexBuilder::new(pattern)
-        // Dots also need to match new lines for template data.
-        .dot_matches_new_line(true)
-        // Build it and unwrap it, because it does not error out with proper pattern.
-        .build().unwrap();
+      // Dots also need to match new lines for template data.
+      .dot_matches_new_line(true)
+      // Build it and unwrap it, because it does not error out with proper pattern.
+      .build()
+      .unwrap();
     if re.captures_len() == 0
     {
       return false;
@@ -112,7 +113,8 @@ impl Template
   {
     return match self.sections.get(section_name)
     {
-      None => {
+      None =>
+      {
         eprintln!("There is no section '{}'.", section_name);
         eprintln!("sections: {:?}", self.sections.keys());
         false
@@ -179,7 +181,8 @@ impl Template
 }
 
 #[cfg(test)]
-mod tests {
+mod tests
+{
   use super::*;
   use std::env;
   use std::fs;
@@ -221,7 +224,8 @@ mod tests {
   fn from_file_single_section()
   {
     let path = env::temp_dir().join("from_file_single_section.tpl");
-    let simple_template = "<!--section-start::test--><li><a href=\"{{url}}\">{{text}}</a></li><!--section-end::test-->";
+    let simple_template =
+      "<!--section-start::test--><li><a href=\"{{url}}\">{{text}}</a></li><!--section-end::test-->";
     fs::write(&path, simple_template).expect("Unable to write template file for test!");
     let path = path.to_str().unwrap();
 
@@ -295,7 +299,8 @@ mod tests {
   fn load_section()
   {
     let path = env::temp_dir().join("load_section.tpl");
-    let simple_template = "<!--section-start::test--><a href=\"{{url}}\">{{text}}</a><!--section-end::test-->";
+    let simple_template =
+      "<!--section-start::test--><a href=\"{{url}}\">{{text}}</a><!--section-end::test-->";
     fs::write(&path, simple_template).expect("Unable to write template file for test!");
     let path = path.to_str().unwrap();
 
@@ -315,7 +320,8 @@ mod tests {
   fn generate_simple()
   {
     let path = env::temp_dir().join("generate_simple.tpl");
-    let simple_template = "<!--section-start::test--><a href=\"{{url}}\">{{text}}</a><!--section-end::test-->";
+    let simple_template =
+      "<!--section-start::test--><a href=\"{{url}}\">{{text}}</a><!--section-end::test-->";
     fs::write(&path, simple_template).expect("Unable to write template file for test!");
     let path = path.to_str().unwrap();
 
@@ -334,7 +340,8 @@ mod tests {
   fn generate_special_characters()
   {
     let path = env::temp_dir().join("generate_special_characters.tpl");
-    let simple_template = "<!--section-start::test--><a href=\"{{url}}\">{{text}}</a><!--section-end::test-->";
+    let simple_template =
+      "<!--section-start::test--><a href=\"{{url}}\">{{text}}</a><!--section-end::test-->";
     fs::write(&path, simple_template).expect("Unable to write template file for test!");
     let path = path.to_str().unwrap();
 

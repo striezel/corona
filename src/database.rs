@@ -654,7 +654,8 @@ impl Database
 }
 
 #[cfg(test)]
-mod tests {
+mod tests
+{
   use super::*;
 
   /**
@@ -665,10 +666,11 @@ mod tests {
   fn get_sqlite_db() -> Database
   {
     let db_path = Path::new(file!()) // current file: src/database.rs
-        .parent().unwrap() // parent: src/
-        .join("..") // up one directory
-        .join("data") // into directory data/
-        .join("corona.db"); // and to the corona.db file;
+      .parent()                      // parent: src/
+      .unwrap()                      // safe to unwrap, because directory exists
+      .join("..")                    // up one directory
+      .join("data")                  // into directory data/
+      .join("corona.db");            // and to the corona.db file;
     let db = Database::new(db_path.to_str().unwrap());
     assert!(db.is_ok());
     return db.unwrap();
@@ -1038,7 +1040,7 @@ mod tests {
     // There should be more than 300 entries, ...
     assert!(numbers.len() > 300);
     // Check whether a specific value is in the vector.
-    // 2020-04-03|1038420|53448
+    // 2020-04-03|1038420|53447
     let world_one_million = Numbers {
       date: String::from("2020-04-03"),
       cases: 1038420,
@@ -1050,7 +1052,7 @@ mod tests {
     assert_eq!(world_one_million.date, found.date);
     assert_eq!(world_one_million.cases, found.cases);
     assert_eq!(world_one_million.deaths, found.deaths);
-    // Check another value (2020-09-29|33483079|1002884).
+    // Check another value (2020-09-29|33483079|100283).
     let world_one_million_gone = Numbers {
       date: String::from("2020-09-29"),
       cases: 33483079,

@@ -53,7 +53,7 @@ impl Csv
       config: CsvConfiguration
       {
         db_path: config.db_path.clone(),
-        csv_output_file: config.csv_output_file.clone(),
+        csv_output_file: config.csv_output_file.clone()
       }
     })
   }
@@ -69,7 +69,8 @@ impl Csv
     let db = match db
     {
       Ok(db) => db,
-      Err(_) => {
+      Err(_) =>
+      {
         eprintln!("Error: Database file {} does not exist or is not readable!", self.config.db_path);
         return false;
       }
@@ -94,7 +95,8 @@ impl Csv
     let mut writer = match csv::Writer::from_path(&self.config.csv_output_file)
     {
       Ok(w) => w,
-      Err(e) => {
+      Err(e) =>
+      {
         eprintln!("Error: Could not create CSV file! {}", e);
         return false;
       }
@@ -133,7 +135,8 @@ impl Csv
     match writer.flush()
     {
       Ok(_) => true,
-      Err(e) => {
+      Err(e) =>
+      {
         eprintln!("Error: Could not flush write buffer! {}", e);
         false
       }
@@ -168,7 +171,8 @@ impl Csv
 }
 
 #[cfg(test)]
-mod tests {
+mod tests
+{
   use super::*;
 
   /**
@@ -179,10 +183,11 @@ mod tests {
   fn get_sqlite_db_path() -> String
   {
     let db_path = Path::new(file!()) // current file: src/generator.rs
-        .parent().unwrap() // parent: src/
-        .join("..") // up one directory
-        .join("data") // into directory data/
-        .join("corona.db"); // and to the corona.db file;
+      .parent()                      // parent: src/
+      .unwrap()                      // unwrap is save, parent directory exists
+      .join("..")                    // up one directory
+      .join("data")                  // into directory data/
+      .join("corona.db");            // and to the corona.db file;
     db_path.to_str().unwrap().to_string()
   }
 

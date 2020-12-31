@@ -64,7 +64,8 @@ impl Db
   {
     let db = match Database::create(&self.config.db_path)
     {
-      Err(e) => {
+      Err(e) =>
+      {
         eprintln!("Error while creating database: {}", e);
         return false;
       }
@@ -158,7 +159,8 @@ impl Db
     {
       match reader.read_record(&mut record)
       {
-        Ok(success) => {
+        Ok(success) =>
+        {
           if !success
           {
             // No more records to read.
@@ -262,7 +264,7 @@ impl Db
       if batch_count >= 250 && !batch.is_empty()
       {
         // replace last ',' with ';' to make it valid SQL syntax
-        batch = batch[0..batch.len()-1].to_string();
+        batch = batch[0..batch.len() - 1].to_string();
         batch.push(';');
         if !db.batch(&batch)
         {
@@ -278,7 +280,7 @@ impl Db
     if batch_count > 0 && !batch.is_empty()
     {
       // replace last ',' with ';' to make it valid SQL syntax
-      batch = batch[0..batch.len()-1].to_string();
+      batch = batch[0..batch.len() - 1].to_string();
       batch.push(';');
       if !db.batch(&batch)
       {
@@ -293,7 +295,8 @@ impl Db
 }
 
 #[cfg(test)]
-mod tests {
+mod tests
+{
   use super::*;
 
   /**
@@ -306,10 +309,11 @@ mod tests {
     use std::path::Path;
 
     let csv_path = Path::new(file!()) // current file: src/generator.rs
-        .parent().unwrap() // parent: src/
-        .join("..") // up one directory
-        .join("data") // into directory data/
-        .join("corona-daily.csv"); // and to the corona-daily.csv file;
+      .parent()
+      .unwrap() // parent: src/
+      .join("..") // up one directory
+      .join("data") // into directory data/
+      .join("corona-daily.csv"); // and to the corona-daily.csv file;
     csv_path.to_str().unwrap().to_string()
   }
 

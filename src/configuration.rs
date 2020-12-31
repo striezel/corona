@@ -27,13 +27,13 @@ pub enum Operation
 pub struct HtmlConfiguration
 {
   pub db_path: String,
-  pub output_directory: String,
+  pub output_directory: String
 }
 
 pub struct CsvConfiguration
 {
   pub db_path: String,
-  pub csv_output_file: String,
+  pub csv_output_file: String
 }
 
 pub struct DbConfiguration

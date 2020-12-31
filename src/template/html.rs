@@ -24,16 +24,18 @@
  */
 pub fn special_chars(value: &str) -> String
 {
-  value.to_string()
-       .replace('&', "&amp;")
-       .replace('"', "&quot;")
-       .replace('\'', "&#39;")
-       .replace('<', "&lt;")
-       .replace('>', "&gt;")
+  value
+    .to_string()
+    .replace('&', "&amp;")
+    .replace('"', "&quot;")
+    .replace('\'', "&#39;")
+    .replace('<', "&lt;")
+    .replace('>', "&gt;")
 }
 
 #[cfg(test)]
-mod tests {
+mod tests
+{
   use super::*;
 
   #[test]
