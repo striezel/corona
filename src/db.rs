@@ -147,6 +147,7 @@ impl Db
     // Note: The constant f64::NAN is only available in Rust 1.43 or later,
     // but e. g. Debian 10 (current stable version) only has 1.41, so the
     // use of that constant has to be avoided.
+    #[allow(clippy::eq_op)]
     const F64_NAN: f64 = 0.0_f64 / 0.0_f64;
     let mut last_geo_id = String::new();
     let mut country_id: i64 = -1;
