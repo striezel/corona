@@ -96,6 +96,50 @@ impl Db
       return false;
     }
     // parse CSV values
+    Db::parse_csv_into_db(&db, &mut reader)
+  }
+
+  /**
+   * Checks whether the CSV headers match the expected headers.
+   *
+   * @param reader    an opened CSV reader
+   * @return Returns true, if the headers are correct. Returns false otherwise.
+   */
+  fn check_headers(&self, reader: &mut csv::Reader<std::fs::File>) -> bool
+  {
+    let headers = match reader.headers()
+    {
+      Ok(head) => head,
+      Err(e) => {
+        eprintln!("Error: Could not read header of CSV file {}: {}",
+                  &self.config.csv_input_file, e);
+        return false;
+      }
+    };
+    let expected_headers = vec!["dateRep", "day", "month", "year", "cases",
+                                "deaths", "countriesAndTerritories", "geoId",
+                                "countryterritoryCode", "popData2019", "continentExp",
+                                "Cumulative_number_for_14_days_of_COVID-19_cases_per_100000"];
+    if headers != expected_headers
+    {
+      eprintln!("Error: CSV headers do not match the expected headers. \
+                 Found the following headers: {:?}", headers);
+      return false;
+    }
+    // Headers match. :)
+    true
+  }
+
+  /**
+   * Parses the CSV data and writes it into the database.
+   *
+   * @param db        an open SQLite database with existing tables
+   * @param reader    an opened CSV reader
+   * @return Returns true, if all data was parsed and written to the database
+   *         successfully. Returns false otherwise.
+   */
+  fn parse_csv_into_db(db: &Database, reader: &mut csv::Reader<std::fs::File>) -> bool
+  {
     // Note: The constant i64::MIN is only available in Rust 1.43 or later,
     // but e. g. Debian 10 (current stable version) only has 1.41, so the
     // use of that constant has to be avoided.
@@ -243,37 +287,6 @@ impl Db
     } // if batch remains
 
     // Done.
-    true
-  }
-
-  /**
-   * Checks whether the CSV headers match the expected headers.
-   *
-   * @param reader    an opened CSV reader
-   * @return Returns true, if the headers are correct. Returns false otherwise.
-   */
-  fn check_headers(&self, reader: &mut csv::Reader<std::fs::File>) -> bool
-  {
-    let headers = match reader.headers()
-    {
-      Ok(head) => head,
-      Err(e) => {
-        eprintln!("Error: Could not read header of CSV file {}: {}",
-                  &self.config.csv_input_file, e);
-        return false;
-      }
-    };
-    let expected_headers = vec!["dateRep", "day", "month", "year", "cases",
-                                "deaths", "countriesAndTerritories", "geoId",
-                                "countryterritoryCode", "popData2019", "continentExp",
-                                "Cumulative_number_for_14_days_of_COVID-19_cases_per_100000"];
-    if headers != expected_headers
-    {
-      eprintln!("Error: CSV headers do not match the expected headers. \
-                 Found the following headers: {:?}", headers);
-      return false;
-    }
-    // Headers match. :)
     true
   }
 }
