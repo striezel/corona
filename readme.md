@@ -30,6 +30,8 @@ and Control (ECDC) at
 
 ### Prerequisites
 
+[![minimum rustc 1.40.0](https://img.shields.io/badge/minimum%20rustc-1.40.0-c18170?logo=rust&style=for-the-badge)](https://www.whatrustisit.com/)
+
 To build the application you need the Rust compiler. The Minimum Supported Rust
 Version (MSRV) is Rust 1.40. Furthermore, you need Cargo (Rust's package
 manager) and the development libraries for SQLite3.
