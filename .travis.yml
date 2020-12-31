@@ -1,0 +1,25 @@
+language: rust
+rust:
+  - stable
+  - beta
+  - nightly
+jobs:
+  allow_failures:
+    - rust: nightly
+  fast_finish: true
+cache: cargo
+sudo: false
+dist: bionic
+os:
+  - linux
+arch:
+  - arm64
+script:
+  - cargo build
+  - cargo test
+addons:
+  apt:
+    packages:
+    - libsqlite3-dev
+notifications:
+  email: false

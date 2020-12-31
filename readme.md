@@ -25,6 +25,8 @@ and Control (ECDC) at
 [![GitHub CI Rust MSRV](https://github.com/striezel/corona/workflows/Minimum%20Supported%20Rust%20Version/badge.svg)](https://github.com/striezel/corona/actions)
 * GitLab:
 [![GitLab pipeline status](https://gitlab.com/striezel/corona/badges/master/pipeline.svg)](https://gitlab.com/striezel/corona/)
+* Travis CI:
+[![Build Status](https://travis-ci.org/striezel/corona.svg?branch=master)](https://travis-ci.org/striezel/corona)
 
 ## Building the application from source
 
