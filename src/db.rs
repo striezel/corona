@@ -295,6 +295,7 @@ impl Db
 mod tests
 {
   use super::*;
+  use crate::database::Country;
 
   /**
    * Gets path to the corona_daily.csv file in data directory.
@@ -329,6 +330,37 @@ mod tests
     assert!(db.create_db());
     // Check that DB file exists.
     assert!(db_file_name.exists());
+    // Check some content.
+    let db = Database::new(&config.db_path).unwrap();
+    // Check a country.
+    let countries = db.countries();
+    let wf = Country
+    {
+      country_id: 210,
+      name: String::from("Wallis and Futuna"),
+      population: -1,
+      geo_id: String::from("WF"),
+      country_code: String::new(),
+      continent: String::from("Oceania")
+    };
+    let found = countries.iter().find(|&c| c.geo_id == "WF");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(wf.country_id, found.country_id);
+    assert_eq!(wf.name, found.name);
+    assert_eq!(wf.population, found.population);
+    assert_eq!(wf.geo_id, found.geo_id);
+    assert_eq!(wf.country_code, found.country_code);
+    assert_eq!(wf.continent, found.continent);
+    // Check some numbers.
+    let numbers = db.numbers_with_incidence(&wf.country_id);
+    let found = numbers.iter().find(|&n| n.date == "2020-11-26");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!("2020-11-26", found.date);
+    assert_eq!(1, found.cases);
+    assert_eq!(0, found.deaths);
+    assert!(found.incidence_14d.is_none());
     // clean up
     assert!(fs::remove_file(db_file_name).is_ok());
   }
