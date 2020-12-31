@@ -4,6 +4,14 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version 0.3.1 (2020-12-31)
+
+The program can now generate a SQLite database from a given CSV file with daily
+Coronavirus data. The SQLite database creation is started when the first command
+line argument is `db`, e. g. by:
+
+    cargo run db /path/to/corona-daily.csv /path/to/sqlite.db
+
 ## Version 0.3.0 (2020-12-29)
 
 The program can now also generate a CSV file containing all the data from the
