@@ -1,5 +1,9 @@
 os: Visual Studio 2019
 
+cache:
+- '%USERPROFILE%\.rustup'
+- '%USERPROFILE%\.cargo\registry'
+
 environment:
   matrix:
 # Build channels stable, beta and nightly for 64 bit on MSVC.
@@ -37,4 +41,5 @@ install:
 # 'cargo test' takes care of building, so disable Appveyor's build stage.
 build: false
 test_script:
+  - git apply --ignore-whitespace ci\windows.patch
   - cargo test --verbose %cargoflags%
