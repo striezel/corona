@@ -27,8 +27,8 @@ environment:
 #    - channel: nightly
 #      target: x86_64-pc-windows-gnu
 # Build stable channel for 32 bit on GNU toolchain.
-    - channel: stable
-      target: i686-pc-windows-gnu
+#    - channel: stable
+#      target: i686-pc-windows-gnu
 
 matrix:
   allow_failures:
