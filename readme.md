@@ -27,6 +27,8 @@ and Control (ECDC) at
 [![GitLab pipeline status](https://gitlab.com/striezel/corona/badges/master/pipeline.svg)](https://gitlab.com/striezel/corona/)
 * Travis CI:
 [![Build Status](https://travis-ci.org/striezel/corona.svg?branch=master)](https://travis-ci.org/striezel/corona)
+* AppVeyor (Windows, MSVC):
+[![Build status](https://ci.appveyor.com/api/projects/status/9t7rta43ovt8slce/branch/master?svg=true)](https://ci.appveyor.com/project/striezel/corona/branch/master)
 
 ## Building the application from source
 
