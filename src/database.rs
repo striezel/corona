@@ -680,11 +680,14 @@ mod tests
   fn create_db()
   {
     let path = std::env::temp_dir().join("database_creation_test.db");
-    let created = Database::create(path.to_str().unwrap());
-    // Creation should be successful and file should exist.
-    assert!(created.is_ok());
-    assert!(path.exists());
-    assert!(path.is_file());
+    // scope for db
+    {
+      let created = Database::create(path.to_str().unwrap());
+      // Creation should be successful and file should exist.
+      assert!(created.is_ok());
+      assert!(path.exists());
+      assert!(path.is_file());
+    }
     // clean up
     assert!(std::fs::remove_file(path).is_ok());
   }
@@ -693,13 +696,16 @@ mod tests
   fn create_db_on_existing_path()
   {
     let path = std::env::temp_dir().join("database_creation_test_existing.db");
-    let created = Database::create(path.to_str().unwrap());
-    // Creation should be successful and file should exist.
-    assert!(created.is_ok());
-    assert!(path.exists());
-    // Second creation attempt at same path should fail!
-    let created_again = Database::create(path.to_str().unwrap());
-    assert!(created_again.is_err());
+    // scope for db
+    {
+      let created = Database::create(path.to_str().unwrap());
+      // Creation should be successful and file should exist.
+      assert!(created.is_ok());
+      assert!(path.exists());
+      // Second creation attempt at same path should fail!
+      let created_again = Database::create(path.to_str().unwrap());
+      assert!(created_again.is_err());
+    }
     // clean up
     assert!(std::fs::remove_file(path).is_ok());
   }
@@ -819,33 +825,36 @@ mod tests
   fn get_country_id_or_insert()
   {
     let path = std::env::temp_dir().join("get_country_id_test_simple.db");
-    let db = Database::create(&path.to_str().unwrap()).unwrap();
+    // scope for db
+    {
+      let db = Database::create(&path.to_str().unwrap()).unwrap();
 
-    // geo_id: &str, name: &str, population: &i64, country_code: &str, continent
-    let id = db.get_country_id_or_insert("XX", "Wonderland", &421337, "WON", "Utopia");
-    // Id -1 means an error occurred.
-    assert!(id != -1);
-    // First country usually gets id one.
-    assert_eq!(1i64, id);
-    // Country list should now contain the country.
-    let countries = db.countries();
-    let wonderland = Country {
-      country_id: 1,
-      geo_id: String::from("XX"),
-      name: String::from("Wonderland"),
-      population: 421337,
-      country_code: String::from("WON"),
-      continent: String::from("Utopia")
-    };
-    let found = countries.iter().find(|&c| c.name == "Wonderland");
-    assert!(found.is_some());
-    let found = found.unwrap();
-    assert_eq!(wonderland.country_id, found.country_id);
-    assert_eq!(wonderland.name, found.name);
-    assert_eq!(wonderland.population, found.population);
-    assert_eq!(wonderland.geo_id, found.geo_id);
-    assert_eq!(wonderland.country_code, found.country_code);
-    assert_eq!(wonderland.continent, found.continent);
+      // geo_id: &str, name: &str, population: &i64, country_code: &str, continent
+      let id = db.get_country_id_or_insert("XX", "Wonderland", &421337, "WON", "Utopia");
+      // Id -1 means an error occurred.
+      assert!(id != -1);
+      // First country usually gets id one.
+      assert_eq!(1i64, id);
+      // Country list should now contain the country.
+      let countries = db.countries();
+      let wonderland = Country {
+        country_id: 1,
+        geo_id: String::from("XX"),
+        name: String::from("Wonderland"),
+        population: 421337,
+        country_code: String::from("WON"),
+        continent: String::from("Utopia")
+      };
+      let found = countries.iter().find(|&c| c.name == "Wonderland");
+      assert!(found.is_some());
+      let found = found.unwrap();
+      assert_eq!(wonderland.country_id, found.country_id);
+      assert_eq!(wonderland.name, found.name);
+      assert_eq!(wonderland.population, found.population);
+      assert_eq!(wonderland.geo_id, found.geo_id);
+      assert_eq!(wonderland.country_code, found.country_code);
+      assert_eq!(wonderland.continent, found.continent);
+    }
     // clean up
     assert!(std::fs::remove_file(path).is_ok());
   }
@@ -854,20 +863,23 @@ mod tests
   fn get_country_id_or_insert_twice()
   {
     let path = std::env::temp_dir().join("get_country_id_test_twice_inserted.db");
-    let db = Database::create(&path.to_str().unwrap()).unwrap();
+    // scope for db
+    {
+      let db = Database::create(&path.to_str().unwrap()).unwrap();
 
-    // geo_id: &str, name: &str, population: &i64, country_code: &str, continent
-    let first_id = db.get_country_id_or_insert("XX", "Wonderland", &421337, "WON", "Utopia");
-    // Id -1 means an error occurred.
-    assert!(first_id != -1);
-    // Inserting the same country again should return the same id.
-    let second_id = db.get_country_id_or_insert("XX", "Wonderland", &421337, "WON", "Utopia");
-    assert!(second_id != -1);
-    assert_eq!(first_id, second_id);
-    // But inserting another country should not return the same id.
-    let third_id = db.get_country_id_or_insert("ZZ", "Neuland", &42, "TBL", "Internet");
-    assert!(third_id != -1);
-    assert!(first_id != third_id);
+      // geo_id: &str, name: &str, population: &i64, country_code: &str, continent
+      let first_id = db.get_country_id_or_insert("XX", "Wonderland", &421337, "WON", "Utopia");
+      // Id -1 means an error occurred.
+      assert!(first_id != -1);
+      // Inserting the same country again should return the same id.
+      let second_id = db.get_country_id_or_insert("XX", "Wonderland", &421337, "WON", "Utopia");
+      assert!(second_id != -1);
+      assert_eq!(first_id, second_id);
+      // But inserting another country should not return the same id.
+      let third_id = db.get_country_id_or_insert("ZZ", "Neuland", &42, "TBL", "Internet");
+      assert!(third_id != -1);
+      assert!(first_id != third_id);
+    }
     // clean up
     assert!(std::fs::remove_file(path).is_ok());
   }
@@ -1125,13 +1137,16 @@ mod tests
   fn batch()
   {
     let path = std::env::temp_dir().join("test_batch_insert.db");
-    let db = Database::create(&path.to_str().unwrap()).unwrap();
+    // scope for db
+    {
+      let db = Database::create(&path.to_str().unwrap()).unwrap();
 
-    let sql = "INSERT INTO country (\
+      let sql = "INSERT INTO country (\
           countryId, name, population, geoId, countryCode, continent) VALUES \
           (1, 'Wonderland', 42, 'XX', 'WON', 'Utopia'),\
           (2, 'Neuland', 1337, 'ZZ', 'TBL', 'Internet');";
-    assert!(db.batch(&sql));
+      assert!(db.batch(&sql));
+    }
     // clean up
     assert!(std::fs::remove_file(path).is_ok());
   }
