@@ -16,6 +16,7 @@
 */
 
 pub mod configuration;
+mod collect;
 mod csv;
 mod data;
 mod database;
@@ -62,6 +63,18 @@ pub fn run(op: &Operation) -> Result<(), String>
         return Err("Failed to create SQLite database from CSV file!".to_string());
       }
 
+      Ok(())
+    },
+    Operation::Collect =>
+    {
+      use crate::collect::Collector;
+
+      let collector = Collector::new();
+      if !collector.run()
+      {
+        return Err(String::from("An error occurred during data collection."))
+      }
+      println!("Info: The collect operation is not completely implemented yet.");
       Ok(())
     },
     Operation::Version =>

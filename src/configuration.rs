@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020  Dirk Stolle
+    Copyright (C) 2020, 2021  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -21,6 +21,7 @@ pub enum Operation
   Html(HtmlConfiguration), // generate HTML files
   Csv(CsvConfiguration),   // write data to CSV
   Db(DbConfiguration),     // extract CSV data and write to DB
+  Collect,                 // collects new data
   Version                  // show version
 }
 
@@ -95,6 +96,13 @@ pub fn parse_args(args: &[String]) -> Result<Operation, String>
     let csv_input_file = args[2].clone();
     let db_path = args[3].clone();
     return Ok(Operation::Db(DbConfiguration { csv_input_file, db_path }));
+  }
+
+  if args[1] == "collect"
+  {
+    // requires one parameter:
+    // 1:   collect
+    return Ok(Operation::Collect);
   }
 
   if args[1] == "version"
