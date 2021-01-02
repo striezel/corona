@@ -295,7 +295,7 @@ impl Db
 mod tests
 {
   use super::*;
-  use crate::database::Country;
+  use crate::data::Country;
 
   /**
    * Gets path to the corona_daily.csv file in data directory.
