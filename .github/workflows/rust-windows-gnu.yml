@@ -1,0 +1,30 @@
+name: Rust on Windows with GNU toolchain
+
+on: push
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x86_64]
+        variant: [gnu]
+        channel: [stable]
+# Change the line above to the followng for more Rust channels:
+#       channel: [stable, beta, nightly]
+    steps:
+    - uses: actions/checkout@v2
+    - run: choco install msys2
+      if: matrix.variant == 'gnu'
+    - run: rustup default ${{ matrix.channel }}-pc-windows-${{ matrix.variant }}
+    - run: rustup target add ${{ matrix.arch }}-pc-windows-${{ matrix.variant }}
+    - name: Show toolchain versions
+      run: |
+        cargo --version --verbose
+        rustc --version --verbose
+    - name: Apply Windows-specific patch
+      run: git apply --ignore-whitespace ci\windows.patch
+    - name: Build application
+      run: cargo build --verbose --target ${{ matrix.arch }}-pc-windows-${{ matrix.variant }}
+    - name: Run tests
+      run: cargo test --verbose --target ${{ matrix.arch }}-pc-windows-${{ matrix.variant }}
