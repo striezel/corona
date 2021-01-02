@@ -1,0 +1,21 @@
+name: Rust on MacOS
+
+on: push
+jobs:
+  build-macos:
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      matrix:
+        channel: [stable, beta, nightly]
+        os: [macos]
+    steps:
+    - uses: actions/checkout@v2
+    - run: rustup default ${{ matrix.channel }}
+    - name: Show toolchain versions
+      run: |
+        cargo --version --verbose
+        rustc --version --verbose
+    - name: Build application
+      run: cargo build --verbose --all-targets
+    - name: Run tests
+      run: cargo test
