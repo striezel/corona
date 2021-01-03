@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install packages
-      run: sudo apt-get install -y cargo rustc
+      run: sudo apt-get install -y cargo rustc libssl-dev pkg-config
     - name: Build application
       run: |
         cargo build

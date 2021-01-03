@@ -27,6 +27,7 @@ pub struct Country
 }
 
 /// struct to hold the case numbers for a single day in a single country
+#[derive(Clone)]
 pub struct Numbers
 {
   pub date: String,

@@ -51,17 +51,17 @@ to get the latest source code directly from the Git repository.
 All of that can usually be installed be typing
 
     # Debian-based Linux distribution
-    apt-get install cargo git libsqlite3-dev rustc
+    apt-get install cargo git libsqlite3-dev libssl-dev pkg-config rustc
 
 or
 
     # CentOS 8
-    yum install cargo git rust sqlite-devel
+    yum install cargo git rust sqlite-devel openssl-devel
 
 or
 
     # Alpine
-    apk add cargo git rust sqlite-dev
+    apk add cargo git rust sqlite-dev openssl-dev
 
 into a root terminal.
 

@@ -15,35 +15,4 @@
  -------------------------------------------------------------------------------
 */
 
-use crate::collect::Collect;
-
-pub struct Spain
-{
-}
-
-impl Spain
-{
-  /**
-   * Returns a new instance of Spain.
-   */
-  pub fn new() -> Spain
-  {
-    Spain { }
-  }
-}
-
-/// common trait / interface for collecting new data
-impl Collect for Spain
-{
-  /**
-   * Returns the geo id (two-letter code) of the country for which the data
-   * is collected.
-   */
-  fn geo_id(&self) -> &str
-  {
-    "ES" // Spain
-  }
-
-  // Spain uses the default implementation of collect(), which is to query the
-  // disease.sh historical API.
-}
+pub mod disease_sh;

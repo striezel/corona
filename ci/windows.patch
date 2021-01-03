@@ -1,10 +1,12 @@
 diff --git a/Cargo.toml b/Cargo.toml
-index 9732a95..c5b2c33 100644
+index b3f647f..ee1a67b 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -19,4 +19,4 @@ lto = true
- [dependencies]
+@@ -20,6 +20,6 @@ lto = true
  csv = "1.1"
  regex = "1.4.2"
+ reqwest = { version = "0.10", features = ["blocking"] }
 -rusqlite = "0.23.1"
 +rusqlite = { version = "0.23.1", features = ["bundled"] }
+ serde = "1.0"
+ serde_json = "1.0"

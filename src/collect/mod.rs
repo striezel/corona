@@ -15,8 +15,10 @@
  -------------------------------------------------------------------------------
 */
 
+mod api;
 mod europe;
 
+use crate::collect::api::disease_sh;
 use crate::data::Numbers;
 use europe::Spain;
 
@@ -35,12 +37,16 @@ trait Collect
    * @return Returns a vector containing new daily numbers for cases + deaths.
    *         Returns an Err(), if no data could be retrieved.
    */
-  fn collect(&self) -> Result<Vec<Numbers>, String>;
+  fn collect(&self) -> Result<Vec<Numbers>, String>
+  {
+    // Default implementation: Use disease.sh API.
+    disease_sh::request_historical_api(self.geo_id())
+  }
 }
 
 pub struct Collector
 {
-  elements: Vec<Spain>
+  elements: Vec<Box<dyn Collect>>
 }
 
 impl Collector
@@ -50,7 +56,7 @@ impl Collector
    */
   pub fn new() -> Collector
   {
-    Collector{ elements: vec![Spain::new()] }
+    Collector{ elements: vec![Box::new(Spain::new())] }
   }
 
   pub fn run(&self) -> bool
