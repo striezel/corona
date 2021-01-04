@@ -154,6 +154,33 @@ pub fn request_historical_api(geo_id: &str) -> Result<Vec<Numbers>, String>
   Ok(numbers_diff)
 }
 
+/**
+ * Shifts data in the vector to the next day, assuming the vector is sorted.
+ *
+ * @param numbers  the vector with the numbers to shift
+ * @return Returns a vector that is one element shorter than `numbers`, or, if
+ *         that is empty, an empty vector. In a non-empty vector the cases and
+ *         deaths are the same, but the date value is moved to the next day.
+ */
+pub fn shift_one_day_later(numbers: &Vec<Numbers>) -> Vec<Numbers>
+{
+  if numbers.is_empty()
+  {
+    return vec![];
+  }
+  let mut new_numbers = Vec::with_capacity(numbers.len() - 1);
+  for idx in 0..numbers.len() - 1
+  {
+    new_numbers.push(Numbers {
+      date: numbers[idx + 1].date.clone(),
+      cases: numbers[idx].cases,
+      deaths: numbers[idx].deaths
+    });
+  }
+
+  new_numbers
+}
+
 #[cfg(test)]
 mod tests
 {
@@ -170,5 +197,23 @@ mod tests
     {
       assert!(numbers[idx-1].date < numbers[idx].date)
     }
+  }
+
+  #[test]
+  fn shift_one_day()
+  {
+    let old: Vec<Numbers> = vec![
+       Numbers { date: "2020-01-01".to_string(), cases: 12, deaths: 0},
+       Numbers { date: "2020-01-02".to_string(), cases: 17, deaths: 1},
+       Numbers { date: "2020-01-03".to_string(), cases: 28, deaths: 2}
+    ];
+    let shifted = shift_one_day_later(&old);
+    assert_eq!(2, shifted.len());
+    assert_eq!(shifted[0].date, old[1].date, );
+    assert_eq!(shifted[0].cases, old[0].cases);
+    assert_eq!(shifted[0].deaths, old[0].deaths);
+    assert_eq!(shifted[1].date, old[2].date);
+    assert_eq!(shifted[1].cases, old[1].cases,);
+    assert_eq!(shifted[1].deaths, old[1].deaths);
   }
 }

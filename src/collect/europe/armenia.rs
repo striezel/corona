@@ -15,14 +15,34 @@
  -------------------------------------------------------------------------------
 */
 
-mod albania;
-mod andorra;
-mod armenia;
-mod azerbaijan;
-mod spain;
+use crate::collect::Collect;
 
-pub use crate::collect::europe::albania::Albania;
-pub use crate::collect::europe::andorra::Andorra;
-pub use crate::collect::europe::armenia::Armenia;
-pub use crate::collect::europe::azerbaijan::Azerbaijan;
-pub use crate::collect::europe::spain::Spain;
+pub struct Armenia
+{
+}
+
+impl Armenia
+{
+  /**
+   * Returns a new instance.
+   */
+  pub fn new() -> Armenia
+  {
+    Armenia { }
+  }
+}
+
+impl Collect for Armenia
+{
+  /**
+   * Returns the geo id (two-letter code) of the country for which the data
+   * is collected.
+   */
+  fn geo_id(&self) -> &str
+  {
+    "AM" // Armenia
+  }
+
+  // Armenia uses the default implementation of collect(), which is to query the
+  // disease.sh historical API.
+}

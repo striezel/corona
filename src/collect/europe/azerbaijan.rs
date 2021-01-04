@@ -15,14 +15,43 @@
  -------------------------------------------------------------------------------
 */
 
-mod albania;
-mod andorra;
-mod armenia;
-mod azerbaijan;
-mod spain;
+use crate::collect::Collect;
+use crate::collect::api::disease_sh;
+use crate::data::Numbers;
 
-pub use crate::collect::europe::albania::Albania;
-pub use crate::collect::europe::andorra::Andorra;
-pub use crate::collect::europe::armenia::Armenia;
-pub use crate::collect::europe::azerbaijan::Azerbaijan;
-pub use crate::collect::europe::spain::Spain;
+pub struct Azerbaijan
+{
+}
+
+impl Azerbaijan
+{
+  /**
+   * Returns a new instance.
+   */
+  pub fn new() -> Azerbaijan
+  {
+    Azerbaijan { }
+  }
+}
+
+impl Collect for Azerbaijan
+{
+  /**
+   * Returns the geo id (two-letter code) of the country for which the data
+   * is collected.
+   */
+  fn geo_id(&self) -> &str
+  {
+    "AZ" // Azerbaijan
+  }
+
+  fn collect(&self) -> Result<Vec<Numbers>, String>
+  {
+    // disease.sh historical API seems to be off by one day, so let's fix that.
+    match disease_sh::request_historical_api(self.geo_id())
+    {
+      Ok(vector) => Ok(disease_sh::shift_one_day_later(&vector)),
+      Err(e) => Err(e)
+    }
+  }
+}

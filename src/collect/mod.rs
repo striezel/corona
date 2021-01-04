@@ -20,7 +20,12 @@ mod europe;
 
 use crate::collect::api::disease_sh;
 use crate::data::Numbers;
+use europe::Albania;
+use europe::Andorra;
+use europe::Armenia;
+use europe::Azerbaijan;
 use europe::Spain;
+
 
 /// common trait / interface for collecting new data
 trait Collect
@@ -56,7 +61,13 @@ impl Collector
    */
   pub fn new() -> Collector
   {
-    Collector{ elements: vec![Box::new(Spain::new())] }
+    Collector{ elements: vec![
+      Box::new(Albania::new()),
+      Box::new(Andorra::new()),
+      Box::new(Armenia::new()),
+      Box::new(Azerbaijan::new()),
+      Box::new(Spain::new())
+    ] }
   }
 
   pub fn run(&self) -> bool
