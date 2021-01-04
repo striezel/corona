@@ -15,25 +15,29 @@
  -------------------------------------------------------------------------------
 */
 
+use crate::collect::api::Range;
 use crate::data::Numbers;
+use serde_json::Value;
 
 /**
  * Request historical API of disease.sh for a single country.
  *
  * @param  geo_id  geo id (i. e. two letter country code) of a country
+ * @param  range   whether to collect recent or all data
  * @return Returns a vector of Numbers containing the new daily cases.
  *         If an error occurred, an Err containing the error message is
  *         returned.
  */
-pub fn request_historical_api(geo_id: &str) -> Result<Vec<Numbers>, String>
+pub fn request_historical_api(geo_id: &str, range: &Range) -> Result<Vec<Numbers>, String>
 {
   use reqwest::StatusCode;
-  use serde_json::Value;
-  use std::convert::TryFrom;
-  use std::collections::HashMap;
   use std::io::Read;
 
-  let url = format!("https://corona.lmao.ninja/v3/covid-19/historical/{}", geo_id);
+  let url = match range
+  {
+    Range::Recent => format!("https://corona.lmao.ninja/v3/covid-19/historical/{}", geo_id),
+    Range::All => format!("https://corona.lmao.ninja/v3/covid-19/historical/{}?lastdays=all", geo_id)
+  };
   let mut res = match reqwest::blocking::get(&url)
   {
     Ok(responded) => responded,
@@ -57,6 +61,14 @@ pub fn request_historical_api(geo_id: &str) -> Result<Vec<Numbers>, String>
     Ok(v) => v,
     Err(e) => return Err(format!("Failed to deserialize JSON from API: {}", e))
   };
+  parse_json_timeline(&json)
+}
+
+fn parse_json_timeline(json: &Value) -> Result<Vec<Numbers>, String>
+{
+  use std::collections::HashMap;
+  use std::convert::TryFrom;
+
   let timeline = match json.get("timeline")
   {
     Some(Value::Object(map)) => map,
@@ -162,7 +174,7 @@ pub fn request_historical_api(geo_id: &str) -> Result<Vec<Numbers>, String>
  *         that is empty, an empty vector. In a non-empty vector the cases and
  *         deaths are the same, but the date value is moved to the next day.
  */
-pub fn shift_one_day_later(numbers: &Vec<Numbers>) -> Vec<Numbers>
+pub fn shift_one_day_later(numbers: &[Numbers]) -> Vec<Numbers>
 {
   if numbers.is_empty()
   {

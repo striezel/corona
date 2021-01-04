@@ -16,3 +16,10 @@
 */
 
 pub mod disease_sh;
+
+/// Determines the amount of data that shall be collected.
+pub enum Range
+{
+    Recent, // only collect recent data
+    All     // collect all data from the beginning
+}

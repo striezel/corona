@@ -17,6 +17,7 @@
 
 use crate::collect::Collect;
 use crate::collect::api::disease_sh;
+use crate::collect::api::Range;
 use crate::data::Numbers;
 
 pub struct Azerbaijan
@@ -45,10 +46,10 @@ impl Collect for Azerbaijan
     "AZ" // Azerbaijan
   }
 
-  fn collect(&self) -> Result<Vec<Numbers>, String>
+  fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
     // disease.sh historical API seems to be off by one day, so let's fix that.
-    match disease_sh::request_historical_api(self.geo_id())
+    match disease_sh::request_historical_api(self.geo_id(), &range)
     {
       Ok(vector) => Ok(disease_sh::shift_one_day_later(&vector)),
       Err(e) => Err(e)

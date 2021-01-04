@@ -19,6 +19,7 @@ mod api;
 mod europe;
 
 use crate::collect::api::disease_sh;
+use crate::collect::api::Range;
 use crate::data::Numbers;
 use europe::Albania;
 use europe::Andorra;
@@ -39,13 +40,14 @@ trait Collect
   /**
    * Collects new data of an unspecified time range.
    *
+   * @param  range   the data range to collect
    * @return Returns a vector containing new daily numbers for cases + deaths.
    *         Returns an Err(), if no data could be retrieved.
    */
-  fn collect(&self) -> Result<Vec<Numbers>, String>
+  fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
     // Default implementation: Use disease.sh API.
-    disease_sh::request_historical_api(self.geo_id())
+    disease_sh::request_historical_api(self.geo_id(), &range)
   }
 }
 
@@ -79,7 +81,7 @@ impl Collector
     for country in self.elements.iter()
     {
       println!("Processing {} ...", &country.geo_id());
-      let data = country.collect();
+      let data = country.collect(&Range::Recent);
       match data
       {
         Ok(vector) => {
