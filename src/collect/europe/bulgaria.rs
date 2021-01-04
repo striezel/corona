@@ -15,32 +15,44 @@
  -------------------------------------------------------------------------------
 */
 
-mod albania;
-mod andorra;
-mod armenia;
-mod azerbaijan;
-mod belarus;
-mod bosnia;
-mod bulgaria;
-mod croatia;
-mod cyprus;
-mod czechia;
-mod denmark;
-mod estonia;
-mod finland;
-mod spain;
+use crate::collect::Collect;
+use crate::collect::api::disease_sh;
+use crate::collect::api::Range;
+use crate::data::Numbers;
 
-pub use crate::collect::europe::albania::Albania;
-pub use crate::collect::europe::andorra::Andorra;
-pub use crate::collect::europe::armenia::Armenia;
-pub use crate::collect::europe::azerbaijan::Azerbaijan;
-pub use crate::collect::europe::belarus::Belarus;
-pub use crate::collect::europe::bosnia::Bosnia;
-pub use crate::collect::europe::bulgaria::Bulgaria;
-pub use crate::collect::europe::croatia::Croatia;
-pub use crate::collect::europe::cyprus::Cyprus;
-pub use crate::collect::europe::czechia::Czechia;
-pub use crate::collect::europe::denmark::Denmark;
-pub use crate::collect::europe::estonia::Estonia;
-pub use crate::collect::europe::finland::Finland;
-pub use crate::collect::europe::spain::Spain;
+pub struct Bulgaria
+{
+}
+
+impl Bulgaria
+{
+  /**
+   * Returns a new instance.
+   */
+  pub fn new() -> Bulgaria
+  {
+    Bulgaria { }
+  }
+}
+
+impl Collect for Bulgaria
+{
+  /**
+   * Returns the geo id (two-letter code) of the country for which the data
+   * is collected.
+   */
+  fn geo_id(&self) -> &str
+  {
+    "BG" // Bulgaria
+  }
+
+  fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
+  {
+    // disease.sh historical API seems to be off by one day, so let's fix that.
+    match disease_sh::request_historical_api(self.geo_id(), &range)
+    {
+      Ok(vector) => Ok(disease_sh::shift_one_day_later(&vector)),
+      Err(e) => Err(e)
+    }
+  }
+}

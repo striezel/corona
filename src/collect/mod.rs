@@ -21,11 +21,7 @@ mod europe;
 use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
 use crate::data::Numbers;
-use europe::Albania;
-use europe::Andorra;
-use europe::Armenia;
-use europe::Azerbaijan;
-use europe::Spain;
+use europe::*;
 
 
 /// common trait / interface for collecting new data
@@ -68,6 +64,15 @@ impl Collector
       Box::new(Andorra::new()),
       Box::new(Armenia::new()),
       Box::new(Azerbaijan::new()),
+      Box::new(Belarus::new()),
+      Box::new(Bosnia::new()),
+      Box::new(Bulgaria::new()),
+      Box::new(Croatia::new()),
+      Box::new(Cyprus::new()),
+      Box::new(Czechia::new()),
+      Box::new(Denmark::new()),
+      Box::new(Estonia::new()),
+      Box::new(Finland::new()),
       Box::new(Spain::new())
     ] }
   }

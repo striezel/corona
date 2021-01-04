@@ -15,32 +15,34 @@
  -------------------------------------------------------------------------------
 */
 
-mod albania;
-mod andorra;
-mod armenia;
-mod azerbaijan;
-mod belarus;
-mod bosnia;
-mod bulgaria;
-mod croatia;
-mod cyprus;
-mod czechia;
-mod denmark;
-mod estonia;
-mod finland;
-mod spain;
+use crate::collect::Collect;
 
-pub use crate::collect::europe::albania::Albania;
-pub use crate::collect::europe::andorra::Andorra;
-pub use crate::collect::europe::armenia::Armenia;
-pub use crate::collect::europe::azerbaijan::Azerbaijan;
-pub use crate::collect::europe::belarus::Belarus;
-pub use crate::collect::europe::bosnia::Bosnia;
-pub use crate::collect::europe::bulgaria::Bulgaria;
-pub use crate::collect::europe::croatia::Croatia;
-pub use crate::collect::europe::cyprus::Cyprus;
-pub use crate::collect::europe::czechia::Czechia;
-pub use crate::collect::europe::denmark::Denmark;
-pub use crate::collect::europe::estonia::Estonia;
-pub use crate::collect::europe::finland::Finland;
-pub use crate::collect::europe::spain::Spain;
+pub struct Czechia
+{
+}
+
+impl Czechia
+{
+  /**
+   * Returns a new instance.
+   */
+  pub fn new() -> Czechia
+  {
+    Czechia { }
+  }
+}
+
+impl Collect for Czechia
+{
+  /**
+   * Returns the geo id (two-letter code) of the country for which the data
+   * is collected.
+   */
+  fn geo_id(&self) -> &str
+  {
+    "CZ" // Czechia
+  }
+
+  // Czechia uses the default implementation of collect(), which is to query the
+  // disease.sh historical API.
+}
