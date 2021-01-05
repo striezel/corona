@@ -20,22 +20,22 @@ use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
 use crate::data::Numbers;
 
-pub struct Denmark
+pub struct Ireland
 {
 }
 
-impl Denmark
+impl Ireland
 {
   /**
    * Returns a new instance.
    */
-  pub fn new() -> Denmark
+  pub fn new() -> Ireland
   {
-    Denmark { }
+    Ireland { }
   }
 }
 
-impl Collect for Denmark
+impl Collect for Ireland
 {
   /**
    * Returns the geo id (two-letter code) of the country for which the data
@@ -43,7 +43,7 @@ impl Collect for Denmark
    */
   fn geo_id(&self) -> &str
   {
-    "DK" // Denmark
+    "IE" // Ireland
   }
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
@@ -54,9 +54,5 @@ impl Collect for Denmark
       Ok(vector) => Ok(disease_sh::shift_one_day_later(&vector)),
       Err(e) => Err(e)
     }
-    // TODO: Data sometimes seems the be off by one or two cases per day.
-    //       Find out why that is the case and fix it.
-    //       Maybe it is because the Faroe Islands are sometimes counted as a
-    //       separate country?
   }
 }

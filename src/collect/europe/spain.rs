@@ -24,7 +24,7 @@ pub struct Spain
 impl Spain
 {
   /**
-   * Returns a new instance of Spain.
+   * Returns a new instance.
    */
   pub fn new() -> Spain
   {
@@ -32,7 +32,6 @@ impl Spain
   }
 }
 
-/// common trait / interface for collecting new data
 impl Collect for Spain
 {
   /**

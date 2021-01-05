@@ -18,8 +18,10 @@
 mod albania;
 mod andorra;
 mod armenia;
+// TODO: Austria
 mod azerbaijan;
 mod belarus;
+// TODO: Belgium
 mod bosnia;
 mod bulgaria;
 mod croatia;
@@ -27,20 +29,62 @@ mod cyprus;
 mod czechia;
 mod denmark;
 mod estonia;
+// TODO: Faeroe Islands
 mod finland;
+// TODO: France
+mod georgia;
+// TODO: Germany, use numbers from Robert Koch Institute
+// TODO: Gibraltar
+mod greece;
+// TODO: Guernsey
+// TODO: Holy See / Vatican City
+mod hungary;
+mod iceland;
+mod ireland;
+// TODO: Isle of Man
+mod italy;
+// TODO: Jersey
+mod kosovo;
+mod latvia;
+// TODO: Liechtenstein
+mod lithuania;
+mod luxembourg;
+mod malta;
+mod moldova;
+mod monaco;
+mod montenegro;
+// TODO: Netherlands
+mod north_macedonia;
+mod norway;
 mod spain;
 
-pub use crate::collect::europe::albania::Albania;
-pub use crate::collect::europe::andorra::Andorra;
-pub use crate::collect::europe::armenia::Armenia;
-pub use crate::collect::europe::azerbaijan::Azerbaijan;
-pub use crate::collect::europe::belarus::Belarus;
-pub use crate::collect::europe::bosnia::Bosnia;
-pub use crate::collect::europe::bulgaria::Bulgaria;
-pub use crate::collect::europe::croatia::Croatia;
-pub use crate::collect::europe::cyprus::Cyprus;
-pub use crate::collect::europe::czechia::Czechia;
-pub use crate::collect::europe::denmark::Denmark;
-pub use crate::collect::europe::estonia::Estonia;
-pub use crate::collect::europe::finland::Finland;
-pub use crate::collect::europe::spain::Spain;
+pub use albania::Albania;
+pub use andorra::Andorra;
+pub use armenia::Armenia;
+pub use azerbaijan::Azerbaijan;
+pub use belarus::Belarus;
+pub use bosnia::Bosnia;
+pub use bulgaria::Bulgaria;
+pub use croatia::Croatia;
+pub use cyprus::Cyprus;
+pub use czechia::Czechia;
+pub use denmark::Denmark;
+pub use estonia::Estonia;
+pub use finland::Finland;
+pub use georgia::Georgia;
+pub use greece::Greece;
+pub use hungary::Hungary;
+pub use iceland::Iceland;
+pub use ireland::Ireland;
+pub use italy::Italy;
+pub use kosovo::Kosovo;
+pub use latvia::Latvia;
+pub use lithuania::Lithuania;
+pub use luxembourg::Luxembourg;
+pub use malta::Malta;
+pub use moldova::Moldova;
+pub use monaco::Monaco;
+pub use montenegro::Montenegro;
+pub use north_macedonia::NorthMacedonia;
+pub use norway::Norway;
+pub use spain::Spain;

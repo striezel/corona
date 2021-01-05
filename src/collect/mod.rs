@@ -73,6 +73,22 @@ impl Collector
       Box::new(Denmark::new()),
       Box::new(Estonia::new()),
       Box::new(Finland::new()),
+      Box::new(Georgia::new()),
+      Box::new(Greece::new()),
+      Box::new(Hungary::new()),
+      Box::new(Iceland::new()),
+      Box::new(Ireland::new()),
+      Box::new(Italy::new()),
+      Box::new(Kosovo::new()),
+      Box::new(Latvia::new()),
+      Box::new(Lithuania::new()),
+      Box::new(Luxembourg::new()),
+      Box::new(Malta::new()),
+      Box::new(Moldova::new()),
+      Box::new(Monaco::new()),
+      Box::new(Montenegro::new()),
+      Box::new(NorthMacedonia::new()),
+      Box::new(Norway::new()),
       Box::new(Spain::new())
     ] }
   }

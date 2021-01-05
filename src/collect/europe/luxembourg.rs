@@ -16,26 +16,23 @@
 */
 
 use crate::collect::Collect;
-use crate::collect::api::disease_sh;
-use crate::collect::api::Range;
-use crate::data::Numbers;
 
-pub struct Denmark
+pub struct Luxembourg
 {
 }
 
-impl Denmark
+impl Luxembourg
 {
   /**
    * Returns a new instance.
    */
-  pub fn new() -> Denmark
+  pub fn new() -> Luxembourg
   {
-    Denmark { }
+    Luxembourg { }
   }
 }
 
-impl Collect for Denmark
+impl Collect for Luxembourg
 {
   /**
    * Returns the geo id (two-letter code) of the country for which the data
@@ -43,20 +40,12 @@ impl Collect for Denmark
    */
   fn geo_id(&self) -> &str
   {
-    "DK" // Denmark
+    "LU" // Luxembourg
   }
 
-  fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
-  {
-    // disease.sh historical API seems to be off by one day, so let's fix that.
-    match disease_sh::request_historical_api(self.geo_id(), &range)
-    {
-      Ok(vector) => Ok(disease_sh::shift_one_day_later(&vector)),
-      Err(e) => Err(e)
-    }
-    // TODO: Data sometimes seems the be off by one or two cases per day.
-    //       Find out why that is the case and fix it.
-    //       Maybe it is because the Faroe Islands are sometimes counted as a
-    //       separate country?
-  }
+  // Luxembourg uses the default implementation of collect(), which is to query
+  // the disease.sh historical API.
+  // Note: Numbers seem to be off a bit - probably due to delayed updates. But
+  // on some days the total cases match exactly, so in the long run this will
+  // probably be fine.
 }
