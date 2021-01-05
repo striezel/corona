@@ -21,5 +21,6 @@ pub mod disease_sh;
 pub enum Range
 {
     Recent, // only collect recent data
+    #[allow(dead_code)] // TODO: Remove once All is used.
     All     // collect all data from the beginning
 }

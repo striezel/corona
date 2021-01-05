@@ -149,6 +149,7 @@ impl Db
     // but e. g. Debian 10 (current stable version) only has 1.41, so the
     // use of that constant has to be avoided.
     #[allow(clippy::eq_op)]
+    #[allow(clippy::zero_divided_by_zero)]
     const F64_NAN: f64 = 0.0_f64 / 0.0_f64;
     let mut last_geo_id = String::new();
     let mut country_id: i64 = -1;
