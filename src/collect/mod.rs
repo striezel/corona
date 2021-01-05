@@ -17,12 +17,13 @@
 
 mod api;
 mod europe;
+mod oceania;
 
 use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
 use crate::data::Numbers;
 use europe::*;
-
+use oceania::*;
 
 /// common trait / interface for collecting new data
 trait Collect
@@ -63,6 +64,7 @@ impl Collector
       Box::new(Albania::new()),
       Box::new(Andorra::new()),
       Box::new(Armenia::new()),
+      Box::new(Australia::new()),
       Box::new(Azerbaijan::new()),
       Box::new(Belarus::new()),
       Box::new(Bosnia::new()),
@@ -73,7 +75,9 @@ impl Collector
       Box::new(Denmark::new()),
       Box::new(Estonia::new()),
       Box::new(FaroeIslands::new()),
+      Box::new(Fiji::new()),
       Box::new(Finland::new()),
+      Box::new(FrenchPolynesia::new()),
       Box::new(Georgia::new()),
       Box::new(Gibraltar::new()),
       Box::new(Greece::new()),
@@ -87,11 +91,15 @@ impl Collector
       Box::new(Lithuania::new()),
       Box::new(Luxembourg::new()),
       Box::new(Malta::new()),
+      Box::new(MarshallIslands::new()),
       Box::new(Moldova::new()),
       Box::new(Monaco::new()),
       Box::new(Montenegro::new()),
+      Box::new(NewCaledonia::new()),
+      Box::new(NewZealand::new()),
       Box::new(NorthMacedonia::new()),
       Box::new(Norway::new()),
+      Box::new(PapuaNewGuinea::new()),
       Box::new(Poland::new()),
       Box::new(Portugal::new()),
       Box::new(Romania::new()),
@@ -99,10 +107,13 @@ impl Collector
       Box::new(Serbia::new()),
       Box::new(Slovakia::new()),
       Box::new(Slovenia::new()),
+      Box::new(SolomonIslands::new()),
       Box::new(Spain::new()),
       Box::new(Sweden::new()),
       Box::new(Ukraine::new()),
       Box::new(UnitedKingdom::new()),
+      Box::new(Vanuatu::new()),
+      Box::new(WallisAndFutuna::new()),
     ] }
   }
 
