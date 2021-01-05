@@ -99,7 +99,10 @@ impl Collector
       Box::new(Serbia::new()),
       Box::new(Slovakia::new()),
       Box::new(Slovenia::new()),
-      Box::new(Spain::new())
+      Box::new(Spain::new()),
+      Box::new(Sweden::new()),
+      Box::new(Ukraine::new()),
+      Box::new(UnitedKingdom::new()),
     ] }
   }
 
