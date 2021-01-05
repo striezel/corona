@@ -92,6 +92,13 @@ impl Collector
       Box::new(Montenegro::new()),
       Box::new(NorthMacedonia::new()),
       Box::new(Norway::new()),
+      Box::new(Poland::new()),
+      Box::new(Portugal::new()),
+      Box::new(Romania::new()),
+      Box::new(SanMarino::new()),
+      Box::new(Serbia::new()),
+      Box::new(Slovakia::new()),
+      Box::new(Slovenia::new()),
       Box::new(Spain::new())
     ] }
   }

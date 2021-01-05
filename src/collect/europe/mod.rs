@@ -56,6 +56,14 @@ mod montenegro;
 // TODO: Netherlands
 mod north_macedonia;
 mod norway;
+mod poland;
+mod portugal;
+mod romania;
+// TODO: Russia
+mod san_marino;
+mod serbia;
+mod slovakia;
+mod slovenia;
 mod spain;
 
 pub use albania::Albania;
@@ -90,4 +98,11 @@ pub use monaco::Monaco;
 pub use montenegro::Montenegro;
 pub use north_macedonia::NorthMacedonia;
 pub use norway::Norway;
+pub use poland::Poland;
+pub use portugal::Portugal;
+pub use romania::Romania;
+pub use san_marino::SanMarino;
+pub use serbia::Serbia;
+pub use slovakia::Slovakia;
+pub use slovenia::Slovenia;
 pub use spain::Spain;
