@@ -201,7 +201,7 @@ mod tests
   #[test]
   fn historical_api()
   {
-    let numbers = request_historical_api("ES");
+    let numbers = request_historical_api("ES", &Range::Recent);
     assert!(numbers.is_ok());
     let numbers = numbers.unwrap();
     assert!(numbers.len() > 0);
@@ -209,6 +209,18 @@ mod tests
     {
       assert!(numbers[idx-1].date < numbers[idx].date)
     }
+
+    let all_numbers = request_historical_api("ES", &Range::All);
+    assert!(all_numbers.is_ok());
+    let all_numbers = all_numbers.unwrap();
+    assert!(all_numbers.len() > 0);
+    for idx in 1..all_numbers.len()
+    {
+      assert!(all_numbers[idx-1].date < all_numbers[idx].date)
+    }
+
+    // All data should have more entries than recent data.
+    assert!(all_numbers.len() > numbers.len());
   }
 
   #[test]
