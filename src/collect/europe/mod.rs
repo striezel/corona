@@ -29,7 +29,7 @@ mod cyprus;
 mod czechia;
 mod denmark;
 mod estonia;
-// TODO: Faeroe Islands
+mod faroe_islands;
 mod finland;
 // TODO: France
 mod georgia;
@@ -70,6 +70,7 @@ pub use cyprus::Cyprus;
 pub use czechia::Czechia;
 pub use denmark::Denmark;
 pub use estonia::Estonia;
+pub use faroe_islands::FaroeIslands;
 pub use finland::Finland;
 pub use georgia::Georgia;
 pub use greece::Greece;

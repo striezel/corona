@@ -30,15 +30,40 @@ use serde_json::Value;
  */
 pub fn request_historical_api(geo_id: &str, range: &Range) -> Result<Vec<Numbers>, String>
 {
+  let url = construct_historical_api_url(geo_id, "", &range);
+  perform_historical_api_request(&url)
+}
+
+/**
+ * Request historical API of disease.sh for a single province of a country.
+ *
+ * @param  geo_id  geo id (i. e. two letter country code) of a country
+ * @param  province  name of the province as seen in the API response for the country
+ * @param  range   whether to collect recent or all data
+ * @return Returns a vector of Numbers containing the new daily cases.
+ *         If an error occurred, an Err containing the error message is
+ *         returned.
+ */
+pub fn request_historical_api_province(geo_id: &str, province: &str, range: &Range) -> Result<Vec<Numbers>, String>
+{
+  let url = construct_historical_api_url(geo_id, province, &range);
+  perform_historical_api_request(&url)
+}
+
+/**
+ * Performs a request to historical API of disease.sh for a given URL.
+ *
+ * @param  url   URL of the endpoint
+ * @return Returns a vector of Numbers containing the new daily cases.
+ *         If an error occurred, an Err containing the error message is
+ *         returned.
+ */
+fn perform_historical_api_request(url: &str) -> Result<Vec<Numbers>, String>
+{
   use reqwest::StatusCode;
   use std::io::Read;
 
-  let url = match range
-  {
-    Range::Recent => format!("https://corona.lmao.ninja/v3/covid-19/historical/{}", geo_id),
-    Range::All => format!("https://corona.lmao.ninja/v3/covid-19/historical/{}?lastdays=all", geo_id)
-  };
-  let mut res = match reqwest::blocking::get(&url)
+  let mut res = match reqwest::blocking::get(url)
   {
     Ok(responded) => responded,
     Err(e) => return Err(format!("API request failed: {}", e))
@@ -64,6 +89,43 @@ pub fn request_historical_api(geo_id: &str, range: &Range) -> Result<Vec<Numbers
   parse_json_timeline(&json)
 }
 
+/**
+ * Constructs the URL for a request to the historical API of disease.sh.
+ *
+ * @param  geo_id  geo id (i. e. two letter country code) of a country
+ * @param  province  name of the province as seen in the API response for the
+           country; if empty, the numbers for the whole country are requested
+ * @param  range   whether to collect recent or all data
+ * @return Returns a string containing the URL.
+ */
+fn construct_historical_api_url(geo_id: &str, province: &str, range: &Range) -> String
+{
+  if province.is_empty()
+  {
+    match range
+    {
+      Range::Recent => format!("https://corona.lmao.ninja/v3/covid-19/historical/{}", geo_id),
+      Range::All => format!("https://corona.lmao.ninja/v3/covid-19/historical/{}?lastdays=all", geo_id)
+    }
+  }
+  else
+  {
+    match range
+    {
+      Range::Recent => format!("https://corona.lmao.ninja/v3/covid-19/historical/{}/{}", geo_id, province),
+      Range::All => format!("https://corona.lmao.ninja/v3/covid-19/historical/{}/{}?lastdays=all", geo_id, province)
+    }
+  }
+}
+
+/**
+ * Parses JSON from historical API of disease.sh.
+ *
+ * @param  json  the parsed JSON object from serde_json
+ * @return Returns a vector of Numbers containing the new daily cases.
+ *         If an error occurred, an Err containing the error message is
+ *         returned.
+ */
 fn parse_json_timeline(json: &Value) -> Result<Vec<Numbers>, String>
 {
   use std::collections::HashMap;
@@ -211,6 +273,31 @@ mod tests
     }
 
     let all_numbers = request_historical_api("ES", &Range::All);
+    assert!(all_numbers.is_ok());
+    let all_numbers = all_numbers.unwrap();
+    assert!(all_numbers.len() > 0);
+    for idx in 1..all_numbers.len()
+    {
+      assert!(all_numbers[idx-1].date < all_numbers[idx].date)
+    }
+
+    // All data should have more entries than recent data.
+    assert!(all_numbers.len() > numbers.len());
+  }
+
+  #[test]
+  fn historical_api_province()
+  {
+    let numbers = request_historical_api_province("DK", "mainland", &Range::Recent);
+    assert!(numbers.is_ok());
+    let numbers = numbers.unwrap();
+    assert!(numbers.len() > 0);
+    for idx in 1..numbers.len()
+    {
+      assert!(numbers[idx-1].date < numbers[idx].date)
+    }
+
+    let all_numbers = request_historical_api_province("DK", "mainland", &Range::All);
     assert!(all_numbers.is_ok());
     let all_numbers = all_numbers.unwrap();
     assert!(all_numbers.len() > 0);

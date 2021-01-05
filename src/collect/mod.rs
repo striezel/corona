@@ -72,6 +72,7 @@ impl Collector
       Box::new(Czechia::new()),
       Box::new(Denmark::new()),
       Box::new(Estonia::new()),
+      Box::new(FaroeIslands::new()),
       Box::new(Finland::new()),
       Box::new(Georgia::new()),
       Box::new(Greece::new()),
