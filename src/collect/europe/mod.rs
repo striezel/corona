@@ -34,14 +34,14 @@ mod finland;
 // TODO: France
 mod georgia;
 // TODO: Germany, use numbers from Robert Koch Institute
-// TODO: Gibraltar
+mod gibraltar;
 mod greece;
 // TODO: Guernsey
 // TODO: Holy See / Vatican City
 mod hungary;
 mod iceland;
 mod ireland;
-// TODO: Isle of Man
+mod isle_of_man;
 mod italy;
 // TODO: Jersey
 mod kosovo;
@@ -73,10 +73,12 @@ pub use estonia::Estonia;
 pub use faroe_islands::FaroeIslands;
 pub use finland::Finland;
 pub use georgia::Georgia;
+pub use gibraltar::Gibraltar;
 pub use greece::Greece;
 pub use hungary::Hungary;
 pub use iceland::Iceland;
 pub use ireland::Ireland;
+pub use isle_of_man::IsleOfMan;
 pub use italy::Italy;
 pub use kosovo::Kosovo;
 pub use latvia::Latvia;
