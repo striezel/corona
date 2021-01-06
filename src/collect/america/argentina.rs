@@ -17,22 +17,22 @@
 
 use crate::collect::Collect;
 
-pub struct Spain
+pub struct Argentina
 {
 }
 
-impl Spain
+impl Argentina
 {
   /**
    * Returns a new instance.
    */
-  pub fn new() -> Spain
+  pub fn new() -> Argentina
   {
-    Spain { }
+    Argentina { }
   }
 }
 
-impl Collect for Spain
+impl Collect for Argentina
 {
   /**
    * Returns the geo id (two-letter code) of the country for which the data
@@ -40,9 +40,14 @@ impl Collect for Spain
    */
   fn geo_id(&self) -> &str
   {
-    "ES" // Spain
+    "AR" // Argentina
   }
 
   // Uses the default implementation of collect(), which is to query the
   // disease.sh historical API.
+
+  // Note: The numbers are consistently higher than those reported by the
+  // official Argentinian sources like
+  // <https://www.argentina.gob.ar/coronavirus/informes-diarios/reportes>
+  // or <https://twitter.com/msalnacion>.
 }

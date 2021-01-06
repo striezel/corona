@@ -16,12 +16,14 @@
 */
 
 mod api;
+mod america;
 mod europe;
 mod oceania;
 
 use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
 use crate::data::Numbers;
+use america::*;
 use europe::*;
 use oceania::*;
 
@@ -63,18 +65,41 @@ impl Collector
     Collector{ elements: vec![
       Box::new(Albania::new()),
       Box::new(Andorra::new()),
+      Box::new(Anguilla::new()),
+      Box::new(AntiguaAndBarbuda::new()),
+      Box::new(Argentina::new()),
       Box::new(Armenia::new()),
+      Box::new(Aruba::new()),
       Box::new(Australia::new()),
       Box::new(Azerbaijan::new()),
+      Box::new(Bahamas::new()),
+      Box::new(Barbados::new()),
       Box::new(Belarus::new()),
+      Box::new(Belize::new()),
+      Box::new(Bermuda::new()),
+      Box::new(Bolivia::new()),
       Box::new(Bosnia::new()),
       Box::new(Bulgaria::new()),
+      Box::new(Brazil::new()),
+      Box::new(BritishVirginIslands::new()),
+      Box::new(Canada::new()),
+      Box::new(CaymanIslands::new()),
+      Box::new(Chile::new()),
+      Box::new(Colombia::new()),
+      Box::new(CostaRica::new()),
       Box::new(Croatia::new()),
+      Box::new(Cuba::new()),
+      Box::new(Curacao::new()),
       Box::new(Cyprus::new()),
       Box::new(Czechia::new()),
       Box::new(Denmark::new()),
+      Box::new(Dominica::new()),
+      Box::new(DominicanRepublic::new()),
+      Box::new(Ecuador::new()),
+      Box::new(ElSalvador::new()),
       Box::new(Estonia::new()),
       Box::new(FaroeIslands::new()),
+      Box::new(FalklandIslands::new()),
       Box::new(Fiji::new()),
       Box::new(Finland::new()),
       Box::new(FrenchPolynesia::new()),

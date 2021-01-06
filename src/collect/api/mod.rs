@@ -18,6 +18,7 @@
 pub mod disease_sh;
 
 /// Determines the amount of data that shall be collected.
+#[derive(PartialEq)]
 pub enum Range
 {
     Recent, // only collect recent data

@@ -16,23 +16,26 @@
 */
 
 use crate::collect::Collect;
+use crate::collect::api::disease_sh;
+use crate::collect::api::Range;
+use crate::data::Numbers;
 
-pub struct Spain
+pub struct Anguilla
 {
 }
 
-impl Spain
+impl Anguilla
 {
   /**
    * Returns a new instance.
    */
-  pub fn new() -> Spain
+  pub fn new() -> Anguilla
   {
-    Spain { }
+    Anguilla { }
   }
 }
 
-impl Collect for Spain
+impl Collect for Anguilla
 {
   /**
    * Returns the geo id (two-letter code) of the country for which the data
@@ -40,9 +43,12 @@ impl Collect for Spain
    */
   fn geo_id(&self) -> &str
   {
-    "ES" // Spain
+    "AI" // Anguilla
   }
 
-  // Uses the default implementation of collect(), which is to query the
-  // disease.sh historical API.
+  fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
+  {
+    // Anguilla is a overseas territory of the UK.
+    disease_sh::request_historical_api_province("UK", "Anguilla", &range)
+  }
 }

@@ -17,22 +17,22 @@
 
 use crate::collect::Collect;
 
-pub struct Spain
+pub struct AntiguaAndBarbuda
 {
 }
 
-impl Spain
+impl AntiguaAndBarbuda
 {
   /**
    * Returns a new instance.
    */
-  pub fn new() -> Spain
+  pub fn new() -> AntiguaAndBarbuda
   {
-    Spain { }
+    AntiguaAndBarbuda { }
   }
 }
 
-impl Collect for Spain
+impl Collect for AntiguaAndBarbuda
 {
   /**
    * Returns the geo id (two-letter code) of the country for which the data
@@ -40,9 +40,9 @@ impl Collect for Spain
    */
   fn geo_id(&self) -> &str
   {
-    "ES" // Spain
+    "AG" // Antigua and Barbuda
   }
 
-  // Uses the default implementation of collect(), which is to query the
+  // Use the default implementation of collect(), which is to query the
   // disease.sh historical API.
 }

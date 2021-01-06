@@ -16,23 +16,26 @@
 */
 
 use crate::collect::Collect;
+use crate::collect::api::disease_sh;
+use crate::collect::api::Range;
+use crate::data::Numbers;
 
-pub struct Spain
+pub struct Aruba
 {
 }
 
-impl Spain
+impl Aruba
 {
   /**
    * Returns a new instance.
    */
-  pub fn new() -> Spain
+  pub fn new() -> Aruba
   {
-    Spain { }
+    Aruba { }
   }
 }
 
-impl Collect for Spain
+impl Collect for Aruba
 {
   /**
    * Returns the geo id (two-letter code) of the country for which the data
@@ -40,9 +43,16 @@ impl Collect for Spain
    */
   fn geo_id(&self) -> &str
   {
-    "ES" // Spain
+    "AW" // Aruba
   }
 
-  // Uses the default implementation of collect(), which is to query the
-  // disease.sh historical API.
+  fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
+  {
+    // disease.sh historical API seems to be off by one day, so let's fix that.
+    match disease_sh::request_historical_api_province("NL", "Aruba", &range)
+    {
+      Ok(vector) => Ok(disease_sh::shift_one_day_later(&vector)),
+      Err(e) => Err(e)
+    }
+  }
 }
