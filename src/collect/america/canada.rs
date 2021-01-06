@@ -133,7 +133,7 @@ impl Canada
     // Sort result by date, because other methods return sorted, too.
     result.sort_unstable_by(|a, b| a.date.cmp(&b.date));
     // Done. :)
-    return Ok(result)
+    Ok(result)
   }
 
   /**
