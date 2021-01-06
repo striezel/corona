@@ -18,10 +18,10 @@
 mod albania;
 mod andorra;
 mod armenia;
-// TODO: Austria
+mod austria;
 mod azerbaijan;
 mod belarus;
-// TODO: Belgium
+mod belgium;
 mod bosnia;
 mod bulgaria;
 mod croatia;
@@ -31,7 +31,7 @@ mod denmark;
 mod estonia;
 mod faroe_islands;
 mod finland;
-// TODO: France
+mod france;
 mod georgia;
 // TODO: Germany, use numbers from Robert Koch Institute
 mod gibraltar;
@@ -46,20 +46,20 @@ mod italy;
 // TODO: Jersey
 mod kosovo;
 mod latvia;
-// TODO: Liechtenstein
+mod liechtenstein;
 mod lithuania;
 mod luxembourg;
 mod malta;
 mod moldova;
 mod monaco;
 mod montenegro;
-// TODO: Netherlands
+mod netherlands;
 mod north_macedonia;
 mod norway;
 mod poland;
 mod portugal;
 mod romania;
-// TODO: Russia
+mod russia;
 mod san_marino;
 mod serbia;
 mod slovakia;
@@ -74,8 +74,10 @@ mod united_kingdom;
 pub use albania::Albania;
 pub use andorra::Andorra;
 pub use armenia::Armenia;
+pub use austria::Austria;
 pub use azerbaijan::Azerbaijan;
 pub use belarus::Belarus;
+pub use belgium::Belgium;
 pub use bosnia::Bosnia;
 pub use bulgaria::Bulgaria;
 pub use croatia::Croatia;
@@ -85,6 +87,7 @@ pub use denmark::Denmark;
 pub use estonia::Estonia;
 pub use faroe_islands::FaroeIslands;
 pub use finland::Finland;
+pub use france::France;
 pub use georgia::Georgia;
 pub use gibraltar::Gibraltar;
 pub use greece::Greece;
@@ -96,16 +99,19 @@ pub use italy::Italy;
 pub use kosovo::Kosovo;
 pub use latvia::Latvia;
 pub use lithuania::Lithuania;
+pub use liechtenstein::Liechtenstein;
 pub use luxembourg::Luxembourg;
 pub use malta::Malta;
 pub use moldova::Moldova;
 pub use monaco::Monaco;
 pub use montenegro::Montenegro;
+pub use netherlands::Netherlands;
 pub use north_macedonia::NorthMacedonia;
 pub use norway::Norway;
 pub use poland::Poland;
 pub use portugal::Portugal;
 pub use romania::Romania;
+pub use russia::Russia;
 pub use san_marino::SanMarino;
 pub use serbia::Serbia;
 pub use slovakia::Slovakia;
