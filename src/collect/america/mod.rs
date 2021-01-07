@@ -39,6 +39,12 @@ mod dominican_republic;
 mod ecuador;
 mod el_salvador;
 mod falkland_islands;
+mod greenland;
+mod grenada;
+mod guatemala;
+mod guyana;
+mod honduras;
+mod jamaica;
 // TODO: Some more.
 
 pub use anguilla::Anguilla;
@@ -64,3 +70,9 @@ pub use dominican_republic::DominicanRepublic;
 pub use ecuador::Ecuador;
 pub use el_salvador::ElSalvador;
 pub use falkland_islands::FalklandIslands;
+pub use greenland::Greenland;
+pub use grenada::Grenada;
+pub use guatemala::Guatemala;
+pub use guyana::Guyana;
+pub use honduras::Honduras;
+pub use jamaica::Jamaica;
