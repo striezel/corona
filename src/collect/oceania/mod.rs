@@ -18,11 +18,11 @@
 mod australia;
 mod fiji;
 mod french_polynesia;
-// TODO: Guam: Cannot find separate numbers for Guam in the API.
+mod guam;
 mod marshall_islands;
 mod new_caledonia;
 mod new_zealand;
-// TODO: Northern Mariana Islands: Cannot find separate numbers for them in the API.
+mod northern_mariana_islands;
 mod papua_new_guinea;
 mod solomon_islands;
 mod vanuatu;
@@ -31,9 +31,11 @@ mod wallis_and_futuna;
 pub use australia::Australia;
 pub use fiji::Fiji;
 pub use french_polynesia::FrenchPolynesia;
+pub use guam::Guam;
 pub use marshall_islands::MarshallIslands;
 pub use new_caledonia::NewCaledonia;
 pub use new_zealand::NewZealand;
+pub use northern_mariana_islands::NorthernMarianaIslands;
 pub use papua_new_guinea::PapuaNewGuinea;
 pub use solomon_islands::SolomonIslands;
 pub use vanuatu::Vanuatu;

@@ -31,7 +31,8 @@ use serde_json::Value;
 pub fn request_historical_api(geo_id: &str, range: &Range) -> Result<Vec<Numbers>, String>
 {
   let url = construct_historical_api_url(geo_id, "", &range);
-  perform_historical_api_request(&url)
+  let json = perform_api_request(&url)?;
+  parse_json_timeline(&json)
 }
 
 /**
@@ -47,18 +48,82 @@ pub fn request_historical_api(geo_id: &str, range: &Range) -> Result<Vec<Numbers
 pub fn request_historical_api_province(geo_id: &str, province: &str, range: &Range) -> Result<Vec<Numbers>, String>
 {
   let url = construct_historical_api_url(geo_id, province, &range);
-  perform_historical_api_request(&url)
+  let json = perform_api_request(&url)?;
+  parse_json_timeline(&json)
 }
 
 /**
- * Performs a request to historical API of disease.sh for a given URL.
+ * Request historical API of disease.sh for counties in the USA.
  *
- * @param  url   URL of the endpoint
+ * @param  county  name of the county
+ * @param  range   whether to collect recent or all data
  * @return Returns a vector of Numbers containing the new daily cases.
  *         If an error occurred, an Err containing the error message is
  *         returned.
  */
-fn perform_historical_api_request(url: &str) -> Result<Vec<Numbers>, String>
+pub fn request_historical_api_usa_counties(county: &str, range: &Range) -> Result<Vec<Numbers>, String>
+{
+  let url = construct_historical_api_url_usa_counties(county, &range);
+  let json = perform_api_request(&url)?;
+  // The API for US counties returns an array, where each element within is the
+  // data for a province within the area. To get the total numbers, those have
+  // to be added up.
+  let vec: Vec<Value> = match json
+  {
+    Value::Array(vector) => vector,
+    _ => return Err("Error: Found invalid JSON format in request for USA counties.".to_string())
+  };
+
+  let mut may_need_sorting = false;
+  let mut numbers: Vec<Numbers> = Vec::new();
+  for elem in vec.iter()
+  {
+    let partial_numbers = parse_json_timeline(&elem)?;
+    if numbers.is_empty()
+    {
+      numbers = partial_numbers;
+    }
+    else
+    {
+      // Add it up to existing numbers.
+      for num in partial_numbers.iter()
+      {
+        let pos = numbers.iter().position(|x| x.date == num.date);
+        if let Some(idx) = pos
+        {
+          numbers[idx].cases = numbers[idx].cases + num.cases;
+          numbers[idx].deaths = numbers[idx].deaths + num.deaths;
+        }
+        else
+        {
+          numbers.push(Numbers {
+            date: num.date.clone(),
+            cases: num.cases,
+            deaths: num.deaths });
+          // Vector may need to be sorted, because we do know whether it is
+          // still sorted after the push().
+          may_need_sorting = true;
+        }
+      }
+    }
+  }
+
+  if may_need_sorting
+  {
+    numbers.sort_unstable_by(|a, b| a.date.cmp(&b.date));
+  }
+  Ok(numbers)
+}
+
+/**
+ * Performs a request to the API of disease.sh for a given URL and deserializes the JSOn.
+ *
+ * @param  url   URL of the endpoint
+ * @return Returns a deserialized JSON value in case of success.
+ *         If an error occurred, an Err containing the error message is
+ *         returned.
+ */
+fn perform_api_request(url: &str) -> Result<serde_json::Value, String>
 {
   use reqwest::StatusCode;
   use std::io::Read;
@@ -80,13 +145,15 @@ fn perform_historical_api_request(url: &str) -> Result<Vec<Numbers>, String>
                         Headers:\n{:#?}\n\
                         Body:\n{}", res.status(), res.headers(), body));
   }
-
+  // Hint: The return cannot be moved out of the match expression, because the
+  // JSON parsing fails in that case - probably because type deduction is needed
+  // here by serde_json to properly deserialize the body.
   let json: Value = match serde_json::from_str(&body)
   {
     Ok(v) => v,
     Err(e) => return Err(format!("Failed to deserialize JSON from API: {}", e))
   };
-  parse_json_timeline(&json)
+  Ok(json)
 }
 
 /**
@@ -115,6 +182,22 @@ fn construct_historical_api_url(geo_id: &str, province: &str, range: &Range) -> 
       Range::Recent => format!("https://corona.lmao.ninja/v3/covid-19/historical/{}/{}", geo_id, province),
       Range::All => format!("https://corona.lmao.ninja/v3/covid-19/historical/{}/{}?lastdays=all", geo_id, province)
     }
+  }
+}
+
+/**
+ * Constructs the URL for a request to the historical API of disease.sh for an county of the USA.
+ *
+ * @param  county  name of the county as seen in the API
+ * @param  range   whether to collect recent or all data
+ * @return Returns a string containing the URL.
+ */
+fn construct_historical_api_url_usa_counties(county: &str, range: &Range) -> String
+{
+  match range
+  {
+    Range::Recent => format!("https://corona.lmao.ninja/v3/covid-19/historical/usacounties/{}", county),
+    Range::All => format!("https://corona.lmao.ninja/v3/covid-19/historical/usacounties/{}?lastdays=all", county)
   }
 }
 
@@ -298,6 +381,31 @@ mod tests
     }
 
     let all_numbers = request_historical_api_province("DK", "mainland", &Range::All);
+    assert!(all_numbers.is_ok());
+    let all_numbers = all_numbers.unwrap();
+    assert!(all_numbers.len() > 0);
+    for idx in 1..all_numbers.len()
+    {
+      assert!(all_numbers[idx-1].date < all_numbers[idx].date)
+    }
+
+    // All data should have more entries than recent data.
+    assert!(all_numbers.len() > numbers.len());
+  }
+
+  #[test]
+  fn historical_api_usa_counties()
+  {
+    let numbers = request_historical_api_usa_counties("guam", &Range::Recent);
+    assert!(numbers.is_ok());
+    let numbers = numbers.unwrap();
+    assert!(numbers.len() > 0);
+    for idx in 1..numbers.len()
+    {
+      assert!(numbers[idx-1].date < numbers[idx].date)
+    }
+
+    let all_numbers = request_historical_api_usa_counties("guam", &Range::All);
     assert!(all_numbers.is_ok());
     let all_numbers = all_numbers.unwrap();
     assert!(all_numbers.len() > 0);
