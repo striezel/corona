@@ -120,8 +120,8 @@ pub fn request_historical_api_usa_counties(county: &str, range: &Range) -> Resul
         let pos = numbers.iter().position(|x| x.date == num.date);
         if let Some(idx) = pos
         {
-          numbers[idx].cases = numbers[idx].cases + num.cases;
-          numbers[idx].deaths = numbers[idx].deaths + num.deaths;
+          numbers[idx].cases += num.cases;
+          numbers[idx].deaths += num.deaths;
         }
         else
         {
