@@ -52,8 +52,18 @@ mod nicaragua;
 mod panama;
 mod paraguay;
 mod peru;
-// TODO: Puerto Rico
-// TODO: Some more.
+mod puerto_rico;
+mod saint_kitts_and_nevis;
+mod saint_lucia;
+mod saint_vincent_and_the_grenadines;
+mod sint_maarten;
+mod suriname;
+mod trinidad_and_tobago;
+mod turks_and_caicos_islands;
+mod united_states_of_america;
+mod united_states_virgin_islands;
+mod uruguay;
+mod venezuela;
 
 pub use anguilla::Anguilla;
 pub use antigua_and_barbuda::AntiguaAndBarbuda;
@@ -91,3 +101,15 @@ pub use nicaragua::Nicaragua;
 pub use panama::Panama;
 pub use paraguay::Paraguay;
 pub use peru::Peru;
+pub use puerto_rico::PuertoRico;
+pub use saint_kitts_and_nevis::SaintKittsAndNevis;
+pub use saint_lucia::SaintLucia;
+pub use saint_vincent_and_the_grenadines::SaintVincentAndTheGrenadines;
+pub use sint_maarten::SintMaarten;
+pub use suriname::Suriname;
+pub use trinidad_and_tobago::TrinidadAndTobago;
+pub use turks_and_caicos_islands::TurksAndCaicosIslands;
+pub use united_states_of_america::UnitedStatesOfAmerica;
+pub use united_states_virgin_islands::UnitedStatesVirginIslands;
+pub use uruguay::Uruguay;
+pub use venezuela::Venezuela;
