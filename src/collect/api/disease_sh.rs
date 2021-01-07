@@ -53,6 +53,35 @@ pub fn request_historical_api_province(geo_id: &str, province: &str, range: &Ran
 }
 
 /**
+ * Request historical API of disease.sh for the 1st province (out of multiple) of a country.
+ *
+ * @param  geo_id  geo id (i. e. two letter country code) of a country
+ * @param  provinces  names of the province as seen in the API response for
+ *                    the country, separated by '|' (pipe character)
+ * @param  range   whether to collect recent or all data
+ * @return Returns a vector of Numbers containing the new daily cases for the first province.
+ *         No guarantee is given about the order of the provinces, so the first province out
+ *         of many could be any of the given provinces.
+ *         If an error occurred, an Err containing the error message is
+ *         returned.
+ */
+pub fn request_historical_api_first_of_multiple_provinces(geo_id: &str, provinces: &str, range: &Range) -> Result<Vec<Numbers>, String>
+{
+  let url = construct_historical_api_url(geo_id, provinces, &range);
+  let json = perform_api_request(&url)?;
+  let vec: Vec<Value> = match json
+  {
+    Value::Array(vector) => vector,
+    _ => return Err("Error: Found invalid JSON format in request for multiple provinces.".to_string())
+  };
+  if vec.is_empty()
+  {
+    return Err("Error: Found empty JSON array in request for multiple provinces.".to_string())
+  }
+  parse_json_timeline(&vec[0])
+}
+
+/**
  * Request historical API of disease.sh for counties in the USA.
  *
  * @param  county  name of the county

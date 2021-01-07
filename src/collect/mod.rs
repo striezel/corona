@@ -80,6 +80,7 @@ impl Collector
       Box::new(Belize::new()),
       Box::new(Bermuda::new()),
       Box::new(Bolivia::new()),
+      Box::new(BonaireSintEustatiusSaba::new()),
       Box::new(Bosnia::new()),
       Box::new(Bulgaria::new()),
       Box::new(Brazil::new()),

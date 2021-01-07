@@ -24,7 +24,7 @@ mod barbados;
 mod belize;
 mod bermuda;
 mod bolivia;
-// TODO: Bonaire, Saint Eustatius, Saba
+mod bonaire_sint_eustatius_saba;
 mod brazil;
 mod british_virgin_islands;
 mod canada;
@@ -74,6 +74,7 @@ pub use barbados::Barbados;
 pub use belize::Belize;
 pub use bermuda::Bermuda;
 pub use bolivia::Bolivia;
+pub use bonaire_sint_eustatius_saba::BonaireSintEustatiusSaba;
 pub use brazil::Brazil;
 pub use british_virgin_islands::BritishVirginIslands;
 pub use canada::Canada;
