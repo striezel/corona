@@ -43,8 +43,16 @@ mod greenland;
 mod grenada;
 mod guatemala;
 mod guyana;
+mod haiti;
 mod honduras;
 mod jamaica;
+mod mexico;
+mod montserrat;
+mod nicaragua;
+mod panama;
+mod paraguay;
+mod peru;
+// TODO: Puerto Rico
 // TODO: Some more.
 
 pub use anguilla::Anguilla;
@@ -74,5 +82,12 @@ pub use greenland::Greenland;
 pub use grenada::Grenada;
 pub use guatemala::Guatemala;
 pub use guyana::Guyana;
+pub use haiti::Haiti;
 pub use honduras::Honduras;
 pub use jamaica::Jamaica;
+pub use mexico::Mexico;
+pub use montserrat::Montserrat;
+pub use nicaragua::Nicaragua;
+pub use panama::Panama;
+pub use paraguay::Paraguay;
+pub use peru::Peru;
