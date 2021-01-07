@@ -201,3 +201,23 @@ impl Collect for Canada
     Ok(vec.drain(vec.len()-30..).collect())
   }
 }
+
+#[cfg(test)]
+mod tests
+{
+  use super::*;
+
+  #[test]
+  fn official_csv_data()
+  {
+    let data = Canada::official_csv_data();
+    assert!(data.is_ok());
+    let data = data.unwrap();
+    assert!(data.len() >= 30);
+    // Elements should be sorted by date.
+    for idx in 1..data.len()
+    {
+      assert!(data[idx-1].date < data[idx].date)
+    }
+  }
+}
