@@ -37,7 +37,7 @@ mod georgia;
 mod gibraltar;
 mod greece;
 // TODO: Guernsey
-// TODO: Holy See / Vatican City
+mod holy_see;
 mod hungary;
 mod iceland;
 mod ireland;
@@ -91,6 +91,7 @@ pub use france::France;
 pub use georgia::Georgia;
 pub use gibraltar::Gibraltar;
 pub use greece::Greece;
+pub use holy_see::HolySee;
 pub use hungary::Hungary;
 pub use iceland::Iceland;
 pub use ireland::Ireland;
