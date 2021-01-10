@@ -56,6 +56,13 @@ mod niger;
 mod nigeria;
 mod rwanda;
 mod sao_tome_and_principe;
+mod senegal;
+mod seychelles;
+mod sierra_leone;
+mod somalia;
+mod south_africa;
+mod south_sudan;
+mod sudan;
 // TODO: Some more.
 
 pub use algeria::Algeria;
@@ -99,3 +106,10 @@ pub use niger::Niger;
 pub use nigeria::Nigeria;
 pub use rwanda::Rwanda;
 pub use sao_tome_and_principe::SaoTomeAndPrincipe;
+pub use senegal::Senegal;
+pub use seychelles::Seychelles;
+pub use sierra_leone::SierraLeone;
+pub use somalia::Somalia;
+pub use south_africa::SouthAfrica;
+pub use south_sudan::SouthSudan;
+pub use sudan::Sudan;
