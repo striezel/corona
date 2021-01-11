@@ -252,10 +252,14 @@ impl Collector
       Box::new(Syria::new()),
       Box::new(Taiwan::new()),
       Box::new(Tajikistan::new()),
+      Box::new(Tanzania::new()),
       Box::new(Thailand::new()),
       Box::new(TimorLeste::new()),
+      Box::new(Togo::new()),
       Box::new(TrinidadAndTobago::new()),
+      Box::new(Tunisia::new()),
       Box::new(TurksAndCaicosIslands::new()),
+      Box::new(Uganda::new()),
       Box::new(Ukraine::new()),
       Box::new(UnitedArabEmirates::new()),
       Box::new(UnitedKingdom::new()),
@@ -268,6 +272,8 @@ impl Collector
       Box::new(Vietnam::new()),
       Box::new(WallisAndFutuna::new()),
       Box::new(Yemen::new()),
+      Box::new(Zambia::new()),
+      Box::new(Zimbabwe::new()),
     ] }
   }
 

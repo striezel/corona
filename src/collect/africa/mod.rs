@@ -63,7 +63,13 @@ mod somalia;
 mod south_africa;
 mod south_sudan;
 mod sudan;
-// TODO: Some more.
+mod tanzania;
+mod togo;
+mod tunisia;
+mod uganda;
+// TODO: Western Sahara
+mod zambia;
+mod zimbabwe;
 
 pub use algeria::Algeria;
 pub use angola::Angola;
@@ -113,3 +119,9 @@ pub use somalia::Somalia;
 pub use south_africa::SouthAfrica;
 pub use south_sudan::SouthSudan;
 pub use sudan::Sudan;
+pub use tanzania::Tanzania;
+pub use togo::Togo;
+pub use tunisia::Tunisia;
+pub use uganda::Uganda;
+pub use zambia::Zambia;
+pub use zimbabwe::Zimbabwe;
