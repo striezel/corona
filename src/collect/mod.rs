@@ -249,6 +249,7 @@ impl Collector
       Box::new(Sudan::new()),
       Box::new(Suriname::new()),
       Box::new(Sweden::new()),
+      Box::new(Switzerland::new()),
       Box::new(Syria::new()),
       Box::new(Taiwan::new()),
       Box::new(Tajikistan::new()),

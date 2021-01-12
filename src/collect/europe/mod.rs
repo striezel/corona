@@ -66,7 +66,7 @@ mod slovakia;
 mod slovenia;
 mod spain;
 mod sweden;
-// TODO: Switzerland: See https://www.covid19.admin.ch/api/data/...
+mod switzerland;
 // TODO: Turkey: See https://covid19.saglik.gov.tr/TR-66935/genel-koronavirus-tablosu.html
 mod ukraine;
 mod united_kingdom;
@@ -119,5 +119,6 @@ pub use slovakia::Slovakia;
 pub use slovenia::Slovenia;
 pub use spain::Spain;
 pub use sweden::Sweden;
+pub use switzerland::Switzerland;
 pub use ukraine::Ukraine;
 pub use united_kingdom::UnitedKingdom;
