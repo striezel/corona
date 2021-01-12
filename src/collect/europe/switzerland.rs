@@ -29,7 +29,7 @@ struct URLs
   deaths_url: String
 }
 
-struct CSVs
+struct CsvContent
 {
   cases_csv: String,
   deaths_csv: String
@@ -54,8 +54,8 @@ impl Switzerland
   fn official_csv_data() -> Result<Vec<Numbers>, String>
   {
     let urls = Switzerland::get_official_csv_data_urls()?;
-    let csvs = Switzerland::get_official_csv_content(&urls)?;
-    Switzerland::parse_official_csvs(&csvs)
+    let csv_content = Switzerland::get_official_csv_content(&urls)?;
+    Switzerland::parse_csv_content(&csv_content)
   }
 
   /**
@@ -122,17 +122,24 @@ impl Switzerland
       None => return Err(String::from("JSON from API does not contain element 'cases'!")),
       Some(_) => return Err(String::from("JSON from API contains element 'cases', but it is not a string!"))
     };
-    let deaths = match json.get("deaths")
+    let death = match json.get("death")
     {
       Some(Value::String(s)) => s,
-      None => return Err(String::from("JSON from API does not contain element 'deaths'!")),
-      Some(_) => return Err(String::from("JSON from API contains element 'deaths', but it is not a string!"))
+      None => return Err(String::from("JSON from API does not contain element 'death'!")),
+      Some(_) => return Err(String::from("JSON from API contains element 'death', but it is not a string!"))
     };
 
-    Ok(URLs { cases_url: cases.clone(), deaths_url: deaths.clone() })
+    Ok(URLs { cases_url: cases.clone(), deaths_url: death.clone() })
   }
 
-  fn get_official_csv_content(urls: &URLs) -> Result<CSVs, String>
+  /**
+   * Gets the CSV data for Switzerland as plain text.
+   *
+   * @param  urls    the URLs where the CSV files can be downloaded
+   * @return Returns a CsvContent struct containing the plain text CSV in case of success.
+   *         Returns a string containing an error message, if an error occurred.
+   */
+  fn get_official_csv_content(urls: &URLs) -> Result<CsvContent, String>
   {
     use reqwest::StatusCode;
     use std::io::Read;
@@ -171,14 +178,14 @@ impl Switzerland
                         Body:\n{}", res.status(), res.headers(), body_deaths));
     }
 
-    Ok(CSVs { cases_csv: body_cases, deaths_csv: body_deaths })
+    Ok(CsvContent { cases_csv: body_cases, deaths_csv: body_deaths })
   }
 
-  fn parse_official_csvs(csvs: &CSVs) -> Result<Vec<Numbers>, String>
+  fn parse_csv_content(csv_content: &CsvContent) -> Result<Vec<Numbers>, String>
   {
     use csv::Reader;
-
-    let mut reader = Reader::from_reader(csvs.cases_csv.as_bytes());
+    // Parse CSV with cases.
+    let mut reader = Reader::from_reader(csv_content.cases_csv.as_bytes());
     let check = match Switzerland::check_csv_headers(&mut reader)
     {
       Err(e) => return Err(e),
@@ -235,8 +242,78 @@ impl Switzerland
       result.push(Numbers { date: date.to_string(), cases, deaths: 0 });
     }
 
-    // TODO: Implement it.
-    Err(String::from("Not implemented yet!"))
+    // Parse CSV with number of deaths.
+    let mut reader = Reader::from_reader(csv_content.deaths_csv.as_bytes());
+    let check = match Switzerland::check_csv_headers(&mut reader)
+    {
+      Err(e) => return Err(e),
+      Ok(b) => b
+    };
+    if !check
+    {
+      return Err("CSV headers do not match!".to_string());
+    }
+    let mut may_need_sorting = false;
+    // potential endless loop # 2
+    loop
+    {
+      match reader.read_record(&mut record)
+      {
+        Ok(success) =>
+        {
+          if !success
+          {
+            // No more records to read.
+            break;
+          }
+        },
+        Err(e) =>
+        {
+          // Failed to read.
+          return Err(format!("Failed to read CSV record! {}", e));
+        }
+      }
+
+      // If "geoRegion" (first column) is not "CH", it's the data for one of
+      // the cantons (provinces) and it can be skipped, because we only want
+      // data for all of Switzerland here.
+      if record.get(0).unwrap() != "CH"
+      {
+        continue;
+      }
+      // Date is in second column named "datum".
+      let date = match record.get(1)
+      {
+        Some(s) => s,
+        None => continue
+      };
+      // Date has a format like "2020-12-31", i. e. it fits already.
+      if !date_regex.is_match(&date)
+      {
+        return Err(format!("Error: Date format does not match the YYYY-MM-DD pattern: '{}'.", date));
+      }
+      // Daily new deaths: "entries", idx 2.
+      let deaths: i32 = record.get(2).unwrap().parse().unwrap_or(-1);
+      let pos = result.iter().position(|x| x.date == date);
+      if let Some(idx) = pos
+      {
+        result[idx].deaths = deaths;
+      }
+      else
+      {
+        result.push(Numbers { date: date.to_string(), cases: 0, deaths });
+        // Vector may need to be sorted, because we do know whether it is
+        // still sorted after the push().
+        may_need_sorting = true;
+      }
+    }
+
+    if may_need_sorting
+    {
+      result.sort_unstable_by(|a, b| a.date.cmp(&b.date));
+    }
+
+    Ok(result)
   }
 
   /**
@@ -302,5 +379,25 @@ impl Collect for Switzerland
       return Ok(vec);
     }
     Ok(vec.drain(vec.len()-30..).collect())
+  }
+}
+
+#[cfg(test)]
+mod tests
+{
+  use super::*;
+
+  #[test]
+  fn official_csv_data()
+  {
+    let data = Switzerland::official_csv_data();
+    assert!(data.is_ok());
+    let data = data.unwrap();
+    assert!(data.len() >= 30);
+    // Elements should be sorted by date.
+    for idx in 1..data.len()
+    {
+      assert!(data[idx-1].date < data[idx].date)
+    }
   }
 }
