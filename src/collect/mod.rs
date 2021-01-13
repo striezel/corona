@@ -141,6 +141,7 @@ impl Collector
       Box::new(Gabon::new()),
       Box::new(Gambia::new()),
       Box::new(Georgia::new()),
+      Box::new(Germany::new()),
       Box::new(Ghana::new()),
       Box::new(Gibraltar::new()),
       Box::new(Greece::new()),

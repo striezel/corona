@@ -33,7 +33,7 @@ mod faroe_islands;
 mod finland;
 mod france;
 mod georgia;
-// TODO: Germany, use numbers from Robert Koch Institute
+mod germany;
 mod gibraltar;
 mod greece;
 // TODO: Guernsey
@@ -89,6 +89,7 @@ pub use faroe_islands::FaroeIslands;
 pub use finland::Finland;
 pub use france::France;
 pub use georgia::Georgia;
+pub use germany::Germany;
 pub use gibraltar::Gibraltar;
 pub use greece::Greece;
 pub use holy_see::HolySee;
