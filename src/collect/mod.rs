@@ -259,6 +259,7 @@ impl Collector
       Box::new(Togo::new()),
       Box::new(TrinidadAndTobago::new()),
       Box::new(Tunisia::new()),
+      Box::new(Turkey::new()),
       Box::new(TurksAndCaicosIslands::new()),
       Box::new(Uganda::new()),
       Box::new(Ukraine::new()),
