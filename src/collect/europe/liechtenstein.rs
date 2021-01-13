@@ -16,6 +16,8 @@
 */
 
 use crate::collect::Collect;
+use crate::collect::api::Range;
+use crate::data::Numbers;
 
 pub struct Liechtenstein
 {
@@ -43,8 +45,42 @@ impl Collect for Liechtenstein
     "LI" // Liechtenstein
   }
 
-  // Uses the default implementation of collect(), which is to query the
-  // disease.sh historical API.
+  fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
+  {
+    use super::switzerland::Switzerland;
+    // CSV data for Switzerland also contains data for Liechtenstein
+    // (FL = "Fürstentum Liechtenstein"), so let's use that here, too.
+    let vec = Switzerland::official_csv_data("FL");
+    if vec.is_err() || range == &Range::All
+    {
+      return vec;
+    }
+    // Shorten to 30 elements, if necessary.
+    let mut vec = vec.unwrap();
+    if vec.len() <= 30
+    {
+      return Ok(vec);
+    }
+    Ok(vec.drain(vec.len()-30..).collect())
+  }
+}
 
-  // Note: The JHU numbers are a bit higher than the ECDC numbers.
+#[cfg(test)]
+mod tests
+{
+  use super::*;
+
+  #[test]
+  fn has_data()
+  {
+    let data = Liechtenstein::new().collect(&Range::Recent);
+    assert!(data.is_ok());
+    let data = data.unwrap();
+    assert!(!data.is_empty());
+    // Elements should be sorted by date.
+    for idx in 1..data.len()
+    {
+      assert!(data[idx-1].date < data[idx].date)
+    }
+  }
 }

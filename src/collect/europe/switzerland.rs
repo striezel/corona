@@ -48,14 +48,15 @@ impl Switzerland
   /**
    * Downloads and parses the official CSV data for Switzerland.
    *
+   * @param  geo_region  abbreviation for the canton, or "CH" for all of Switzerland
    * @return Returns a vector of Numbers in case of success.
    *         Returns a string containing an error message, if an error occurred.
    */
-  fn official_csv_data() -> Result<Vec<Numbers>, String>
+  pub fn official_csv_data(geo_region: &str) -> Result<Vec<Numbers>, String>
   {
     let urls = Switzerland::get_official_csv_data_urls()?;
     let csv_content = Switzerland::get_official_csv_content(&urls)?;
-    Switzerland::parse_csv_content(&csv_content)
+    Switzerland::parse_csv_content(&csv_content, geo_region)
   }
 
   /**
@@ -181,7 +182,7 @@ impl Switzerland
     Ok(CsvContent { cases_csv: body_cases, deaths_csv: body_deaths })
   }
 
-  fn parse_csv_content(csv_content: &CsvContent) -> Result<Vec<Numbers>, String>
+  fn parse_csv_content(csv_content: &CsvContent, geo_region: &str) -> Result<Vec<Numbers>, String>
   {
     use csv::Reader;
     // Parse CSV with cases.
@@ -219,10 +220,11 @@ impl Switzerland
         }
       }
 
-      // If "geoRegion" (first column) is not "CH", it's the data for one of
-      // the cantons (provinces) and it can be skipped, because we only want
-      // data for all of Switzerland here.
-      if record.get(0).unwrap() != "CH"
+      // If "geoRegion" (first column) does not match (i. e. it's not "CH"),
+      // it's the data for one of the other cantons (provinces) and it can be
+      // skipped, because we only want data for the correct region of
+      // Switzerland here.
+      if record.get(0).unwrap() != geo_region
       {
         continue;
       }
@@ -367,7 +369,7 @@ impl Collect for Switzerland
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
-    let vec = Switzerland::official_csv_data();
+    let vec = Switzerland::official_csv_data("CH");
     if vec.is_err() || range == &Range::All
     {
       return vec;
@@ -390,7 +392,7 @@ mod tests
   #[test]
   fn official_csv_data()
   {
-    let data = Switzerland::official_csv_data();
+    let data = Switzerland::official_csv_data("CH");
     assert!(data.is_ok());
     let data = data.unwrap();
     assert!(data.len() >= 30);
