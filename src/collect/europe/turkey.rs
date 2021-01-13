@@ -81,21 +81,19 @@ impl Turkey
       // Build it and unwrap it, because it does not error out with proper pattern.
       .build()
       .unwrap();
-    if re.captures_len() == 0
+    return match re.captures(&body)
     {
-      return Err(format!("Regex is probably wrong!"));
-    }
-    for cap in re.captures_iter(&body)
-    {
-      let json: Value = match serde_json::from_str(&cap[1])
+      Some(cap) =>
       {
-        Ok(v) => v,
-        Err(e) => return Err(format!("Failed to deserialize JSON from covid19.saglik.gov.tr: {}", e))
-      };
-      return Ok(json);
-    }
-
-    return Err(format!("Regular expression did not match!"))
+        let json: Value = match serde_json::from_str(&cap[1])
+        {
+          Ok(v) => v,
+          Err(e) => return Err(format!("Failed to deserialize JSON from covid19.saglik.gov.tr: {}", e))
+        };
+        Ok(json)
+      },
+      None => Err("Regular expression did not match!".to_string())
+    };
   }
 
   /**
@@ -109,7 +107,7 @@ impl Turkey
     let json = match json.as_array()
     {
       Some(vec) => vec,
-      None => return Err(format!("JSON is not an array!")),
+      None => return Err("JSON is not an array!".to_string()),
     };
     // Date format is something like "31.12.2020".
     let date_regex = regex::RegexBuilder::new("^([0-9]{2})\\.([0-9]{2})\\.([0-9]{4})$")
@@ -124,7 +122,7 @@ impl Turkey
       };
       let date: String = match date_regex.captures(date)
       {
-        Some(cap) => String::from(format!("{}-{}-{}", cap[3].to_string(), cap[2].to_string(), cap[1].to_string())),
+        Some(cap) => format!("{}-{}-{}", cap[3].to_string(), cap[2].to_string(), cap[1].to_string()),
         _ =>  continue
       };
       let cases: i32 = match day.get("gunluk_vaka")
