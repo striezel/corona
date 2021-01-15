@@ -387,10 +387,11 @@ impl Generator
                    + " (" + &country.geo_id + ")"));
     tpl.tag("plotId", &("graph_".to_owned() + &country.geo_id.to_lowercase()));
     // prepare numbers
-    let mut dates: Vec<String> = Vec::new();
-    let mut infections: Vec<String> = Vec::new();
-    let mut deaths: Vec<String> = Vec::new();
     let data = db.numbers(&country.country_id);
+    let capacity = data.len();
+    let mut dates: Vec<String> = Vec::with_capacity(capacity);
+    let mut infections: Vec<String> = Vec::with_capacity(capacity);
+    let mut deaths: Vec<String> = Vec::with_capacity(capacity);
     for d in data.iter()
     {
       dates.push(d.date.clone());
@@ -443,10 +444,11 @@ impl Generator
     tpl.tag("title", "Coronavirus cases worldwide");
     tpl.tag("plotId", "graph_world");
     // prepare numbers
-    let mut dates: Vec<String> = Vec::new();
-    let mut infections: Vec<String> = Vec::new();
-    let mut deaths: Vec<String> = Vec::new();
     let data = db.numbers_world();
+    let capacity = data.len();
+    let mut dates: Vec<String> = Vec::with_capacity(capacity);
+    let mut infections: Vec<String> = Vec::with_capacity(capacity);
+    let mut deaths: Vec<String> = Vec::with_capacity(capacity);
     for d in data.iter()
     {
       dates.push(d.date.clone());
@@ -498,10 +500,11 @@ impl Generator
                      + &country.name + " (" + &country.geo_id + ")"));
     tpl.tag("plotId", &("graph_accu_".to_owned() + &country.geo_id.to_lowercase()));
     // prepare numbers
-    let mut dates: Vec<String> = Vec::new();
-    let mut infections: Vec<String> = Vec::new();
-    let mut deaths: Vec<String> = Vec::new();
     let data = db.accumulated_numbers(&country.country_id);
+    let capacity = data.len();
+    let mut dates: Vec<String> = Vec::with_capacity(capacity);
+    let mut infections: Vec<String> = Vec::with_capacity(capacity);
+    let mut deaths: Vec<String> = Vec::with_capacity(capacity);
     for d in data.iter()
     {
       dates.push(d.date.clone());
@@ -551,10 +554,11 @@ impl Generator
     tpl.tag("title", "Accumulated Coronavirus cases worldwide");
     tpl.tag("plotId", "graph_world_accu");
     // prepare numbers
-    let mut dates: Vec<String> = Vec::new();
-    let mut infections: Vec<String> = Vec::new();
-    let mut deaths: Vec<String> = Vec::new();
     let data = db.accumulated_numbers_world();
+    let capacity = data.len();
+    let mut dates: Vec<String> = Vec::with_capacity(capacity);
+    let mut infections: Vec<String> = Vec::with_capacity(capacity);
+    let mut deaths: Vec<String> = Vec::with_capacity(capacity);
     for d in data.iter()
     {
       dates.push(d.date.clone());
@@ -602,9 +606,6 @@ impl Generator
     {
       return None;
     }
-    // prepare numbers
-    let mut dates: Vec<String> = Vec::new();
-    let mut incidence: Vec<String> = Vec::new();
     let data = db.incidence(&country.country_id);
     // May be an empty array, if there is no known incidence.
     if data.is_empty()
@@ -614,6 +615,10 @@ impl Generator
     tpl.tag("title", &("Coronavirus: 14-day incidence in ".to_owned()
                      + &country.name + " (" + &country.geo_id + ")"));
     tpl.tag("plotId", &("graph_incidence14_".to_owned() + &country.geo_id.to_lowercase()));
+    // prepare numbers
+    let capacity = data.len();
+    let mut dates: Vec<String> = Vec::with_capacity(capacity);
+    let mut incidence: Vec<String> = Vec::with_capacity(capacity);
     for d in data.iter()
     {
       dates.push(d.date.clone());
@@ -665,8 +670,9 @@ impl Generator
         continue;
       }
       // prepare data for plot
-      let mut dates: Vec<String> = Vec::new();
-      let mut incidence: Vec<String> = Vec::new();
+      let capacity = data.len();
+      let mut dates: Vec<String> = Vec::with_capacity(capacity);
+      let mut incidence: Vec<String> = Vec::with_capacity(capacity);
       for d in data.iter()
       {
         dates.push(d.date.clone());

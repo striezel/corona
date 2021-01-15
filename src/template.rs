@@ -64,10 +64,10 @@ impl Template
     }
     let content = match std::fs::read_to_string(path)
     {
-      Err(_) => return false,
-      Ok(s) => s
+      Ok(s) => s,
+      Err(_) => return false
     };
-    if content.trim() == ""
+    if content.trim().is_empty()
     {
       return false;
     }
@@ -113,15 +113,16 @@ impl Template
   {
     return match self.sections.get(section_name)
     {
+      Some(content) =>
+      {
+        self.template = Some(content.to_string());
+        true
+      },
       None =>
       {
         eprintln!("There is no section '{}'.", section_name);
         eprintln!("sections: {:?}", self.sections.keys());
         false
-      },
-      Some(content) => {
-        self.template = Some(content.to_string());
-        true
       }
     }
   }
@@ -163,8 +164,8 @@ impl Template
   {
     let mut out = match &self.template
     {
-      None => return None,
-      Some(val) => val.clone()
+      Some(val) => val.clone(),
+      None => return None
     };
     for (tag_name, tag_value) in self.tags.iter()
     {
