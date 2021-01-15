@@ -292,14 +292,16 @@ impl Collector
       let data = country.collect(&Range::Recent);
       match data
       {
-        Ok(vector) => {
+        Ok(vector) =>
+        {
           for num in vector.iter()
           {
             println!("{}: infections = {}, deaths = {}", &num.date, &num.cases,
                      &num.deaths);
           }
         },
-        Err(error) => {
+        Err(error) =>
+        {
           eprintln!("Error while collecting data for {}: {}", &country.geo_id(),
                     error);
           success = false;
