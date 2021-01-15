@@ -10,7 +10,7 @@ jobs:
         arch: [x86_64]
         variant: [gnu]
         channel: [stable]
-# Change the line above to the followng for more Rust channels:
+# Change the line above to the following for more Rust channels:
 #       channel: [stable, beta, nightly]
     steps:
     - uses: actions/checkout@v2
