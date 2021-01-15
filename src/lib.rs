@@ -23,6 +23,7 @@ mod database;
 mod db;
 mod generator;
 mod template;
+mod world;
 
 use crate::configuration::*;
 

@@ -286,6 +286,7 @@ impl Collector
     println!("Collecting data for {} {} ...", self.elements.len(),
              if self.elements.len() != 1 { "countries" } else { "country "}
     );
+    let world = crate::world::World::new();
     for country in self.elements.iter()
     {
       println!("Processing {} ...", &country.geo_id());
@@ -294,10 +295,16 @@ impl Collector
       {
         Ok(vector) =>
         {
-          for num in vector.iter()
+          let population = match world.find_by_geo_id(&country.geo_id())
           {
-            println!("{}: infections = {}, deaths = {}", &num.date, &num.cases,
-                     &num.deaths);
+            Some(c) => c.population,
+            None => -1
+          };
+          let with_incidence = crate::data::calculate_incidence(&vector, &population);
+          for num in with_incidence.iter()
+          {
+            println!("{}: infections = {}, deaths = {}, 14d incidence: {:?}",
+                     &num.date, &num.cases, &num.deaths, &num.incidence_14d);
           }
         },
         Err(error) =>
