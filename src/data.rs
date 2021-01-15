@@ -64,12 +64,12 @@ pub fn calculate_incidence(numbers: &[Numbers], population: &i32) -> Vec<Numbers
 {
   let len = numbers.len();
   let mut result: Vec<NumbersAndIncidence> = Vec::with_capacity(len);
-  for idx in 0..13.min(len)
+  for elem in numbers.iter().take(13)
   {
     result.push(NumbersAndIncidence {
-      date: numbers[idx].date.clone(),
-      cases: numbers[idx].cases,
-      deaths: numbers[idx].deaths,
+      date: elem.date.clone(),
+      cases: elem.cases,
+      deaths: elem.deaths,
       incidence_14d: None,
     });
   }
@@ -82,12 +82,12 @@ pub fn calculate_incidence(numbers: &[Numbers], population: &i32) -> Vec<Numbers
   // If there is no valid population number, no incidence can be calculated.
   if population <= &0
   {
-    for idx in 13..len
+    for elem in numbers.iter().skip(13)
     {
       result.push(NumbersAndIncidence {
-        date: numbers[idx].date.clone(),
-        cases: numbers[idx].cases,
-        deaths: numbers[idx].deaths,
+        date: elem.date.clone(),
+        cases: elem.cases,
+        deaths: elem.deaths,
         incidence_14d: None,
       });
     }
@@ -95,9 +95,9 @@ pub fn calculate_incidence(numbers: &[Numbers], population: &i32) -> Vec<Numbers
   }
 
   let mut sum: i32 = 0;
-  for idx in 0..14
+  for elem in numbers.iter().take(14)
   {
-    sum += numbers[idx].cases;
+    sum += elem.cases;
   }
   result.push(NumbersAndIncidence {
     date: numbers[13].date.clone(),
@@ -304,5 +304,67 @@ mod tests
     // 30th: 304.19705376
     assert!(incidence[30].incidence_14d.unwrap() > 304.197053);
     assert!(incidence[30].incidence_14d.unwrap() < 304.197054);
+  }
+
+  #[test]
+  fn calculate_incidence_no_population()
+  {
+    let numbers = vec![
+      Numbers { date: "2020-10-31".to_string(), cases: 19059, deaths: 103 },
+      Numbers { date: "2020-11-01".to_string(), cases: 14177, deaths: 29 },
+      Numbers { date: "2020-11-02".to_string(), cases: 12097, deaths: 49 },
+      Numbers { date: "2020-11-03".to_string(), cases: 15352, deaths: 131 },
+      Numbers { date: "2020-11-04".to_string(), cases: 17214, deaths: 151 },
+      Numbers { date: "2020-11-05".to_string(), cases: 19990, deaths: 118 },
+      Numbers { date: "2020-11-06".to_string(), cases: 21506, deaths: 166 },
+      Numbers { date: "2020-11-07".to_string(), cases: 23399, deaths: 130 },
+      Numbers { date: "2020-11-08".to_string(), cases: 16017, deaths: 63 },
+      Numbers { date: "2020-11-09".to_string(), cases: 13363, deaths: 63 },
+      Numbers { date: "2020-11-10".to_string(), cases: 15332, deaths: 154 },
+      Numbers { date: "2020-11-11".to_string(), cases: 18487, deaths: 261 },
+      Numbers { date: "2020-11-12".to_string(), cases: 21866, deaths: 215 },
+      Numbers { date: "2020-11-13".to_string(), cases: 23542, deaths: 218 },
+      Numbers { date: "2020-11-14".to_string(), cases: 22461, deaths: 178 },
+      Numbers { date: "2020-11-15".to_string(), cases: 16947, deaths: 107 },
+      Numbers { date: "2020-11-16".to_string(), cases: 10824, deaths: 62 },
+      Numbers { date: "2020-11-17".to_string(), cases: 14419, deaths: 267 },
+      Numbers { date: "2020-11-18".to_string(), cases: 17561, deaths: 305 },
+      Numbers { date: "2020-11-19".to_string(), cases: 22609, deaths: 251 },
+      Numbers { date: "2020-11-20".to_string(), cases: 23648, deaths: 260 },
+      Numbers { date: "2020-11-21".to_string(), cases: 22964, deaths: 254 },
+      Numbers { date: "2020-11-22".to_string(), cases: 15741, deaths: 138 },
+      Numbers { date: "2020-11-23".to_string(), cases: 10864, deaths: 90 },
+      Numbers { date: "2020-11-24".to_string(), cases: 13554, deaths: 249 },
+      Numbers { date: "2020-11-25".to_string(), cases: 18633, deaths: 410 },
+      Numbers { date: "2020-11-26".to_string(), cases: 22268, deaths: 389 },
+      Numbers { date: "2020-11-27".to_string(), cases: 22806, deaths: 426 },
+      Numbers { date: "2020-11-28".to_string(), cases: 21695, deaths: 379 },
+      Numbers { date: "2020-11-29".to_string(), cases: 14611, deaths: 158 },
+      Numbers { date: "2020-11-30".to_string(), cases: 11169, deaths: 125 },
+    ];
+
+    let incidence = calculate_incidence(&numbers, &0);
+    assert_eq!(numbers.len(), incidence.len());
+    for idx in 0..numbers.len()
+    {
+      // Numbers should be equal.
+      assert_eq!(numbers[idx].date, incidence[idx].date);
+      assert_eq!(numbers[idx].cases, incidence[idx].cases);
+      assert_eq!(numbers[idx].deaths, incidence[idx].deaths);
+      // Incidence values should not be set.
+      assert!(incidence[idx].incidence_14d.is_none());
+    }
+    // Same game for negative population.
+    let incidence = calculate_incidence(&numbers, &-1);
+    assert_eq!(numbers.len(), incidence.len());
+    for idx in 0..numbers.len()
+    {
+      // Numbers should be equal.
+      assert_eq!(numbers[idx].date, incidence[idx].date);
+      assert_eq!(numbers[idx].cases, incidence[idx].cases);
+      assert_eq!(numbers[idx].deaths, incidence[idx].deaths);
+      // Incidence values should not be set.
+      assert!(incidence[idx].incidence_14d.is_none());
+    }
   }
 }
