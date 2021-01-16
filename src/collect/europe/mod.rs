@@ -43,7 +43,7 @@ mod iceland;
 mod ireland;
 mod isle_of_man;
 mod italy;
-// TODO: Jersey
+mod jersey;
 mod kosovo;
 mod latvia;
 mod liechtenstein;
@@ -98,6 +98,7 @@ pub use iceland::Iceland;
 pub use ireland::Ireland;
 pub use isle_of_man::IsleOfMan;
 pub use italy::Italy;
+pub use jersey::Jersey;
 pub use kosovo::Kosovo;
 pub use latvia::Latvia;
 pub use lithuania::Lithuania;
