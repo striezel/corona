@@ -27,11 +27,19 @@ fn main()
     {
       eprintln!("Error: {}\n", err);
     }
-    eprintln!("Usage: {} html /path/to/corona.db /path/to/output/directory", args[0]);
+    let basename = match std::path::Path::new(&args[0]).file_name()
+    {
+      // This conversion is getting really nasty here. Can Rust do better?
+      Some(name) => name.to_string_lossy().into_owned(),
+      None => args[0].clone()
+    };
+    eprintln!("Usage: {} html /path/to/corona.db /path/to/output/directory", basename);
     eprintln!("           or");
-    eprintln!("Usage: {} csv /path/to/corona.db /path/to/output.csv", args[0]);
+    eprintln!("Usage: {} csv /path/to/corona.db /path/to/output.csv", basename);
     eprintln!("           or");
-    eprintln!("Usage: {} db /path/to/input.csv /path/to/output.db", args[0]);
+    eprintln!("Usage: {} db /path/to/input.csv /path/to/output.db", basename);
+    eprintln!("           or");
+    eprintln!("Usage: {} collect /path/to/output.db", basename);
     process::exit(1);
   });
 

@@ -66,16 +66,15 @@ pub fn run(op: &Operation) -> Result<(), String>
 
       Ok(())
     },
-    Operation::Collect =>
+    Operation::Collect(config) =>
     {
       use crate::collect::Collector;
 
-      let collector = Collector::new();
+      let collector = Collector::new(&config)?;
       if !collector.run()
       {
         return Err(String::from("An error occurred during data collection."))
       }
-      println!("Info: The collect operation is not completely implemented yet.");
       Ok(())
     },
     Operation::Version =>

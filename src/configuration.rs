@@ -18,11 +18,11 @@
 //#[derive(Copy, Clone)]
 pub enum Operation
 {
-  Html(HtmlConfiguration), // generate HTML files
-  Csv(CsvConfiguration),   // write data to CSV
-  Db(DbConfiguration),     // extract CSV data and write to DB
-  Collect,                 // collects new data
-  Version                  // show version
+  Html(HtmlConfiguration),       // generate HTML files
+  Csv(CsvConfiguration),         // write data to CSV
+  Db(DbConfiguration),           // extract CSV data and write to DB
+  Collect(CollectConfiguration), // collects data and creates a DB
+  Version                        // show version
 }
 
 pub struct HtmlConfiguration
@@ -40,6 +40,11 @@ pub struct CsvConfiguration
 pub struct DbConfiguration
 {
   pub csv_input_file: String,
+  pub db_path: String
+}
+
+pub struct CollectConfiguration
+{
   pub db_path: String
 }
 
@@ -100,9 +105,16 @@ pub fn parse_args(args: &[String]) -> Result<Operation, String>
 
   if args[1] == "collect"
   {
-    // requires one parameter:
+    // requires two parameters:
     // 1:   collect
-    return Ok(Operation::Collect);
+    // 2:   /path/to/new/corona.db
+    if args.len() < 3
+    {
+      return Err(String::from("Not enough command line parameters for data collection!"));
+    }
+
+    let db_path = args[2].clone();
+    return Ok(Operation::Collect(CollectConfiguration { db_path }));
   }
 
   if args[1] == "version"

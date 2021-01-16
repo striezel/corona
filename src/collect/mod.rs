@@ -30,6 +30,7 @@ use america::*;
 use asia::*;
 use europe::*;
 use oceania::*;
+use crate::configuration::CollectConfiguration;
 
 /// common trait / interface for collecting new data
 trait Collect
@@ -56,6 +57,7 @@ trait Collect
 
 pub struct Collector
 {
+  config: CollectConfiguration,
   elements: Vec<Box<dyn Collect>>
 }
 
@@ -63,10 +65,23 @@ impl Collector
 {
   /**
    * Creates a new Collector for all implemented countries.
+   *
+   * @return Returns a Collector, if the configuration is OK.
+   *         Returns an error message, if an error occurred.
    */
-  pub fn new() -> Collector
+  pub fn new(config: &CollectConfiguration) -> Result<Collector, String>
   {
-    Collector{ elements: vec![
+    if config.db_path.is_empty()
+    {
+      return Err("Path for SQLite database must not be an empty string!".to_string());
+    }
+
+    Ok(Collector{
+      config: CollectConfiguration
+      {
+        db_path: config.db_path.clone()
+      },
+      elements: vec![
       Box::new(Afghanistan::new()),
       Box::new(Albania::new()),
       Box::new(Algeria::new()),
@@ -277,11 +292,20 @@ impl Collector
       Box::new(Yemen::new()),
       Box::new(Zambia::new()),
       Box::new(Zimbabwe::new()),
-    ] }
+    ] })
   }
 
   pub fn run(&self) -> bool
   {
+    use crate::database::Database;
+
+    let db = Database::create(&self.config.db_path);
+    if !db.is_ok()
+    {
+      return false;
+    }
+    let db = db.unwrap();
+
     let mut success = true;
     println!("Collecting data for {} {} ...", self.elements.len(),
              if self.elements.len() != 1 { "countries" } else { "country "}
@@ -290,21 +314,43 @@ impl Collector
     for country in self.elements.iter()
     {
       println!("Processing {} ...", &country.geo_id());
-      let data = country.collect(&Range::Recent);
+      let data = country.collect(&Range::All);
       match data
       {
         Ok(vector) =>
         {
-          let population = match world.find_by_geo_id(&country.geo_id())
+          // Find matching country data.
+          let country_data = match world.find_by_geo_id(&country.geo_id())
           {
-            Some(c) => c.population,
-            None => -1
+            Some(c) => c,
+            None =>
+            {
+              success = false;
+              eprintln!("Error: Could not find country data for geo id '{}'!",
+                        &country.geo_id());
+              continue;
+            }
           };
-          let with_incidence = crate::data::calculate_incidence(&vector, &population);
-          for num in with_incidence.iter()
+          // Insert country into database.
+          let country_id = db.get_country_id_or_insert(&country.geo_id(),
+                                                       &country_data.name,
+                                                       &(country_data.population as i64),
+                                                       &country_data.country_code,
+                                                       &country_data.continent);
+          if country_id <= 0
           {
-            println!("{}: infections = {}, deaths = {}, 14d incidence: {:?}",
-                     &num.date, &num.cases, &num.deaths, &num.incidence_14d);
+            success = false;
+            eprintln!("Error: Could not insert country data for geo id '{}' ({}) into database!",
+                      &country.geo_id(), &country_data.name);
+            continue;
+          }
+          let with_incidence = crate::data::calculate_incidence(&vector, &country_data.population);
+          let inserted = db.insert_data(&(country_id as i32), &with_incidence);
+          if !inserted
+          {
+            success = false;
+            eprintln!("Error: Could not insert numbers for {} ({}) into database!",
+                      &country_data.name, &country.geo_id());
           }
         },
         Err(error) =>

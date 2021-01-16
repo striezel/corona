@@ -660,7 +660,7 @@ impl World
           country_id: 79,
           name: "Greece".to_string(),
           population: 10724599,
-          geo_id: "EL".to_string(),
+          geo_id: "GR".to_string(),
           country_code: "GRC".to_string(),
           continent: "Europe".to_string()
         },
