@@ -193,7 +193,7 @@ archived scripts ready in case that I should ever need them again.
 
 ## Copyright and Licensing
 
-Copyright 2020  Dirk Stolle
+Copyright 2020, 2021  Dirk Stolle
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
