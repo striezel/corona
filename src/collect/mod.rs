@@ -300,7 +300,7 @@ impl Collector
     use crate::database::Database;
 
     let db = Database::create(&self.config.db_path);
-    if !db.is_ok()
+    if db.is_err()
     {
       return false;
     }
