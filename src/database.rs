@@ -1111,7 +1111,44 @@ mod tests
           countryId, name, population, geoId, countryCode, continent) VALUES \
           (1, 'Wonderland', 42, 'XX', 'WON', 'Utopia'),\
           (2, 'Neuland', 1337, 'ZZ', 'TBL', 'Internet');";
+      // Batch statement should execute successfully.
       assert!(db.batch(&sql));
+      // Countries should exist.
+      let countries = db.countries();
+      let wonderland = Country {
+        country_id: 1,
+        geo_id: String::from("XX"),
+        name: String::from("Wonderland"),
+        population: 42,
+        country_code: String::from("WON"),
+        continent: String::from("Utopia")
+      };
+      let found = countries.iter().find(|&c| c.name == "Wonderland");
+      assert!(found.is_some());
+      let found = found.unwrap();
+      assert_eq!(wonderland.country_id, found.country_id);
+      assert_eq!(wonderland.name, found.name);
+      assert_eq!(wonderland.population, found.population);
+      assert_eq!(wonderland.geo_id, found.geo_id);
+      assert_eq!(wonderland.country_code, found.country_code);
+      assert_eq!(wonderland.continent, found.continent);
+      let neu_land = Country {
+        country_id: 2,
+        geo_id: String::from("ZZ"),
+        name: String::from("Neuland"),
+        population: 1337,
+        country_code: String::from("TBL"),
+        continent: String::from("Internet")
+      };
+      let found = countries.iter().find(|&c| c.name == "Neuland");
+      assert!(found.is_some());
+      let found = found.unwrap();
+      assert_eq!(neu_land.country_id, found.country_id);
+      assert_eq!(neu_land.name, found.name);
+      assert_eq!(neu_land.population, found.population);
+      assert_eq!(neu_land.geo_id, found.geo_id);
+      assert_eq!(neu_land.country_code, found.country_code);
+      assert_eq!(neu_land.continent, found.continent);
     }
     // clean up
     assert!(std::fs::remove_file(path).is_ok());
