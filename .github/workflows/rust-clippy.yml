@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install packages
-      run: sudo apt-get install -y curl gcc g++ libsqlite3-dev wget
+      run: sudo apt-get install -y curl gcc g++ libsqlite3-dev wget libssl-dev pkg-config
     - name: Rustup
       run: |
         wget -O /tmp/ru.sh https://sh.rustup.rs
@@ -26,4 +26,4 @@ jobs:
         cargo --version
     - name: Lint with clippy
       run: |
-        cargo clippy -- -D warnings -A clippy::suspicious_else_formatting -A clippy::zero_divided_by_zero
+        cargo clippy -- -D warnings -A clippy::suspicious_else_formatting

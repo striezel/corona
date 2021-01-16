@@ -3,7 +3,7 @@ alpine:
   stage: build
   before_script:
     - apk update
-    - apk add bash cargo rust sqlite-dev
+    - apk add bash cargo rust sqlite-dev openssl-dev
   script:
     - rustc --version
     - cargo --version
@@ -13,7 +13,7 @@ centos:
   image: centos:8
   stage: build
   before_script:
-    - yum install -y bash cargo rust sqlite-devel
+    - yum install -y bash cargo rust sqlite-devel openssl-devel
   script:
     - rustc --version
     - cargo --version
@@ -25,7 +25,7 @@ debian:
   before_script:
     - apt-get update
     - export DEBIAN_FRONTEND=noninteractive
-    - apt-get install -y bash cargo rustc libsqlite3-dev
+    - apt-get install -y bash cargo rustc libsqlite3-dev libssl-dev pkg-config
   script:
     - rustc --version
     - cargo --version
@@ -36,7 +36,7 @@ clippy:
   stage: build
   before_script:
     - apk update
-    - apk add bash curl wget sqlite-dev gcc g++
+    - apk add bash curl wget sqlite-dev gcc g++ openssl-dev
     - wget -O /tmp/ru.sh https://sh.rustup.rs
     - chmod u+x /tmp/ru.sh
     - /tmp/ru.sh -y --profile minimal --component clippy
@@ -45,7 +45,7 @@ clippy:
   script:
     - rustc --version
     - cargo --version
-    - cargo clippy -- -D warnings -A clippy::suspicious_else_formatting -A clippy::zero_divided_by_zero
+    - cargo clippy -- -D warnings -A clippy::suspicious_else_formatting
 
 php:
   image: debian:10-slim

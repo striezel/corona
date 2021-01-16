@@ -4,6 +4,14 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Next version 0.x.y (2021-01-??)
+
+The program can now generate a SQLite database by querying an API or similar
+sources to get the case numbers. This is started when the first command line
+argument is `collect`, e. g. by:
+
+    cargo run collect /path/to/sqlite.db
+
 ## Version 0.3.1 (2020-12-31)
 
 The program can now generate a SQLite database from a given CSV file with daily

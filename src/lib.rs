@@ -16,12 +16,14 @@
 */
 
 pub mod configuration;
+mod collect;
 mod csv;
 mod data;
 mod database;
 mod db;
 mod generator;
 mod template;
+mod world;
 
 use crate::configuration::*;
 
@@ -62,6 +64,17 @@ pub fn run(op: &Operation) -> Result<(), String>
         return Err("Failed to create SQLite database from CSV file!".to_string());
       }
 
+      Ok(())
+    },
+    Operation::Collect(config) =>
+    {
+      use crate::collect::Collector;
+
+      let collector = Collector::new(&config)?;
+      if !collector.run()
+      {
+        return Err(String::from("An error occurred during data collection."))
+      }
       Ok(())
     },
     Operation::Version =>

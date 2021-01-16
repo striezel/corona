@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020  Dirk Stolle
+    Copyright (C) 2020, 2021  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -18,10 +18,11 @@
 //#[derive(Copy, Clone)]
 pub enum Operation
 {
-  Html(HtmlConfiguration), // generate HTML files
-  Csv(CsvConfiguration),   // write data to CSV
-  Db(DbConfiguration),     // extract CSV data and write to DB
-  Version                  // show version
+  Html(HtmlConfiguration),       // generate HTML files
+  Csv(CsvConfiguration),         // write data to CSV
+  Db(DbConfiguration),           // extract CSV data and write to DB
+  Collect(CollectConfiguration), // collects data and creates a DB
+  Version                        // show version
 }
 
 pub struct HtmlConfiguration
@@ -39,6 +40,11 @@ pub struct CsvConfiguration
 pub struct DbConfiguration
 {
   pub csv_input_file: String,
+  pub db_path: String
+}
+
+pub struct CollectConfiguration
+{
   pub db_path: String
 }
 
@@ -95,6 +101,20 @@ pub fn parse_args(args: &[String]) -> Result<Operation, String>
     let csv_input_file = args[2].clone();
     let db_path = args[3].clone();
     return Ok(Operation::Db(DbConfiguration { csv_input_file, db_path }));
+  }
+
+  if args[1] == "collect"
+  {
+    // requires two parameters:
+    // 1:   collect
+    // 2:   /path/to/new/corona.db
+    if args.len() < 3
+    {
+      return Err(String::from("Not enough command line parameters for data collection!"));
+    }
+
+    let db_path = args[2].clone();
+    return Ok(Operation::Collect(CollectConfiguration { db_path }));
   }
 
   if args[1] == "version"

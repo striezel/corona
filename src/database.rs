@@ -595,6 +595,92 @@ impl Database
   }
 
   /**
+   * Inserts data for a given country id into the database.
+   *
+   * @param country_id   id of an existing country in the database
+   * @param data         slice of data to insert into the database
+   * @return Returns whether the operation was successful.
+   */
+  pub fn insert_data(&self, country_id: &i32, data: &[NumbersAndIncidence]) -> bool
+  {
+    if data.is_empty()
+    {
+      // No data means there is nothing to do here.
+      return true;
+    }
+    if country_id <= &0
+    {
+      eprintln!("Error: Country id must be a positive number!");
+      return false;
+    }
+
+    let mut batch = String::new();
+    let mut batch_count: u32 = 0;
+
+    let cid_as_string: &str = &country_id.to_string();
+    for elem in data.iter()
+    {
+      if batch.is_empty()
+      {
+        batch = String::from("INSERT INTO covid19 (countryId, date, cases, deaths, incidence14) VALUES ");
+        batch_count = 0;
+      }
+
+      batch.push('(');
+      batch.push_str(&cid_as_string);
+      batch.push_str(", ");
+      batch.push_str(&Database::quote(&elem.date));
+      batch.push_str(", ");
+      batch.push_str(&elem.cases.to_string());
+      batch.push_str(", ");
+      batch.push_str(&elem.deaths.to_string());
+      batch.push_str(", ");
+      if elem.incidence_14d.is_none()
+      {
+        batch.push_str("NULL");
+      }
+      else
+      {
+        batch.push_str(&elem.incidence_14d.unwrap().to_string());
+      }
+      batch.push_str("),");
+      batch_count += 1;
+
+      // Perform one insert for every 250 data sets.
+      if batch_count >= 250 && !batch.is_empty()
+      {
+        // replace last ',' with ';' to make it valid SQL syntax
+        batch = batch[0..batch.len() - 1].to_string();
+        batch.push(';');
+        if !self.batch(&batch)
+        {
+          eprintln!("Error: Could not batch-insert case numbers into database!");
+          return false;
+        }
+
+        batch.truncate(0);
+        batch_count = 0;
+      } // if batch
+    }
+
+    // Execute remaining batch inserts, if any are left.
+    if batch_count > 0 && !batch.is_empty()
+    {
+      // replace last ',' with ';' to make it valid SQL syntax
+      batch = batch[0..batch.len() - 1].to_string();
+      batch.push(';');
+      if !self.batch(&batch)
+      {
+        eprintln!("Error: Could not batch-insert case numbers into database!");
+        return false;
+      }
+    } // if batch remains
+
+    // Done.
+    true
+  }
+
+  /**
    * Quotes an ASCII string for use in an SQLite statement.
    *
    * @param s   the string that shall be quoted.
@@ -1111,7 +1197,84 @@ mod tests
           countryId, name, population, geoId, countryCode, continent) VALUES \
           (1, 'Wonderland', 42, 'XX', 'WON', 'Utopia'),\
           (2, 'Neuland', 1337, 'ZZ', 'TBL', 'Internet');";
+      // Batch statement should execute successfully.
       assert!(db.batch(&sql));
+      // Countries should exist.
+      let countries = db.countries();
+      let wonderland = Country {
+        country_id: 1,
+        geo_id: String::from("XX"),
+        name: String::from("Wonderland"),
+        population: 42,
+        country_code: String::from("WON"),
+        continent: String::from("Utopia")
+      };
+      let found = countries.iter().find(|&c| c.name == "Wonderland");
+      assert!(found.is_some());
+      let found = found.unwrap();
+      assert_eq!(wonderland.country_id, found.country_id);
+      assert_eq!(wonderland.name, found.name);
+      assert_eq!(wonderland.population, found.population);
+      assert_eq!(wonderland.geo_id, found.geo_id);
+      assert_eq!(wonderland.country_code, found.country_code);
+      assert_eq!(wonderland.continent, found.continent);
+      let neu_land = Country {
+        country_id: 2,
+        geo_id: String::from("ZZ"),
+        name: String::from("Neuland"),
+        population: 1337,
+        country_code: String::from("TBL"),
+        continent: String::from("Internet")
+      };
+      let found = countries.iter().find(|&c| c.name == "Neuland");
+      assert!(found.is_some());
+      let found = found.unwrap();
+      assert_eq!(neu_land.country_id, found.country_id);
+      assert_eq!(neu_land.name, found.name);
+      assert_eq!(neu_land.population, found.population);
+      assert_eq!(neu_land.geo_id, found.geo_id);
+      assert_eq!(neu_land.country_code, found.country_code);
+      assert_eq!(neu_land.continent, found.continent);
+    }
+    // clean up
+    assert!(std::fs::remove_file(path).is_ok());
+  }
+
+  #[test]
+  fn insert_data()
+  {
+    let path = std::env::temp_dir().join("insert_data_test.db");
+    // scope for db
+    {
+      let db = Database::create(path.to_str().unwrap());
+      // Creation should be successful and file should exist.
+      assert!(db.is_ok());
+      let db = db.unwrap();
+      // Insert some country.
+      let id = db.get_country_id_or_insert("XX", "Wonderland", &421337, "WON", "Utopia");
+      // Id -1 means an error occurred.
+      assert!(id != -1);
+      let data = vec![
+        NumbersAndIncidence { date: "2020-10-01".to_string(), cases: 12345, deaths: 543, incidence_14d: None },
+        NumbersAndIncidence { date: "2020-10-02".to_string(), cases: 54321, deaths: 1234, incidence_14d: Some(234.5) },
+      ];
+      // Insert should succeed.
+      let id = id as i32;
+      assert!(db.insert_data(&id, &data));
+      // Inserted data should exist.
+      let numbers = db.numbers(&id);
+      assert_eq!(2, numbers.len());
+      assert_eq!("2020-10-01", numbers[0].date);
+      assert_eq!(12345, numbers[0].cases);
+      assert_eq!(543, numbers[0].deaths);
+      assert_eq!("2020-10-02", numbers[1].date);
+      assert_eq!(54321, numbers[1].cases);
+      assert_eq!(1234, numbers[1].deaths);
+      // Incidence should exist - but only for one value.
+      let incidence = db.incidence(&id);
+      assert_eq!(1, incidence.len());
+      assert_eq!("2020-10-02", incidence[0].date);
+      assert_eq!(234.5, incidence[0].incidence);
     }
     // clean up
     assert!(std::fs::remove_file(path).is_ok());
