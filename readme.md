@@ -43,7 +43,7 @@ and Control (ECDC) at
 
 To build the application you need the Rust compiler. The Minimum Supported Rust
 Version (MSRV) is Rust 1.40. Furthermore, you need Cargo (Rust's package
-manager) and the development libraries for SQLite3.
+manager), the development libraries for SQLite3 and OpenSSL, and pkg-config.
 
 It also helps to have Git, a distributed version control system, on your system
 to get the latest source code directly from the Git repository.
@@ -61,7 +61,7 @@ or
 or
 
     # Alpine
-    apk add cargo git rust sqlite-dev openssl-dev
+    apk add cargo git rust sqlite-dev openssl-dev pkgconfig
 
 into a root terminal.
 
@@ -101,6 +101,8 @@ Currently, the application supports three modes of operation:
 * `csv`: creating a CSV file that contains the data from the SQLite database
 * `db`: creating a SQLite database file that contains the data from a given CSV
   file, basically the reverse of the `csv` operation
+* `collect`: collecting case numbers from APIs or other sources and create a
+  SQLite database to store the data
 
 The mode is passed as the first command line argument to the application.
 Only one mode of operation can be active during the application invocation.
@@ -167,6 +169,20 @@ because it is not updated on a regular schedule.
 Furthermore, replace `/path/to/sqlite.db` with a path where you want the SQLite
 database file to be located. Note that the file must not exist yet, because the
 application will refuse to overwrite an existing database file.
+
+### Collecting data and storing it into a SQLite database (`collect`)
+
+Starting in the root directory of the source, you can invoke the following
+command in a terminal to create a SQLite 3 database that contains the current
+case numbers (collected from various sources):
+
+    cargo run collect /path/to/sqlite.db
+
+That's it. Cargo will build the executable and run it afterwards.
+
+Replace `/path/to/sqlite.db` with a path where you want the SQLite database file
+to be located. Note that the file must not exist yet, because the application
+will refuse to overwrite an existing database file.
 
 ## Older PHP variant
 
