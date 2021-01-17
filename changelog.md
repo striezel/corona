@@ -4,7 +4,11 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Next version 0.4.0 (2021-01-17)
+## Version 0.4.1 (2021-01-??)
+
+Remove unnecessary date shift by one day in collected data of some countries.
+
+## Version 0.4.0 (2021-01-17)
 
 The program can now generate a SQLite database by querying an API or similar
 sources to get the case numbers. This is started when the first command line

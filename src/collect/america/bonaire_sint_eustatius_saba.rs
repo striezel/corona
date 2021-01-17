@@ -48,12 +48,7 @@ impl Collect for BonaireSintEustatiusSaba
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
-    // disease.sh historical API seems to be off by one day, so let's fix that.
-    match disease_sh::request_historical_api_first_of_multiple_provinces("NL", "bonaire%2C%20sint%20eustatius%20and%20saba%7C", &range)
-    {
-      Ok(vector) => Ok(disease_sh::shift_one_day_later(&vector)),
-      Err(e) => Err(e)
-    }
+    disease_sh::request_historical_api_first_of_multiple_provinces("NL", "bonaire%2C%20sint%20eustatius%20and%20saba%7C", &range)
   }
 }
 

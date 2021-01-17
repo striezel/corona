@@ -48,14 +48,9 @@ impl Collect for Myanmar
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
-    // disease.sh historical API seems to be off by one day, so let's fix that.
     // disease.sh API also still lists Myanmar as Burma, so we have to use "BU"
     // here instead of MM.
-    match disease_sh::request_historical_api("BU", &range)
-    {
-      Ok(vector) => Ok(disease_sh::shift_one_day_later(&vector)),
-      Err(e) => Err(e)
-    }
+    disease_sh::request_historical_api("BU", &range)
   }
 }
 
