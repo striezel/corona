@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version 0.4.1 (2021-01-??)
+## Version 0.4.1 (2021-01-17)
 
 * Remove unnecessary date shift by one day in collected data of some countries.
 * Add data for COVID-19 cases on "Diamond Princess" as hard-coded vector to the
