@@ -21,6 +21,7 @@ mod america;
 mod asia;
 mod europe;
 mod oceania;
+mod other;
 
 use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
@@ -30,6 +31,7 @@ use america::*;
 use asia::*;
 use europe::*;
 use oceania::*;
+use other::*;
 use crate::configuration::CollectConfiguration;
 
 /// common trait / interface for collecting new data
@@ -119,6 +121,7 @@ impl Collector
         Box::new(Cameroon::new()),
         Box::new(Canada::new()),
         Box::new(CapeVerde::new()),
+        Box::new(CasesOnAnInternationalConveyance::new()),
         Box::new(CaymanIslands::new()),
         Box::new(CentralAfricanRepublic::new()),
         Box::new(Chad::new()),

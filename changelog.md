@@ -6,7 +6,10 @@ improvements may be omitted.)_
 
 ## Version 0.4.1 (2021-01-??)
 
-Remove unnecessary date shift by one day in collected data of some countries.
+* Remove unnecessary date shift by one day in collected data of some countries.
+* Add data for COVID-19 cases on "Diamond Princess" as hard-coded vector to the
+  data collection. Since these numbers are known and will not change in the
+  future, it is safe to have them hard-coded.
 
 ## Version 0.4.0 (2021-01-17)
 
