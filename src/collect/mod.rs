@@ -304,6 +304,7 @@ impl Collector
     let db = Database::create(&self.config.db_path);
     if db.is_err()
     {
+      eprintln!("Error during database creation: {}", db.err().unwrap());
       return false;
     }
     let db = db.unwrap();
@@ -313,9 +314,11 @@ impl Collector
              if self.elements.len() != 1 { "countries" } else { "country "}
     );
     let world = crate::world::World::new();
+    let mut count_ok: u32 = 0;
+    let mut count_err: u32 = 0;
     for country in self.elements.iter()
     {
-      println!("Processing {} ...", &country.geo_id());
+      println!("Collecting data for {} ...", &country.geo_id());
       let data = country.collect(&Range::All);
       match data
       {
@@ -328,6 +331,7 @@ impl Collector
             None =>
             {
               success = false;
+              count_err += 1;
               eprintln!("Error: Could not find country data for geo id '{}'!",
                         &country.geo_id());
               continue;
@@ -342,6 +346,7 @@ impl Collector
           if country_id <= 0
           {
             success = false;
+            count_err += 1;
             eprintln!("Error: Could not insert country data for geo id '{}' ({}) into database!",
                       &country.geo_id(), &country_data.name);
             continue;
@@ -351,8 +356,14 @@ impl Collector
           if !inserted
           {
             success = false;
+            count_err += 1;
             eprintln!("Error: Could not insert numbers for {} ({}) into database!",
                       &country_data.name, &country.geo_id());
+          }
+          else
+          {
+            count_ok += 1;
+            println!("✓ {}", &country_data.name);
           }
         },
         Err(error) =>
@@ -360,10 +371,18 @@ impl Collector
           eprintln!("Error while collecting data for {}: {}", &country.geo_id(),
                     error);
           success = false;
+          count_err += 1;
         }
       }
     }
 
+    println!("✓ Successfully collected data for {} of {} {}.", count_ok,
+             self.elements.len(), if self.elements.len() != 1 { "countries" } else { "country "});
+    if count_err > 0
+    {
+      println!("❌ Failed to collect data for {} of {} {}.", count_err,
+               self.elements.len(), if self.elements.len() != 1 { "countries" } else { "country "});
+    }
     success
   }
 }
