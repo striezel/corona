@@ -565,6 +565,28 @@ impl Generator
       infections.push(d.cases.to_string());
       deaths.push(d.deaths.to_string());
     }
+    // Sometimes the values for the latest day are lower than the values for the
+    // previous day, because not all countries have numbers for the latest day
+    // yet. To avoid that, remove the latest day, if necessary.
+    // Sometimes it also affects the two latest days instead of just one.
+    let len = data.len();
+    if len >= 3 && (data[len-1].cases < data[len-3].cases || data[len-1].deaths < data[len-3].deaths)
+    {
+      // Remove the two last elements.
+      dates.pop();
+      dates.pop();
+      infections.pop();
+      infections.pop();
+      deaths.pop();
+      deaths.pop();
+    }
+    else if len >= 2 && (data[len-1].cases < data[len-2].cases || data[len-1].deaths < data[len-2].deaths)
+    {
+      // Remove last elements.
+      dates.pop();
+      infections.pop();
+      deaths.pop();
+    }
     // graph: date values
     // TODO: Use proper JSON library for encoding.
     let dates = match dates.is_empty()
