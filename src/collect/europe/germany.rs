@@ -18,7 +18,7 @@
 use crate::collect::Collect;
 use crate::collect::api::Range;
 use crate::data::Numbers;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 pub struct Germany
 {
@@ -34,17 +34,30 @@ impl Germany
     Germany { }
   }
 
+  /**
+   * Gets the numbers for Germany from the Robert Koch Institute.
+   *
+   * @return Returns the vector of Numbers, if successful.
+   *         Returns an error message otherwise.
+   */
   fn rki_data() -> Result<Vec<Numbers>, String>
   {
     let xlsx_path = Germany::download_xlsx()?;
     let result = Germany::extract_from_file(&xlsx_path);
     if std::fs::remove_file(&xlsx_path).is_err()
     {
-      println!("Info: Could not remove downloaded file!");
+      println!("Info: Could not remove downloaded spreadsheet file {}!",
+               xlsx_path.display());
     }
     result
   }
 
+  /**
+   * Downloads the spreadsheet with current data from the Robert Koch Institute.
+   *
+   * @return Returns a PathBuf containing the path of the downloaded file in
+   *         case of success. Returns an error message otherwise.
+   */
   fn download_xlsx() -> Result<PathBuf, String>
   {
     use reqwest::StatusCode;
@@ -75,7 +88,14 @@ impl Germany
     }
   }
 
-  fn extract_from_file(path: &PathBuf) -> Result<Vec<Numbers>, String>
+  /**
+   * Extracts the numbers from a RKI spreadsheet file (.xlsx).
+   *
+   * @param path   path to the spreadsheet file (.xlsx format)
+   * @return Returns a vector containing the extracted numbers in case of
+   *         success. Returns an error message otherwise.
+   */
+  fn extract_from_file(path: &Path) -> Result<Vec<Numbers>, String>
   {
     use calamine::{Reader, open_workbook, Xlsx, DataType};
     use chrono::prelude::*;
@@ -142,6 +162,12 @@ impl Germany
     Ok(result)
   }
 
+  /**
+   * Checks the headers of a worksheet to match the expectations.
+   *
+   * @param range  range covering the current worksheet
+   * @return Returns whether the headers match the expected headers.
+   */
   fn check_headers(range: &calamine::Range<calamine::DataType>) -> bool
   {
     use calamine::DataType;
