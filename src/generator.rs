@@ -139,9 +139,7 @@ impl Generator
     let db_path = Path::new(file!()) // current file: src/generator.rs
       .parent()
       .unwrap() // parent: src/
-      .join("..") // up one directory
-      .join("src") // into directory src/
-      .join("templates") // into directory src
+      .join("templates") // into directory templates
       .join("main.tpl"); // and to the main.tpl file;
     db_path.to_str().unwrap().to_string()
   }
@@ -738,8 +736,6 @@ impl Generator
     Path::new(file!()) // current file: src/generator.rs
       .parent()
       .unwrap() // parent: src/
-      .join("..") // up one directory
-      .join("src") // into directory src/
       .join("assets") // into directory assets
   }
 
