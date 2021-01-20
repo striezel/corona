@@ -159,7 +159,7 @@ impl Generator
   fn generate_country(&self, db: &Database, country: &Country) -> bool
   {
     let mut tpl = Template::new();
-    if !tpl.from_str(MAIN_TEMPLATE)
+    if !tpl.load_from_str(MAIN_TEMPLATE)
     {
       eprintln!("Error: Could not load main template!");
       return false;
@@ -240,7 +240,7 @@ impl Generator
   fn generate_world(&self, db: &Database) -> bool
   {
     let mut tpl = Template::new();
-    if !tpl.from_str(MAIN_TEMPLATE)
+    if !tpl.load_from_str(MAIN_TEMPLATE)
     {
       eprintln!("Error: Could not load main template!");
       return false;
@@ -307,7 +307,7 @@ impl Generator
   fn generate_continents(&self, db: &Database) -> bool
   {
     let mut tpl = Template::new();
-    if !tpl.from_str(MAIN_TEMPLATE)
+    if !tpl.load_from_str(MAIN_TEMPLATE)
     {
       eprintln!("Error: Could not load main template!");
       return false;
@@ -785,7 +785,7 @@ impl Generator
   fn create_index(&self, countries: &[Country], continents: &[String]) -> bool
   {
     let mut tpl = Template::new();
-    if !tpl.from_str(MAIN_TEMPLATE)
+    if !tpl.load_from_str(MAIN_TEMPLATE)
     {
       eprintln!("Error: Could not load main template file!");
       return false;

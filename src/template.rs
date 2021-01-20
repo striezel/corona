@@ -55,7 +55,7 @@ impl Template
    * @param path  path of the file to load
    * @return true, if template was loaded successfully; false otherwise
    */
-  pub fn from_file(&mut self, path: &Path) -> bool
+  pub fn load_from_file(&mut self, path: &Path) -> bool
   {
     if !path.is_file() || !path.exists()
     {
@@ -66,7 +66,7 @@ impl Template
       Ok(s) => s,
       Err(_) => return false
     };
-    self.from_str(&content)
+    self.load_from_str(&content)
   }
 
   /**
@@ -75,7 +75,7 @@ impl Template
    * @param content  content of the template
    * @return true, if template was loaded successfully; false otherwise
    */
-  pub fn from_str(&mut self, content: &str) -> bool
+  pub fn load_from_str(&mut self, content: &str) -> bool
   {
     if content.trim().is_empty()
     {
@@ -232,7 +232,7 @@ mod tests
   }
 
   #[test]
-  fn from_file_single_section()
+  fn load_from_file_single_section()
   {
     let path = env::temp_dir().join("from_file_single_section.tpl");
     let simple_template =
@@ -240,7 +240,7 @@ mod tests
     fs::write(&path, simple_template).expect("Unable to write template file for test!");
 
     let mut tpl = Template::new();
-    assert!(tpl.from_file(&path));
+    assert!(tpl.load_from_file(&path));
     assert_eq!(1, tpl.sections.len());
     assert!(tpl.sections.contains_key("test"));
     assert_eq!(Some(&String::from("<li><a href=\"{{url}}\">{{text}}</a></li>")), tpl.sections.get("test"));
@@ -249,14 +249,14 @@ mod tests
   }
 
   #[test]
-  fn from_file_newlines()
+  fn load_from_file_newlines()
   {
     let path = env::temp_dir().join("from_file_newlines.tpl");
     let simple_template = "<!--section-start::test--><li>\n  <a href=\"{{url}}\">{{text}}</a>\r\n</li><!--section-end::test-->";
     fs::write(&path, simple_template).expect("Unable to write template file for test!");
 
     let mut tpl = Template::new();
-    assert!(tpl.from_file(&path));
+    assert!(tpl.load_from_file(&path));
     assert_eq!(1, tpl.sections.len());
     assert!(tpl.sections.contains_key("test"));
     assert_eq!(Some(&String::from("<li>\n  <a href=\"{{url}}\">{{text}}</a>\r\n</li>")), tpl.sections.get("test"));
@@ -265,14 +265,14 @@ mod tests
   }
 
   #[test]
-  fn from_file_multiple_sections()
+  fn load_from_file_multiple_sections()
   {
     let path = env::temp_dir().join("from_file_multiple_sections.tpl");
     let simple_template = "<!--section-start::test--><a href=\"{{url}}\">{{text}}</a><!--section-end::test-->\n<!--section-start::foo--><b>Info:</b> {{info}}<!--section-end::foo-->";
     fs::write(&path, simple_template).expect("Unable to write template file for test!");
 
     let mut tpl = Template::new();
-    assert!(tpl.from_file(&path));
+    assert!(tpl.load_from_file(&path));
 
     assert_eq!(2, tpl.sections.len());
     assert!(tpl.sections.contains_key("test"));
@@ -284,14 +284,14 @@ mod tests
   }
 
   #[test]
-  fn from_file_multiple_sections_newlines()
+  fn load_from_file_multiple_sections_newlines()
   {
     let path = env::temp_dir().join("from_file_multiple_sections_newlines.tpl");
     let simple_template = "<!--section-start::test--><li>\n  <a href=\"{{url}}\">{{text}}</a>\r\n</li><!--section-end::test-->\n<!--section-start::foo--><b>Info\nFoo\r\nBar\rBaz:</b> {{info}}<!--section-end::foo-->";
     fs::write(&path, simple_template).expect("Unable to write template file for test!");
 
     let mut tpl = Template::new();
-    assert!(tpl.from_file(&path));
+    assert!(tpl.load_from_file(&path));
 
     assert_eq!(2, tpl.sections.len());
     assert!(tpl.sections.contains_key("test"));
@@ -303,37 +303,37 @@ mod tests
   }
 
   #[test]
-  fn from_str_single_section()
+  fn load_from_str_single_section()
   {
     let simple_template =
       "<!--section-start::test--><li><a href=\"{{url}}\">{{text}}</a></li><!--section-end::test-->";
 
     let mut tpl = Template::new();
-    assert!(tpl.from_str(&simple_template));
+    assert!(tpl.load_from_str(&simple_template));
     assert_eq!(1, tpl.sections.len());
     assert!(tpl.sections.contains_key("test"));
     assert_eq!(Some(&String::from("<li><a href=\"{{url}}\">{{text}}</a></li>")), tpl.sections.get("test"));
   }
 
   #[test]
-  fn from_str_newlines()
+  fn load_from_str_newlines()
   {
     let simple_template = "<!--section-start::test--><li>\n  <a href=\"{{url}}\">{{text}}</a>\r\n</li><!--section-end::test-->";
 
     let mut tpl = Template::new();
-    assert!(tpl.from_str(&simple_template));
+    assert!(tpl.load_from_str(&simple_template));
     assert_eq!(1, tpl.sections.len());
     assert!(tpl.sections.contains_key("test"));
     assert_eq!(Some(&String::from("<li>\n  <a href=\"{{url}}\">{{text}}</a>\r\n</li>")), tpl.sections.get("test"));
   }
 
   #[test]
-  fn from_str_multiple_sections()
+  fn load_from_str_multiple_sections()
   {
     let simple_template = "<!--section-start::test--><a href=\"{{url}}\">{{text}}</a><!--section-end::test-->\n<!--section-start::foo--><b>Info:</b> {{info}}<!--section-end::foo-->";
 
     let mut tpl = Template::new();
-    assert!(tpl.from_str(&simple_template));
+    assert!(tpl.load_from_str(&simple_template));
 
     assert_eq!(2, tpl.sections.len());
     assert!(tpl.sections.contains_key("test"));
@@ -343,12 +343,12 @@ mod tests
   }
 
   #[test]
-  fn from_str_multiple_sections_newlines()
+  fn load_from_str_multiple_sections_newlines()
   {
     let simple_template = "<!--section-start::test--><li>\n  <a href=\"{{url}}\">{{text}}</a>\r\n</li><!--section-end::test-->\n<!--section-start::foo--><b>Info\nFoo\r\nBar\rBaz:</b> {{info}}<!--section-end::foo-->";
 
     let mut tpl = Template::new();
-    assert!(tpl.from_str(&simple_template));
+    assert!(tpl.load_from_str(&simple_template));
 
     assert_eq!(2, tpl.sections.len());
     assert!(tpl.sections.contains_key("test"));
@@ -366,7 +366,7 @@ mod tests
     fs::write(&path, simple_template).expect("Unable to write template file for test!");
 
     let mut tpl = Template::new();
-    assert!(tpl.from_file(&path));
+    assert!(tpl.load_from_file(&path));
 
     // Section "test" should load just fine.
     assert!(tpl.load_section("test"));
@@ -386,7 +386,7 @@ mod tests
     fs::write(&path, simple_template).expect("Unable to write template file for test!");
 
     let mut tpl = Template::new();
-    assert!(tpl.from_file(&path));
+    assert!(tpl.load_from_file(&path));
     assert!(tpl.load_section("test"));
     tpl.tag("url", "http://localhost/");
     tpl.tag("text", "home");
@@ -405,7 +405,7 @@ mod tests
     fs::write(&path, simple_template).expect("Unable to write template file for test!");
 
     let mut tpl = Template::new();
-    assert!(tpl.from_file(&path));
+    assert!(tpl.load_from_file(&path));
     assert!(tpl.load_section("test"));
     tpl.tag("url", "http://localhost/");
     tpl.tag("text", "<< foo & 'bar' >>");
