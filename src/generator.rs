@@ -24,6 +24,12 @@ use std::fs; // for create_dir_all() and copy()
 use std::path::Path;
 use std::path::PathBuf;
 
+#[cfg(not(target_family = "windows"))]
+const MAIN_TEMPLATE: &'static str = include_str!("./templates/main.tpl");
+
+#[cfg(target_family = "windows")]
+const MAIN_TEMPLATE: &'static str = include_str!(".\\templates\\main.tpl");
+
 pub struct Generator
 {
   config: HtmlConfiguration
@@ -134,14 +140,13 @@ impl Generator
    *
    * @return Returns the (relative) path of the template file.
    */
-  fn get_template_file_name() -> String
+  fn get_template_file_path() -> PathBuf
   {
-    let db_path = Path::new(file!()) // current file: src/generator.rs
+    Path::new(file!()) // current file: src/generator.rs
       .parent()
       .unwrap() // parent: src/
       .join("templates") // into directory templates
-      .join("main.tpl"); // and to the main.tpl file;
-    db_path.to_str().unwrap().to_string()
+      .join("main.tpl") // and to the main.tpl file
   }
 
   /**
@@ -154,9 +159,9 @@ impl Generator
   fn generate_country(&self, db: &Database, country: &Country) -> bool
   {
     let mut tpl = Template::new();
-    if !tpl.from_file(&Generator::get_template_file_name())
+    if !tpl.from_str(MAIN_TEMPLATE)
     {
-      eprintln!("Error: Could not load main template file!");
+      eprintln!("Error: Could not load main template!");
       return false;
     }
     // scripts
@@ -235,9 +240,9 @@ impl Generator
   fn generate_world(&self, db: &Database) -> bool
   {
     let mut tpl = Template::new();
-    if !tpl.from_file(&Generator::get_template_file_name())
+    if !tpl.from_str(MAIN_TEMPLATE)
     {
-      eprintln!("Error: Could not load main template file!");
+      eprintln!("Error: Could not load main template!");
       return false;
     }
     // scripts
@@ -302,9 +307,9 @@ impl Generator
   fn generate_continents(&self, db: &Database) -> bool
   {
     let mut tpl = Template::new();
-    if !tpl.from_file(&Generator::get_template_file_name())
+    if !tpl.from_str(MAIN_TEMPLATE)
     {
-      eprintln!("Error: Could not load main template file!");
+      eprintln!("Error: Could not load main template!");
       return false;
     }
 
@@ -780,7 +785,7 @@ impl Generator
   fn create_index(&self, countries: &[Country], continents: &[String]) -> bool
   {
     let mut tpl = Template::new();
-    if !tpl.from_file(&Generator::get_template_file_name())
+    if !tpl.from_str(MAIN_TEMPLATE)
     {
       eprintln!("Error: Could not load main template file!");
       return false;
