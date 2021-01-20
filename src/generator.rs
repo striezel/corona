@@ -25,10 +25,10 @@ use std::path::Path;
 use std::path::PathBuf;
 
 #[cfg(not(target_family = "windows"))]
-const MAIN_TEMPLATE: &'static str = include_str!("./templates/main.tpl");
+const MAIN_TEMPLATE: &str = include_str!("./templates/main.tpl");
 
 #[cfg(target_family = "windows")]
-const MAIN_TEMPLATE: &'static str = include_str!(".\\templates\\main.tpl");
+const MAIN_TEMPLATE: &str = include_str!(".\\templates\\main.tpl");
 
 pub struct Generator
 {
