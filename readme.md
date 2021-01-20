@@ -132,6 +132,18 @@ because the application may overwrite existing files.
 After that, open the `index.html` file in that directory with the browser of
 your choice to get a list of available graphs by country.
 
+Since version 0.4.2 you can also specify your own template file for the HTML
+generation. Take a look at the [default template file](./src/templates/main.tpl)
+to get an idea what such a file can look like. The path to the custom template
+file has to be given after the output directory, e. g.:
+
+    cargo run html /path/to/corona.db /path/to/new/output/directory /home/user/my.tpl
+
+Replace `/home/user/my.tpl` with the path where your template file is located.
+Note that there is no documentation for the template file syntax yet, and it
+is currently unclear whether there will ever be such documentation. Don't count
+on it.
+
 ### Dump database content into CSV file (`csv`)
 
 Starting in the root directory of the source, you can invoke the following

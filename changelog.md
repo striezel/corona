@@ -4,6 +4,22 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version 0.4.2 (2021-01-20)
+
+Users can now specify an optional fourth argument to the HTML creation mode to
+use a custom template file for the HTML generation process. For example, if the
+template file is located at `/home/user/my.tpl`, the program can be invoked by
+this command to use that file:
+
+    cargo run html /path/to/corona.db /path/to/new/output/directory /home/user/my.tpl
+
+Of course, the previous way of invoking the HTML generation without an explicit
+template file is still available:
+
+    cargo run html /path/to/corona.db /path/to/new/output/directory
+
+In that case the program will just use the original template.
+
 ## Version 0.4.1 (2021-01-17)
 
 * Remove unnecessary date shift by one day in collected data of some countries.
