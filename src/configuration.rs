@@ -15,6 +15,8 @@
  -------------------------------------------------------------------------------
 */
 
+use std::path::PathBuf;
+
 //#[derive(Copy, Clone)]
 pub enum Operation
 {
@@ -28,7 +30,8 @@ pub enum Operation
 pub struct HtmlConfiguration
 {
   pub db_path: String,
-  pub output_directory: String
+  pub output_directory: String,
+  pub template_path: Option<PathBuf>
 }
 
 pub struct CsvConfiguration
@@ -73,10 +76,11 @@ pub fn parse_args(args: &[String]) -> Result<Operation, String>
 
   if args[1] == "html"
   {
-    // requires three parameters:
+    // requires three parameters, with optional fourth:
     // 1:   html
     // 2:   /path/to/corona.db
     // 3:   /path/to/output.csv
+    // 4:   /path/to/main.tpl (optional)
     if args.len() < 4
     {
       return Err(String::from("Not enough command line parameters for HTML generation!"));
@@ -84,7 +88,8 @@ pub fn parse_args(args: &[String]) -> Result<Operation, String>
 
     let db_path = args[2].clone();
     let output_directory = args[3].clone();
-    return Ok(Operation::Html(HtmlConfiguration{ db_path, output_directory }));
+    let template_path = if args.len() >= 5 { Some(PathBuf::from(&args[4])) } else { None };
+    return Ok(Operation::Html(HtmlConfiguration{ db_path, output_directory, template_path }));
   }
 
   if args[1] == "db"

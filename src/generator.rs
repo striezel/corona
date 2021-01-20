@@ -24,6 +24,12 @@ use std::fs; // for create_dir_all() and copy()
 use std::path::Path;
 use std::path::PathBuf;
 
+#[cfg(not(target_family = "windows"))]
+const MAIN_TEMPLATE: &str = include_str!("./templates/main.tpl");
+
+#[cfg(target_family = "windows")]
+const MAIN_TEMPLATE: &str = include_str!(".\\templates\\main.tpl");
+
 pub struct Generator
 {
   config: HtmlConfiguration
@@ -49,13 +55,21 @@ impl Generator
     {
       return Err("Path of output directory must be set to a non-empty string!".to_string());
     }
+    if let Some(path) = &config.template_path
+    {
+      if !path.exists()
+      {
+        return Err(format!("Template file '{}' does not exist!", path.display()));
+      }
+    }
 
     Ok(Generator
     {
       config: HtmlConfiguration
       {
         db_path: config.db_path.clone(),
-        output_directory: config.output_directory.clone()
+        output_directory: config.output_directory.clone(),
+        template_path: config.template_path.clone()
       }
     })
   }
@@ -130,18 +144,35 @@ impl Generator
   }
 
   /**
-   * Gets the path of the main.tpl template file.
+   * Loads the template from a file or the internal string slice.
+   * The decision is made depending on the configuration setting.
    *
-   * @return Returns the (relative) path of the template file.
+   * @param tpl   the template instance into which the template shall be loaded
+   * @return Returns whether the template was loaded successfully.
    */
-  fn get_template_file_name() -> String
+  fn load_template(&self, tpl: &mut Template) -> bool
   {
-    let db_path = Path::new(file!()) // current file: src/generator.rs
-      .parent()
-      .unwrap() // parent: src/
-      .join("templates") // into directory templates
-      .join("main.tpl"); // and to the main.tpl file;
-    db_path.to_str().unwrap().to_string()
+    match &self.config.template_path
+    {
+      None =>
+      {
+        if !tpl.load_from_str(MAIN_TEMPLATE)
+        {
+          eprintln!("Error: Could not load main template!");
+          return false;
+        }
+      },
+      Some(path) =>
+      {
+        if !tpl.load_from_file(&path)
+        {
+          eprintln!("Error: Could not load main template file '{}'!", path.display());
+          return false;
+        }
+      }
+    }
+
+    true
   }
 
   /**
@@ -154,9 +185,8 @@ impl Generator
   fn generate_country(&self, db: &Database, country: &Country) -> bool
   {
     let mut tpl = Template::new();
-    if !tpl.from_file(&Generator::get_template_file_name())
+    if !self.load_template(&mut tpl)
     {
-      eprintln!("Error: Could not load main template file!");
       return false;
     }
     // scripts
@@ -235,9 +265,8 @@ impl Generator
   fn generate_world(&self, db: &Database) -> bool
   {
     let mut tpl = Template::new();
-    if !tpl.from_file(&Generator::get_template_file_name())
+    if !self.load_template(&mut tpl)
     {
-      eprintln!("Error: Could not load main template file!");
       return false;
     }
     // scripts
@@ -302,9 +331,8 @@ impl Generator
   fn generate_continents(&self, db: &Database) -> bool
   {
     let mut tpl = Template::new();
-    if !tpl.from_file(&Generator::get_template_file_name())
+    if !self.load_template(&mut tpl)
     {
-      eprintln!("Error: Could not load main template file!");
       return false;
     }
 
@@ -780,9 +808,8 @@ impl Generator
   fn create_index(&self, countries: &[Country], continents: &[String]) -> bool
   {
     let mut tpl = Template::new();
-    if !tpl.from_file(&Generator::get_template_file_name())
+    if !self.load_template(&mut tpl)
     {
-      eprintln!("Error: Could not load main template file!");
       return false;
     }
     // links
@@ -904,7 +931,8 @@ mod tests
     let directory = env::temp_dir().join("test_generation_of_files");
     let config = HtmlConfiguration {
       db_path: get_sqlite_db_path(),
-      output_directory: directory.to_str().unwrap().to_string()
+      output_directory: directory.to_str().unwrap().to_string(),
+      template_path: None
     };
     let gen = Generator::new(&config).unwrap();
     assert!(gen.generate());
