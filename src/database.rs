@@ -722,7 +722,7 @@ mod tests
       .unwrap()                      // safe to unwrap, because directory exists
       .join("..")                    // up one directory
       .join("data")                  // into directory data/
-      .join("corona.db");            // and to the corona.db file;
+      .join("corona-ecdc-2020-12-14.db"); // and to the corona.db file;
     let db = Database::new(db_path.to_str().unwrap());
     assert!(db.is_ok());
     return db.unwrap();

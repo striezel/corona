@@ -187,7 +187,7 @@ mod tests
       .unwrap()                      // unwrap is save, parent directory exists
       .join("..")                    // up one directory
       .join("data")                  // into directory data/
-      .join("corona.db");            // and to the corona.db file;
+      .join("corona-ecdc-2020-12-14.db"); // and to the corona.db file;
     db_path.to_str().unwrap().to_string()
   }
 

@@ -57,4 +57,4 @@ php:
   script:
     - php --version
     - ./ci/phplint.sh
-    - php ./php/generate.php ./data/corona.db /tmp/output_directory
+    - php ./php/generate.php ./data/corona-ecdc-2020-12-14.db /tmp/output_directory

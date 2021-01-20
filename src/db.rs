@@ -312,7 +312,7 @@ mod tests
       .unwrap() // parent: src/
       .join("..") // up one directory
       .join("data") // into directory data/
-      .join("corona-daily.csv"); // and to the corona-daily.csv file;
+      .join("corona-daily-ecdc-2020-12-14.csv"); // and to the corona-daily.csv file;
     csv_path.to_str().unwrap().to_string()
   }
 
