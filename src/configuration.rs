@@ -24,6 +24,7 @@ pub enum Operation
   Csv(CsvConfiguration),         // write data to CSV
   Db(DbConfiguration),           // extract CSV data and write to DB
   Collect(CollectConfiguration), // collects data and creates a DB
+  Info(InfoConfiguration),       // show info for a single country
   Version                        // show version
 }
 
@@ -49,6 +50,11 @@ pub struct DbConfiguration
 pub struct CollectConfiguration
 {
   pub db_path: String
+}
+
+pub struct InfoConfiguration
+{
+  pub country_name: String
 }
 
 pub fn parse_args(args: &[String]) -> Result<Operation, String>
@@ -120,6 +126,25 @@ pub fn parse_args(args: &[String]) -> Result<Operation, String>
 
     let db_path = args[2].clone();
     return Ok(Operation::Collect(CollectConfiguration { db_path }));
+  }
+
+  if args[1] == "info"
+  {
+    // requires two parameters:
+    // 1:   info
+    // 2:   NameOfTheCountry
+    if args.len() < 3
+    {
+      return Err(String::from("Not enough command line parameters: A country name must be specified!"));
+    }
+
+    let country_name = args.iter().skip(2)
+      .fold(String::new(), |mut all, elem| {
+        all.push(' ');
+        all.push_str(elem);
+        all})
+      .trim().to_string();
+    return Ok(Operation::Info(InfoConfiguration { country_name }));
   }
 
   if args[1] == "version"
