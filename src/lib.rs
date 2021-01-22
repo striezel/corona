@@ -22,6 +22,7 @@ mod data;
 mod database;
 mod db;
 mod generator;
+mod info;
 mod template;
 mod world;
 
@@ -74,6 +75,15 @@ pub fn run(op: &Operation) -> Result<(), String>
       if !collector.run()
       {
         return Err(String::from("An error occurred during data collection."))
+      }
+      Ok(())
+    },
+    Operation::Info(config) =>
+    {
+      let info = info::Info::new(&config)?;
+      if !info.run()
+      {
+        return Err(format!("Could not get data for '{}'!", config.country_name))
       }
       Ok(())
     },

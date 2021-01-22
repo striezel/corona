@@ -40,6 +40,8 @@ fn main()
     eprintln!("Usage: {} db /path/to/input.csv /path/to/output.db", basename);
     eprintln!("           or");
     eprintln!("Usage: {} collect /path/to/output.db", basename);
+    eprintln!("           or");
+    eprintln!("Usage: {} info NameOfCountry", basename);
     process::exit(1);
   });
 
