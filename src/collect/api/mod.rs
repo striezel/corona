@@ -21,7 +21,6 @@ pub mod disease_sh;
 #[derive(PartialEq)]
 pub enum Range
 {
-    #[allow(dead_code)] // TODO: Remove once Recent is used.
     Recent, // only collect recent data
     All     // collect all data from the beginning
 }
