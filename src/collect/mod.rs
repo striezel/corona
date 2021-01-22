@@ -15,7 +15,7 @@
  -------------------------------------------------------------------------------
 */
 
-mod api;
+pub mod api;
 mod africa;
 mod america;
 mod asia;
@@ -35,7 +35,7 @@ use other::*;
 use crate::configuration::CollectConfiguration;
 
 /// common trait / interface for collecting new data
-trait Collect
+pub trait Collect
 {
   /**
    * Returns the geo id (two-letter code) of the country for which the data
@@ -78,12 +78,23 @@ impl Collector
       return Err("Path for SQLite database must not be an empty string!".to_string());
     }
 
-    Ok(Collector{
+    Ok(Collector {
       config: CollectConfiguration
       {
         db_path: config.db_path.clone()
       },
-      elements: vec![
+      elements: Collector::all()
+    })
+  }
+
+  /**
+   * Gets a vector of all available structs that implement the Collect trait.
+   *
+   * @return Returns a vector of Collect implementations.
+   */
+  pub fn all() -> Vec<Box<dyn Collect>>
+  {
+      vec![
         Box::new(Afghanistan::new()),
         Box::new(Albania::new()),
         Box::new(Algeria::new()),
@@ -297,7 +308,6 @@ impl Collector
         Box::new(Zambia::new()),
         Box::new(Zimbabwe::new()),
       ]
-    })
   }
 
   pub fn run(&self) -> bool
