@@ -4,6 +4,21 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version 0.5.0 (2021-01-23)
+
+The program can now also just display the latest case numbers for a given
+country on the standard output. To do this, the first argument passed to the
+program has to be `info`, followed by either the name of the country or its ISO
+3166 two letter code. E. g. both
+
+    cargo run info France
+
+and
+
+    cargo run info FR
+
+will show the latest numbers for France. The same works with other countries.
+
 ## Version 0.4.2 (2021-01-20)
 
 Users can now specify an optional fourth argument to the HTML creation mode to
