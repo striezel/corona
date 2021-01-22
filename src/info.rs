@@ -89,7 +89,7 @@ impl Info
 
     println!("Coronavirus cases in {} ({}):", country.name, country.geo_id);
     let mut has_incidence = false;
-    for elem in numbers
+    for elem in numbers.iter().rev().take(10)
     {
       match elem.incidence_14d
       {
@@ -107,8 +107,8 @@ impl Info
     if has_incidence
     {
       println!("\nThe 14-day incidence is the number of infections during \
-                the last 14 days per 100000 inhabitants. Note that some \
-                authorities like e. g. Germany's Robert Koch Institute use a \
+                the last 14 days per\n100000 inhabitants. Note that some \
+                authorities like e. g. Germany's Robert Koch\nInstitute use a \
                 7-day incidence value instead, which is different.");
     }
 
