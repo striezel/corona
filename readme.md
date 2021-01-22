@@ -103,6 +103,7 @@ Currently, the application supports three modes of operation:
   file, basically the reverse of the `csv` operation
 * `collect`: collecting case numbers from APIs or other sources and create a
   SQLite database to store the data
+* `info`: showing the latest case numbers for a given country
 
 The mode is passed as the first command line argument to the application.
 Only one mode of operation can be active during the application invocation.
@@ -195,6 +196,27 @@ That's it. Cargo will build the executable and run it afterwards.
 Replace `/path/to/sqlite.db` with a path where you want the SQLite database file
 to be located. Note that the file must not exist yet, because the application
 will refuse to overwrite an existing database file.
+
+### Showing the latest case numbers for a country (`info`)
+
+Starting in the root directory of the source, you can invoke the following
+command in a terminal to show the latest case numbers for a single country:
+
+    cargo run info name_of_the_country
+
+That's it. Cargo will build the executable and run it afterwards.
+
+Replace `name_of_the_country` with the name of the country, e.g.
+
+    cargo run info France
+
+will show the latest numbers for France. Instead of using the full name of a
+country you can also type the ISO 3166 two letter codes. So you could also just
+type
+
+    cargo run info FR
+
+to get the numbers for France.
 
 ## Older PHP variant
 
