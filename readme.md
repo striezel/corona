@@ -11,9 +11,16 @@ See the <https://striezel.github.io/corona/> for a snapshot of those graphs.
 
 ## Data source
 
-The tool uses the data provided by the European Centre for Disease Prevention
-and Control (ECDC) at
+The tool uses the data provided by the Center for Systems Science and
+Engineering (CSSE) at Johns Hopkins University provided at
+<https://github.com/CSSEGISandData/COVID-19> and queries the data via the API
+provided by disease.sh at <https://disease.sh/docs/>.
+
+Earlier versions of the tool used the data provided by the European Centre for
+Disease Prevention and Control (ECDC) at
 <https://data.europa.eu/euodp/data/dataset/covid-19-coronavirus-data>.
+
+For more information see the [readme file in the data/ directory](./data/readme.md).
 
 ## Status
 
