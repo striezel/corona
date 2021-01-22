@@ -25,6 +25,16 @@ pub struct Info
   country_name: String
 }
 
+/**
+ * Rounds a floating-point value to two decimals after the point.
+ *
+ * @return Returns the rounded value.
+ */
+fn round_to_2(f: &f64) -> f64
+{
+  (f * 100.0).round() / 100.0
+}
+
 impl Info
 {
   /**
@@ -43,6 +53,11 @@ impl Info
     Ok(Info{ country_name: config.country_name.clone() })
   }
 
+  /**
+   * Performs the info operation.
+   *
+   * @return Returns whether the operation was successful.
+   */
   pub fn run(&self) -> bool
   {
     let world = crate::world::World::new();
@@ -95,8 +110,8 @@ impl Info
       {
         Some(value) =>
         {
-          println!("{}: {} cases, {} deaths, 14-day incidence: {}",
-                   elem.date, elem.cases, elem.deaths, value);
+          println!("{}: {} infection(s), {} death(s), 14-day incidence¹: {}",
+                   elem.date, elem.cases, elem.deaths, round_to_2(&value));
           has_incidence = true;
         },
         None => println!("{}: {} cases, {} deaths",
@@ -106,7 +121,7 @@ impl Info
 
     if has_incidence
     {
-      println!("\nThe 14-day incidence is the number of infections during \
+      println!("\n¹=The 14-day incidence is the number of infections during \
                 the last 14 days per\n100000 inhabitants. Note that some \
                 authorities like e. g. Germany's Robert Koch\nInstitute use a \
                 7-day incidence value instead, which is different.");
