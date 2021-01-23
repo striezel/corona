@@ -147,7 +147,7 @@ pub fn parse_args(args: &[String]) -> Result<Operation, String>
     return Ok(Operation::Info(InfoConfiguration { country_name }));
   }
 
-  if args[1] == "version"
+  if args[1] == "version" || args[1] == "--version"
   {
     return Ok(Operation::Version);
   }

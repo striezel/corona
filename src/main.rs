@@ -41,7 +41,9 @@ fn main()
     eprintln!("           or");
     eprintln!("Usage: {} collect /path/to/output.db", basename);
     eprintln!("           or");
-    eprintln!("Usage: {} info NameOfCountry", basename);
+    eprintln!("Usage: {} info name_of_country", basename);
+    eprintln!("           or");
+    eprintln!("Usage: {} version", basename);
     process::exit(1);
   });
 
