@@ -145,7 +145,7 @@ pub fn request_historical_api_usa_counties(county: &str, range: &Range) -> Resul
 }
 
 /**
- * Performs a request to the API of disease.sh for a given URL and deserializes the JSOn.
+ * Performs a request to the API of disease.sh for a given URL and deserializes the JSON.
  *
  * @param  url   URL of the endpoint
  * @return Returns a deserialized JSON value in case of success.
