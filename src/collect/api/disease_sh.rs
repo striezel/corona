@@ -448,6 +448,31 @@ mod tests
   }
 
   #[test]
+  fn historical_api_first_of_multiple_provinces()
+  {
+    let numbers = request_historical_api_first_of_multiple_provinces("NL", "bonaire%2C%20sint%20eustatius%20and%20saba%7C", &Range::Recent);
+    assert!(numbers.is_ok());
+    let numbers = numbers.unwrap();
+    assert!(numbers.len() > 0);
+    for idx in 1..numbers.len()
+    {
+      assert!(numbers[idx-1].date < numbers[idx].date)
+    }
+
+    let all_numbers = request_historical_api_first_of_multiple_provinces("NL", "bonaire%2C%20sint%20eustatius%20and%20saba%7C", &Range::All);
+    assert!(all_numbers.is_ok());
+    let all_numbers = all_numbers.unwrap();
+    assert!(all_numbers.len() > 0);
+    for idx in 1..all_numbers.len()
+    {
+      assert!(all_numbers[idx-1].date < all_numbers[idx].date)
+    }
+
+    // All data should have more entries than recent data.
+    assert!(all_numbers.len() > numbers.len());
+  }
+
+  #[test]
   fn shift_one_day()
   {
     let old: Vec<Numbers> = vec![
