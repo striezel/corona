@@ -129,7 +129,7 @@ pub fn request_historical_api_usa_counties(county: &str, range: &Range) -> Resul
             date: num.date.clone(),
             cases: num.cases,
             deaths: num.deaths });
-          // Vector may need to be sorted, because we do know whether it is
+          // Vector may need to be sorted, because we do not know whether it is
           // still sorted after the push().
           may_need_sorting = true;
         }
