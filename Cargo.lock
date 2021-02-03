@@ -136,7 +136,7 @@ checksum = "ea221b5284a47e40033bf9b66f35f984ec0ea2931eb03505246cd27a963f981b"
 
 [[package]]
 name = "corona"
-version = "0.5.0"
+version = "0.5.1"
 dependencies = [
  "calamine",
  "chrono",
