@@ -123,10 +123,10 @@ impl Canada
         return Err(format!("Error: Date format does not match the DD-MM-YYYY pattern: '{}'.", date));
       }
       let date = format!("{}-{}-{}", &date[6..10], &date[3..5], &date[0..2]);
-      // Daily new cases: "numtoday", idx 13.
-      let cases: i32 = record.get(13).unwrap().parse().unwrap_or(-1);
-      // Daily new deaths: "numdeathstoday", idx 17.
-      let deaths: i32 = record.get(17).unwrap().parse().unwrap_or(-1);
+      // Daily new cases: "numtoday", idx 15.
+      let cases: i32 = record.get(15).unwrap().parse().unwrap_or(-1);
+      // Daily new deaths: "numdeathstoday", idx 19.
+      let deaths: i32 = record.get(19).unwrap().parse().unwrap_or(-1);
       result.push(Numbers { date, cases, deaths });
     }
 
@@ -153,9 +153,9 @@ impl Canada
     };
     let expected_headers = vec![
       "pruid", "prname", "prnameFR", "date", "update", "numconf", "numprob",
-      "numdeaths", "numtotal", "numtested", "numrecover", "percentrecover",
-      "ratetested", "numtoday", "percentoday", "ratetotal", "ratedeaths",
-      "numdeathstoday", "percentdeath", "numtestedtoday", "numrecoveredtoday",
+      "numdeaths", "numtotal", "numtested", "numtests", "numrecover", "percentrecover",
+      "ratetested", "ratetests", "numtoday", "percentoday", "ratetotal", "ratedeaths",
+      "numdeathstoday", "percentdeath", "numtestedtoday", "numteststoday", "numrecoveredtoday",
       "percentactive", "numactive", "rateactive", "numtotal_last14",
       "ratetotal_last14", "numdeaths_last14", "ratedeaths_last14",
       "numtotal_last7", "ratetotal_last7", "numdeaths_last7",

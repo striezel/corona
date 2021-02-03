@@ -4,6 +4,11 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version 0.5.1 (2021-02-03)
+
+Adjust program to new CSV layout of Canadian. (Three new columns have been added
+to the official CSV, so the program has to be aware of that.)
+
 ## Version 0.5.0 (2021-01-23)
 
 The program can now also just display the latest case numbers for a given
