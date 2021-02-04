@@ -1,0 +1,12 @@
+pages:
+  stage: deploy
+  script:
+    - mkdir public
+    - cp ./*.html public/
+    - mkdir public/assets
+    - cp assets/* public/assets
+  artifacts:
+    paths:
+      - public
+  only:
+    - gh-pages
