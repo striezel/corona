@@ -10,6 +10,10 @@ Dependencies are updated to fix vulnerablities in them:
 
 * update smallvec to version 1.6.1 to fix
   [RUSTSEC-2021-0003](https://rustsec.org/advisories/RUSTSEC-2021-0003)
+* uncritical package updates (i .e. not fixing known security vulnerabilites):
+  * update bumpalo to version 3.6.0
+  * update encoding_rs to version 0.8.28
+  * update tokio to version 0.2.25
 
 ## Version 0.5.1 (2021-02-03)
 
