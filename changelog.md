@@ -15,8 +15,7 @@ Dependencies are updated to fix vulnerablities in them:
   * update byteorder to version 1.4.2
   * update encoding_rs to version 0.8.28
   * update futures-channel, futures-core, futures-io, futures-sink, futures-task
-    to version 0.3.12
-  * update futures-util to version 0.3.9
+    and futures-util to version 0.3.12
   * update hermit-abi to version 0.1.18
   * update httparse to version 1.3.5
   * update libc to version 0.2.85
@@ -36,6 +35,7 @@ Dependencies are updated to fix vulnerablities in them:
   * update tracing to version 0.1.23
   * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
     wasm-bindgen-macro-support, wasm-bindgen-shared to version 0.2.70
+  * update wasm-bindgen-futures to version 0.4.20
 
 ## Version 0.5.1 (2021-02-03)
 
