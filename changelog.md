@@ -18,6 +18,8 @@ Dependencies are updated to fix vulnerablities in them:
   * update futures-util to version 0.3.9
   * update pin-project, pin-project-internal from version 1.0.2 to 1.0.5
   * update pin-project-lite from 0.2.0 to 0.2.4
+  * update thread_local to version 1.1.3
+  * update tinyvec to version 1.1.1
   * update tokio to version 0.2.25
 
 ## Version 0.5.1 (2021-02-03)
