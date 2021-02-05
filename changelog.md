@@ -4,6 +4,13 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Next version (2021-02-??)
+
+Dependencies are updated to fix vulnerablities in them:
+
+* update smallvec to version 1.6.1 to fix
+  [RUSTSEC-2021-0003](https://rustsec.org/advisories/RUSTSEC-2021-0003)
+
 ## Version 0.5.1 (2021-02-03)
 
 Adjust program to new CSV layout of Canadian. (Three new columns have been added
