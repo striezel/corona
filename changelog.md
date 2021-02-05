@@ -16,7 +16,9 @@ Dependencies are updated to fix vulnerablities in them:
   * update encoding_rs to version 0.8.28
   * update futures-channel, futures-core, futures-io, futures-sink, futures-task
     and futures-util to version 0.3.12
+  * update getrandom to version 0.2.2
   * update hermit-abi to version 0.1.18
+  * update http to version 0.2.3
   * update httparse to version 1.3.5
   * update libc to version 0.2.85
   * update linked-hash-map to version 0.5.3
@@ -24,15 +26,23 @@ Dependencies are updated to fix vulnerablities in them:
   * update js-sys to version 0.3.47
   * update pin-project, pin-project-internal from version 1.0.2 to 1.0.5
   * update pin-project-lite from 0.2.0 to 0.2.4
+  * update rand to version 0.8.3
+  * update rand_chacha to version 0.3.0
+  * update rand_core to version 0.6.1
+  * update rand_hc to version 0.3.0
+  * update redox_syscall to version 0.2.4
   * update regex to version 1.4.3
   * update regex-syntax to version 0.6.22
   * update serde to version 1.0.123
   * update syn to version 1.0.60
+  * update tempfile to version 3.2.0
+  * downgrade time to version 0.1.43
   * update thread_local to version 1.1.3
   * update tinyvec to version 1.1.1
   * update tokio to version 0.2.25
   * update tower-service to version 0.3.1
   * update tracing to version 0.1.23
+  * update wasi to version v0.10.2+wasi-snapshot-preview1
   * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
     wasm-bindgen-macro-support, wasm-bindgen-shared to version 0.2.70
   * update wasm-bindgen-futures to version 0.4.20
