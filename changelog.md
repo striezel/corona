@@ -19,6 +19,7 @@ Dependencies are updated to fix vulnerablities in them:
   * update libc to version 0.2.85
   * update linked-hash-map to version 0.5.3
   * update log to version 0.4.14
+  * update js-sys to version 0.3.47
   * update pin-project, pin-project-internal from version 1.0.2 to 1.0.5
   * update pin-project-lite from 0.2.0 to 0.2.4
   * update serde to version 1.0.123
@@ -28,6 +29,8 @@ Dependencies are updated to fix vulnerablities in them:
   * update tokio to version 0.2.25
   * update tower-service to version 0.3.1
   * update tracing to version 0.1.23
+  * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
+    wasm-bindgen-macro-support, wasm-bindgen-shared to version 0.2.70
 
 ## Version 0.5.1 (2021-02-03)
 
