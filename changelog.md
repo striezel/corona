@@ -16,11 +16,18 @@ Dependencies are updated to fix vulnerablities in them:
   * update futures-channel, futures-core, futures-io, futures-sink, futures-task
     to version 0.3.12
   * update futures-util to version 0.3.9
+  * update libc to version 0.2.85
+  * update linked-hash-map to version 0.5.3
+  * update log to version 0.4.14
   * update pin-project, pin-project-internal from version 1.0.2 to 1.0.5
   * update pin-project-lite from 0.2.0 to 0.2.4
+  * update serde to version 1.0.123
+  * update syn to version 1.0.60
   * update thread_local to version 1.1.3
   * update tinyvec to version 1.1.1
   * update tokio to version 0.2.25
+  * update tower-service to version 0.3.1
+  * update tracing to version 0.1.23
 
 ## Version 0.5.1 (2021-02-03)
 
