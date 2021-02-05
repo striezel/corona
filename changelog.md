@@ -13,6 +13,9 @@ Dependencies are updated to fix vulnerablities in them:
 * uncritical package updates (i .e. not fixing known security vulnerabilites):
   * update bumpalo to version 3.6.0
   * update encoding_rs to version 0.8.28
+  * update futures-channel, futures-core, futures-io, futures-sink, futures-task
+    to version 0.3.12
+  * update futures-util to version 0.3.9
   * update tokio to version 0.2.25
 
 ## Version 0.5.1 (2021-02-03)
