@@ -4,6 +4,14 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Next version (2021-02-??)
+
+Dependencies are updated:
+
+* update hyper to 0.13.10
+* update idna to 0.2.1
+* update serde_json to 1.0.62
+
 ## Version 0.5.2 (2021-02-05)
 
 Dependencies are updated to fix vulnerablities in them:
