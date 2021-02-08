@@ -7,7 +7,7 @@ improvements may be omitted.)_
 ## Next version (2021-02-??)
 
 If data collection fails for some countries, those countries are listed at the
-end of the output now.
+end of the output now. Output of collect is now also a bit nicer.
 
 Dependencies are updated:
 

@@ -331,25 +331,26 @@ impl Collector
     let mut errors: Vec<String> = Vec::new();
     for country in self.elements.iter()
     {
-      println!("Collecting data for {} ...", &country.geo_id());
+      // Find matching country data.
+      let country_data = match world.find_by_geo_id(&country.geo_id())
+      {
+        Some(c) => c,
+        None =>
+        {
+          success = false;
+          errors.push(country.geo_id().to_string());
+          eprintln!("Error: Could not find country data for geo id '{}'!",
+                    &country.geo_id());
+          continue;
+        }
+      };
+
+      println!("Collecting data for {} ...", &country_data.name);
       let data = country.collect(&Range::All);
       match data
       {
         Ok(vector) =>
         {
-          // Find matching country data.
-          let country_data = match world.find_by_geo_id(&country.geo_id())
-          {
-            Some(c) => c,
-            None =>
-            {
-              success = false;
-              errors.push(country.geo_id().to_string());
-              eprintln!("Error: Could not find country data for geo id '{}'!",
-                        &country.geo_id());
-              continue;
-            }
-          };
           // Insert country into database.
           let country_id = db.get_country_id_or_insert(&country.geo_id(),
                                                        &country_data.name,
@@ -376,13 +377,13 @@ impl Collector
           else
           {
             count_ok += 1;
-            println!("✓ {}", &country_data.name);
+            println!("✓ OK");
           }
         },
         Err(error) =>
         {
-          eprintln!("Error while collecting data for {}: {}", &country.geo_id(),
-                    error);
+          eprintln!("Error while collecting data for {} ({}): {}",
+                    &country.geo_id(), &country_data.name, error);
           success = false;
           errors.push(country.geo_id().to_string());
         }
