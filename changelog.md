@@ -8,8 +8,10 @@ improvements may be omitted.)_
 
 Dependencies are updated:
 
+* update bstr to 0.2.15
 * update hyper to 0.13.10
 * update idna to 0.2.1
+* update libc to 0.2.86
 * update serde_json to 1.0.62
 
 ## Version 0.5.2 (2021-02-05)
