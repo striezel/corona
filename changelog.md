@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Next version (2021-02-??)
+## Version 0.5.3 (2021-02-09)
 
 If data collection fails for some countries, those countries are listed at the
 end of the output now. Output of collect is now also a bit nicer.
