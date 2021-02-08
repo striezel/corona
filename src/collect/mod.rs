@@ -328,7 +328,7 @@ impl Collector
     );
     let world = crate::world::World::new();
     let mut count_ok: u32 = 0;
-    let mut count_err: u32 = 0;
+    let mut errors: Vec<String> = Vec::new();
     for country in self.elements.iter()
     {
       println!("Collecting data for {} ...", &country.geo_id());
@@ -344,7 +344,7 @@ impl Collector
             None =>
             {
               success = false;
-              count_err += 1;
+              errors.push(country.geo_id().to_string());
               eprintln!("Error: Could not find country data for geo id '{}'!",
                         &country.geo_id());
               continue;
@@ -359,7 +359,7 @@ impl Collector
           if country_id <= 0
           {
             success = false;
-            count_err += 1;
+            errors.push(format!("{} ({})", &country.geo_id(), &country_data.name));
             eprintln!("Error: Could not insert country data for geo id '{}' ({}) into database!",
                       &country.geo_id(), &country_data.name);
             continue;
@@ -369,7 +369,7 @@ impl Collector
           if !inserted
           {
             success = false;
-            count_err += 1;
+            errors.push(format!("{} ({})", &country.geo_id(), &country_data.name));
             eprintln!("Error: Could not insert numbers for {} ({}) into database!",
                       &country_data.name, &country.geo_id());
           }
@@ -384,17 +384,21 @@ impl Collector
           eprintln!("Error while collecting data for {}: {}", &country.geo_id(),
                     error);
           success = false;
-          count_err += 1;
+          errors.push(country.geo_id().to_string());
         }
       }
     }
 
     println!("✓ Successfully collected data for {} of {} {}.", count_ok,
              self.elements.len(), if self.elements.len() != 1 { "countries" } else { "country "});
-    if count_err > 0
+    if !errors.is_empty()
     {
-      println!("❌ Failed to collect data for {} of {} {}.", count_err,
+      println!("❌ Failed to collect data for {} of {} {}.", errors.len(),
                self.elements.len(), if self.elements.len() != 1 { "countries" } else { "country "});
+      for elem in errors.iter()
+      {
+        println!("    Collection failed for {}.", &elem);
+      }
     }
     success
   }

@@ -6,6 +6,9 @@ improvements may be omitted.)_
 
 ## Next version (2021-02-??)
 
+If data collection fails for some countries, those countries are listed at the
+end of the output now.
+
 Dependencies are updated:
 
 * update bstr to 0.2.15
