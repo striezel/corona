@@ -322,7 +322,6 @@ impl Collector
     }
     let db = db.unwrap();
 
-    let mut success = true;
     println!("Collecting data for {} {} ...", self.elements.len(),
              if self.elements.len() != 1 { "countries" } else { "country "}
     );
@@ -337,7 +336,6 @@ impl Collector
         Some(c) => c,
         None =>
         {
-          success = false;
           errors.push(country.geo_id().to_string());
           eprintln!("Error: Could not find country data for geo id '{}'!",
                     &country.geo_id());
@@ -359,7 +357,6 @@ impl Collector
                                                        &country_data.continent);
           if country_id <= 0
           {
-            success = false;
             errors.push(format!("{} ({})", &country.geo_id(), &country_data.name));
             eprintln!("Error: Could not insert country data for geo id '{}' ({}) into database!",
                       &country.geo_id(), &country_data.name);
@@ -369,7 +366,6 @@ impl Collector
           let inserted = db.insert_data(&(country_id as i32), &with_incidence);
           if !inserted
           {
-            success = false;
             errors.push(format!("{} ({})", &country.geo_id(), &country_data.name));
             eprintln!("Error: Could not insert numbers for {} ({}) into database!",
                       &country_data.name, &country.geo_id());
@@ -384,7 +380,6 @@ impl Collector
         {
           eprintln!("Error while collecting data for {} ({}): {}",
                     &country.geo_id(), &country_data.name, error);
-          success = false;
           errors.push(country.geo_id().to_string());
         }
       }
@@ -401,6 +396,6 @@ impl Collector
         println!("    Collection failed for {}.", &elem);
       }
     }
-    success
+    errors.is_empty()
   }
 }
