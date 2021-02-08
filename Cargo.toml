@@ -22,7 +22,7 @@ codegen-units = 1
 calamine = "0.16"
 chrono = "0.4"
 csv = "1.1"
-regex = "1.4.2"
+regex = "1.4"
 reqwest = { version = "0.10", features = ["blocking"] }
 rusqlite = "0.23.1"
 serde_json = "1.0"
