@@ -48,7 +48,7 @@ exceptions:
   JSON, too) at <https://www.covid19.admin.ch/> via an API entry point at
   <https://www.covid19.admin.ch/api/data/context>. Well done from a technical
   point of view. :) This data also contains numbers for Liechtenstein, not just
-  Switzerland, so it us used for both countries.
+  Switzerland, so it is used for both countries.
 
 * **Turkey**: The Turkish Ministry of Health provides official numbers at
   <https://covid19.saglik.gov.tr/TR-66935/genel-koronavirus-tablosu.html>, and
