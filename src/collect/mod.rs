@@ -380,7 +380,7 @@ impl Collector
         {
           eprintln!("Error while collecting data for {} ({}): {}",
                     &country.geo_id(), &country_data.name, error);
-          errors.push(country.geo_id().to_string());
+          errors.push(format!("{} ({})", &country.geo_id(), &country_data.name));
         }
       }
     }
