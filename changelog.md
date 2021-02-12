@@ -8,6 +8,7 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update quote to 1.0.9
 * update unicode-normalization to 0.1.17
 
 ## Version 0.5.3 (2021-02-09)
