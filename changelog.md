@@ -11,6 +11,7 @@ Dependency updates:
 * update quote to 1.0.9
 * update rand_core to 0.6.2
 * update redox_syscall to 0.2.5
+* update tracing to 0.1.24
 * update tracing-futures to 0.2.5
 * update unicode-normalization to 0.1.17
 * update zip to 0.5.10
