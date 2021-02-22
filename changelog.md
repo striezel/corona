@@ -12,6 +12,7 @@ Dependency updates:
 * update cc to 1.0.67
 * update form_urlencoded to 1.0.1
 * update idna to 0.2.1
+* update once_cell to 1.6.0
 * update quote to 1.0.9
 * update rand_core to 0.6.2
 * update redox_syscall to 0.2.5
