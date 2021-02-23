@@ -9,6 +9,8 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update bumpalo to 3.6.1
+* update calamine to 0.18.0 to fix
+  [RUSTSEC-2021-0015](https://rustsec.org/advisories/RUSTSEC-2021-0015)
 * update cc to 1.0.67
 * update form_urlencoded to 1.0.1
 * update idna to 0.2.1
