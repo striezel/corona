@@ -13,13 +13,15 @@ Dependency updates:
   [RUSTSEC-2021-0015](https://rustsec.org/advisories/RUSTSEC-2021-0015)
 * update cc to 1.0.67
 * update form_urlencoded to 1.0.1
+* update futures-channel, futures-core, futures-io, futures-sink, futures-task,
+  futures-util to 0.3.13
 * update idna to 0.2.1
 * update once_cell to 1.6.0
 * update quote to 1.0.9
 * update rand_core to 0.6.2
 * update redox_syscall to 0.2.5
 * update thiserror and thiserror-impl to 1.0.24
-* update tracing to 0.1.24
+* update tracing to 0.1.25
 * update tracing-futures to 0.2.5
 * update unicode-normalization to 0.1.17
 * update url to 2.2.1
