@@ -4,6 +4,13 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Next version (2021-03-??)
+
+Dependency updates:
+
+* update once_cell to 1.7.0
+* update security-framework and security-framework-sys to 2.1.0
+
 ## Version 0.5.4 (2021-02-23)
 
 Dependency updates:
