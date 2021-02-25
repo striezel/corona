@@ -9,7 +9,8 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update once_cell to 1.7.0
-* update security-framework and security-framework-sys to 2.1.0
+* update security-framework and security-framework-sys to 2.1.1
+* update serde_json to 1.0.62
 
 ## Version 0.5.4 (2021-02-23)
 
