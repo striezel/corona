@@ -125,7 +125,7 @@ impl Germany
     {
       let date = match range.get_value((row_idx, 0))
       {
-        Some(DataType::Float(f)) =>
+        Some(DataType::Float(f)) | Some(DataType::DateTime(f)) =>
         {
           let d = excel_epoch_date.checked_add_signed(Duration::days(*f as i64)).unwrap();
           format!("{}-{:0>2}-{:0>2}", d.year(), d.month(), d.day())
@@ -229,5 +229,28 @@ mod tests
     {
       assert!(data[idx-1].date < data[idx].date)
     }
+  }
+
+  #[test]
+  fn has_all_dates()
+  {
+    let path = format!("{}/tests/Fallzahlen_Kum_Tab.xlsx", env!("CARGO_MANIFEST_DIR"));
+    let path = Path::new(&path);
+    let data = Germany::extract_from_file(&path);
+    assert!(data.is_ok());
+    let data = data.unwrap();
+    assert!(!data.is_empty());
+
+    // Data should contain element for "30.06.2020" (DateTime).
+    let found = data.iter().find(|x| x.date == "2020-06-30");
+    assert!(found.is_some());
+    // Data should contain element for "27.10.2020" and "28.10.2020" (DateTime).
+    let found = data.iter().find(|x| x.date == "2020-10-27");
+    assert!(found.is_some());
+    let found = data.iter().find(|x| x.date == "2020-10-28");
+    assert!(found.is_some());
+    // Data for "29.10.2020" should exist, too (string).
+    let found = data.iter().find(|x| x.date == "2020-10-29");
+    assert!(found.is_some());
   }
 }

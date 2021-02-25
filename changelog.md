@@ -6,6 +6,9 @@ improvements may be omitted.)_
 
 ## Next version (2021-03-??)
 
+An omission in date parsing for the Excel file of Germany's Robert Koch
+Institute is fixed, so that all dates are extracted.
+
 Dependency updates:
 
 * update once_cell to 1.7.0
