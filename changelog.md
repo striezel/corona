@@ -4,10 +4,13 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Next version (2021-03-??)
+## Version 0.5.5 (2021-02-25)
 
 An omission in date parsing for the Excel file of Germany's Robert Koch
-Institute is fixed, so that all dates are extracted.
+Institute is fixed, so that all dates are extracted. This omission was
+introduced in version 0.5.4 while updating the library that reads Excel files
+(calamine) to its newest version, because dates get parsed different in the
+newer version.
 
 Dependency updates:
 
