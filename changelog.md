@@ -4,6 +4,15 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Next version (2021-03-??)
+
+Dependency updates:
+
+* update js-sys to 0.3.47
+* update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-futures,
+  wasm-bindgen-macro, wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.71
+* update web-sys to 0.3.48
+
 ## Version 0.5.5 (2021-02-25)
 
 An omission in date parsing for the Excel file of Germany's Robert Koch
