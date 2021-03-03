@@ -9,7 +9,9 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update js-sys to 0.3.47
-* update once_cell to 1.7.1
+* update libc to 0.2.87
+* update once_cell to 1.7.2
+* update pin-project-lite to 0.1.12 or 0.2.5 respectively
 * update serde_json to 1.0.64
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-futures,
   wasm-bindgen-macro, wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.71
