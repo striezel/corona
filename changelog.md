@@ -8,11 +8,13 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update csv to 1.1.6
 * update indexmap t0 1.6.2
 * update js-sys to 0.3.47
 * update libc to 0.2.88
 * update once_cell to 1.7.2
 * update pin-project-lite to 0.1.12 or 0.2.6 respectively
+* update security-framework to 2.1.2
 * update serde to 1.0.124
 * update serde_json to 1.0.64
 * update syn to 1.0.62
