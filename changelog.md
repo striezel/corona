@@ -21,6 +21,7 @@ Dependency updates:
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-futures,
   wasm-bindgen-macro, wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.71
 * update web-sys to 0.3.48
+* update zip to 0.5.11
 
 ## Version 0.5.5 (2021-02-25)
 
