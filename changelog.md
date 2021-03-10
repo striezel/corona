@@ -17,7 +17,7 @@ Dependency updates:
 * update security-framework to 2.1.2
 * update serde to 1.0.124
 * update serde_json to 1.0.64
-* update syn to 1.0.62
+* update syn to 1.0.63
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-futures,
   wasm-bindgen-macro, wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.71
 * update web-sys to 0.3.48
