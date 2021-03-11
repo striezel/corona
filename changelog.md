@@ -8,6 +8,7 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update byteorder to 1.4.3
 * update csv to 1.1.6
 * update indexmap t0 1.6.2
 * update js-sys to 0.3.47
