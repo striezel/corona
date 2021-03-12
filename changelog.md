@@ -13,12 +13,15 @@ Dependency updates:
 * update indexmap t0 1.6.2
 * update js-sys to 0.3.47
 * update libc to 0.2.88
-* update once_cell to 1.7.2
+* update once_cell to 1.7.2 (dropped later after regex update)
 * update pin-project-lite to 0.1.12 or 0.2.6 respectively
+* update regex to 1.4.4
+* update regex-syntax to 0.6.23
 * update security-framework to 2.1.2
 * update serde to 1.0.124
 * update serde_json to 1.0.64
 * update syn to 1.0.63
+* drop thread_local as part of regex update
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-futures,
   wasm-bindgen-macro, wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.71
 * update web-sys to 0.3.48
