@@ -12,12 +12,12 @@ Dependency updates:
 * update csv to 1.1.6
 * update indexmap t0 1.6.2
 * update js-sys to 0.3.47
-* update libc to 0.2.88
+* update libc to 0.2.89
 * update once_cell to 1.7.2
 * update openssl to 0.10.33
 * update openssl-sys to 0.9.61
 * update pin-project-lite to 0.1.12 or 0.2.6 respectively
-* update regex to 1.4.4
+* update regex to 1.4.5
 * update regex-syntax to 0.6.23
 * update security-framework to 2.1.2
 * update serde to 1.0.124
