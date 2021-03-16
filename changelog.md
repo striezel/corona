@@ -24,6 +24,7 @@ Dependency updates:
 * update serde_json to 1.0.64
 * update syn to 1.0.64
 * drop thread_local as part of regex update
+* update version_check to 0.9.3
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-futures,
   wasm-bindgen-macro, wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.71
 * update web-sys to 0.3.48
