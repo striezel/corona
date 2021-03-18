@@ -11,8 +11,8 @@ Dependency updates:
 * update byteorder to 1.4.3
 * update csv to 1.1.6
 * update indexmap t0 1.6.2
-* update js-sys to 0.3.47
-* update libc to 0.2.89
+* update js-sys to 0.3.49
+* update libc to 0.2.90
 * update once_cell to 1.7.2
 * update openssl to 0.10.33
 * update openssl-sys to 0.9.61
@@ -25,9 +25,10 @@ Dependency updates:
 * update syn to 1.0.64
 * drop thread_local as part of regex update
 * update version_check to 0.9.3
-* update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-futures,
-  wasm-bindgen-macro, wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.71
-* update web-sys to 0.3.48
+* update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
+  wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.72
+* update wasm-bindgend-futures to 0.4.22
+* update web-sys to 0.3.49
 * update zip to 0.5.11
 
 ## Version 0.5.5 (2021-02-25)
