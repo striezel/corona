@@ -20,7 +20,7 @@ Dependency updates:
 * update regex to 1.4.5
 * update regex-syntax to 0.6.23
 * update security-framework to 2.1.2
-* update serde to 1.0.124
+* update serde to 1.0.125
 * update serde_json to 1.0.64
 * update syn to 1.0.64
 * drop thread_local as part of regex update
