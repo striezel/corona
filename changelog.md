@@ -16,6 +16,7 @@ Dependency updates:
 * update once_cell to 1.7.2
 * update openssl to 0.10.33
 * update openssl-sys to 0.9.61
+* update pin-project and pin-project-internal to 1.0.6
 * update pin-project-lite to 0.1.12 or 0.2.6 respectively
 * update regex to 1.4.5
 * update regex-syntax to 0.6.23
