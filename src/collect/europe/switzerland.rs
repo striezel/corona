@@ -23,7 +23,7 @@ pub struct Switzerland
 {
 }
 
-struct URLs
+struct Urls
 {
   cases_url: String,
   deaths_url: String
@@ -62,10 +62,10 @@ impl Switzerland
   /**
    * Gets the URLs of the official CSV data for Switzerland.
    *
-   * @return Returns a URLs struct containing the URLs in case of success.
+   * @return Returns a Urls struct containing the URLs in case of success.
    *         Returns a string containing an error message, if an error occurred.
    */
-  fn get_official_csv_data_urls() -> Result<URLs, String>
+  fn get_official_csv_data_urls() -> Result<Urls, String>
   {
     use reqwest::StatusCode;
     use std::io::Read;
@@ -130,7 +130,7 @@ impl Switzerland
       Some(_) => return Err(String::from("JSON from API contains element 'death', but it is not a string!"))
     };
 
-    Ok(URLs { cases_url: cases.clone(), deaths_url: death.clone() })
+    Ok(Urls { cases_url: cases.clone(), deaths_url: death.clone() })
   }
 
   /**
@@ -140,7 +140,7 @@ impl Switzerland
    * @return Returns a CsvContent struct containing the plain text CSV in case of success.
    *         Returns a string containing an error message, if an error occurred.
    */
-  fn get_official_csv_content(urls: &URLs) -> Result<CsvContent, String>
+  fn get_official_csv_content(urls: &Urls) -> Result<CsvContent, String>
   {
     use reqwest::StatusCode;
     use std::io::Read;
