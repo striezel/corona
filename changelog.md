@@ -20,10 +20,10 @@ Dependency updates:
 * update pin-project-lite to 0.1.12 or 0.2.6 respectively
 * update regex to 1.4.5
 * update regex-syntax to 0.6.23
-* update security-framework to 2.1.2
+* update security-framework and security-framework-sys to 2.2.0
 * update serde to 1.0.125
 * update serde_json to 1.0.64
-* update syn to 1.0.64
+* update syn to 1.0.65
 * drop thread_local as part of regex update
 * update version_check to 0.9.3
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
