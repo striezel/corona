@@ -12,7 +12,7 @@ Dependency updates:
 * update csv to 1.1.6
 * update indexmap t0 1.6.2
 * update js-sys to 0.3.50
-* update libc to 0.2.91
+* update libc to 0.2.92
 * update once_cell to 1.7.2
 * update openssl to 0.10.33
 * update openssl-sys to 0.9.61
