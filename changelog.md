@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Next version (2021-03-??)
+## Next version (2021-04-??)
 
 Dependency updates:
 
@@ -18,12 +18,13 @@ Dependency updates:
 * update openssl-sys to 0.9.61
 * update pin-project and pin-project-internal to 1.0.6
 * update pin-project-lite to 0.1.12 or 0.2.6 respectively
+* update proc-macro2 to 1.0.26
 * update regex to 1.4.5
 * update regex-syntax to 0.6.23
 * update security-framework and security-framework-sys to 2.2.0
 * update serde to 1.0.125
 * update serde_json to 1.0.64
-* update syn to 1.0.67
+* update syn to 1.0.68
 * drop thread_local as part of regex update
 * update version_check to 0.9.3
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
