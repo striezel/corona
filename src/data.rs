@@ -164,8 +164,8 @@ pub fn fill_missing_dates(numbers: &mut Vec<Numbers>) -> Result<(), String>
     }
     if inserts > 100
     {
-      return Err(format!("Dates are far from sorted or contiguous, because \
-          at least 100 dates are missing between two consecutive dates!"))
+      return Err("Dates are far from sorted or contiguous, because \
+          at least 100 dates are missing between two consecutive dates!".to_string())
     }
     previous = current;
   }
