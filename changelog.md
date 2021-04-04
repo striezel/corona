@@ -6,6 +6,11 @@ improvements may be omitted.)_
 
 ## Next version (2021-04-??)
 
+In some cases there were "gaps" in the data collected for Jersey. These gaps are
+now filled by supplying records with zero cases and deaths for the missing dates
+in those gaps. That way the incidence values around and after the previous gaps
+are also correct again.
+
 Dependency updates:
 
 * update byteorder to 1.4.3

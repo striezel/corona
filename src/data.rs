@@ -121,6 +121,65 @@ pub fn calculate_incidence(numbers: &[Numbers], population: &i32) -> Vec<Numbers
   result
 }
 
+/**
+ * Adds missing dates to a vector of Numbers that are pre-sorted by date in
+ * ascending order.
+ *
+ * @param number   vector of numbers, has to be sorted by date in ascending order
+ *                 with gaps not larger than 100 days
+ * @return Returns OK(()), if gaps could be filled.
+ *         Returns an Err() containing an error message otherwise.
+ */
+pub fn fill_missing_dates(numbers: &mut Vec<Numbers>) -> Result<(), String>
+{
+  use chrono::NaiveDate;
+
+  let len = numbers.len();
+  if len <= 1
+  {
+    return Ok(());
+  }
+
+  let mut needs_sort = false;
+  let mut previous = match NaiveDate::parse_from_str(&numbers[0].date, "%Y-%m-%d")
+  {
+    Ok(d) => d,
+    Err(_e) => return Err(format!("Could not parse date '{}'!", &numbers[0].date))
+  };
+  for idx in 1..len
+  {
+    let current = match NaiveDate::parse_from_str(&numbers[idx].date, "%Y-%m-%d")
+    {
+      Ok(d) => d,
+      Err(_e) => return Err(format!("Could not parse date '{}'!", &numbers[idx].date))
+    };
+    previous = previous.succ();
+    let mut inserts: usize = 0; // counter guard against prolonged loops
+    while previous != current && inserts <= 100
+    {
+      numbers.push(Numbers { date: previous.format("%Y-%m-%d").to_string(), cases: 0, deaths: 0 });
+      previous = previous.succ();
+      inserts += 1;
+      needs_sort = true;
+    }
+    if inserts > 100
+    {
+      return Err(format!("Dates are far from sorted or contiguous, because \
+          at least 100 dates are missing between two consecutive dates!"))
+    }
+    previous = current;
+  }
+
+  // Do we need to sort here?
+  if needs_sort
+  {
+    numbers.sort_unstable_by(|a, b| a.date.cmp(&b.date));
+  }
+
+  // Done.
+  Ok(())
+}
+
 #[cfg(test)]
 mod tests
 {
@@ -366,5 +425,68 @@ mod tests
       // Incidence values should not be set.
       assert!(incidence[idx].incidence_14d.is_none());
     }
+  }
+
+  #[test]
+  fn fill_missing_dates_no_dates_missing()
+  {
+    let mut numbers = vec![
+      Numbers { date: "2020-10-31".to_string(), cases: 19059, deaths: 103 },
+      Numbers { date: "2020-11-01".to_string(), cases: 14177, deaths: 29 },
+      Numbers { date: "2020-11-02".to_string(), cases: 12097, deaths: 49 }
+    ];
+
+    let fill = fill_missing_dates(&mut numbers);
+    // Function should succeed.
+    assert!(fill.is_ok());
+    // ... and vector should still have three elements.
+    assert_eq!(3, numbers.len());
+  }
+
+  #[test]
+  fn fill_missing_dates_few_dates_missing()
+  {
+    let mut numbers = vec![
+      Numbers { date: "2020-10-31".to_string(), cases: 19059, deaths: 103 },
+      Numbers { date: "2020-11-05".to_string(), cases: 19990, deaths: 118 }
+    ];
+
+    let fill = fill_missing_dates(&mut numbers);
+    // Function should succeed.
+    assert!(fill.is_ok());
+    // ... and vector should have six elements now.
+    assert_eq!(6, numbers.len());
+    assert_eq!("2020-10-31".to_string(), numbers[0].date);
+    assert_eq!(19059, numbers[0].cases);
+    assert_eq!(103, numbers[0].deaths);
+    assert_eq!("2020-11-01".to_string(), numbers[1].date);
+    assert_eq!(0, numbers[1].cases);
+    assert_eq!(0, numbers[1].deaths);
+    assert_eq!("2020-11-02".to_string(), numbers[2].date);
+    assert_eq!(0, numbers[2].cases);
+    assert_eq!(0, numbers[2].deaths);
+    assert_eq!("2020-11-03".to_string(), numbers[3].date);
+    assert_eq!(0, numbers[3].cases);
+    assert_eq!(0, numbers[3].deaths);
+    assert_eq!("2020-11-04".to_string(), numbers[4].date);
+    assert_eq!(0, numbers[4].cases);
+    assert_eq!(0, numbers[4].deaths);
+    assert_eq!("2020-11-05".to_string(), numbers[5].date);
+    assert_eq!(19990, numbers[5].cases);
+    assert_eq!(118, numbers[5].deaths);
+  }
+
+  #[test]
+  fn fill_missing_dates_too_much_dates_missing()
+  {
+    let mut numbers = vec![
+      Numbers { date: "2020-10-31".to_string(), cases: 19059, deaths: 103 },
+      Numbers { date: "2020-11-01".to_string(), cases: 14177, deaths: 29 },
+      Numbers { date: "2021-04-01".to_string(), cases: 1, deaths: 23 }
+    ];
+
+    let fill = fill_missing_dates(&mut numbers);
+    // Function should NOT succeed.
+    assert!(fill.is_err());
   }
 }

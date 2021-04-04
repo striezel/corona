@@ -17,7 +17,7 @@
 
 use crate::collect::Collect;
 use crate::collect::api::Range;
-use crate::data::Numbers;
+use crate::data::{Numbers, fill_missing_dates};
 use serde_json::value::Value;
 
 pub struct Jersey
@@ -45,6 +45,7 @@ impl Jersey
     let json = Jersey::get_official_json()?;
     let mut numbers = Jersey::parse_json(&json)?;
     Jersey::transform_vector(&mut numbers);
+    fill_missing_dates(&mut numbers)?;
     Ok(numbers)
   }
 
