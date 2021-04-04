@@ -477,6 +477,40 @@ mod tests
   }
 
   #[test]
+  fn fill_missing_dates_multiple_gaps()
+  {
+    let mut numbers = vec![
+      Numbers { date: "2020-10-31".to_string(), cases: 19059, deaths: 103 },
+      Numbers { date: "2020-11-03".to_string(), cases: 1234, deaths: 123 },
+      Numbers { date: "2020-11-05".to_string(), cases: 19990, deaths: 118 }
+    ];
+
+    let fill = fill_missing_dates(&mut numbers);
+    // Function should succeed.
+    assert!(fill.is_ok());
+    // ... and vector should have six elements now.
+    assert_eq!(6, numbers.len());
+    assert_eq!("2020-10-31".to_string(), numbers[0].date);
+    assert_eq!(19059, numbers[0].cases);
+    assert_eq!(103, numbers[0].deaths);
+    assert_eq!("2020-11-01".to_string(), numbers[1].date);
+    assert_eq!(0, numbers[1].cases);
+    assert_eq!(0, numbers[1].deaths);
+    assert_eq!("2020-11-02".to_string(), numbers[2].date);
+    assert_eq!(0, numbers[2].cases);
+    assert_eq!(0, numbers[2].deaths);
+    assert_eq!("2020-11-03".to_string(), numbers[3].date);
+    assert_eq!(1234, numbers[3].cases);
+    assert_eq!(123, numbers[3].deaths);
+    assert_eq!("2020-11-04".to_string(), numbers[4].date);
+    assert_eq!(0, numbers[4].cases);
+    assert_eq!(0, numbers[4].deaths);
+    assert_eq!("2020-11-05".to_string(), numbers[5].date);
+    assert_eq!(19990, numbers[5].cases);
+    assert_eq!(118, numbers[5].deaths);
+  }
+
+  #[test]
   fn fill_missing_dates_too_much_dates_missing()
   {
     let mut numbers = vec![
