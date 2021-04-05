@@ -4,6 +4,12 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Next version (2021-04-??)
+
+Dependency updates:
+
+* update tinyvec to 1.2.0
+
 ## Version 0.5.6 (2021-04-04)
 
 In some cases there were "gaps" in the data collected for Jersey. These gaps are
