@@ -8,7 +8,9 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update libc to 0.2.93
 * update tinyvec to 1.2.0
+* update unicode-bidi to 0.3.5
 
 ## Version 0.5.6 (2021-04-04)
 
