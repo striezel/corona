@@ -8,7 +8,12 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update futures-channel, futures-core, futures-io, futures-sink, futures-task,
+  futures-util to 0.3.14
+* update http to 0.2.4
+* update httparse to 1.3.6
 * update libc to 0.2.93
+* update syn to 1.0.69
 * update tinyvec to 1.2.0
 * update unicode-bidi to 0.3.5
 
