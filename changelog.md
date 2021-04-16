@@ -11,12 +11,15 @@ Dependency updates:
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   futures-util to 0.3.14
 * update http to 0.2.4
-* update httparse to 1.3.6
+* update httparse to 1.4.0
+* update idna to 0.2.3
 * update libc to 0.2.93
+* update pin-project + pin-project-internal to 1.0.7
 * update redox_syscall to 0.2.6
 * update syn to 1.0.69
 * update tinyvec to 1.2.0
 * update unicode-bidi to 0.3.5
+* update vcpkg to 0.2.12
 
 ## Version 0.5.6 (2021-04-04)
 
