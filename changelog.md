@@ -20,6 +20,7 @@ Dependency updates:
 * update miniz_oxide to 0.4.4 (also switches crate adler32 for adler)
 * update pin-project + pin-project-internal to 1.0.7
 * update redox_syscall to 0.2.6
+* update slab to 0.4.3
 * update syn to 1.0.69
 * update tinyvec to 1.2.0
 * update unicode-bidi to 0.3.5
