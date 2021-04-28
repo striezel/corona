@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Next version (2021-04-??)
+## Version 0.5.7 (2021-04-28)
 
 Adjust program to new CSV layout of Canadian. (One column has been added to the
 official CSV, so the program has to be aware of that.)
