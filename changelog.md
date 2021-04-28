@@ -6,6 +6,9 @@ improvements may be omitted.)_
 
 ## Next version (2021-04-??)
 
+Adjust program to new CSV layout of Canadian. (One column has been added to the
+official CSV, so the program has to be aware of that.)
+
 Dependency updates:
 
 * switch from adler32 (version 1.2.0) to adler (version 1.0.2) as part of the
