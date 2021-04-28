@@ -16,13 +16,13 @@ Dependency updates:
 * update http to 0.2.4
 * update httparse to 1.4.0
 * update idna to 0.2.3
-* update libc to 0.2.93
+* update libc to 0.2.94
 * update miniz_oxide to 0.4.4 (also switches crate adler32 for adler)
 * update pin-project + pin-project-internal to 1.0.7
 * update redox_syscall to 0.2.6
 * update regex to 1.4.6
 * update slab to 0.4.3
-* update syn to 1.0.70
+* update syn to 1.0.71
 * update tinyvec to 1.2.0
 * update unicode-bidi to 0.3.5
 * update vcpkg to 0.2.12
