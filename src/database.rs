@@ -313,7 +313,7 @@ impl Database
             date: row.get(0).unwrap_or_else(|_e| { String::from("") }),
             cases: row.get(1).unwrap_or(0),
             deaths: row.get(2).unwrap_or(0),
-            incidence_14d: if i14d < 0.0 { None } else { Some(i14d) }
+            incidence_14d: if i14d == -1.0 { None } else { Some(i14d) }
           })
         },
         Ok(None) => break,

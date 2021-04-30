@@ -6,6 +6,9 @@ improvements may be omitted.)_
 
 ## Next cersion (2021-05-??)
 
+Fix handling of negative 14-day incidences in CSV creation.
+
+
 Dependency updates:
 
 * update openssl to 0.10.34
