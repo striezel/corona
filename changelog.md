@@ -14,6 +14,7 @@ Dependency updates:
 * update openssl to 0.10.34
 * update openssl-sys to 0.9.61
 * update redox_syscall to 0.2.7
+* update unicode-xid to 0.2.2
 
 ## Version 0.5.7 (2021-04-28)
 
