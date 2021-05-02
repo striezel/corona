@@ -4,6 +4,13 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Next Version (2021-05-??)
+
+Dependency updates:
+
+* update tracing to 0.1.26
+* update tracing-core to 0.1.18
+
 ## Version 0.6.0 (2021-04-30)
 
 Fix handling of negative 14-day incidences in CSV creation.
