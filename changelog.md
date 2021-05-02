@@ -8,6 +8,11 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update aho-corasick to 0.7.18
+* update bstr to 0.2.16
+* update memchr to 2.4.0
+* update regex to 1.5.3
+* update regex-syntax to 0.6.25
 * update tracing to 0.1.26
 * update tracing-core to 0.1.18
 
