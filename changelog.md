@@ -13,8 +13,6 @@ Dependency updates:
 * update memchr to 2.4.0
 * update regex to 1.5.3
 * update regex-syntax to 0.6.25
-* update tracing to 0.1.26
-* update tracing-core to 0.1.18
 
 ## Version 0.6.0 (2021-04-30)
 
