@@ -429,7 +429,7 @@ impl Database
   pub fn incidence(&self, country_id: &i32) -> Vec<Incidence14>
   {
     let sql = "SELECT date, round(incidence14, 2) FROM covid19 \
-               WHERE countryId = ? AND IFNULL(incidence14, -1.0) >= 0.0 \
+               WHERE countryId = ? AND ABS(IFNULL(incidence14, -1.0)+1.0) > 0.000001 \
                ORDER BY date ASC;";
     let mut stmt = match self.conn.prepare(&sql)
     {
@@ -1163,6 +1163,41 @@ mod tests
     let found = found.unwrap();
     assert_eq!(germany_2020_02_12.date, found.date);
     assert_eq!(germany_2020_02_12.incidence, found.incidence);
+  }
+
+  #[test]
+  fn incidence_negative_luxembourg()
+  {
+    let db = get_sqlite_db();
+
+    let incidences = db.incidence(&118);
+    // Vector of data must not be empty.
+    assert!(!incidences.is_empty());
+    // There should be more than 300 entries, ...
+    assert!(incidences.len() > 300);
+    // ... but less than 600, because vector has only data from one country.
+    assert!(incidences.len() < 600);
+    // Check whether a specific value is in the vector.
+    // 118|2020-08-28|-1385|0|-134.38802138|6543|124
+    let luxembourg_2020_08_28 = Incidence14 {
+      date: String::from("2020-08-28"),
+      incidence: -134.39 // -134.38802138, rounded to two decimals after the point
+    };
+    let found = incidences.iter().find(|&i| i.date == "2020-08-28");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(luxembourg_2020_08_28.date, found.date);
+    assert_eq!(luxembourg_2020_08_28.incidence, found.incidence);
+    // Check another value (2020-09-09|-140.74090967).
+    let luxembourg_2020_09_09 = Incidence14 {
+      date: String::from("2020-09-09"),
+      incidence: -140.74 // -140.74090967, rounded to two decimals after the point
+    };
+    let found = incidences.iter().find(|&i| i.date == "2020-09-09");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(luxembourg_2020_09_09.date, found.date);
+    assert_eq!(luxembourg_2020_09_09.incidence, found.incidence);
   }
 
   #[test]

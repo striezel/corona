@@ -6,6 +6,9 @@ improvements may be omitted.)_
 
 ## Next Version (2021-05-??)
 
+Negative incidence values (due to correctional subtractions) are shown in plots,
+too.
+
 Dependency updates:
 
 * update aho-corasick to 0.7.18
