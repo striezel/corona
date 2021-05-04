@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Next Version (2021-05-??)
+## Version 0.7.0 (2021-05-04)
 
 * The date format of the CSV output is changed to match the ISO 8601 date
   format. To give an example, the date "23/09/2020" is now represented as
