@@ -426,7 +426,7 @@ impl Database
    * @return Returns a vector of Incidences.
    *         This may be an empty vector, if no values are known.
    */
-  pub fn incidence(&self, country_id: &i32) -> Vec<Incidence14>
+  pub fn incidence14(&self, country_id: &i32) -> Vec<Incidence14>
   {
     let sql = "SELECT date, round(incidence14, 2) FROM covid19 \
                WHERE countryId = ? AND ABS(IFNULL(incidence14, -1.0)+1.0) > 0.000001 \
@@ -450,7 +450,7 @@ impl Database
       {
         Ok(Some(row)) => data.push(Incidence14 {
           date: row.get(0).unwrap_or_else(|_e| { String::from("") }),
-          incidence: row.get(1).unwrap_or(0.0)
+          incidence_14d: row.get(1).unwrap_or(0.0)
         }),
         Ok(None) => break,
         _ => return vec![]
@@ -1136,7 +1136,7 @@ mod tests
   {
     let db = get_sqlite_db();
 
-    let incidences = db.incidence(&76);
+    let incidences = db.incidence14(&76);
     // Vector of data must not be empty.
     assert!(!incidences.is_empty());
     // There should be more than 300 entries, ...
@@ -1146,23 +1146,23 @@ mod tests
     // Check whether a specific value is in the vector.
     let germany_2020_10_23 = Incidence14 {
       date: String::from("2020-10-23"),
-      incidence: 106.76 // 106.759624, rounded to two decimals after the point
+      incidence_14d: 106.76 // 106.759624, rounded to two decimals after the point
     };
     let found = incidences.iter().find(|&i| i.date == "2020-10-23");
     assert!(found.is_some());
     let found = found.unwrap();
     assert_eq!(germany_2020_10_23.date, found.date);
-    assert_eq!(germany_2020_10_23.incidence, found.incidence);
+    assert_eq!(germany_2020_10_23.incidence_14d, found.incidence_14d);
     // Check another value (2020-02-12|0.01325).
     let germany_2020_02_12 = Incidence14 {
       date: String::from("2020-02-12"),
-      incidence: 0.01 // 0.01325, rounded to two decimals after the point
+      incidence_14d: 0.01 // 0.01325, rounded to two decimals after the point
     };
     let found = incidences.iter().find(|&i| i.date == "2020-02-12");
     assert!(found.is_some());
     let found = found.unwrap();
     assert_eq!(germany_2020_02_12.date, found.date);
-    assert_eq!(germany_2020_02_12.incidence, found.incidence);
+    assert_eq!(germany_2020_02_12.incidence_14d, found.incidence_14d);
   }
 
   #[test]
@@ -1170,7 +1170,7 @@ mod tests
   {
     let db = get_sqlite_db();
 
-    let incidences = db.incidence(&118);
+    let incidences = db.incidence14(&118);
     // Vector of data must not be empty.
     assert!(!incidences.is_empty());
     // There should be more than 300 entries, ...
@@ -1181,23 +1181,23 @@ mod tests
     // 118|2020-08-28|-1385|0|-134.38802138|6543|124
     let luxembourg_2020_08_28 = Incidence14 {
       date: String::from("2020-08-28"),
-      incidence: -134.39 // -134.38802138, rounded to two decimals after the point
+      incidence_14d: -134.39 // -134.38802138, rounded to two decimals after the point
     };
     let found = incidences.iter().find(|&i| i.date == "2020-08-28");
     assert!(found.is_some());
     let found = found.unwrap();
     assert_eq!(luxembourg_2020_08_28.date, found.date);
-    assert_eq!(luxembourg_2020_08_28.incidence, found.incidence);
+    assert_eq!(luxembourg_2020_08_28.incidence_14d, found.incidence_14d);
     // Check another value (2020-09-09|-140.74090967).
     let luxembourg_2020_09_09 = Incidence14 {
       date: String::from("2020-09-09"),
-      incidence: -140.74 // -140.74090967, rounded to two decimals after the point
+      incidence_14d: -140.74 // -140.74090967, rounded to two decimals after the point
     };
     let found = incidences.iter().find(|&i| i.date == "2020-09-09");
     assert!(found.is_some());
     let found = found.unwrap();
     assert_eq!(luxembourg_2020_09_09.date, found.date);
-    assert_eq!(luxembourg_2020_09_09.incidence, found.incidence);
+    assert_eq!(luxembourg_2020_09_09.incidence_14d, found.incidence_14d);
   }
 
   #[test]
@@ -1307,10 +1307,10 @@ mod tests
       assert_eq!(54321, numbers[1].cases);
       assert_eq!(1234, numbers[1].deaths);
       // Incidence should exist - but only for one value.
-      let incidence = db.incidence(&id);
+      let incidence = db.incidence14(&id);
       assert_eq!(1, incidence.len());
       assert_eq!("2020-10-02", incidence[0].date);
-      assert_eq!(234.5, incidence[0].incidence);
+      assert_eq!(234.5, incidence[0].incidence_14d);
     }
     // clean up
     assert!(std::fs::remove_file(path).is_ok());

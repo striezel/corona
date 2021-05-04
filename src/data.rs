@@ -48,7 +48,7 @@ pub struct NumbersAndIncidence
 pub struct Incidence14
 {
   pub date: String,
-  pub incidence: f64
+  pub incidence_14d: f64
 }
 
 /**

@@ -648,7 +648,7 @@ impl Generator
     {
       return None;
     }
-    let data = db.incidence(&country.country_id);
+    let data = db.incidence14(&country.country_id);
     // May be an empty array, if there is no known incidence.
     if data.is_empty()
     {
@@ -664,7 +664,7 @@ impl Generator
     for d in data.iter()
     {
       dates.push(d.date.clone());
-      incidence.push(d.incidence.to_string());
+      incidence.push(d.incidence_14d.to_string());
     }
     // graph: date values
     // TODO: Use proper JSON library for encoding.
@@ -705,7 +705,7 @@ impl Generator
     let countries = db.countries_of_continent(&continent);
     for country in countries.iter()
     {
-      let data = db.incidence(&country.country_id);
+      let data = db.incidence14(&country.country_id);
       // May be an empty array, if there is no known incidence.
       if data.is_empty()
       {
@@ -718,7 +718,7 @@ impl Generator
       for d in data.iter()
       {
         dates.push(d.date.clone());
-        incidence.push(d.incidence.to_string());
+        incidence.push(d.incidence_14d.to_string());
       }
       // graph: date values
       // TODO: Use proper JSON library for encoding.
