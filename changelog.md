@@ -16,6 +16,7 @@ Dependency updates:
 * update memchr to 2.4.0
 * update regex to 1.5.3
 * update regex-syntax to 0.6.25
+* update syn to 1.0.72
 
 ## Version 0.6.0 (2021-04-30)
 
