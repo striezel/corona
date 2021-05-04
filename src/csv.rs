@@ -199,12 +199,51 @@ mod tests
   }
 
   #[test]
-  fn successful_execution()
+  fn successful_execution_ecdc()
   {
     use std::env;
     use std::fs;
 
-    let csv_file_name = env::temp_dir().join("test_csv_corona.csv");
+    let csv_file_name = env::temp_dir().join("test_csv_corona_ecdc_date.csv");
+    let config = CsvConfiguration {
+      db_path: get_sqlite_db_path(),
+      csv_output_file: csv_file_name.to_str().unwrap().to_string(),
+      date_format: DateFormat::LegacyEcdc
+    };
+    let csv = Csv::new(&config).unwrap();
+    assert!(csv.create_csv());
+    // Check that CSV file exists.
+    assert!(csv_file_name.exists());
+    // Check contents.
+    let contents = fs::read_to_string(&csv_file_name);
+    assert!(contents.is_ok());
+    let contents = contents.unwrap();
+    // -- Check header line.
+    let first_line = contents.lines().next();
+    assert!(first_line.is_some());
+    assert_eq!("dateRep,day,month,year,cases,deaths,\
+                countriesAndTerritories,geoId,countryterritoryCode,popData2019,continentExp,\
+                Cumulative_number_for_14_days_of_COVID-19_cases_per_100000",
+                first_line.unwrap());
+    // -- Check a single line with incidence value.
+    let line = "10/12/2020,10,12,2020,23679,440,Germany,DE,DEU,83019213,Europe,311.5122279";
+    let found = contents.lines().find(|&l| l == line);
+    assert!(found.is_some());
+    // -- Check a single line without incidence value.
+    let line = "12/01/2020,12,1,2020,0,0,Germany,DE,DEU,83019213,Europe,";
+    let found = contents.lines().find(|&l| l == line);
+    assert!(found.is_some());
+    // clean up
+    assert!(fs::remove_file(csv_file_name).is_ok());
+  }
+
+  #[test]
+  fn successful_execution_iso8601()
+  {
+    use std::env;
+    use std::fs;
+
+    let csv_file_name = env::temp_dir().join("test_csv_corona_iso_date.csv");
     let config = CsvConfiguration {
       db_path: get_sqlite_db_path(),
       csv_output_file: csv_file_name.to_str().unwrap().to_string(),
