@@ -207,7 +207,8 @@ mod tests
     let csv_file_name = env::temp_dir().join("test_csv_corona.csv");
     let config = CsvConfiguration {
       db_path: get_sqlite_db_path(),
-      csv_output_file: csv_file_name.to_str().unwrap().to_string()
+      csv_output_file: csv_file_name.to_str().unwrap().to_string(),
+      date_format: DateFormat::Iso8601
     };
     let csv = Csv::new(&config).unwrap();
     assert!(csv.create_csv());
@@ -225,11 +226,11 @@ mod tests
                 Cumulative_number_for_14_days_of_COVID-19_cases_per_100000",
                 first_line.unwrap());
     // -- Check a single line with incidence value.
-    let line = "10/12/2020,10,12,2020,23679,440,Germany,DE,DEU,83019213,Europe,311.5122279";
+    let line = "2020-12-10,10,12,2020,23679,440,Germany,DE,DEU,83019213,Europe,311.5122279";
     let found = contents.lines().find(|&l| l == line);
     assert!(found.is_some());
     // -- Check a single line without incidence value.
-    let line = "12/01/2020,12,1,2020,0,0,Germany,DE,DEU,83019213,Europe,";
+    let line = "2020-01-12,12,1,2020,0,0,Germany,DE,DEU,83019213,Europe,";
     let found = contents.lines().find(|&l| l == line);
     assert!(found.is_some());
     // clean up
