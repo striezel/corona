@@ -35,10 +35,18 @@ pub struct HtmlConfiguration
   pub template_path: Option<PathBuf>
 }
 
+#[derive(Copy, Clone)]
+pub enum DateFormat
+{
+  Iso8601,   // YYYY-MM-DD
+  LegacyEcdc // DD/MM/YYYY
+}
+
 pub struct CsvConfiguration
 {
   pub db_path: String,
-  pub csv_output_file: String
+  pub csv_output_file: String,
+  pub date_format: DateFormat
 }
 
 pub struct DbConfiguration
@@ -77,7 +85,8 @@ pub fn parse_args(args: &[String]) -> Result<Operation, String>
 
     let db_path = args[2].clone();
     let csv_output_file = args[3].clone();
-    return Ok(Operation::Csv(CsvConfiguration { db_path, csv_output_file}));
+    let date_format = DateFormat::Iso8601; // TODO: make this an adjustable parameter
+    return Ok(Operation::Csv(CsvConfiguration { db_path, csv_output_file, date_format }));
   }
 
   if args[1] == "html"

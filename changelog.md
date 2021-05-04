@@ -6,8 +6,11 @@ improvements may be omitted.)_
 
 ## Next Version (2021-05-??)
 
-Negative incidence values (due to correctional subtractions) are shown in plots,
-too.
+* The date format of the CSV output is changed to match the ISO 8601 date
+  format. To give an example, the date "23/09/2020" is now represented as
+  "2020-09-23".
+* Negative incidence values (due to correctional subtractions) are shown in
+  plots, too.
 
 Dependency updates:
 

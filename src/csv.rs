@@ -19,6 +19,7 @@ use super::configuration::CsvConfiguration;
 use crate::data::Country;
 use crate::data::NumbersAndIncidence;
 use crate::database::Database;
+use crate::DateFormat;
 
 use std::path::Path;
 
@@ -53,7 +54,8 @@ impl Csv
       config: CsvConfiguration
       {
         db_path: config.db_path.clone(),
-        csv_output_file: config.csv_output_file.clone()
+        csv_output_file: config.csv_output_file.clone(),
+        date_format: config.date_format
       }
     })
   }
@@ -109,6 +111,7 @@ impl Csv
       eprintln!("Error: Could not write CSV header! {}", e);
       return false;
     }
+    let date_format = &self.config.date_format;
     // Handle each country.
     for country in countries.iter()
     {
@@ -120,7 +123,7 @@ impl Csv
       }
       for num in numbers.iter()
       {
-        let rec = Csv::num_to_vec(&num, &country);
+        let rec = Csv::num_to_vec(&num, &country, date_format);
         let success = writer.write_record(&rec);
         if success.is_err()
         {
@@ -151,12 +154,16 @@ impl Csv
    * @param country  country data
    * @return Returns a vector of strings that is suitable for a CSV record.
    */
-  fn num_to_vec(num: &NumbersAndIncidence, country: &Country) -> Vec<String>
+  fn num_to_vec(num: &NumbersAndIncidence, country: &Country, format: &DateFormat) -> Vec<String>
   {
     let day: String = num.date[8..10].trim_start_matches('0').to_string();
     let month = num.date[5..7].trim_start_matches('0').to_string();
     let year = num.date[0..4].to_string();
-    let date_rep = format!("{}/{}/{}", num.date[8..10].to_string(), num.date[5..7].to_string(), year);
+    let date_rep = match format
+    {
+        DateFormat::Iso8601 =>  format!("{}-{}-{}", year, num.date[5..7].to_string(), num.date[8..10].to_string()),
+        DateFormat::LegacyEcdc =>format!("{}/{}/{}", num.date[8..10].to_string(), num.date[5..7].to_string(), year)
+    };
     vec![date_rep, day, month, year,
          num.cases.to_string(), num.deaths.to_string(), country.name.clone(),
          country.geo_id.clone(), country.country_code.clone(),
