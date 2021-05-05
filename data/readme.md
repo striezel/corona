@@ -66,8 +66,8 @@ the case numbers for every country, `corona-ecdc-2020-12-14.db`. That database
 file was created by [botvinnik](https://gitlab.com/striezel/botvinnik/), a
 Matrix chat bot that comes with various features - among them the ability to
 show Coronavirus case numbers per country, if requested. Since the code already
-existed, it was used to create the database file. The original PHP scripts in
-this repository worked with that database file, and so did the Rust application
+existed, it was used to create the database file. The original (now removed) PHP
+script prototype worked with that database file, and so did the Rust application
 before it was able to create its own database using the same schema.
 
 For reference, the corresponding CSV data from the ECDC is also provided as

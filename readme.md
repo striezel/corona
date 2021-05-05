@@ -225,13 +225,6 @@ type
 
 to get the numbers for France.
 
-## Older PHP variant
-
-A PHP variant of the code is available in the `php/` subdirectory. These PHP
-scripts were the prototype of the application before it was implemented in Rust.
-You probably do not want to use those scripts, they are just there to have the
-archived scripts ready in case that I should ever need them again.
-
 ## Copyright and Licensing
 
 Copyright 2020, 2021  Dirk Stolle
