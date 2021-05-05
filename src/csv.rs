@@ -103,9 +103,10 @@ impl Csv
         return false;
       }
     };
-    const CSV_HEADER: [&str; 12] = ["dateRep", "day", "month", "year", "cases", "deaths",
+    const CSV_HEADER: [&str; 13] = ["dateRep", "day", "month", "year", "cases", "deaths",
       "countriesAndTerritories", "geoId","countryterritoryCode", "popData2019", "continentExp",
-      "Cumulative_number_for_14_days_of_COVID-19_cases_per_100000"];
+      "Cumulative_number_for_14_days_of_COVID-19_cases_per_100000",
+      "Cumulative_number_for_7_days_of_COVID-19_cases_per_100000"];
     if let Err(e) = writer.write_record(&CSV_HEADER)
     {
       eprintln!("Error: Could not write CSV header! {}", e);
@@ -118,7 +119,8 @@ impl Csv
       let numbers = db.numbers_with_incidence(&country.country_id);
       if numbers.is_empty()
       {
-        eprintln!("Error while generating file for {} ({})!", &country.name, &country.geo_id);
+        eprintln!("Error while retrieving data for {} ({}) from the database!",
+                  &country.name, &country.geo_id);
         return false;
       }
       for num in numbers.iter()
@@ -172,6 +174,11 @@ impl Csv
          {
            Some(i14d) => i14d.to_string(),
            None => String::new()
+         },
+         match num.incidence_7d
+         {
+           Some(i7d) => i7d.to_string(),
+           None => String::new()
          }
     ]
   }
@@ -223,14 +230,15 @@ mod tests
     assert!(first_line.is_some());
     assert_eq!("dateRep,day,month,year,cases,deaths,\
                 countriesAndTerritories,geoId,countryterritoryCode,popData2019,continentExp,\
-                Cumulative_number_for_14_days_of_COVID-19_cases_per_100000",
+                Cumulative_number_for_14_days_of_COVID-19_cases_per_100000,\
+                Cumulative_number_for_7_days_of_COVID-19_cases_per_100000",
                 first_line.unwrap());
-    // -- Check a single line with incidence value.
-    let line = "10/12/2020,10,12,2020,23679,440,Germany,DE,DEU,83019213,Europe,311.5122279";
+    // -- Check a single line with 14-day incidence value.
+    let line = "10/12/2020,10,12,2020,23679,440,Germany,DE,DEU,83019213,Europe,311.5122279,";
     let found = contents.lines().find(|&l| l == line);
     assert!(found.is_some());
     // -- Check a single line without incidence value.
-    let line = "12/01/2020,12,1,2020,0,0,Germany,DE,DEU,83019213,Europe,";
+    let line = "12/01/2020,12,1,2020,0,0,Germany,DE,DEU,83019213,Europe,,";
     let found = contents.lines().find(|&l| l == line);
     assert!(found.is_some());
     // clean up
@@ -262,14 +270,15 @@ mod tests
     assert!(first_line.is_some());
     assert_eq!("dateRep,day,month,year,cases,deaths,\
                 countriesAndTerritories,geoId,countryterritoryCode,popData2019,continentExp,\
-                Cumulative_number_for_14_days_of_COVID-19_cases_per_100000",
+                Cumulative_number_for_14_days_of_COVID-19_cases_per_100000,\
+                Cumulative_number_for_7_days_of_COVID-19_cases_per_100000",
                 first_line.unwrap());
-    // -- Check a single line with incidence value.
-    let line = "2020-12-10,10,12,2020,23679,440,Germany,DE,DEU,83019213,Europe,311.5122279";
+    // -- Check a single line with 14-day incidence value.
+    let line = "2020-12-10,10,12,2020,23679,440,Germany,DE,DEU,83019213,Europe,311.5122279,";
     let found = contents.lines().find(|&l| l == line);
     assert!(found.is_some());
     // -- Check a single line without incidence value.
-    let line = "2020-01-12,12,1,2020,0,0,Germany,DE,DEU,83019213,Europe,";
+    let line = "2020-01-12,12,1,2020,0,0,Germany,DE,DEU,83019213,Europe,,";
     let found = contents.lines().find(|&l| l == line);
     assert!(found.is_some());
     // clean up

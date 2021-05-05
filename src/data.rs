@@ -35,13 +35,22 @@ pub struct Numbers
   pub deaths: i32
 }
 
-/// struct to hold the case numbers and 14-day incidence for a single day in a single country
+/// struct to hold the case numbers and 14-day incidence as well as
+/// 7-day incidence for a single day in a single country
 pub struct NumbersAndIncidence
 {
   pub date: String,
   pub cases: i32,
   pub deaths: i32,
-  pub incidence_14d: Option<f64>
+  pub incidence_14d: Option<f64>,
+  pub incidence_7d: Option<f64>
+}
+
+/// struct to hold 7-day incidence value for a single day in a single country
+pub struct Incidence7
+{
+  pub date: String,
+  pub incidence_7d: f64
 }
 
 /// struct to hold 14-day incidence value for a single day in a single country
@@ -52,69 +61,113 @@ pub struct Incidence14
 }
 
 /**
- * Calculates the 14-day incidence for a slice of Numbers that are pre-sorted by
- * date in ascending order.
+ * Calculates the 14-day incidence and 7-day incidence for a slice of Numbers
+ * that are pre-sorted by date in ascending order.
  *
  * @param number   slice of numbers, has to be sorted by date in ascending order
  *                 without any gaps
  * @param population  number of inhabitants in the country
- * @return Returns the numbers with 14-day incidence calculated.
+ * @return Returns the numbers with 14-day and 7-day incidence calculated.
  */
 pub fn calculate_incidence(numbers: &[Numbers], population: &i32) -> Vec<NumbersAndIncidence>
 {
   let len = numbers.len();
   let mut result: Vec<NumbersAndIncidence> = Vec::with_capacity(len);
-  for elem in numbers.iter().take(13)
-  {
-    result.push(NumbersAndIncidence {
-      date: elem.date.clone(),
-      cases: elem.cases,
-      deaths: elem.deaths,
-      incidence_14d: None,
-    });
-  }
-  // If there is not enough data to ever get to 14 days, then there can be no
-  // 14-day incidence.
-  if len <= 13
-  {
-    return result;
-  }
   // If there is no valid population number, no incidence can be calculated.
   if population <= &0
   {
-    for elem in numbers.iter().skip(13)
+    for elem in numbers.iter()
     {
       result.push(NumbersAndIncidence {
         date: elem.date.clone(),
         cases: elem.cases,
         deaths: elem.deaths,
         incidence_14d: None,
+        incidence_7d: None
       });
     }
     return result;
   }
+  // Elements for the first six days can have no 7-day (or 14-day) incidence.
+  for elem in numbers.iter().take(6)
+  {
+    result.push(NumbersAndIncidence {
+      date: elem.date.clone(),
+      cases: elem.cases,
+      deaths: elem.deaths,
+      incidence_14d: None,
+      incidence_7d: None
+    });
+  }
+  // If there is not enough data to ever get to seven days, then there can be
+  // no 7-day (or 14-day) incidence.
+  if len <= 6
+  {
+    return result;
+  }
 
-  let mut sum: i32 = 0;
+  // Calculate values for the 7th day.
+  let mut sum7: i32 = 0;
+  for elem in numbers.iter().take(7)
+  {
+    sum7 += elem.cases;
+  }
+  result.push(NumbersAndIncidence {
+    date: numbers[6].date.clone(),
+    cases: numbers[6].cases,
+    deaths: numbers[6].deaths,
+    incidence_14d: None,
+    incidence_7d: Some(sum7 as f64 * 100_000.0 / *population as f64),
+  });
+
+  // Calculate values for days 8 till 13.
+  for (idx, elem) in numbers.iter().enumerate().skip(7).take(6)
+  {
+    // Recalculate sum.
+    sum7 = sum7 + elem.cases - numbers[idx - 7].cases;
+    result.push(NumbersAndIncidence {
+      date: elem.date.clone(),
+      cases: elem.cases,
+      deaths: elem.deaths,
+      incidence_14d: None,
+      incidence_7d: Some(sum7 as f64 * 100_000.0 / *population as f64),
+    });
+  }
+
+  // If there is not enough data to ever get to 14 days, then there can be no
+  // 14-day incidence.
+  if len <= 13
+  {
+    return result;
+  }
+
+  // Calculate values for the 14th day.
+  let mut sum14: i32 = 0;
   for elem in numbers.iter().take(14)
   {
-    sum += elem.cases;
+    sum14 += elem.cases;
   }
+  sum7 = sum7 + numbers[13].cases - numbers[6].cases;
   result.push(NumbersAndIncidence {
     date: numbers[13].date.clone(),
     cases: numbers[13].cases,
     deaths: numbers[13].deaths,
-    incidence_14d: Some(sum as f64 * 100_000.0 / *population as f64),
+    incidence_14d: Some(sum14 as f64 * 100_000.0 / *population as f64),
+    incidence_7d: Some(sum7 as f64 * 100_000.0 / *population as f64),
   });
 
+  // Calculate values for days 15 onwards.
   for idx in 14..len
   {
     // Recalculate sum.
-    sum = sum + numbers[idx].cases - numbers[idx - 14].cases;
+    sum14 = sum14 + numbers[idx].cases - numbers[idx - 14].cases;
+    sum7 = sum7 + numbers[idx].cases - numbers[idx - 7].cases;
     result.push(NumbersAndIncidence {
       date: numbers[idx].date.clone(),
       cases: numbers[idx].cases,
       deaths: numbers[idx].deaths,
-      incidence_14d: Some(sum as f64 * 100_000.0 / *population as f64),
+      incidence_14d: Some(sum14 as f64 * 100_000.0 / *population as f64),
+      incidence_7d: Some(sum7 as f64 * 100_000.0 / *population as f64),
     });
   }
 
@@ -186,7 +239,33 @@ mod tests
   use super::*;
 
   #[test]
-  fn calculate_incidence_few_elements()
+  fn calculate_incidence_7d_few_elements()
+  {
+    let mut numbers = Vec::new();
+    for i in 1..5
+    {
+      numbers.push(Numbers {
+        date: format!("2020-01-{:0>2}", i),
+        cases: i,
+        deaths: 0
+      });
+    }
+    let incidence = calculate_incidence(&numbers, &123_456_789);
+    assert_eq!(numbers.len(), incidence.len());
+    for idx in 0..numbers.len()
+    {
+      // Numbers should be equal.
+      assert_eq!(numbers[idx].date, incidence[idx].date);
+      assert_eq!(numbers[idx].cases, incidence[idx].cases);
+      assert_eq!(numbers[idx].deaths, incidence[idx].deaths);
+      // Incidence values should not be set.
+      assert!(incidence[idx].incidence_7d.is_none());
+      assert!(incidence[idx].incidence_14d.is_none());
+    }
+  }
+
+  #[test]
+  fn calculate_incidence_14d_few_elements()
   {
     let mut numbers = Vec::new();
     for i in 1..10
@@ -211,7 +290,98 @@ mod tests
   }
 
   #[test]
-  fn calculate_incidence_14_elements()
+  fn calculate_incidence_7d_seven_elements()
+  {
+    let numbers = vec![
+      Numbers { date: "2020-12-01".to_string(), cases: 272, deaths: 11 },
+      Numbers { date: "2020-12-02".to_string(), cases: 400, deaths: 48 },
+      Numbers { date: "2020-12-03".to_string(), cases: 202, deaths: 19 },
+      Numbers { date: "2020-12-04".to_string(), cases: 119, deaths: 5 },
+      Numbers { date: "2020-12-05".to_string(), cases: 235, deaths: 18 },
+      Numbers { date: "2020-12-06".to_string(), cases: 234, deaths: 10 },
+      Numbers { date: "2020-12-07".to_string(), cases: 210, deaths: 26 },
+    ];
+
+    let incidence = calculate_incidence(&numbers, &38_041_757);
+    assert_eq!(numbers.len(), incidence.len());
+    for idx in 0..numbers.len()
+    {
+      // Numbers should be equal.
+      assert_eq!(numbers[idx].date, incidence[idx].date);
+      assert_eq!(numbers[idx].cases, incidence[idx].cases);
+      assert_eq!(numbers[idx].deaths, incidence[idx].deaths);
+    }
+    // Check incidence.
+    for idx in 0..6
+    {
+      // Incidence values should not be set.
+      assert!(incidence[idx].incidence_7d.is_none());
+      assert!(incidence[idx].incidence_14d.is_none());
+    }
+    // Incidence for last entry should be set, but only 7d incidence.
+    assert!(incidence[6].incidence_7d.is_some());
+    assert!(incidence[6].incidence_14d.is_none());
+    // Incidence should be roughly 4.39517029.
+    assert!(incidence[6].incidence_7d.unwrap() > 4.3951702);
+    assert!(incidence[6].incidence_7d.unwrap() < 4.3951703);
+  }
+
+  /* This test checks calculations when there are enough elements for 7-day
+      incidence, but not yet enough for 14-day incidence values. */
+  #[test]
+  fn calculate_incidence_7d_ten_elements()
+  {
+    let numbers = vec![
+      Numbers { date: "2020-12-01".to_string(), cases: 272, deaths: 11 },
+      Numbers { date: "2020-12-02".to_string(), cases: 400, deaths: 48 },
+      Numbers { date: "2020-12-03".to_string(), cases: 202, deaths: 19 },
+      Numbers { date: "2020-12-04".to_string(), cases: 119, deaths: 5 },
+      Numbers { date: "2020-12-05".to_string(), cases: 235, deaths: 18 },
+      Numbers { date: "2020-12-06".to_string(), cases: 234, deaths: 10 },
+      Numbers { date: "2020-12-07".to_string(), cases: 210, deaths: 26 },
+      Numbers { date: "2020-12-08".to_string(), cases: 200, deaths: 26 },
+      Numbers { date: "2020-12-09".to_string(), cases: 135, deaths: 13 },
+      Numbers { date: "2020-12-10".to_string(), cases: 202, deaths: 16 },
+    ];
+
+    let incidence = calculate_incidence(&numbers, &38_041_757);
+    assert_eq!(numbers.len(), incidence.len());
+    for idx in 0..numbers.len()
+    {
+      // Numbers should be equal.
+      assert_eq!(numbers[idx].date, incidence[idx].date);
+      assert_eq!(numbers[idx].cases, incidence[idx].cases);
+      assert_eq!(numbers[idx].deaths, incidence[idx].deaths);
+    }
+    // Check incidence.
+    for idx in 0..6
+    {
+      // Incidence values should not be set.
+      assert!(incidence[idx].incidence_7d.is_none());
+      assert!(incidence[idx].incidence_14d.is_none());
+    }
+    // Incidence for other entries should be set, but only 7d incidence.
+    for idx in 6..incidence.len()
+    {
+      assert!(incidence[idx].incidence_7d.is_some());
+      assert!(incidence[idx].incidence_14d.is_none());
+    }
+    // Incidence on 7th day should be roughly 4.39517029.
+    assert!(incidence[6].incidence_7d.unwrap() > 4.3951702);
+    assert!(incidence[6].incidence_7d.unwrap() < 4.3951703);
+    // Incidence on 8th day should be roughly 4.20590458.
+    assert!(incidence[7].incidence_7d.unwrap() > 4.2059045);
+    assert!(incidence[7].incidence_7d.unwrap() < 4.2059046);
+    // Incidence on 9th day should be roughly 3.509301634.
+    assert!(incidence[8].incidence_7d.unwrap() > 3.5093016);
+    assert!(incidence[8].incidence_7d.unwrap() < 3.5093017);
+    // Incidence on 10th day should be roughly 3.509301634, too.
+    assert!(incidence[9].incidence_7d.unwrap() > 3.5093016);
+    assert!(incidence[9].incidence_7d.unwrap() < 3.5093017);
+  }
+
+  #[test]
+  fn calculate_incidence_14d_14_elements()
   {
     let numbers = vec![
       Numbers { date: "2020-12-01".to_string(), cases: 272, deaths: 11 },
@@ -253,7 +423,150 @@ mod tests
   }
 
   #[test]
-  fn calculate_incidence_more_than_14_elements()
+  fn calculate_incidence_7d_more_than_14_elements()
+  {
+    let numbers = vec![
+      Numbers { date: "2020-10-31".to_string(), cases: 19059, deaths: 103 },
+      Numbers { date: "2020-11-01".to_string(), cases: 14177, deaths: 29 },
+      Numbers { date: "2020-11-02".to_string(), cases: 12097, deaths: 49 },
+      Numbers { date: "2020-11-03".to_string(), cases: 15352, deaths: 131 },
+      Numbers { date: "2020-11-04".to_string(), cases: 17214, deaths: 151 },
+      Numbers { date: "2020-11-05".to_string(), cases: 19990, deaths: 118 },
+      Numbers { date: "2020-11-06".to_string(), cases: 21506, deaths: 166 },
+      Numbers { date: "2020-11-07".to_string(), cases: 23399, deaths: 130 },
+      Numbers { date: "2020-11-08".to_string(), cases: 16017, deaths: 63 },
+      Numbers { date: "2020-11-09".to_string(), cases: 13363, deaths: 63 },
+      Numbers { date: "2020-11-10".to_string(), cases: 15332, deaths: 154 },
+      Numbers { date: "2020-11-11".to_string(), cases: 18487, deaths: 261 },
+      Numbers { date: "2020-11-12".to_string(), cases: 21866, deaths: 215 },
+      Numbers { date: "2020-11-13".to_string(), cases: 23542, deaths: 218 },
+      Numbers { date: "2020-11-14".to_string(), cases: 22461, deaths: 178 },
+      Numbers { date: "2020-11-15".to_string(), cases: 16947, deaths: 107 },
+      Numbers { date: "2020-11-16".to_string(), cases: 10824, deaths: 62 },
+      Numbers { date: "2020-11-17".to_string(), cases: 14419, deaths: 267 },
+      Numbers { date: "2020-11-18".to_string(), cases: 17561, deaths: 305 },
+      Numbers { date: "2020-11-19".to_string(), cases: 22609, deaths: 251 },
+      Numbers { date: "2020-11-20".to_string(), cases: 23648, deaths: 260 },
+      Numbers { date: "2020-11-21".to_string(), cases: 22964, deaths: 254 },
+      Numbers { date: "2020-11-22".to_string(), cases: 15741, deaths: 138 },
+      Numbers { date: "2020-11-23".to_string(), cases: 10864, deaths: 90 },
+      Numbers { date: "2020-11-24".to_string(), cases: 13554, deaths: 249 },
+      Numbers { date: "2020-11-25".to_string(), cases: 18633, deaths: 410 },
+      Numbers { date: "2020-11-26".to_string(), cases: 22268, deaths: 389 },
+      Numbers { date: "2020-11-27".to_string(), cases: 22806, deaths: 426 },
+      Numbers { date: "2020-11-28".to_string(), cases: 21695, deaths: 379 },
+      Numbers { date: "2020-11-29".to_string(), cases: 14611, deaths: 158 },
+      Numbers { date: "2020-11-30".to_string(), cases: 11169, deaths: 125 },
+    ];
+
+    let incidence = calculate_incidence(&numbers, &83_019_213);
+    assert_eq!(numbers.len(), incidence.len());
+    for idx in 0..numbers.len()
+    {
+      // Numbers should be equal.
+      assert_eq!(numbers[idx].date, incidence[idx].date);
+      assert_eq!(numbers[idx].cases, incidence[idx].cases);
+      assert_eq!(numbers[idx].deaths, incidence[idx].deaths);
+    }
+    // Check incidence.
+    for idx in 0..6
+    {
+      // Incidence values should not be set.
+      assert!(incidence[idx].incidence_14d.is_none());
+      assert!(incidence[idx].incidence_7d.is_none());
+    }
+    for idx in 7..13
+    {
+      // Incidence values should not be set only for 7-day incidence.
+      assert!(incidence[idx].incidence_14d.is_none());
+      assert!(incidence[idx].incidence_7d.is_some());
+    }
+    for idx in 13..numbers.len()
+    {
+      // Incidence values should be set for both.
+      assert!(incidence[idx].incidence_14d.is_some());
+      assert!(incidence[idx].incidence_7d.is_some());
+    }
+
+    // 6th: 143.81610676
+    assert!(incidence[6].incidence_7d.unwrap() > 143.816106);
+    assert!(incidence[6].incidence_7d.unwrap() < 143.816107);
+    // 7th: 149.04381230
+    assert!(incidence[7].incidence_7d.unwrap() > 149.043812);
+    assert!(incidence[7].incidence_7d.unwrap() < 149.043813);
+    // 8th: 151.26016672
+    assert!(incidence[8].incidence_7d.unwrap() > 151.260166);
+    assert!(incidence[8].incidence_7d.unwrap() < 151.260167);
+    // 9th: 152.78511493
+    assert!(incidence[9].incidence_7d.unwrap() > 152.785114);
+    assert!(incidence[9].incidence_7d.unwrap() < 152.785115);
+    // 10th: 152.76102412
+    assert!(incidence[10].incidence_7d.unwrap() > 152.761024);
+    assert!(incidence[10].incidence_7d.unwrap() < 152.761025);
+    // 11th: 154.29440411
+    assert!(incidence[11].incidence_7d.unwrap() > 154.294404);
+    assert!(incidence[11].incidence_7d.unwrap() < 154.294405);
+    // 12th: 156.55412199
+    assert!(incidence[12].incidence_7d.unwrap() > 156.554121);
+    assert!(incidence[12].incidence_7d.unwrap() < 156.554122);
+    // 13th: 159.00656634
+    assert!(incidence[13].incidence_7d.unwrap() > 159.006566);
+    assert!(incidence[13].incidence_7d.unwrap() < 159.006567);
+    // 14th: 157.87670740
+    assert!(incidence[14].incidence_7d.unwrap() > 157.876707);
+    assert!(incidence[14].incidence_7d.unwrap() < 157.876708);
+    // 15th: 158.99693002
+    assert!(incidence[15].incidence_7d.unwrap() > 158.996930);
+    assert!(incidence[15].incidence_7d.unwrap() < 158.996931);
+    // 16th: 155.93860182
+    assert!(incidence[16].incidence_7d.unwrap() > 155.938601);
+    assert!(incidence[16].incidence_7d.unwrap() < 155.938602);
+    // 17th: 154.83885639
+    assert!(incidence[17].incidence_7d.unwrap() > 154.838856);
+    assert!(incidence[17].incidence_7d.unwrap() < 154.838857);
+    // 18th: 153.72345194
+    assert!(incidence[18].incidence_7d.unwrap() > 153.723451);
+    assert!(incidence[18].incidence_7d.unwrap() < 153.723452);
+    // 19th: 154.61842549
+    assert!(incidence[19].incidence_7d.unwrap() > 154.618425);
+    assert!(incidence[19].incidence_7d.unwrap() < 154.618426);
+    // 20th: 154.74610678
+    assert!(incidence[20].incidence_7d.unwrap() > 154.746106);
+    assert!(incidence[20].incidence_7d.unwrap() < 154.746107);
+    // 21st: 155.35199062
+    assert!(incidence[21].incidence_7d.unwrap() > 155.351990);
+    assert!(incidence[21].incidence_7d.unwrap() < 155.351991);
+    // 22nd: 153.89931484
+    assert!(incidence[22].incidence_7d.unwrap() > 153.899314);
+    assert!(incidence[22].incidence_7d.unwrap() < 153.899315);
+    // 23rd: 153.94749646
+    assert!(incidence[23].incidence_7d.unwrap() > 153.947496);
+    assert!(incidence[23].incidence_7d.unwrap() < 153.947497);
+    // 24th: 152.90556897
+    assert!(incidence[24].incidence_7d.unwrap() > 152.905568);
+    assert!(incidence[24].incidence_7d.unwrap() < 152.905569);
+    // 25th: 154.19683633
+    assert!(incidence[25].incidence_7d.unwrap() > 154.196836);
+    assert!(incidence[25].incidence_7d.unwrap() < 154.196837);
+    // 26th: 153.78608804
+    assert!(incidence[26].incidence_7d.unwrap() > 153.786088);
+    assert!(incidence[26].incidence_7d.unwrap() < 153.786089);
+    // 27th: 152.77186498
+    assert!(incidence[27].incidence_7d.unwrap() > 152.771864);
+    assert!(incidence[27].incidence_7d.unwrap() < 152.771865);
+    // 28th: 151.24330316
+    assert!(incidence[28].incidence_7d.unwrap() > 151.243303);
+    assert!(incidence[28].incidence_7d.unwrap() < 151.243304);
+    // 29th: 149.8821724
+    assert!(incidence[29].incidence_7d.unwrap() > 149.882172);
+    assert!(incidence[29].incidence_7d.unwrap() < 149.882173);
+    // 30th: 150.24955729
+    assert!(incidence[30].incidence_7d.unwrap() > 150.249557);
+    assert!(incidence[30].incidence_7d.unwrap() < 150.249558);
+  }
+
+  #[test]
+  fn calculate_incidence_14d_more_than_14_elements()
   {
     let numbers = vec![
       Numbers { date: "2020-10-31".to_string(), cases: 19059, deaths: 103 },
@@ -412,6 +725,7 @@ mod tests
       assert_eq!(numbers[idx].deaths, incidence[idx].deaths);
       // Incidence values should not be set.
       assert!(incidence[idx].incidence_14d.is_none());
+      assert!(incidence[idx].incidence_7d.is_none());
     }
     // Same game for negative population.
     let incidence = calculate_incidence(&numbers, &-1);
@@ -424,6 +738,7 @@ mod tests
       assert_eq!(numbers[idx].deaths, incidence[idx].deaths);
       // Incidence values should not be set.
       assert!(incidence[idx].incidence_14d.is_none());
+      assert!(incidence[idx].incidence_7d.is_none());
     }
   }
 
