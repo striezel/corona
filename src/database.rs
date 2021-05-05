@@ -224,7 +224,7 @@ impl Database
    * Lists all countries of a given continent.
    *
    * @param continent   name of the continent
-   * @return Returns a vetor of country data.
+   * @return Returns a vector of country data.
    */
   pub fn countries_of_continent(&self, continent: &str) -> Vec<Country>
   {
