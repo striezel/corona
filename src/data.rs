@@ -64,6 +64,20 @@ pub fn calculate_incidence(numbers: &[Numbers], population: &i32) -> Vec<Numbers
 {
   let len = numbers.len();
   let mut result: Vec<NumbersAndIncidence> = Vec::with_capacity(len);
+  // If there is no valid population number, no incidence can be calculated.
+  if population <= &0
+  {
+    for elem in numbers.iter()
+    {
+      result.push(NumbersAndIncidence {
+        date: elem.date.clone(),
+        cases: elem.cases,
+        deaths: elem.deaths,
+        incidence_14d: None,
+      });
+    }
+    return result;
+  }
   for elem in numbers.iter().take(13)
   {
     result.push(NumbersAndIncidence {
@@ -79,42 +93,28 @@ pub fn calculate_incidence(numbers: &[Numbers], population: &i32) -> Vec<Numbers
   {
     return result;
   }
-  // If there is no valid population number, no incidence can be calculated.
-  if population <= &0
-  {
-    for elem in numbers.iter().skip(13)
-    {
-      result.push(NumbersAndIncidence {
-        date: elem.date.clone(),
-        cases: elem.cases,
-        deaths: elem.deaths,
-        incidence_14d: None,
-      });
-    }
-    return result;
-  }
 
-  let mut sum: i32 = 0;
+  let mut sum14: i32 = 0;
   for elem in numbers.iter().take(14)
   {
-    sum += elem.cases;
+    sum14 += elem.cases;
   }
   result.push(NumbersAndIncidence {
     date: numbers[13].date.clone(),
     cases: numbers[13].cases,
     deaths: numbers[13].deaths,
-    incidence_14d: Some(sum as f64 * 100_000.0 / *population as f64),
+    incidence_14d: Some(sum14 as f64 * 100_000.0 / *population as f64),
   });
 
   for idx in 14..len
   {
     // Recalculate sum.
-    sum = sum + numbers[idx].cases - numbers[idx - 14].cases;
+    sum14 = sum14 + numbers[idx].cases - numbers[idx - 14].cases;
     result.push(NumbersAndIncidence {
       date: numbers[idx].date.clone(),
       cases: numbers[idx].cases,
       deaths: numbers[idx].deaths,
-      incidence_14d: Some(sum as f64 * 100_000.0 / *population as f64),
+      incidence_14d: Some(sum14 as f64 * 100_000.0 / *population as f64),
     });
   }
 
