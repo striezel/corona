@@ -314,7 +314,8 @@ impl Database
             date: row.get(0).unwrap_or_else(|_e| { String::from("") }),
             cases: row.get(1).unwrap_or(0),
             deaths: row.get(2).unwrap_or(0),
-            incidence_14d: if (i14d + 1.0).abs() < DELTA { None } else { Some(i14d) }
+            incidence_14d: if (i14d + 1.0).abs() < DELTA { None } else { Some(i14d) },
+            incidence_7d: None // TODO: Get from (to be created) database column.
           })
         },
         Ok(None) => break,
@@ -992,7 +993,8 @@ mod tests
       date: String::from("2020-12-10"),
       cases: 23679,
       deaths: 440,
-      incidence_14d: Some(311.5122279)
+      incidence_14d: Some(311.5122279),
+      incidence_7d: None,
     };
     let found = numbers.iter().find(|&n| n.date == "2020-12-10");
     assert!(found.is_some());
@@ -1002,12 +1004,14 @@ mod tests
     assert_eq!(germany_2020_12_10.deaths, found.deaths);
     assert!(found.incidence_14d.is_some());
     assert_eq!(germany_2020_12_10.incidence_14d, found.incidence_14d);
+    assert_eq!(germany_2020_12_10.incidence_7d, found.incidence_7d);
     // Check another value, but without incidence data.
     let germany_2020_01_01 = NumbersAndIncidence {
       date: String::from("2020-01-01"),
       cases: 0,
       deaths: 0,
-      incidence_14d: None
+      incidence_14d: None,
+      incidence_7d: None
     };
     let found = numbers.iter().find(|&n| n.date == "2020-01-01");
     assert!(found.is_some());
@@ -1017,6 +1021,8 @@ mod tests
     assert_eq!(germany_2020_01_01.deaths, found.deaths);
     assert!(found.incidence_14d.is_none());
     assert_eq!(germany_2020_01_01.incidence_14d, found.incidence_14d);
+    assert!(found.incidence_7d.is_none());
+    assert_eq!(germany_2020_01_01.incidence_7d, found.incidence_7d);
   }
 
   #[test]
@@ -1291,8 +1297,20 @@ mod tests
       // Id -1 means an error occurred.
       assert!(id != -1);
       let data = vec![
-        NumbersAndIncidence { date: "2020-10-01".to_string(), cases: 12345, deaths: 543, incidence_14d: None },
-        NumbersAndIncidence { date: "2020-10-02".to_string(), cases: 54321, deaths: 1234, incidence_14d: Some(234.5) },
+        NumbersAndIncidence {
+          date: "2020-10-01".to_string(),
+          cases: 12345,
+          deaths: 543,
+          incidence_14d: None,
+          incidence_7d: None
+        },
+        NumbersAndIncidence {
+          date: "2020-10-02".to_string(),
+          cases: 54321,
+          deaths: 1234,
+          incidence_14d: Some(234.5),
+          incidence_7d: Some(112.3)
+        },
       ];
       // Insert should succeed.
       let id = id as i32;
@@ -1311,6 +1329,7 @@ mod tests
       assert_eq!(1, incidence.len());
       assert_eq!("2020-10-02", incidence[0].date);
       assert_eq!(234.5, incidence[0].incidence_14d);
+      // TODO: Check for incidence_7d, once it is implemented.
     }
     // clean up
     assert!(std::fs::remove_file(path).is_ok());
