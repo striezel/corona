@@ -120,8 +120,9 @@ impl Db
     let expected_headers = vec!["dateRep", "day", "month", "year", "cases",
                                 "deaths", "countriesAndTerritories", "geoId",
                                 "countryterritoryCode", "popData2019", "continentExp",
-                                "Cumulative_number_for_14_days_of_COVID-19_cases_per_100000"];
-    if headers != expected_headers
+                                "Cumulative_number_for_14_days_of_COVID-19_cases_per_100000",
+                                "Cumulative_number_for_7_days_of_COVID-19_cases_per_100000"];
+    if headers != expected_headers && headers != expected_headers[0..12]
     {
       eprintln!("Error: CSV headers do not match the expected headers. \
                  Found the following headers: {:?}", headers);
@@ -174,11 +175,12 @@ impl Db
           return false;
         }
       }
-      if record.len() != 12
+      let r_len = record.len();
+      if r_len != 13 && r_len != 12
       {
-        eprintln!("Error: A line of CSV data does not have twelve data elements, \
+        eprintln!("Error: A line of CSV data does not have twelve or thirteen data elements, \
                    but {} elements instead!\nThe line position is '{}'. It will be skipped.",
-                   record.len(), record.position().unwrap().line());
+                   r_len, record.position().unwrap().line());
         return false;
       }
       let current_geo_id = record.get(7).unwrap();
@@ -224,6 +226,11 @@ impl Db
         false => record.get(11).unwrap().parse().unwrap_or(F64_NAN /* NaN */),
         true => F64_NAN /* NaN */
       };
+      let incidence7: f64 = match record.get(12).unwrap_or_default().is_empty()
+      {
+        false => record.get(12).unwrap().parse().unwrap_or(F64_NAN /* NaN */),
+        true => F64_NAN /* NaN */
+      };
       //C++: date = yearStr + "-" + std::string(monthStr.size() == 1, '0') + monthStr + "-" + std::string(dayStr.size() == 1, '0') + dayStr;
       let date = format!("{}-{:0>2}-{:0>2}", year_str, month_str, day_str);
       /*                           ^^^
@@ -234,7 +241,7 @@ impl Db
        */
       if batch.is_empty()
       {
-        batch = String::from("INSERT INTO covid19 (countryId, date, cases, deaths, incidence14) VALUES ");
+        batch = String::from("INSERT INTO covid19 (countryId, date, cases, deaths, incidence14, incidence7) VALUES ");
         batch_count = 0;
       }
 
@@ -254,6 +261,15 @@ impl Db
       else
       {
         batch.push_str(&incidence14.to_string());
+      }
+      batch.push_str(", ");
+      if incidence7.is_nan()
+      {
+        batch.push_str("NULL");
+      }
+      else
+      {
+        batch.push_str(&incidence7.to_string());
       }
       batch.push_str("),");
       batch_count += 1;
@@ -301,7 +317,7 @@ mod tests
   /**
    * Gets path to the corona_daily.csv file in data directory.
    *
-   * @return Returns path of the SQLite database.
+   * @return Returns path of the CSV file.
    */
   fn get_csv_path() -> String
   {

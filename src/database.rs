@@ -91,7 +91,7 @@ impl Database
                cases INTEGER,\n  \
                deaths INTEGER,\n  \
                incidence14 REAL,\n  \
-               incidence7 REAL\n
+               incidence7 REAL\n\
                );";
     if let Err(e) = conn.execute(sql, params![])
     {
@@ -636,7 +636,14 @@ impl Database
    */
   pub fn batch(&self, sql: &str) -> bool
   {
-    self.conn.execute_batch(sql).is_ok()
+    let res = self.conn.execute_batch(sql);
+    if res.is_err()
+    {
+      eprintln!("Error: Batch statement failed! {}", res.unwrap_err());
+      eprintln!("Statement is:\n{}\n", sql);
+      return false;
+    }
+    true
   }
 
   /**
