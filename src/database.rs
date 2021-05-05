@@ -772,8 +772,11 @@ mod tests
   use super::*;
 
   /**
-   * Gets a database instance connected to the corona.db file in data directory.
+   * Gets a database instance connected to the old ECDC-based corona.db file
+   * in the data directory.
    *
+   * @remarks The records in that SQLite database are stale, apart from possible
+   *          future schema updates, so they can be considered "constant" data.
    * @return Returns an open database.
    */
   fn get_sqlite_db() -> Database
@@ -784,6 +787,26 @@ mod tests
       .join("..")                    // up one directory
       .join("data")                  // into directory data/
       .join("corona-ecdc-2020-12-14.db"); // and to the corona.db file;
+    let db = Database::new(db_path.to_str().unwrap());
+    assert!(db.is_ok());
+    return db.unwrap();
+  }
+
+  /**
+   * Gets a database instance connected to the current corona.db file in data directory.
+   *
+   * @remarks The data in that file may change regularly, so do not rely on it
+   *          being constant.
+   * @return Returns an open database.
+   */
+  fn get_sqlite_db_live() -> Database
+  {
+    let db_path = Path::new(file!()) // current file: src/database.rs
+      .parent()                      // parent: src/
+      .unwrap()                      // safe to unwrap, because directory exists
+      .join("..")                    // up one directory
+      .join("data")                  // into directory data/
+      .join("corona.db");            // and to the corona.db file;
     let db = Database::new(db_path.to_str().unwrap());
     assert!(db.is_ok());
     return db.unwrap();
@@ -1268,38 +1291,70 @@ mod tests
   #[test]
   fn incidence7()
   {
-    let db = get_sqlite_db();
+    let db = get_sqlite_db_live();
 
     let incidences = db.incidence7(&76);
-    // TODO: Write better test when test data is available!
-    /*
     // Vector of data must not be empty.
     assert!(!incidences.is_empty());
     // There should be more than 300 entries, ...
     assert!(incidences.len() > 300);
-    // ... but less than 600, because vector has only data from one country.
-    assert!(incidences.len() < 600);
+    // ... but less than 6000, because vector has only data from one country.
+    assert!(incidences.len() < 6000);
     // Check whether a specific value is in the vector.
-    let germany_2020_10_23 = Incidence14 {
+    let germany_2020_10_23 = Incidence7 {
       date: String::from("2020-10-23"),
-      incidence_14d: 106.76 // 106.759624, rounded to two decimals after the point
+      incidence_7d: 65.93 // 65.92931686789, rounded to two decimals after the point
     };
     let found = incidences.iter().find(|&i| i.date == "2020-10-23");
     assert!(found.is_some());
     let found = found.unwrap();
     assert_eq!(germany_2020_10_23.date, found.date);
-    assert_eq!(germany_2020_10_23.incidence_14d, found.incidence_14d);
-    // Check another value (2020-02-12|0.01325).
-    let germany_2020_02_12 = Incidence14 {
-      date: String::from("2020-02-12"),
-      incidence_14d: 0.01 // 0.01325, rounded to two decimals after the point
+    assert_eq!(germany_2020_10_23.incidence_7d, found.incidence_7d);
+    // Check another value (2021-02-12|66.4713600693854).
+    let germany_2021_02_12 = Incidence7 {
+      date: String::from("2021-02-12"),
+      incidence_7d: 66.47 // rounded to two decimals after the point
     };
-    let found = incidences.iter().find(|&i| i.date == "2020-02-12");
+    let found = incidences.iter().find(|&i| i.date == "2021-02-12");
     assert!(found.is_some());
     let found = found.unwrap();
-    assert_eq!(germany_2020_02_12.date, found.date);
-    assert_eq!(germany_2020_02_12.incidence_14d, found.incidence_14d);
-    */
+    assert_eq!(germany_2021_02_12.date, found.date);
+    assert_eq!(germany_2021_02_12.incidence_7d, found.incidence_7d);
+  }
+
+  #[test]
+  fn incidence7_negative_luxembourg()
+  {
+    let db = get_sqlite_db_live();
+
+    let incidences = db.incidence7(&117);
+    // Vector of data must not be empty.
+    assert!(!incidences.is_empty());
+    // There should be more than 300 entries, ...
+    assert!(incidences.len() > 300);
+    // ... but less than 6000, because vector has only data from one country.
+    assert!(incidences.len() < 6000);
+    // Check whether a specific value is in the vector.
+    // 117|2020-08-28|-1348|0|-134.388021384799|-183.093498226078|6580|124
+    let luxembourg_2020_08_28 = Incidence7 {
+      date: String::from("2020-08-28"),
+      incidence_7d: -183.09 // rounded to two decimals after the point
+    };
+    let found = incidences.iter().find(|&i| i.date == "2020-08-28");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(luxembourg_2020_08_28.date, found.date);
+    assert_eq!(luxembourg_2020_08_28.incidence_7d, found.incidence_7d);
+    // Check another value (2020-09-03|-181.95323622645|6811|124).
+    let luxembourg_2020_09_03 = Incidence7 {
+      date: String::from("2020-09-03"),
+      incidence_7d: -181.95 // rounded to two decimals after the point
+    };
+    let found = incidences.iter().find(|&i| i.date == "2020-09-03");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(luxembourg_2020_09_03.date, found.date);
+    assert_eq!(luxembourg_2020_09_03.incidence_7d, found.incidence_7d);
   }
 
   #[test]
