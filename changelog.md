@@ -4,6 +4,12 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version NEXT (2021-05-??)
+
+Dependency updates:
+
+* update redox_syscall to 0.2.8
+
 ## Version 0.7.0 (2021-05-04)
 
 * The date format of the CSV output is changed to match the ISO 8601 date
