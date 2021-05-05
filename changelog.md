@@ -6,6 +6,10 @@ improvements may be omitted.)_
 
 ## Version NEXT (2021-05-??)
 
+The incidence plots for the countries do now show the 7-day incidence values,
+too. These are shown in addition to 14-day incidence values, so the viewers can
+choose whichever incidence plots they prefer.
+
 Dependency updates:
 
 * update redox_syscall to 0.2.8

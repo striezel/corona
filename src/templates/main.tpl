@@ -85,20 +85,28 @@
 <!--section-start::graphIncidence-->
 <div id="{{plotId}}"> </div>
 <script>
-  var dates = {{>dates}};
-  var incidence = {{>incidence}};
+  var dates14 = {{>dates14}};
+  var incidence14 = {{>incidence14}};
+  var dates7 = {{>dates7}};
+  var incidence7 = {{>incidence7}};
   var traces = [];
 
   traces.push({
-      x: dates,
-      y: incidence,
+      x: dates14,
+      y: incidence14,
       type: 'scatter',
       name: '14-day incidence'
+  });
+  traces.push({
+      x: dates7,
+      y: incidence7,
+      type: 'scatter',
+      name: '7-day incidence'
   });
   var layout = {
     title: '{{title}}',
     yaxis: {
-       title: '14-day incidence'
+       title: '14-day and 7-day incidences'
     }
   };
   Plotly.newPlot('{{plotId}}', traces, layout, {
@@ -107,7 +115,8 @@
   });
 </script>
 <br />
-<div style="text-align: center; font-style: italic;">The 14-day incidence is the number of infections per 100000 inhabitants over the last 14 days.</div>
+<div style="text-align: center; font-style: italic;">The 14-day incidence is the number of infections per 100000 inhabitants over the last 14 days.<br />
+The 7-day incidence is the number of infections per 100000 inhabitants over the last seven days.</div>
 <!--section-end::graphIncidence-->
 
 <!--section-start::graphContinent-->

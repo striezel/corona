@@ -648,20 +648,20 @@ impl Generator
     {
       return None;
     }
-    let data = db.incidence14(&country.country_id);
+    let data14 = db.incidence14(&country.country_id);
     // May be an empty array, if there is no known incidence.
-    if data.is_empty()
+    if data14.is_empty()
     {
       return Some(String::from(""));
     }
-    tpl.tag("title", &("Coronavirus: 14-day incidence in ".to_owned()
+    tpl.tag("title", &("Coronavirus: incidences in ".to_owned()
                      + &country.name + " (" + &country.geo_id + ")"));
     tpl.tag("plotId", &("graph_incidence14_".to_owned() + &country.geo_id.to_lowercase()));
     // prepare numbers
-    let capacity = data.len();
+    let capacity = data14.len();
     let mut dates: Vec<String> = Vec::with_capacity(capacity);
     let mut incidence: Vec<String> = Vec::with_capacity(capacity);
-    for d in data.iter()
+    for d in data14.iter()
     {
       dates.push(d.date.clone());
       incidence.push(d.incidence_14d.to_string());
@@ -673,14 +673,46 @@ impl Generator
       false => "[\"".to_owned() + &dates.join("\",\"") + "\"]",
       true => "[]".to_string()
     };
-    tpl.integrate("dates", &dates);
+    tpl.integrate("dates14", &dates);
     // graph: incidence values
     let incidence = match incidence.is_empty()
     {
       false => "[".to_owned() + &incidence.join(",") + "]",
       true => "[]".to_string()
     };
-    tpl.integrate("incidence", &incidence);
+    tpl.integrate("incidence14", &incidence);
+
+    let data7 = db.incidence7(&country.country_id);
+    // May be an empty array, if there is no known incidence.
+    if data7.is_empty()
+    {
+      return Some(String::from(""));
+    }
+    // prepare numbers
+    let capacity = data7.len();
+    let mut dates: Vec<String> = Vec::with_capacity(capacity);
+    let mut incidence: Vec<String> = Vec::with_capacity(capacity);
+    for d in data7.iter()
+    {
+      dates.push(d.date.clone());
+      incidence.push(d.incidence_7d.to_string());
+    }
+    // graph: date values
+    // TODO: Use proper JSON library for encoding.
+    let dates = match dates.is_empty()
+    {
+      false => "[\"".to_owned() + &dates.join("\",\"") + "\"]",
+      true => "[]".to_string()
+    };
+    tpl.integrate("dates7", &dates);
+    // graph: incidence values
+    let incidence = match incidence.is_empty()
+    {
+      false => "[".to_owned() + &incidence.join(",") + "]",
+      true => "[]".to_string()
+    };
+    tpl.integrate("incidence7", &incidence);
+
     tpl.generate()
   }
 
