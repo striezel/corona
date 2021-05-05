@@ -118,7 +118,8 @@ impl Csv
       let numbers = db.numbers_with_incidence(&country.country_id);
       if numbers.is_empty()
       {
-        eprintln!("Error while generating file for {} ({})!", &country.name, &country.geo_id);
+        eprintln!("Error while retrieving data for {} ({}) from the database!",
+                  &country.name, &country.geo_id);
         return false;
       }
       for num in numbers.iter()

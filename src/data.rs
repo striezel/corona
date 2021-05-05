@@ -46,6 +46,13 @@ pub struct NumbersAndIncidence
   pub incidence_7d: Option<f64>
 }
 
+/// struct to hold 7-day incidence value for a single day in a single country
+pub struct Incidence7
+{
+  pub date: String,
+  pub incidence_7d: f64
+}
+
 /// struct to hold 14-day incidence value for a single day in a single country
 pub struct Incidence14
 {

@@ -16,7 +16,7 @@
 */
 
 use std::path::Path;
-use crate::data::{Country, Incidence14, Numbers, NumbersAndIncidence};
+use crate::data::{Country, Incidence14, Incidence7, Numbers, NumbersAndIncidence};
 
 use rusqlite::{Connection, params};
 
@@ -90,7 +90,8 @@ impl Database
                date TEXT,\n  \
                cases INTEGER,\n  \
                deaths INTEGER,\n  \
-               incidence14 REAL\n\
+               incidence14 REAL,\n  \
+               incidence7 REAL\n
                );";
     if let Err(e) = conn.execute(sql, params![])
     {
@@ -287,7 +288,7 @@ impl Database
    */
   pub fn numbers_with_incidence(&self, country_id: &i32) -> Vec<NumbersAndIncidence>
   {
-    let sql = "SELECT date, cases, deaths, IFNULL(incidence14, -1.0) FROM covid19 \
+    let sql = "SELECT date, cases, deaths, IFNULL(incidence14, -1.0), IFNULL(incidence7, -1.0) FROM covid19 \
                WHERE countryId = ? \
                ORDER BY date DESC;";
     let mut stmt = match self.conn.prepare(&sql)
@@ -310,12 +311,13 @@ impl Database
       {
         Ok(Some(row)) => {
           let i14d = row.get(3).unwrap_or(-1.0);
+          let i7d = row.get(4).unwrap_or(-1.0);
           data.push(NumbersAndIncidence {
             date: row.get(0).unwrap_or_else(|_e| { String::from("") }),
             cases: row.get(1).unwrap_or(0),
             deaths: row.get(2).unwrap_or(0),
             incidence_14d: if (i14d + 1.0).abs() < DELTA { None } else { Some(i14d) },
-            incidence_7d: None // TODO: Get from (to be created) database column.
+            incidence_7d: if (i7d + 1.0).abs() < DELTA { None } else { Some(i7d) },
           })
         },
         Ok(None) => break,
@@ -418,6 +420,47 @@ impl Database
     };
     let rows = stmt.query(params![]);
     Database::extract_numbers(rows)
+  }
+
+  /**
+   * Get the 7-day incidence values of Covid-19 for a specific country.
+   *
+   * @param countryId   id of the country
+   * @return Returns a vector of Incidences.
+   *         This may be an empty vector, if no values are known.
+   */
+  pub fn incidence7(&self, country_id: &i32) -> Vec<Incidence7>
+  {
+    let sql = "SELECT date, round(incidence7, 2) FROM covid19 \
+               WHERE countryId = ? AND ABS(IFNULL(incidence7, -1.0)+1.0) > 0.000001 \
+               ORDER BY date ASC;";
+    let mut stmt = match self.conn.prepare(&sql)
+    {
+      Ok(x) => x,
+      Err(_) => return vec![]
+    };
+    let rows = stmt.query(params![&country_id]);
+    let mut rows = match rows
+    {
+      Ok(r) => r,
+      Err(_) => return vec![]
+    };
+    let mut data: Vec<Incidence7> = Vec::new();
+    loop // potential infinite loop
+    {
+      let row = rows.next();
+      match row
+      {
+        Ok(Some(row)) => data.push(Incidence7 {
+          date: row.get(0).unwrap_or_else(|_e| { String::from("") }),
+          incidence_7d: row.get(1).unwrap_or(0.0)
+        }),
+        Ok(None) => break,
+        _ => return vec![]
+      }
+    }
+
+    data
   }
 
   /**
@@ -624,7 +667,7 @@ impl Database
     {
       if batch.is_empty()
       {
-        batch = String::from("INSERT INTO covid19 (countryId, date, cases, deaths, incidence14) VALUES ");
+        batch = String::from("INSERT INTO covid19 (countryId, date, cases, deaths, incidence14, incidence7) VALUES ");
         batch_count = 0;
       }
 
@@ -644,6 +687,15 @@ impl Database
       else
       {
         batch.push_str(&elem.incidence_14d.unwrap().to_string());
+      }
+      batch.push_str(", ");
+      if elem.incidence_7d.is_none()
+      {
+        batch.push_str("NULL");
+      }
+      else
+      {
+        batch.push_str(&elem.incidence_7d.unwrap().to_string());
       }
       batch.push_str("),");
       batch_count += 1;
@@ -1138,7 +1190,7 @@ mod tests
   }
 
   #[test]
-  fn incidence()
+  fn incidence14()
   {
     let db = get_sqlite_db();
 
@@ -1172,7 +1224,7 @@ mod tests
   }
 
   #[test]
-  fn incidence_negative_luxembourg()
+  fn incidence14_negative_luxembourg()
   {
     let db = get_sqlite_db();
 
@@ -1204,6 +1256,43 @@ mod tests
     let found = found.unwrap();
     assert_eq!(luxembourg_2020_09_09.date, found.date);
     assert_eq!(luxembourg_2020_09_09.incidence_14d, found.incidence_14d);
+  }
+
+  #[test]
+  fn incidence7()
+  {
+    let db = get_sqlite_db();
+
+    let incidences = db.incidence7(&76);
+    // TODO: Write better test when test data is available!
+    /*
+    // Vector of data must not be empty.
+    assert!(!incidences.is_empty());
+    // There should be more than 300 entries, ...
+    assert!(incidences.len() > 300);
+    // ... but less than 600, because vector has only data from one country.
+    assert!(incidences.len() < 600);
+    // Check whether a specific value is in the vector.
+    let germany_2020_10_23 = Incidence14 {
+      date: String::from("2020-10-23"),
+      incidence_14d: 106.76 // 106.759624, rounded to two decimals after the point
+    };
+    let found = incidences.iter().find(|&i| i.date == "2020-10-23");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(germany_2020_10_23.date, found.date);
+    assert_eq!(germany_2020_10_23.incidence_14d, found.incidence_14d);
+    // Check another value (2020-02-12|0.01325).
+    let germany_2020_02_12 = Incidence14 {
+      date: String::from("2020-02-12"),
+      incidence_14d: 0.01 // 0.01325, rounded to two decimals after the point
+    };
+    let found = incidences.iter().find(|&i| i.date == "2020-02-12");
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(germany_2020_02_12.date, found.date);
+    assert_eq!(germany_2020_02_12.incidence_14d, found.incidence_14d);
+    */
   }
 
   #[test]
@@ -1324,12 +1413,16 @@ mod tests
       assert_eq!("2020-10-02", numbers[1].date);
       assert_eq!(54321, numbers[1].cases);
       assert_eq!(1234, numbers[1].deaths);
-      // Incidence should exist - but only for one value.
+      // Incidence (14-day) should exist - but only for one value.
       let incidence = db.incidence14(&id);
       assert_eq!(1, incidence.len());
       assert_eq!("2020-10-02", incidence[0].date);
       assert_eq!(234.5, incidence[0].incidence_14d);
-      // TODO: Check for incidence_7d, once it is implemented.
+      // Incidence (7-day) should exist - but only for one value.
+      let incidence = db.incidence7(&id);
+      assert_eq!(1, incidence.len());
+      assert_eq!("2020-10-02", incidence[0].date);
+      assert_eq!(112.3, incidence[0].incidence_7d);
     }
     // clean up
     assert!(std::fs::remove_file(path).is_ok());
