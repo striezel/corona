@@ -6,6 +6,9 @@ improvements may be omitted.)_
 
 ## Version NEXT (2021-05-??)
 
+Adjust program to new CSV layout of Canadian. (One more column has been added to
+the official CSV, so the program has to be aware of that.)
+
 Dependency updates:
 
 * update regex to 1.5.4
