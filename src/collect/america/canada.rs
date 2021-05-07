@@ -160,7 +160,8 @@ impl Canada
       "ratetotal_last14", "numdeaths_last14", "ratedeaths_last14",
       "numtotal_last7", "ratetotal_last7", "numdeaths_last7",
       "ratedeaths_last7", "avgtotal_last7", "avgincidence_last7",
-      "avgdeaths_last7", "avgratedeaths_last7", "avgtests_last7"
+      "avgdeaths_last7", "avgratedeaths_last7", "avgtests_last7",
+      "avgratetests_last7"
     ];
     if headers != expected_headers
     {
