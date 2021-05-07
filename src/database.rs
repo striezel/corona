@@ -163,6 +163,9 @@ impl Database
       Ok(mapped_rows) => mapped_rows,
       Err(_) => return -1
     };
+    // Allow this loop here, because the non-looping alternative would result
+    // in more obfuscated code.
+    #[allow(clippy::never_loop)]
     for id in rows.flatten()
     {
       return id;
