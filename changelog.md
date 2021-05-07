@@ -4,6 +4,13 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version NEXT (2021-05-??)
+
+Dependency updates:
+
+* update regex to 1.5.4
+* update openssl-sys to 0.9.63
+
 ## Version 0.8.0 (2021-05-05)
 
 The incidence plots for the countries do now show the 7-day incidence values,
