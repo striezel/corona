@@ -4,6 +4,12 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version NEXT (2021-05-??)
+
+Dependency updates:
+
+* update url to 2.2.2
+
 ## Version 0.8.1 (2021-05-07)
 
 Adjust program to new CSV layout of Canadian. (One more column has been added to
