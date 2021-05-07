@@ -163,12 +163,9 @@ impl Database
       Ok(mapped_rows) => mapped_rows,
       Err(_) => return -1
     };
-    for row in rows
+    for id in rows.flatten()
     {
-      if let Ok(id) = row
-      {
-        return id;
-      }
+      return id;
     }
     // The requested geo id was not found - insert new country.
     let mut stmt = match self.conn.prepare(
