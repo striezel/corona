@@ -310,8 +310,8 @@ impl Database
       match row
       {
         Ok(Some(row)) => {
-          let i14d = row.get(3).unwrap_or(-1.0);
-          let i7d = row.get(4).unwrap_or(-1.0);
+          let i14d = row.get(3).unwrap_or(-1.0f64);
+          let i7d = row.get(4).unwrap_or(-1.0f64);
           data.push(NumbersAndIncidence {
             date: row.get(0).unwrap_or_else(|_e| { String::from("") }),
             cases: row.get(1).unwrap_or(0),
