@@ -8,7 +8,11 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update js-sys to 0.3.51
 * update url to 2.2.2
+* update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-futures,
+  wasm-bindgen-macro, wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.74
+* update web-sys to 0.3.51
 
 ## Version 0.8.1 (2021-05-07)
 
