@@ -8,7 +8,11 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update futures-channel, futures-core, futures-io, futures-sink, futures-task,
+  futures-util to 0.3.15
+* update httparse to 1.4.1
 * update js-sys to 0.3.51
+* update openssl-probe to 0.1.4
 * update url to 2.2.2
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-futures,
   wasm-bindgen-macro, wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.74
