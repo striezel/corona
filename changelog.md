@@ -6,6 +6,9 @@ improvements may be omitted.)_
 
 ## Version NEXT (2021-05-??)
 
+Update JSON parsing of Jersey, because the official JSON data has changed its
+format / layout.
+
 Dependency updates:
 
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,

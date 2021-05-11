@@ -65,7 +65,7 @@ impl Jersey
     use reqwest::StatusCode;
     use std::io::Read;
 
-    let mut res = match reqwest::blocking::get("https://www.gov.je/Datasets/ListOpenData?ListName=COVID19CasesChart&type=json")
+    let mut res = match reqwest::blocking::get("https://www.gov.je/Datasets/ListOpenData?ListName=COVID19&type=json")
     {
       Ok(responded) => responded,
       Err(e) => return Err(format!("HTTP request failed: {}", e))
@@ -99,15 +99,15 @@ impl Jersey
    */
   fn parse_json(json: &Value) -> Result<Vec<Numbers>, String>
   {
-    let chart = match json.get("COVID19CasesChart")
+    let chart = match json.get("COVID19")
     {
       Some(value) => value,
-      None => return Err("JSON does not contain element COVID19CasesChart!".to_string())
+      None => return Err("JSON does not contain element COVID19!".to_string())
     };
     let chart = match chart.as_array()
     {
       Some(vec) => vec,
-      None => return Err("JSON element COVID19CasesChart is not an array!".to_string())
+      None => return Err("JSON element COVID19 is not an array!".to_string())
     };
     let date_exp = regex::RegexBuilder::new("^[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}$")
       .build()
@@ -131,34 +131,34 @@ impl Jersey
       {
         return Err(format!("Date value '{}' does not match the YYYY-MM-DD format!", date));
       }
-      let cases = match elem.get("Newcasesreported")
+      let cases = match elem.get("CasesDailyNewConfirmedCases")
       {
         Some(value) =>
         {
           match value.as_str()
           {
             Some(s) => s.to_string(),
-            None => return Err("Element 'Newcasesreported' is not a string!".to_string())
+            None => return Err("Element 'CasesDailyNewConfirmedCases' is not a string!".to_string())
           }
         },
-        None => return Err("Element 'Newcasesreported' does not exist!".to_string())
+        None => return Err("Element 'CasesDailyNewConfirmedCases' does not exist!".to_string())
       };
       let cases = match cases.parse()
       {
         Ok(i) => i,
         Err(_) => Jersey::I32_MIN
       };
-      let deaths = match elem.get("Deaths")
+      let deaths = match elem.get("MortalityTotalDeaths")
       {
         Some(value) =>
         {
           match value.as_str()
           {
             Some(s) => s.to_string(),
-            None => return Err("Element 'Deaths' is not a string!".to_string())
+            None => return Err("Element 'MortalityTotalDeaths' is not a string!".to_string())
           }
         },
-        None => return Err("Element 'Deaths' does not exist!".to_string())
+        None => return Err("Element 'MortalityTotalDeaths' does not exist!".to_string())
       };
       let deaths = match deaths.parse()
       {
