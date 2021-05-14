@@ -4,6 +4,12 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version NEXT (2021-05-??)
+
+Dependency updates:
+
+* update serde to 1.0.126
+
 ## Version 0.8.2 (2021-05-11)
 
 Update JSON parsing of Jersey, because the official JSON data has changed its
