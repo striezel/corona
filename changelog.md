@@ -6,6 +6,8 @@ improvements may be omitted.)_
 
 ## Version NEXT (2021-05-??)
 
+Adjust program to new CSV layout of Canadian data.
+
 Dependency updates:
 
 * update serde to 1.0.126
@@ -29,8 +31,8 @@ Dependency updates:
 
 ## Version 0.8.1 (2021-05-07)
 
-Adjust program to new CSV layout of Canadian. (One more column has been added to
-the official CSV, so the program has to be aware of that.)
+Adjust program to new CSV layout of Canadian data. (One more column has been
+added to the official CSV, so the program has to be aware of that.)
 
 Dependency updates:
 
@@ -78,8 +80,8 @@ Dependency updates:
 
 ## Version 0.5.7 (2021-04-28)
 
-Adjust program to new CSV layout of Canadian. (One column has been added to the
-official CSV, so the program has to be aware of that.)
+Adjust program to new CSV layout of Canadian data. (One column has been added to
+the official CSV, so the program has to be aware of that.)
 
 Dependency updates:
 
@@ -232,8 +234,8 @@ Dependencies are updated to fix vulnerablities in them:
 
 ## Version 0.5.1 (2021-02-03)
 
-Adjust program to new CSV layout of Canadian. (Three new columns have been added
-to the official CSV, so the program has to be aware of that.)
+Adjust program to new CSV layout of Canadian data. (Three new columns have been
+added to the official CSV, so the program has to be aware of that.)
 
 ## Version 0.5.0 (2021-01-23)
 

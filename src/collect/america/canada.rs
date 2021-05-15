@@ -33,6 +33,18 @@ impl Canada
     Canada { }
   }
 
+  /// zero-based column index of province name ("prname")
+  const INDEX_PRNAME: usize = 1;
+
+  /// zero-based column index of date ("date")
+  const INDEX_DATE: usize = 3;
+
+  /// zero-based column index of daily new cases ("numtoday")
+  const INDEX_CASES: usize = 15;
+
+  /// zero-based column index of daily new deaths ("numdeathstoday")
+  const INDEX_DEATHS: usize = 19;
+
   /**
    * Downloads and parses the official CSV data for Canada.
    *
@@ -106,12 +118,12 @@ impl Canada
       // If "prname" (second column) is not "Canada", it's the data for one of
       // the provinces and it can be skipped, because we only want data for all
       // of Canada here.
-      if record.get(1).unwrap() != "Canada"
+      if record.get(Canada::INDEX_PRNAME).unwrap() != "Canada"
       {
         continue;
       }
       // Date is in fourth column named "date".
-      let date = match record.get(3)
+      let date = match record.get(Canada::INDEX_DATE)
       {
         Some(s) => s,
         None => continue
@@ -123,10 +135,10 @@ impl Canada
         return Err(format!("Error: Date format does not match the DD-MM-YYYY pattern: '{}'.", date));
       }
       let date = format!("{}-{}-{}", &date[6..10], &date[3..5], &date[0..2]);
-      // Daily new cases: "numtoday", idx 15.
-      let cases: i32 = record.get(15).unwrap().parse().unwrap_or(-1);
-      // Daily new deaths: "numdeathstoday", idx 19.
-      let deaths: i32 = record.get(19).unwrap().parse().unwrap_or(-1);
+      // Daily new cases: "numtoday", index 15.
+      let cases: i32 = record.get(Canada::INDEX_CASES).unwrap().parse().unwrap_or(-1);
+      // Daily new deaths: "numdeathstoday", index 19.
+      let deaths: i32 = record.get(Canada::INDEX_DEATHS).unwrap().parse().unwrap_or(-1);
       result.push(Numbers { date, cases, deaths });
     }
 
@@ -151,19 +163,12 @@ impl Canada
         return Err(format!("Error: Could not read header of CSV: {}", e));
       }
     };
-    let expected_headers = vec![
-      "pruid", "prname", "prnameFR", "date", "update", "numconf", "numprob",
-      "numdeaths", "numtotal", "numtested", "numtests", "numrecover", "percentrecover",
-      "ratetested", "ratetests", "numtoday", "percentoday", "ratetotal", "ratedeaths",
-      "numdeathstoday", "percentdeath", "numtestedtoday", "numteststoday", "numrecoveredtoday",
-      "percentactive", "numactive", "rateactive", "numtotal_last14",
-      "ratetotal_last14", "numdeaths_last14", "ratedeaths_last14",
-      "numtotal_last7", "ratetotal_last7", "numdeaths_last7",
-      "ratedeaths_last7", "avgtotal_last7", "avgincidence_last7",
-      "avgdeaths_last7", "avgratedeaths_last7", "avgtests_last7",
-      "avgratetests_last7"
-    ];
-    if headers != expected_headers
+    // Highest required column index is "numdeathstoday", so the CSV needs at
+    // least INDEX_DEATHS + 1 columns.
+    const REQUIRED_COLUMNS: usize = Canada::INDEX_DEATHS + 1;
+    if headers.len() < REQUIRED_COLUMNS || &headers[Canada::INDEX_PRNAME] != "prname"
+      || &headers[Canada::INDEX_DATE] != "date" || &headers[Canada::INDEX_CASES] != "numtoday"
+      || &headers[Canada::INDEX_DEATHS] != "numdeathstoday"
     {
       eprintln!("Error: CSV headers do not match the expected headers. \
                  Found the following headers: {:?}", headers);
