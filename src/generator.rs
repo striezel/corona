@@ -814,17 +814,67 @@ impl Generator
                 path, created.unwrap_err());
       return false;
     }
-    // Note: Should be replaced by opendir() / readdir() / closedir() triad once
-    // there are more files. Or use directory iterator instead.
+
+    self.copy_or_download_plotly_js(&path)
+  }
+
+  /**
+   * Either copies or downloads the minified plotly.js file to the destination
+   * directory.
+   *
+   * @param assets_destination  destination directory for assets
+   * @return Returns true, if file was created successfully.
+   */
+  fn copy_or_download_plotly_js(&self, assets_destination: &Path) -> bool
+  {
     let plotly_origin = Generator::get_assets_path().join("plotly-1.58.3.min.js");
-    let plotly_destination = path.join("plotly-1.58.3.min.js");
-    let cp_success = fs::copy(&plotly_origin, &plotly_destination);
-    match cp_success
+    let plotly_destination = assets_destination.join("plotly-1.58.3.min.js");
+    if plotly_origin.exists()
     {
-      Ok(_bytes_written) => true,
+      println!("File {:?} does exist.", plotly_origin);
+      let cp_success = fs::copy(&plotly_origin, &plotly_destination);
+      return match cp_success
+      {
+        Ok(_bytes_written) => true,
+        Err(e) => {
+          eprintln!("Error: Could not copy asset file {:?} to {:?}: {}",
+                    plotly_origin, plotly_destination, e);
+          false
+        }
+      }
+    }
+
+    // File does not exist, so download it from CDN.
+    use reqwest::StatusCode;
+    use std::io::Read;
+    // Retrieve minified JS file.
+    let mut res = match reqwest::blocking::get("https://cdn.plot.ly/plotly-1.58.3.min.js")
+    {
+      Ok(responded) => responded,
       Err(e) => {
-        eprintln!("Error: Could not copy asset file {:?} to {:?}: {}",
-                  plotly_origin, plotly_destination, e);
+        eprintln!("Download of plotly.js failed: {}", e);
+        return false;
+      }
+    };
+    let mut body: Vec<u8> = Vec::new();
+    if let Err(e) = res.read_to_end(&mut body)
+    {
+      eprintln!("Failed to read plotly.js into buffer: {}", e);
+      return false;
+    }
+    if res.status() != StatusCode::OK
+    {
+      eprintln!("HTTP request failed with unexpected status code: {}\n\
+                 Headers:\n{:#?}\n\
+                 Body:\n{:?}", res.status(), res.headers(), body);
+      return false;
+    }
+
+    match std::fs::write(&plotly_destination, &body)
+    {
+      Ok(()) => true,
+      Err(e) => {
+        eprintln!("Error while writing plotly.js file: {}", e);
         false
       }
     }

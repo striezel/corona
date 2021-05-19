@@ -4,6 +4,12 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version NEXT (2021-05-??)
+
+The minified plotly.js file is now downloaded from a CDN, if it is missing. That
+ensures that the HTML file generation also works when the binary is not invoked
+via `cargo` from the repository's root directory.
+
 ## Version 0.8.3 (2021-05-15)
 
 Adjust program to new CSV layout of Canadian data.
