@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version NEXT (2021-05-??)
+## Version 0.8.4 (2021-05-20)
 
 The minified plotly.js file is now downloaded from a CDN, if it is missing. That
 ensures that the HTML file generation also works when the binary is not invoked
