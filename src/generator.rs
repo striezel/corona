@@ -30,6 +30,15 @@ const MAIN_TEMPLATE: &str = include_str!("./templates/main.tpl");
 #[cfg(target_family = "windows")]
 const MAIN_TEMPLATE: &str = include_str!(".\\templates\\main.tpl");
 
+/// basic file name of the plotly.js file
+const PLOTLY_FILE_NAME: &str = "plotly-1.58.3.min.js";
+
+/// relative path to plotly.js
+const PLOTLY_ASSET_PATH: &str = "./assets/plotly-1.58.3.min.js";
+
+/// SHA256 digest of plotly.js
+const PLOTLY_SHA256: &str = "65eb6465f30251072703b59cd66d8ef31f275ba4e77c70bcf461b188128fce8e";
+
 pub struct Generator
 {
   config: HtmlConfiguration
@@ -194,7 +203,7 @@ impl Generator
     {
       return false;
     }
-    tpl.tag("path", "./assets/plotly-1.58.3.min.js");
+    tpl.tag("path", PLOTLY_ASSET_PATH);
     let scripts = match tpl.generate()
     {
       Some(generated) => generated,
@@ -274,7 +283,7 @@ impl Generator
     {
       return false;
     }
-    tpl.tag("path", "./assets/plotly-1.58.3.min.js");
+    tpl.tag("path", PLOTLY_ASSET_PATH);
     let scripts = match tpl.generate()
     {
       Some(stringy) => stringy,
@@ -344,7 +353,7 @@ impl Generator
       {
         return false;
       }
-      tpl.tag("path", "./assets/plotly-1.58.3.min.js");
+      tpl.tag("path", PLOTLY_ASSET_PATH);
       let scripts = match tpl.generate()
       {
         Some(generated) => generated,
@@ -827,8 +836,8 @@ impl Generator
    */
   fn copy_or_download_plotly_js(&self, assets_destination: &Path) -> bool
   {
-    let plotly_origin = Generator::get_assets_path().join("plotly-1.58.3.min.js");
-    let plotly_destination = assets_destination.join("plotly-1.58.3.min.js");
+    let plotly_origin = Generator::get_assets_path().join(PLOTLY_FILE_NAME);
+    let plotly_destination = assets_destination.join(PLOTLY_FILE_NAME);
     if plotly_origin.exists()
     {
       println!("File {:?} does exist.", plotly_origin);
@@ -848,7 +857,8 @@ impl Generator
     use reqwest::StatusCode;
     use std::io::Read;
     // Retrieve minified JS file.
-    let mut res = match reqwest::blocking::get("https://cdn.plot.ly/plotly-1.58.3.min.js")
+    let url = format!("https://cdn.plot.ly/{}", PLOTLY_FILE_NAME);
+    let mut res = match reqwest::blocking::get(&url)
     {
       Ok(responded) => responded,
       Err(e) => {
@@ -870,6 +880,14 @@ impl Generator
       return false;
     }
 
+    // Check SHA256 hash of the file.
+    if !self.check_hash_plotly_js(&body)
+    {
+      eprintln!("Error: SHA256 hash of the downloaded plotly.js does not match \
+                 the expected hash!");
+      return false;
+    }
+
     match std::fs::write(&plotly_destination, &body)
     {
       Ok(()) => true,
@@ -878,6 +896,23 @@ impl Generator
         false
       }
     }
+  }
+
+  /**
+   * Checks whether the data has the expected hash.
+   *
+   * @return Returns true, if the hash matches. Returns false otherwise.
+   */
+  fn check_hash_plotly_js(&self, data: &[u8]) -> bool
+  {
+    use sha2::Digest;
+    let mut hash = sha2::Sha256::new();
+    hash.update(&data);
+    let digest = hash.finalize();
+    // Transform hash into hexadecimal string.
+    let digest_string: String = digest[..].iter().map(|&x| format!("{:02x}", x)).collect();
+    // Compare with expected value.
+    digest_string == PLOTLY_SHA256
   }
 
   /**
@@ -1029,5 +1064,12 @@ mod tests
     assert!(directory.join("us.html").exists());
     // clean up
     assert!(fs::remove_dir_all(directory).is_ok());
+  }
+
+  #[test]
+  fn constants_contain_same_plotly_version()
+  {
+    assert!(!PLOTLY_FILE_NAME.is_empty());
+    assert!(PLOTLY_ASSET_PATH.contains(PLOTLY_FILE_NAME))
   }
 }
