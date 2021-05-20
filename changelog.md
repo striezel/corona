@@ -14,6 +14,10 @@ The data for Jersey is improved in the following ways:
   those days. This is an odd datapoint in the series, where basically both days
   have zero deaths.
 
+Dependency updates:
+
+* update proc_macro2 to 1.0.27
+
 ## Version 0.8.4 (2021-05-20)
 
 The minified plotly.js file is now downloaded from a CDN, if it is missing. That
