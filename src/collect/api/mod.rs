@@ -21,6 +21,6 @@ pub mod disease_sh;
 #[derive(PartialEq)]
 pub enum Range
 {
-    Recent, // only collect recent data
-    All     // collect all data from the beginning
+  Recent, // only collect recent data
+  All     // collect all data from the beginning
 }

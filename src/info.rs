@@ -17,8 +17,8 @@
 
 use crate::collect::api::Range;
 use crate::collect::Collector;
-use crate::data::calculate_incidence;
 use crate::configuration::InfoConfiguration;
+use crate::data::calculate_incidence;
 
 pub struct Info
 {
@@ -80,7 +80,7 @@ impl Info
     };
 
     let all = Collector::all();
-    let collector = match all.iter().find(|c|  c.geo_id() == country.geo_id)
+    let collector = match all.iter().find(|c| c.geo_id() == country.geo_id)
     {
       Some(collect) => collect,
       None => {

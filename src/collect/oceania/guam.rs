@@ -15,9 +15,9 @@
  -------------------------------------------------------------------------------
 */
 
-use crate::collect::Collect;
 use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
+use crate::collect::Collect;
 use crate::data::Numbers;
 
 pub struct Guam
@@ -67,7 +67,7 @@ mod tests
     // Elements should be sorted by date.
     for idx in 1..data.len()
     {
-      assert!(data[idx-1].date < data[idx].date)
+      assert!(data[idx - 1].date < data[idx].date)
     }
   }
 }

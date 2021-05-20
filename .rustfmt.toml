@@ -1,5 +1,6 @@
 brace_style = "AlwaysNextLine"
 control_brace_style = "AlwaysNextLine"
+empty_item_single_line = false
 newline_style = "Unix"
 space_after_colon = true
 tab_spaces = 2

@@ -76,7 +76,7 @@ pub fn request_historical_api_first_of_multiple_provinces(geo_id: &str, province
   };
   if vec.is_empty()
   {
-    return Err("Error: Found empty JSON array in request for multiple provinces.".to_string())
+    return Err("Error: Found empty JSON array in request for multiple provinces.".to_string());
   }
   parse_json_timeline(&vec[0])
 }
@@ -271,11 +271,13 @@ fn parse_json_timeline(json: &Value) -> Result<Vec<Numbers>, String>
   {
     let iso_date = match date_exp.captures(&date)
     {
-      None => {
+      None =>
+      {
         println!("Found date '{}' which does not match the pattern. Skipping it.", date);
         continue;
       },
-      Some(cap) => {
+      Some(cap) =>
+      {
         format!("20{}-{:0>2}-{:0>2}", cap[3].to_string(), cap[1].to_string(), cap[2].to_string())
       }
     };
@@ -295,11 +297,13 @@ fn parse_json_timeline(json: &Value) -> Result<Vec<Numbers>, String>
   {
     let iso_date = match date_exp.captures(&date)
     {
-      None => {
+      None =>
+      {
         println!("Found date '{}' which does not match the pattern. Skipping it.", date);
         continue;
       },
-      Some(cap) => {
+      Some(cap) =>
+      {
         format!("20{}-{:0>2}-{:0>2}", cap[3].to_string(), cap[1].to_string(), cap[2].to_string())
       }
     };
@@ -482,7 +486,7 @@ mod tests
     ];
     let shifted = shift_one_day_later(&old);
     assert_eq!(2, shifted.len());
-    assert_eq!(shifted[0].date, old[1].date, );
+    assert_eq!(shifted[0].date, old[1].date);
     assert_eq!(shifted[0].cases, old[0].cases);
     assert_eq!(shifted[0].deaths, old[0].deaths);
     assert_eq!(shifted[1].date, old[2].date);

@@ -304,7 +304,8 @@ impl Database
 
     const DELTA: f64 = 0.000001;
     let mut data: Vec<NumbersAndIncidence> = Vec::new();
-    loop // potential infinite loop
+    // potential infinite loop
+    loop
     {
       let row = rows.next();
       match row
@@ -313,7 +314,7 @@ impl Database
           let i14d = row.get(3).unwrap_or(-1.0f64);
           let i7d = row.get(4).unwrap_or(-1.0f64);
           data.push(NumbersAndIncidence {
-            date: row.get(0).unwrap_or_else(|_e| { String::from("") }),
+            date: row.get(0).unwrap_or_else(|_e| String::from("")),
             cases: row.get(1).unwrap_or(0),
             deaths: row.get(2).unwrap_or(0),
             incidence_14d: if (i14d + 1.0).abs() < DELTA { None } else { Some(i14d) },
@@ -346,15 +347,16 @@ impl Database
       Err(_) => return vec![]
     };
     let mut data: Vec<Numbers> = Vec::new();
-    loop // potential infinite loop
+    // potential infinite loop
+    loop
     {
       let row = rows.next();
       match row
       {
         Ok(Some(row)) => data.push(Numbers {
-          date: row.get(0).unwrap_or_else(|_e| { String::from("") }),
+          date: row.get(0).unwrap_or_else(|_e| String::from("")),
           cases: row.get(1).unwrap_or(0),
-          deaths: row.get(2).unwrap_or(0),
+          deaths: row.get(2).unwrap_or(0)
         }),
         Ok(None) => break,
         _ => return vec![]
@@ -446,13 +448,14 @@ impl Database
       Err(_) => return vec![]
     };
     let mut data: Vec<Incidence7> = Vec::new();
-    loop // potential infinite loop
+    // potential infinite loop
+    loop
     {
       let row = rows.next();
       match row
       {
         Ok(Some(row)) => data.push(Incidence7 {
-          date: row.get(0).unwrap_or_else(|_e| { String::from("") }),
+          date: row.get(0).unwrap_or_else(|_e| String::from("")),
           incidence_7d: row.get(1).unwrap_or(0.0)
         }),
         Ok(None) => break,
@@ -487,13 +490,14 @@ impl Database
       Err(_) => return vec![]
     };
     let mut data: Vec<Incidence14> = Vec::new();
-    loop // potential infinite loop
+    // potential infinite loop
+    loop
     {
       let row = rows.next();
       match row
       {
         Ok(Some(row)) => data.push(Incidence14 {
-          date: row.get(0).unwrap_or_else(|_e| { String::from("") }),
+          date: row.get(0).unwrap_or_else(|_e| String::from("")),
           incidence_14d: row.get(1).unwrap_or(0.0)
         }),
         Ok(None) => break,
@@ -524,12 +528,13 @@ impl Database
       Ok(r) => r,
       Err(_) => return false
     };
-    loop // potential infinite loop
+    // potential infinite loop
+    loop
     {
       match rows.next()
       {
         Ok(Some(row)) => {
-          let name = row.get(1).unwrap_or_else(|_e| { String::new() });
+          let name = row.get(1).unwrap_or_else(|_e| String::new());
           if name == "totalCases"
           {
             has_total_cases = true;
@@ -1076,7 +1081,7 @@ mod tests
       cases: 23679,
       deaths: 440,
       incidence_14d: Some(311.5122279),
-      incidence_7d: None,
+      incidence_7d: None
     };
     let found = numbers.iter().find(|&n| n.date == "2020-12-10");
     assert!(found.is_some());

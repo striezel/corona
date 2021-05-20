@@ -15,8 +15,8 @@
  -------------------------------------------------------------------------------
 */
 
-pub mod configuration;
 mod collect;
+pub mod configuration;
 mod csv;
 mod data;
 mod database;
@@ -74,7 +74,7 @@ pub fn run(op: &Operation) -> Result<(), String>
       let collector = Collector::new(&config)?;
       if !collector.run()
       {
-        return Err(String::from("An error occurred during data collection."))
+        return Err(String::from("An error occurred during data collection."));
       }
       Ok(())
     },

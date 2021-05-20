@@ -46,6 +46,6 @@ impl Collect for Slovenia
   // Uses the default implementation of collect(), which is to query the
   // disease.sh historical API.
 
-    // Note: Numbers of infections match, but numbers of deaths seem to be a
-    // bit higher in the JHU numbers compared to ECDC's numbers. Why?
+  // Note: Numbers of infections match, but numbers of deaths seem to be a
+  // bit higher in the JHU numbers compared to ECDC's numbers. Why?
 }
