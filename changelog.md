@@ -8,7 +8,7 @@ improvements may be omitted.)_
 
 The minified plotly.js file is now downloaded from a CDN, if it is missing. That
 ensures that the HTML file generation also works when the binary is not invoked
-via `cargo` from the repository's root directory.
+via `cargo` or not from the repository's root directory.
 
 ## Version 0.8.3 (2021-05-15)
 
