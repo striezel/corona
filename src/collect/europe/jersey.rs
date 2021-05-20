@@ -252,19 +252,22 @@ impl Jersey
    */
   fn remove_oddity(numbers: &mut Vec<Numbers>)
   {
-    let april_8 = numbers.iter().position(|elem| elem.date == "2021-04-08");
-    let april_9 = numbers.iter().position(|elem| elem.date == "2021-04-09");
-
-    if april_8.is_some() && april_9.is_some()
+    let april_8 = match numbers.iter().position(|elem| elem.date == "2021-04-08")
     {
-      let april_8 = april_8.unwrap();
-      let april_9 = april_9.unwrap();
-      if numbers[april_8].deaths == -52 && numbers[april_9].deaths == 52
-      {
-        // Sum is zero anyway, so set both to zero.
-        numbers[april_8].deaths = 0;
-        numbers[april_9].deaths = 0;
-      }
+      Some(idx) => idx,
+      None => return
+    };
+    let april_9 = match numbers.iter().position(|elem| elem.date == "2021-04-09")
+    {
+      Some(idx) => idx,
+      None => return
+    };
+
+    if numbers[april_8].deaths == -52 && numbers[april_9].deaths == 52
+    {
+      // Sum is zero anyway, so set both to zero.
+      numbers[april_8].deaths = 0;
+      numbers[april_9].deaths = 0;
     }
   }
 
