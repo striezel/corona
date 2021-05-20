@@ -46,6 +46,8 @@ impl Jersey
     let mut numbers = Jersey::parse_json(&json)?;
     Jersey::transform_vector(&mut numbers);
     fill_missing_dates(&mut numbers)?;
+    Jersey::remove_oddity(&mut numbers);
+    Jersey::add_old_data(&mut numbers);
     Ok(numbers)
   }
 
@@ -244,6 +246,210 @@ impl Jersey
 
     // Done.
   }
+
+  /**
+   * Removes an odd data point, where number of deaths is off.
+   */
+  fn remove_oddity(numbers: &mut Vec<Numbers>)
+  {
+    let april_8 = numbers.iter().position(|elem| elem.date == "2021-04-08");
+    let april_9 = numbers.iter().position(|elem| elem.date == "2021-04-09");
+
+    if april_8.is_some() && april_9.is_some()
+    {
+      let april_8 = april_8.unwrap();
+      let april_9 = april_9.unwrap();
+      if numbers[april_8].deaths == -52 && numbers[april_9].deaths == 52
+      {
+        // Sum is zero anyway, so set both to zero.
+        numbers[april_8].deaths = 0;
+        numbers[april_9].deaths = 0;
+      }
+    }
+  }
+
+  /**
+   * Attempts to add older case data that may be missing in newer JSON.
+   *
+   * @param numbers   the case numbers for Jersey
+   */
+  fn add_old_data(numbers: &mut Vec<Numbers>)
+  {
+    let length_before = numbers.len();
+    if length_before == 0
+    {
+      return;
+    }
+    // Hardcoded data form days before August 2020.
+    let old_data = vec![
+      Numbers { date: "2020-03-13".to_string(), cases: 2, deaths: 0 },
+      Numbers { date: "2020-03-14".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-03-15".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-03-16".to_string(), cases: 3, deaths: 0 },
+      Numbers { date: "2020-03-17".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-03-18".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-03-19".to_string(), cases: 2, deaths: 0 },
+      Numbers { date: "2020-03-20".to_string(), cases: 3, deaths: 0 },
+      Numbers { date: "2020-03-21".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-03-22".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-03-23".to_string(), cases: 3, deaths: 0 },
+      Numbers { date: "2020-03-24".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-03-25".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-03-26".to_string(), cases: 30, deaths: 1 },
+      Numbers { date: "2020-03-27".to_string(), cases: 9, deaths: 0 },
+      Numbers { date: "2020-03-28".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-03-29".to_string(), cases: 0, deaths: 1 },
+      Numbers { date: "2020-03-30".to_string(), cases: 29, deaths: 0 },
+      Numbers { date: "2020-03-31".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-04-01".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-04-02".to_string(), cases: 14, deaths: 0 },
+      Numbers { date: "2020-04-03".to_string(), cases: 2, deaths: 0 },
+      Numbers { date: "2020-04-04".to_string(), cases: 29, deaths: 1 },
+      Numbers { date: "2020-04-05".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-04-06".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-04-07".to_string(), cases: 24, deaths: 0 },
+      Numbers { date: "2020-04-08".to_string(), cases: 4, deaths: 0 },
+      Numbers { date: "2020-04-09".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-04-10".to_string(), cases: 36, deaths: 0 },
+      Numbers { date: "2020-04-11".to_string(), cases: 18, deaths: 0 },
+      Numbers { date: "2020-04-12".to_string(), cases: 1, deaths: 0 },
+      Numbers { date: "2020-04-13".to_string(), cases: 5, deaths: 0 },
+      Numbers { date: "2020-04-14".to_string(), cases: 3, deaths: 3 },
+      Numbers { date: "2020-04-15".to_string(), cases: 0, deaths: 1 },
+      Numbers { date: "2020-04-16".to_string(), cases: 6, deaths: 3 },
+      Numbers { date: "2020-04-17".to_string(), cases: 17, deaths: 1 },
+      Numbers { date: "2020-04-18".to_string(), cases: 5, deaths: 1 },
+      Numbers { date: "2020-04-19".to_string(), cases: 4, deaths: 0 },
+      Numbers { date: "2020-04-20".to_string(), cases: 0, deaths: 2 },
+      Numbers { date: "2020-04-21".to_string(), cases: 5, deaths: 0 },
+      Numbers { date: "2020-04-22".to_string(), cases: 5, deaths: 4 },
+      Numbers { date: "2020-04-23".to_string(), cases: 10, deaths: 1 },
+      Numbers { date: "2020-04-24".to_string(), cases: 9, deaths: 0 },
+      Numbers { date: "2020-04-25".to_string(), cases: 2, deaths: 0 },
+      Numbers { date: "2020-04-26".to_string(), cases: 1, deaths: 0 },
+      Numbers { date: "2020-04-27".to_string(), cases: 2, deaths: 0 },
+      Numbers { date: "2020-04-28".to_string(), cases: 1, deaths: 1 },
+      Numbers { date: "2020-04-29".to_string(), cases: 2, deaths: 1 },
+      Numbers { date: "2020-04-30".to_string(), cases: 0, deaths: 2 },
+      Numbers { date: "2020-05-01".to_string(), cases: 0, deaths: 1 },
+      Numbers { date: "2020-05-02".to_string(), cases: 5, deaths: 0 },
+      Numbers { date: "2020-05-03".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-05-04".to_string(), cases: 1, deaths: 0 },
+      Numbers { date: "2020-05-05".to_string(), cases: 1, deaths: 0 },
+      Numbers { date: "2020-05-06".to_string(), cases: 0, deaths: 1 },
+      Numbers { date: "2020-05-07".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-05-08".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-05-09".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-05-10".to_string(), cases: 1, deaths: 0 },
+      Numbers { date: "2020-05-11".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-05-12".to_string(), cases: 1, deaths: 1 },
+      Numbers { date: "2020-05-13".to_string(), cases: 1, deaths: 1 },
+      Numbers { date: "2020-05-14".to_string(), cases: 1, deaths: 0 },
+      Numbers { date: "2020-05-15".to_string(), cases: 2, deaths: 0 },
+      Numbers { date: "2020-05-16".to_string(), cases: 2, deaths: 0 },
+      Numbers { date: "2020-05-17".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-05-18".to_string(), cases: 1, deaths: 0 },
+      Numbers { date: "2020-05-19".to_string(), cases: 1, deaths: 1 },
+      Numbers { date: "2020-05-20".to_string(), cases: 2, deaths: 1 },
+      Numbers { date: "2020-05-21".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-05-22".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-05-23".to_string(), cases: 1, deaths: 0 },
+      Numbers { date: "2020-05-24".to_string(), cases: 1, deaths: 0 },
+      Numbers { date: "2020-05-25".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-05-26".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-05-27".to_string(), cases: 1, deaths: 0 },
+      Numbers { date: "2020-05-28".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-05-29".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-05-30".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-05-31".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-01".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-02".to_string(), cases: 0, deaths: 1 },
+      Numbers { date: "2020-06-03".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-04".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-05".to_string(), cases: 1, deaths: 0 },
+      Numbers { date: "2020-06-06".to_string(), cases: 2, deaths: 0 },
+      Numbers { date: "2020-06-07".to_string(), cases: 1, deaths: 0 },
+      Numbers { date: "2020-06-08".to_string(), cases: 1, deaths: 0 },
+      Numbers { date: "2020-06-09".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-10".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-11".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-12".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-13".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-14".to_string(), cases: 3, deaths: 0 },
+      Numbers { date: "2020-06-15".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-16".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-17".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-18".to_string(), cases: 2, deaths: 0 },
+      Numbers { date: "2020-06-19".to_string(), cases: 0, deaths: 1 },
+      Numbers { date: "2020-06-20".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-21".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-22".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-23".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-24".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-25".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-26".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-27".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-28".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-29".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-06-30".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-01".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-02".to_string(), cases: 1, deaths: 0 },
+      Numbers { date: "2020-07-03".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-04".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-05".to_string(), cases: 2, deaths: 0 },
+      Numbers { date: "2020-07-06".to_string(), cases: 3, deaths: 0 },
+      Numbers { date: "2020-07-07".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-08".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-09".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-10".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-11".to_string(), cases: 1, deaths: 0 },
+      Numbers { date: "2020-07-12".to_string(), cases: 2, deaths: 0 },
+      Numbers { date: "2020-07-13".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-14".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-15".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-16".to_string(), cases: 2, deaths: 0 },
+      Numbers { date: "2020-07-17".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-18".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-19".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-20".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-21".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-22".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-23".to_string(), cases: 1, deaths: 0 },
+      Numbers { date: "2020-07-24".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-25".to_string(), cases: 2, deaths: 0 },
+      Numbers { date: "2020-07-26".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-27".to_string(), cases: 1, deaths: 0 },
+      Numbers { date: "2020-07-28".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-29".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-30".to_string(), cases: 0, deaths: 0 },
+      Numbers { date: "2020-07-31".to_string(), cases: 0, deaths: 0 }
+    ];
+
+    // Add old data elements that do not exist in numbers.
+    let oldest_existing_date = &numbers[0].date.clone();
+    for elem in old_data.iter()
+    {
+      if oldest_existing_date > &elem.date
+      {
+        numbers.push(elem.clone());
+      }
+    }
+
+    // Fix numbers in overlap.
+    let overlap = old_data.iter().position(|x| &x.date == oldest_existing_date);
+    if let Some(idx) = overlap
+    {
+      numbers[0].cases = old_data[idx].cases;
+      numbers[0].deaths = old_data[idx].deaths;
+    }
+
+    let length_after = numbers.len();
+    if length_before != length_after
+    {
+      // Rotating should be faster than sorting.
+      numbers.rotate_left(length_before);
+    }
+  }
 }
 
 impl Collect for Jersey
@@ -289,7 +495,61 @@ mod tests
     // Elements should be sorted by date.
     for idx in 1..data.len()
     {
-      assert!(data[idx-1].date < data[idx].date);
+      assert!(data[idx - 1].date < data[idx].date,
+              "Date {} is not less than {}!", data[idx - 1].date, data[idx].date);
     }
+  }
+
+  #[test]
+  fn odd_data_fixed()
+  {
+    let data = Jersey::new().collect(&Range::All);
+    assert!(data.is_ok());
+    let data = data.unwrap();
+
+    // Deaths for 2021-04-08 are -52 (yes, negative), which cannot be true.
+    let april_8 = data.iter().find(|elem| elem.date == "2021-04-08");
+    assert!(april_8.is_some());
+    let april_8 = april_8.unwrap();
+    assert_ne!(april_8.deaths, -52);
+    assert_eq!(april_8.deaths, 0);
+
+    let april_9 = data.iter().find(|elem| elem.date == "2021-04-09");
+    assert!(april_9.is_some());
+    let april_9 = april_9.unwrap();
+    assert_ne!(april_9.deaths, 52);
+    assert_eq!(april_9.deaths, 0);
+  }
+
+  #[test]
+  fn older_data_exists()
+  {
+    let data = Jersey::new().collect(&Range::All);
+    assert!(data.is_ok());
+    let data = data.unwrap();
+
+    // Data should have elements before 30th July 2020.
+    let old = data.iter().find(|elem| elem.date == "2020-03-30");
+    assert!(old.is_some());
+
+    let old_count = data.iter().filter(|x| x.date < "2020-07-30".to_string()).count();
+    assert!(old_count > 100);
+
+    let mut accumulated_cases = 0;
+    let mut accumulated_deaths = 0;
+    data.iter().filter(|x| x.date < "2021-05-19".to_string())
+        .for_each(|x| {
+          accumulated_cases+= x.cases;
+          accumulated_deaths+= x.deaths;
+        });
+
+    // Case numbers should be approx. 3236 by the given date.
+    println!("Cases: {}", accumulated_cases);
+    assert!(accumulated_cases > 3200);
+    assert!(accumulated_cases < 3300);
+    // Approx. 69 people have died due to the virus by the given date.
+    println!("Deaths: {}", accumulated_deaths);
+    assert!(accumulated_deaths > 60);
+    assert!(accumulated_deaths < 80);
   }
 }

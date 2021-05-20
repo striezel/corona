@@ -4,6 +4,16 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version NEXT (2021-05-??)
+
+The data for Jersey is improved in the following ways:
+
+* Older data from dates before 2020-08-01 is re-added, if it is missing.
+  (The official JSON seems to lack those data sometimes.)
+* Data for 8th and 9th April 2021 is fixed, if the numbers are -52 and 52 on
+  those days. This is an odd datapoint in the series, where basically both days
+  have zero deaths.
+
 ## Version 0.8.4 (2021-05-20)
 
 The minified plotly.js file is now downloaded from a CDN, if it is missing. That
