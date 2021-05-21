@@ -4,6 +4,12 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version NEXT (2021-05-??)
+
+Dependency updates:
+
+* update getrandom to 0.2.3
+
 ## Version 0.8.5 (2021-05-20)
 
 The data for Jersey is improved in the following ways:
