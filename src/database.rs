@@ -16,7 +16,7 @@
 */
 
 use std::path::Path;
-use crate::data::{Country, Incidence14, Incidence7, Numbers, NumbersAndIncidence};
+use crate::data::{Country, Incidence14, Incidence7, Numbers, NumbersAndIncidence, NumbersAndIncidenceAndTotals};
 
 use rusqlite::{Connection, params};
 
@@ -658,7 +658,7 @@ impl Database
    * @param data         slice of data to insert into the database
    * @return Returns whether the operation was successful.
    */
-  pub fn insert_data(&self, country_id: &i32, data: &[NumbersAndIncidence]) -> bool
+  pub fn insert_data(&self, country_id: &i32, data: &[NumbersAndIncidenceAndTotals]) -> bool
   {
     if data.is_empty()
     {
@@ -679,7 +679,7 @@ impl Database
     {
       if batch.is_empty()
       {
-        batch = String::from("INSERT INTO covid19 (countryId, date, cases, deaths, incidence14, incidence7) VALUES ");
+        batch = String::from("INSERT INTO covid19 (countryId, date, cases, deaths, incidence14, incidence7, totalCases, totalDeaths) VALUES ");
         batch_count = 0;
       }
 
@@ -709,6 +709,10 @@ impl Database
       {
         batch.push_str(&elem.incidence_7d.unwrap().to_string());
       }
+      batch.push_str(", ");
+      batch.push_str(&elem.total_cases.to_string());
+      batch.push_str(", ");
+      batch.push_str(&elem.total_deaths.to_string());
       batch.push_str("),");
       batch_count += 1;
 
@@ -1448,24 +1452,29 @@ mod tests
       // Creation should be successful and file should exist.
       assert!(db.is_ok());
       let db = db.unwrap();
+      assert!(db.calculate_total_numbers());
       // Insert some country.
       let id = db.get_country_id_or_insert("XX", "Wonderland", &421337, "WON", "Utopia");
       // Id -1 means an error occurred.
       assert!(id != -1);
       let data = vec![
-        NumbersAndIncidence {
+        NumbersAndIncidenceAndTotals {
           date: "2020-10-01".to_string(),
           cases: 12345,
           deaths: 543,
           incidence_14d: None,
-          incidence_7d: None
+          incidence_7d: None,
+          total_cases: 12345,
+          total_deaths: 543
         },
-        NumbersAndIncidence {
+        NumbersAndIncidenceAndTotals {
           date: "2020-10-02".to_string(),
           cases: 54321,
           deaths: 1234,
           incidence_14d: Some(234.5),
-          incidence_7d: Some(112.3)
+          incidence_7d: Some(112.3),
+          total_cases: 66666,
+          total_deaths: 1777
         },
       ];
       // Insert should succeed.
@@ -1490,6 +1499,15 @@ mod tests
       assert_eq!(1, incidence.len());
       assert_eq!("2020-10-02", incidence[0].date);
       assert_eq!(112.3, incidence[0].incidence_7d);
+      // Check total numbers.
+      let numbers = db.accumulated_numbers(&id);
+      assert_eq!(2, numbers.len());
+      assert_eq!("2020-10-01", numbers[0].date);
+      assert_eq!(12345, numbers[0].cases);
+      assert_eq!(543, numbers[0].deaths);
+      assert_eq!("2020-10-02", numbers[1].date);
+      assert_eq!(66666, numbers[1].cases);
+      assert_eq!(1777, numbers[1].deaths);
     }
     // clean up
     assert!(std::fs::remove_file(path).is_ok());

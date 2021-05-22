@@ -321,6 +321,11 @@ impl Collector
       return false;
     }
     let db = db.unwrap();
+    if !db.calculate_total_numbers()
+    {
+      eprintln!("Error: Could not add columns for accumulated numbers to database table!");
+      return false;
+    }
 
     println!("Collecting data for {} {} ...", self.elements.len(),
              if self.elements.len() != 1 { "countries" } else { "country "}
@@ -363,7 +368,8 @@ impl Collector
             continue;
           }
           let with_incidence = crate::data::calculate_incidence(&vector, &country_data.population);
-          let inserted = db.insert_data(&(country_id as i32), &with_incidence);
+          let with_incidence_and_totals = crate::data::calculate_totals(&with_incidence);
+          let inserted = db.insert_data(&(country_id as i32), &with_incidence_and_totals);
           if !inserted
           {
             errors.push(format!("{} ({})", &country.geo_id(), &country_data.name));
