@@ -9,6 +9,7 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update getrandom to 0.2.3
+* update vcpkg to 0.2.13
 
 ## Version 0.8.5 (2021-05-20)
 
