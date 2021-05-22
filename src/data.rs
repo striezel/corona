@@ -46,6 +46,20 @@ pub struct NumbersAndIncidence
   pub incidence_7d: Option<f64>
 }
 
+/// struct to hold the case numbers and 14-day incidence as well as 7-day
+/// incidence and sum of cases and deaths so far for a single day in a single
+/// country
+pub struct NumbersAndIncidenceAndTotals
+{
+  pub date: String,
+  pub cases: i32,
+  pub deaths: i32,
+  pub incidence_14d: Option<f64>,
+  pub incidence_7d: Option<f64>,
+  pub total_cases: i32,
+  pub total_deaths: i32
+}
+
 /// struct to hold 7-day incidence value for a single day in a single country
 pub struct Incidence7
 {
@@ -168,6 +182,48 @@ pub fn calculate_incidence(numbers: &[Numbers], population: &i32) -> Vec<Numbers
       deaths: numbers[idx].deaths,
       incidence_14d: Some(sum14 as f64 * 100_000.0 / *population as f64),
       incidence_7d: Some(sum7 as f64 * 100_000.0 / *population as f64),
+    });
+  }
+
+  result
+}
+
+/**
+ * Calculates the total cases and death numbers for a slice of NumbersAndIncidence
+ * that are pre-sorted by date in ascending order.
+ *
+ * @param number   slice of numbers, has to be sorted by date in ascending order
+ *                 without any gaps
+ * @return Returns the numbers with totals calculated.
+ */
+pub fn calculate_totals(numbers: &[NumbersAndIncidence]) -> Vec<NumbersAndIncidenceAndTotals>
+{
+  let len = numbers.len();
+  let mut result: Vec<NumbersAndIncidenceAndTotals> = Vec::with_capacity(len);
+  if len == 0
+  {
+    return result;
+  }
+
+  result.push(NumbersAndIncidenceAndTotals {
+    date: numbers[0].date.clone(),
+    cases: numbers[0].cases,
+    deaths: numbers[0].deaths,
+    incidence_14d: numbers[0].incidence_14d,
+    incidence_7d: numbers[0].incidence_7d,
+    total_cases: numbers[0].cases,
+    total_deaths: numbers[0].deaths
+  });
+  for idx in 1..len
+  {
+    result.push(NumbersAndIncidenceAndTotals {
+      date: numbers[idx].date.clone(),
+      cases: numbers[idx].cases,
+      deaths: numbers[idx].deaths,
+      incidence_14d: numbers[idx].incidence_14d,
+      incidence_7d: numbers[idx].incidence_7d,
+      total_cases: result[idx - 1].total_cases + numbers[idx].cases,
+      total_deaths: result[idx - 1].total_deaths + numbers[idx].deaths
     });
   }
 
@@ -837,5 +893,182 @@ mod tests
     let fill = fill_missing_dates(&mut numbers);
     // Function should NOT succeed.
     assert!(fill.is_err());
+  }
+
+  #[test]
+  fn calculate_totals_zero_elements()
+  {
+    let numbers = Vec::new();
+    let totals = calculate_totals(&numbers);
+
+    assert_eq!(totals.len(), 0);
+  }
+
+  #[test]
+  fn calculate_totals_one_element()
+  {
+    let numbers = vec![
+      NumbersAndIncidence { date: "2020-10-31".to_string(), cases: 19059,
+        deaths: 103, incidence_7d: Some(123.45), incidence_14d: None }
+    ];
+    let totals = calculate_totals(&numbers);
+
+    assert_eq!(totals.len(), 1);
+    // Check values of first element.
+    assert_eq!(numbers[0].date, totals[0].date);
+    assert_eq!(numbers[0].cases, totals[0].cases);
+    assert_eq!(numbers[0].deaths, totals[0].deaths);
+    assert_eq!(numbers[0].incidence_7d, totals[0].incidence_7d);
+    assert_eq!(numbers[0].incidence_14d, totals[0].incidence_14d);
+    // Totals should equal the numbers of the first day.
+    assert_eq!(numbers[0].cases, totals[0].total_cases);
+    assert_eq!(numbers[0].deaths, totals[0].total_deaths);
+  }
+
+  #[test]
+  fn calculate_totals_more_elements()
+  {
+    let numbers = vec![
+      NumbersAndIncidence { date: "2020-10-31".to_string(), cases: 518753, deaths: 10452,
+        incidence_14d: None, incidence_7d: None },
+      NumbersAndIncidence { date: "2020-11-01".to_string(), cases: 14177, deaths: 29,
+        incidence_14d: None, incidence_7d: None },
+      NumbersAndIncidence { date: "2020-11-02".to_string(), cases: 12097, deaths: 49,
+        incidence_14d: None, incidence_7d: None },
+      NumbersAndIncidence { date: "2020-11-03".to_string(), cases: 15352, deaths: 131,
+        incidence_14d: None, incidence_7d: None },
+      NumbersAndIncidence { date: "2020-11-04".to_string(), cases: 17214, deaths: 151,
+        incidence_14d: None, incidence_7d: None },
+      NumbersAndIncidence { date: "2020-11-05".to_string(), cases: 19990, deaths: 118,
+        incidence_14d: None, incidence_7d: None },
+      NumbersAndIncidence { date: "2020-11-06".to_string(), cases: 21506, deaths: 166,
+        incidence_14d: None, incidence_7d: Some(143.81610676) },
+      NumbersAndIncidence { date: "2020-11-07".to_string(), cases: 23399, deaths: 130,
+        incidence_14d: None, incidence_7d: Some(149.04381230) },
+      NumbersAndIncidence { date: "2020-11-08".to_string(), cases: 16017, deaths: 63,
+        incidence_14d: None, incidence_7d: Some(151.26016672) },
+      NumbersAndIncidence { date: "2020-11-09".to_string(), cases: 13363, deaths: 63,
+        incidence_14d: None, incidence_7d: Some(152.78511493) },
+      NumbersAndIncidence { date: "2020-11-10".to_string(), cases: 15332, deaths: 154,
+        incidence_14d: None, incidence_7d: Some(152.76102412) },
+      NumbersAndIncidence { date: "2020-11-11".to_string(), cases: 18487, deaths: 261,
+        incidence_14d: None, incidence_7d: Some(154.29440411) },
+      NumbersAndIncidence { date: "2020-11-12".to_string(), cases: 21866, deaths: 215,
+        incidence_14d: None, incidence_7d: Some(156.55412199) },
+      NumbersAndIncidence { date: "2020-11-13".to_string(), cases: 23542, deaths: 218,
+        incidence_14d: Some(302.82267311), incidence_7d: Some(159.00656634) },
+      NumbersAndIncidence { date: "2020-11-14".to_string(), cases: 22461, deaths: 178,
+        incidence_14d: Some(306.92051971), incidence_7d: Some(157.87670740) },
+      NumbersAndIncidence { date: "2020-11-15".to_string(), cases: 16947, deaths: 107,
+        incidence_14d: Some(310.25709675), incidence_7d: Some(158.99693002) },
+      NumbersAndIncidence { date: "2020-11-16".to_string(), cases: 10824, deaths: 62,
+        incidence_14d: Some(308.72371676), incidence_7d: Some(155.93860182) },
+      NumbersAndIncidence { date: "2020-11-17".to_string(), cases: 14419, deaths: 267,
+        incidence_14d: Some(307.59988052), incidence_7d: Some(154.83885639) },
+      NumbersAndIncidence { date: "2020-11-18".to_string(), cases: 17561, deaths: 305,
+        incidence_14d: Some(308.01785606), incidence_7d: Some(153.72345194) },
+      NumbersAndIncidence { date: "2020-11-19".to_string(), cases: 22609, deaths: 251,
+        incidence_14d: Some(311.17254749), incidence_7d: Some(154.61842549) },
+      NumbersAndIncidence { date: "2020-11-20".to_string(), cases: 23648, deaths: 260,
+        incidence_14d: Some(313.75267313), incidence_7d: Some(155.35199062) },
+      NumbersAndIncidence { date: "2020-11-21".to_string(), cases: 22964, deaths: 254,
+        incidence_14d: Some(313.22869804), incidence_7d: Some(155.35199062) },
+      NumbersAndIncidence { date: "2020-11-22".to_string(), cases: 15741, deaths: 138,
+        incidence_14d: Some(312.89624487), incidence_7d: Some(153.89931484) },
+      NumbersAndIncidence { date: "2020-11-23".to_string(), cases: 10864, deaths: 90,
+        incidence_14d: Some(309.88609829), incidence_7d: Some(153.94749646) },
+      NumbersAndIncidence { date: "2020-11-24".to_string(), cases: 13554, deaths: 249,
+        incidence_14d: Some(307.74442538), incidence_7d: Some(152.90556897) },
+      NumbersAndIncidence { date: "2020-11-25".to_string(), cases: 18633, deaths: 410,
+        incidence_14d: Some(307.92028828), incidence_7d: Some(154.19683633) },
+      NumbersAndIncidence { date: "2020-11-26".to_string(), cases: 22268, deaths: 389,
+        incidence_14d: Some(308.40451354), incidence_7d: Some(153.78608804) },
+      NumbersAndIncidence { date: "2020-11-27".to_string(), cases: 22806, deaths: 426,
+        incidence_14d: Some(307.51797177), incidence_7d: Some(152.77186498) },
+      NumbersAndIncidence { date: "2020-11-28".to_string(), cases: 21695, deaths: 379,
+        incidence_14d: Some(306.59529379), incidence_7d: Some(151.24330316) },
+      NumbersAndIncidence { date: "2020-11-29".to_string(), cases: 14611, deaths: 158,
+        incidence_14d: Some(303.7814873), incidence_7d: Some(149.8821724) },
+      NumbersAndIncidence { date: "2020-11-30".to_string(), cases: 11169, deaths: 125,
+        incidence_14d: Some(304.19705376), incidence_7d: Some(150.24955729) },
+    ];
+
+    let totals = calculate_totals(&numbers);
+    assert_eq!(numbers.len(), totals.len());
+    for idx in 0..numbers.len()
+    {
+      // Numbers and incidence should be equal.
+      assert_eq!(numbers[idx].date, totals[idx].date);
+      assert_eq!(numbers[idx].cases, totals[idx].cases);
+      assert_eq!(numbers[idx].deaths, totals[idx].deaths);
+      assert_eq!(numbers[idx].incidence_14d, totals[idx].incidence_14d);
+      assert_eq!(numbers[idx].incidence_7d, totals[idx].incidence_7d);
+    }
+
+    // Check total case numbers.
+    assert_eq!(totals[0].total_cases, 518753);
+    assert_eq!(totals[1].total_cases, 532930);
+    assert_eq!(totals[2].total_cases, 545027);
+    assert_eq!(totals[3].total_cases, 560379);
+    assert_eq!(totals[4].total_cases, 577593);
+    assert_eq!(totals[5].total_cases, 597583);
+    assert_eq!(totals[6].total_cases, 619089);
+    assert_eq!(totals[7].total_cases, 642488);
+    assert_eq!(totals[8].total_cases, 658505);
+    assert_eq!(totals[9].total_cases, 671868);
+    assert_eq!(totals[10].total_cases, 687200);
+    assert_eq!(totals[11].total_cases, 705687);
+    assert_eq!(totals[12].total_cases, 727553);
+    assert_eq!(totals[13].total_cases, 751095);
+    assert_eq!(totals[14].total_cases, 773556);
+    assert_eq!(totals[15].total_cases, 790503);
+    assert_eq!(totals[16].total_cases, 801327);
+    assert_eq!(totals[17].total_cases, 815746);
+    assert_eq!(totals[18].total_cases, 833307);
+    assert_eq!(totals[19].total_cases, 855916);
+    assert_eq!(totals[20].total_cases, 879564);
+    assert_eq!(totals[21].total_cases, 902528);
+    assert_eq!(totals[22].total_cases, 918269);
+    assert_eq!(totals[23].total_cases, 929133);
+    assert_eq!(totals[24].total_cases, 942687);
+    assert_eq!(totals[25].total_cases, 961320);
+    assert_eq!(totals[26].total_cases, 983588);
+    assert_eq!(totals[27].total_cases, 1006394);
+    assert_eq!(totals[28].total_cases, 1028089);
+    assert_eq!(totals[29].total_cases, 1042700);
+    assert_eq!(totals[30].total_cases, 1053869);
+
+    // Check accumulated number of deaths.
+    assert_eq!(totals[0].total_deaths, 10452);
+    assert_eq!(totals[1].total_deaths, 10481);
+    assert_eq!(totals[2].total_deaths, 10530);
+    assert_eq!(totals[3].total_deaths, 10661);
+    assert_eq!(totals[4].total_deaths, 10812);
+    assert_eq!(totals[5].total_deaths, 10930);
+    assert_eq!(totals[6].total_deaths, 11096);
+    assert_eq!(totals[7].total_deaths, 11226);
+    assert_eq!(totals[8].total_deaths, 11289);
+    assert_eq!(totals[9].total_deaths, 11352);
+    assert_eq!(totals[10].total_deaths, 11506);
+    assert_eq!(totals[11].total_deaths, 11767);
+    assert_eq!(totals[12].total_deaths, 11982);
+    assert_eq!(totals[13].total_deaths, 12200);
+    assert_eq!(totals[14].total_deaths, 12378);
+    assert_eq!(totals[15].total_deaths, 12485);
+    assert_eq!(totals[16].total_deaths, 12547);
+    assert_eq!(totals[17].total_deaths, 12814);
+    assert_eq!(totals[18].total_deaths, 13119);
+    assert_eq!(totals[19].total_deaths, 13370);
+    assert_eq!(totals[20].total_deaths, 13630);
+    assert_eq!(totals[21].total_deaths, 13884);
+    assert_eq!(totals[22].total_deaths, 14022);
+    assert_eq!(totals[23].total_deaths, 14112);
+    assert_eq!(totals[24].total_deaths, 14361);
+    assert_eq!(totals[25].total_deaths, 14771);
+    assert_eq!(totals[26].total_deaths, 15160);
+    assert_eq!(totals[27].total_deaths, 15586);
+    assert_eq!(totals[28].total_deaths, 15965);
+    assert_eq!(totals[29].total_deaths, 16123);
+    assert_eq!(totals[30].total_deaths, 16248);
   }
 }
