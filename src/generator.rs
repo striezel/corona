@@ -840,7 +840,6 @@ impl Generator
     let plotly_destination = assets_destination.join(PLOTLY_FILE_NAME);
     if plotly_origin.exists()
     {
-      println!("File {:?} does exist.", plotly_origin);
       let cp_success = fs::copy(&plotly_origin, &plotly_destination);
       return match cp_success
       {
