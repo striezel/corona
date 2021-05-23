@@ -21,6 +21,7 @@ to implement it the faster way before.)
 Dependency updates:
 
 * update getrandom to 0.2.3
+* update thiserror and thiserror-impl to 1.0.25
 * update vcpkg to 0.2.13
 
 ## Version 0.8.5 (2021-05-20)
