@@ -50,7 +50,8 @@ For more information see the [readme file in the data/ directory](./data/readme.
 
 To build the application you need the Rust compiler. The Minimum Supported Rust
 Version (MSRV) is Rust 1.40. Furthermore, you need Cargo (Rust's package
-manager), the development libraries for SQLite3 and OpenSSL, and pkg-config.
+manager), the development libraries for SQLite3 (version 3.26.0+) and OpenSSL,
+and pkg-config.
 
 It also helps to have Git, a distributed version control system, on your system
 to get the latest source code directly from the Git repository.
