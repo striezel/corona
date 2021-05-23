@@ -108,7 +108,7 @@ impl Generator
       return false;
     }
     // Perform calculations for total numbers in database, if necessary.
-    if !db.calculate_total_numbers()
+    if !db.calculate_total_numbers(&true)
     {
       eprintln!("Error: Database update failed. \
                  Calculations for accumulated numbers could not be performed!");

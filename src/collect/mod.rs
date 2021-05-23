@@ -321,7 +321,7 @@ impl Collector
       return false;
     }
     let db = db.unwrap();
-    if !db.calculate_total_numbers()
+    if !db.calculate_total_numbers(&false)
     {
       eprintln!("Error: Could not add columns for accumulated numbers to database table!");
       return false;

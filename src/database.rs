@@ -512,9 +512,10 @@ impl Database
    * Checks whether the table covid19 already has the columns totalCases and
    * totalDeaths, and creates them, if they are missing.
    *
+   * @param verbose  whether the progress should be printed to standard output
    * @return Returns whether the operation was successful.
    */
-  pub fn calculate_total_numbers(&self) -> bool
+  pub fn calculate_total_numbers(&self, verbose: &bool) -> bool
   {
     let mut has_total_cases = false;
     let mut has_total_deaths = false;
@@ -549,11 +550,11 @@ impl Database
       }
     }
 
-    if !has_total_cases && !self.calculate_total_cases()
+    if !has_total_cases && !self.calculate_total_cases(&verbose)
     {
       return false;
     }
-    if !has_total_deaths && !self.calculate_total_deaths()
+    if !has_total_deaths && !self.calculate_total_deaths(&verbose)
     {
       return false;
     }
@@ -565,29 +566,39 @@ impl Database
    * Creates the column totalCases and calculates all required values for it.
    * This may take quite a while.
    *
+   * @param verbose  whether the progress should be printed to standard output
    * @return Returns whether the operation was successful.
    */
-  fn calculate_total_cases(&self) -> bool
+  fn calculate_total_cases(&self, verbose: &bool) -> bool
   {
     // add new column
     match self.conn.execute("ALTER TABLE covid19 ADD COLUMN totalCases INTEGER;", params![])
     {
-      Ok(_) => println!("Info: Added column totalCases to table."),
+      Ok(_) => if *verbose
+      {
+        println!("Info: Added column totalCases to table.");
+      },
       Err(e) => {
         eprintln!("Could not add column totalCases to table covid19! {}", e);
         return false;
       }
     };
     // perform actual calculation
-    eprintln!("Calculating accumulated number of cases for each day and \
-               country. This may take a while...");
+    if *verbose
+    {
+      println!("Calculating accumulated number of cases for each day and \
+                country. This may take a while...");
+    }
     match self.conn.execute(
       "UPDATE covid19 AS c1 \
        SET totalCases=(SELECT SUM(cases) FROM covid19 AS c2 \
        WHERE c2.countryId = c1.countryId AND c2.date <= c1.date);",
       params![])
     {
-      Ok(affected) => println!("{} rows have been updated.", affected),
+      Ok(affected) => if *verbose
+      {
+        println!("{} rows have been updated.", affected);
+      },
       Err(e)=> {
         eprintln!("Could not update totalCases in table covid19! {}", e);
         return false;
@@ -601,29 +612,39 @@ impl Database
    * Creates the column totalCases and calculates all required values for it.
    * This may take quite a while.
    *
+   * @param verbose  whether the progress should be printed to standard output
    * @return Returns whether the operation was successful.
    */
-  fn calculate_total_deaths(&self) -> bool
+  fn calculate_total_deaths(&self, verbose: &bool) -> bool
   {
     // add new column
     match self.conn.execute("ALTER TABLE covid19 ADD COLUMN totalDeaths INTEGER;", params![])
     {
-      Ok(_) => println!("Info: Added column totalDeaths to table."),
+      Ok(_) => if *verbose
+      {
+        println!("Info: Added column totalDeaths to table.");
+      },
       Err(e)=> {
         eprintln!("Could not add column totalDeaths to table covid19! {}", e);
         return false;
       }
     };
     // Update may take ca. two minutes.
-    println!("Calculating accumulated number of deaths for each day and country. \
-              This may take a while...");
+    if *verbose
+    {
+      println!("Calculating accumulated number of deaths for each day and country. \
+                This may take a while...");
+    }
     match self.conn.execute(
       "UPDATE covid19 AS c1 \
        SET totalDeaths=(SELECT SUM(deaths) FROM covid19 AS c2 \
        WHERE c2.countryId = c1.countryId AND c2.date <= c1.date);",
       params![])
     {
-      Ok(affected) => println!("{} rows have been updated.", affected),
+      Ok(affected) => if *verbose
+      {
+        println!("{} rows have been updated.", affected);
+      },
       Err(e)=> {
         eprintln!("Could not update totalDeaths in table covid19! {}", e);
         return false;
@@ -1374,7 +1395,7 @@ mod tests
     // This is a no-op on the existing database, because it already has the
     // columns with the total numbers. However, this test checks that the
     // function works (i. e. returns true) in that case anyway.
-    assert!(db.calculate_total_numbers());
+    assert!(db.calculate_total_numbers(&true));
   }
 
   #[test]
@@ -1452,7 +1473,7 @@ mod tests
       // Creation should be successful and file should exist.
       assert!(db.is_ok());
       let db = db.unwrap();
-      assert!(db.calculate_total_numbers());
+      assert!(db.calculate_total_numbers(&false));
       // Insert some country.
       let id = db.get_country_id_or_insert("XX", "Wonderland", &421337, "WON", "Utopia");
       // Id -1 means an error occurred.
