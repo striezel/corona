@@ -9,7 +9,7 @@ jobs:
   fast_finish: true
 cache: cargo
 sudo: false
-dist: bionic
+dist: focal
 os:
   - linux
 arch:
