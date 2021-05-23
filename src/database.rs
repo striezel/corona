@@ -1399,6 +1399,64 @@ mod tests
   }
 
   #[test]
+  fn calculate_total_numbers_empty()
+  {
+    let path = std::env::temp_dir().join("test_calculate_totals_empty.db");
+    // scope for db
+    {
+      let db = Database::create(&path.to_str().unwrap()).unwrap();
+      // Update of structure should succeed.
+      assert!(db.calculate_total_numbers(&true));
+    }
+    // clean up
+    assert!(std::fs::remove_file(path).is_ok());
+  }
+
+  #[test]
+  fn calculate_total_numbers()
+  {
+    let path = std::env::temp_dir().join("test_calculate_totals.db");
+    // scope for db
+    {
+      let db = Database::create(&path.to_str().unwrap()).unwrap();
+
+      // Insert some test data.
+      let sql = "INSERT INTO country (\
+          countryId, name, population, geoId, countryCode, continent) VALUES \
+          (1, 'Wonderland', 42, 'XX', 'WON', 'Utopia'),\
+          (2, 'Neuland', 1337, 'ZZ', 'TBL', 'Internet');";
+      assert!(db.batch(&sql));
+      let sql = "INSERT INTO covid19 (\
+          countryId, date, cases, deaths, incidence14, incidence7) VALUES \
+          (1, '2020-10-01', 123, 1, 23.45, 12.3),\
+          (1, '2020-10-02', 234, 2, 34.56, 17.3),\
+          (2, '2020-10-01', 3, 0, 11.22, 5.4),\
+          (2, '2020-10-02', 5, 1, 22.33, 12.3);";
+      assert!(db.batch(&sql));
+
+      // Update of structure should succeed.
+      assert!(db.calculate_total_numbers(&true));
+
+      // Check accumulated numbers of 1st country.
+      let accumulated = db.accumulated_numbers(&1);
+      assert_eq!(2, accumulated.len());
+      assert_eq!(123, accumulated[0].cases);
+      assert_eq!(1, accumulated[0].deaths);
+      assert_eq!(357, accumulated[1].cases);
+      assert_eq!(3, accumulated[1].deaths);
+      // Check accumulated numbers of 2nd country.
+      let accumulated = db.accumulated_numbers(&2);
+      assert_eq!(2, accumulated.len());
+      assert_eq!(3, accumulated[0].cases);
+      assert_eq!(0, accumulated[0].deaths);
+      assert_eq!(8, accumulated[1].cases);
+      assert_eq!(1, accumulated[1].deaths);
+    }
+    // clean up
+    assert!(std::fs::remove_file(path).is_ok());
+  }
+
+  #[test]
   fn quote()
   {
     assert_eq!(Database::quote(""), "''");
