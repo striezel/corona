@@ -67,6 +67,17 @@ impl Csv
    */
   pub fn create_csv(&self) -> bool
   {
+    match crate::checks::sqlite_check()
+    {
+      crate::checks::Status::Error(msg) =>
+      {
+        eprintln!("{}", msg);
+        return false;
+      },
+      crate::checks::Status::Warn(msg) => println!("Warning: {}", msg),
+      _ => ()
+    }
+
     let db = Database::new(&self.config.db_path);
     let db = match db
     {

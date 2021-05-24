@@ -17,6 +17,7 @@
 
 mod collect;
 pub mod configuration;
+mod checks;
 mod csv;
 mod data;
 mod database;

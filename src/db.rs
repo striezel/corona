@@ -62,6 +62,16 @@ impl Db
    */
   pub fn create_db(&self) -> bool
   {
+    match crate::checks::sqlite_check()
+    {
+      crate::checks::Status::Error(msg) =>
+      {
+        eprintln!("{}", msg);
+        return false;
+      },
+      crate::checks::Status::Warn(msg) => println!("Warning: {}", msg),
+      _ => ()
+    }
     let db = match Database::create(&self.config.db_path)
     {
       Err(e) =>

@@ -21,6 +21,9 @@ improvements may be omitted.)_
 
 * The `version` command does now show the version of SQLite, too.
 
+* All database-related operations will now check the used version of SQLite and
+  abort, if the SQLite version is too old.
+
 * Dependency updates:
 
   * update getrandom to 0.2.3

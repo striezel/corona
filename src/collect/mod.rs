@@ -312,6 +312,17 @@ impl Collector
 
   pub fn run(&self) -> bool
   {
+    match crate::checks::sqlite_check()
+    {
+      crate::checks::Status::Error(msg) =>
+      {
+        eprintln!("Error: {}", msg);
+        return false;
+      },
+      crate::checks::Status::Warn(msg) => println!("Warning: {}", msg),
+      _ => ()
+    }
+
     use crate::database::Database;
 
     let db = Database::create(&self.config.db_path);

@@ -10,6 +10,18 @@ alpine:
     - cargo run -- version
     - cargo test
 
+bionic_failcheck:
+  image: ubuntu:bionic
+  stage: build
+  before_script:
+    - apt-get update
+    - export DEBIAN_FRONTEND=noninteractive
+    - apt-get install -y bash cargo rustc libsqlite3-dev libssl-dev pkg-config
+  script:
+    - rustc --version
+    - cargo --version
+    - ./ci/failcheck_sqlite.sh
+
 centos:
   image: centos:8
   stage: build
