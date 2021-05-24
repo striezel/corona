@@ -46,6 +46,16 @@ else
   exit 1
 fi
 
+# db should still work, it only gives a warning.
+cargo run -- db data/corona.csv /tmp/db_check.db
+if [ $? -eq 0 ]
+then
+  echo Db operation succeeded as expected.
+else
+  echo Db operation failed, but is should not!
+  exit 1
+fi
+
 # collect should fail.
 cargo run -- collect /tmp/collect.db
 if [ $? -ne 0 ]
@@ -53,16 +63,6 @@ then
   echo Collect operation failed as expected.
 else
   echo Collect operation succeeded, but is should not!
-  exit 1
-fi
-
-# db should fail.
-cargo run -- db data/corona.csv /tmp/db_check.db
-if [ $? -ne 0 ]
-then
-  echo Db operation failed as expected.
-else
-  echo Db operation succeeded, but is should not!
   exit 1
 fi
 
