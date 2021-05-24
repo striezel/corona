@@ -18,5 +18,7 @@ jobs:
         rustc --version --verbose
     - name: Build application
       run: cargo build --verbose --all-targets
+    - name: Show version information
+      run: cargo run -- version
     - name: Run tests
       run: cargo test

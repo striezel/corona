@@ -95,6 +95,7 @@ pub fn run(op: &Operation) -> Result<(), String>
         Some(v) => format!("corona, version {}", v)
       };
       println!("{}", version);
+      println!("(using SQLite version {} ({}))", rusqlite::version(), rusqlite::version_number());
 
       Ok(())
     }

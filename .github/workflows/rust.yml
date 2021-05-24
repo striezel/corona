@@ -18,6 +18,9 @@ jobs:
     - name: Build application
       run: |
         cargo build
+    - name: Show version information
+      run: |
+        cargo run -- version
     - name: Run tests
       run: |
         cargo test

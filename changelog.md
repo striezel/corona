@@ -19,6 +19,8 @@ improvements may be omitted.)_
   suprise to anyone who knows a bit about SQL performance, but I just haven't
   gotten around to implement it the faster way before.)
 
+* The `version` command does now show the version of SQLite, too.
+
 * Dependency updates:
 
   * update getrandom to 0.2.3

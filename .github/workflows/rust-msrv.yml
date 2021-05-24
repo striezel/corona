@@ -26,6 +26,9 @@ jobs:
       run: |
         rustc --version
         cargo --version
+    - name: Show application version
+      run: |
+        cargo run -- version
     - name: Run tests
       run: |
         cargo test
