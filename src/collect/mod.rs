@@ -319,7 +319,11 @@ impl Collector
         eprintln!("Error: {}", msg);
         return false;
       },
-      crate::checks::Status::Warn(msg) => println!("Warning: {}", msg),
+      crate::checks::Status::Warn(msg) =>
+      {
+        eprintln!("Warning: {}", msg);
+        return false;
+      },
       _ => ()
     }
 
