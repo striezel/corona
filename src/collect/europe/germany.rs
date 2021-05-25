@@ -121,7 +121,7 @@ impl Germany
       .build().unwrap();
     let excel_epoch_date = Utc.ymd(1899, 12, 30);
     let mut result: Vec<Numbers> = Vec::new();
-    for row_idx in 3..range.end().unwrap_or((0, 0)).0
+    for row_idx in 3..range.end().unwrap_or((0, 0)).0 + 1
     {
       let date = match range.get_value((row_idx, 0))
       {

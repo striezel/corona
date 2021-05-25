@@ -27,6 +27,8 @@ improvements may be omitted.)_
 * Checks for the header of the RKI spreadsheet containing data for Germany has
   been relaxed to cope with the slightly modified content.
 
+* Fix off-by-one error when parsing RKI spreadsheet.
+
 * Dependency updates:
 
   * update cc to version 1.0.68
