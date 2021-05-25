@@ -26,7 +26,9 @@ improvements may be omitted.)_
 
 * Dependency updates:
 
+  * update cc to version 1.0.68
   * update getrandom to 0.2.3
+  * update libc to 0.2.95
   * update thiserror and thiserror-impl to 1.0.25
   * update vcpkg to 0.2.13
 
