@@ -172,11 +172,6 @@ impl Germany
   {
     use calamine::DataType;
 
-    if range.start() != Some((1, 0))
-    {
-      eprintln!("Worksheet layout changed, start does not fit!");
-      return false;
-    }
     // Check some known cell values.
     range.get_value((2, 0)) == Some(&DataType::String("Berichtsdatum".to_string()))
       && range.get_value((2, 3)) == Some(&DataType::String("Differenz Vortag Fälle".to_string()))

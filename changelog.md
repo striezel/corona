@@ -24,6 +24,9 @@ improvements may be omitted.)_
 * All database-related operations will now check the used version of SQLite and
   abort, if the SQLite version is too old.
 
+* Checks for the header of the RKI spreadsheet containing data for Germany has
+  been relaxed to cope with the slightly modified content.
+
 * Dependency updates:
 
   * update cc to version 1.0.68
