@@ -241,13 +241,12 @@ impl Db
         false => record.get(12).unwrap().parse().unwrap_or(F64_NAN /* NaN */),
         true => F64_NAN /* NaN */
       };
-      //C++: date = yearStr + "-" + std::string(monthStr.size() == 1, '0') + monthStr + "-" + std::string(dayStr.size() == 1, '0') + dayStr;
       let date = format!("{}-{:0>2}-{:0>2}", year_str, month_str, day_str);
-      /*                           ^^^
-                                   |||
-                                   ||+- width
-                                   |+-- fill at left side
-                                   +--- fill character
+      /*                       ^^^
+                               |||
+                               ||+- width
+                               |+-- fill at left side
+                               +--- fill character
        */
       if batch.is_empty()
       {
