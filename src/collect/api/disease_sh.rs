@@ -19,6 +19,8 @@ use crate::collect::api::Range;
 use crate::data::Numbers;
 use serde_json::Value;
 
+mod json_cache;
+
 /**
  * Request historical API of disease.sh for a single country.
  *
