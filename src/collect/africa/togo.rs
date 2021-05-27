@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 
 pub struct Togo
 {
@@ -34,6 +35,21 @@ impl Togo
 
 impl Collect for Togo
 {
+  /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 193,
+      name: "Togo".to_string(),
+      population: 8082359,
+      geo_id: "TG".to_string(),
+      country_code: "TGO".to_string(),
+      continent: "Africa".to_string()
+    }
+  }
+
   /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.

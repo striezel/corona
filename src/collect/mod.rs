@@ -24,7 +24,9 @@ mod oceania;
 mod other;
 
 use crate::collect::api::disease_sh;
+use crate::collect::api::disease_sh::json_cache::JsonCache;
 use crate::collect::api::Range;
+use crate::data::Country;
 use crate::data::Numbers;
 use africa::*;
 use america::*;
@@ -38,10 +40,27 @@ use crate::configuration::CollectConfiguration;
 pub trait Collect
 {
   /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country;
+
+  /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.
    */
   fn geo_id(&self) -> &str;
+
+  /**
+   * Returns the name of the country for which the data is collected as it
+   * appears in the API data.
+   */
+  fn name_in_api(&self) -> &str { "France"}
+
+  /**
+   * Returns the name of the province for which the data is collected as it
+   * appears in the API data. May be empty.
+   */
+  fn province_in_api(&self) -> &str { ""}
 
   /**
    * Collects new data of an unspecified time range.
@@ -54,6 +73,16 @@ pub trait Collect
   {
     // Default implementation: Use disease.sh API.
     disease_sh::request_historical_api(self.geo_id(), &range)
+  }
+
+  fn collect_cached(&self, range: &Range, cache: &JsonCache) -> Result<Vec<Numbers>, String>
+  {
+    let json = cache.find_json(self.name_in_api(), self.province_in_api());
+    match json
+    {
+      Some(value) => disease_sh::parse_json_timeline(value),
+      None => disease_sh::request_historical_api(self.geo_id(), &range)
+    }
   }
 }
 

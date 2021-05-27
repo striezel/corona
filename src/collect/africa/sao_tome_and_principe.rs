@@ -18,6 +18,7 @@
 use crate::collect::Collect;
 use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
+use crate::data::Country;
 use crate::data::Numbers;
 
 pub struct SaoTomeAndPrincipe
@@ -37,6 +38,21 @@ impl SaoTomeAndPrincipe
 
 impl Collect for SaoTomeAndPrincipe
 {
+  /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 167,
+      name: "Sao Tome and Principe".to_string(),
+      population: 215048,
+      geo_id: "ST".to_string(),
+      country_code: "STP".to_string(),
+      continent: "Africa".to_string()
+    }
+  }
+
   /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.

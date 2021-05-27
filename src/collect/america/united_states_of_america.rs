@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 
 pub struct UnitedStatesOfAmerica
 {
@@ -34,6 +35,21 @@ impl UnitedStatesOfAmerica
 
 impl Collect for UnitedStatesOfAmerica
 {
+  /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 203,
+      name: "United States of America".to_string(),
+      population: 329064917,
+      geo_id: "US".to_string(),
+      country_code: "USA".to_string(),
+      continent: "America".to_string()
+    }
+  }
+
   /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.

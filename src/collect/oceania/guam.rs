@@ -18,6 +18,7 @@
 use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
 use crate::collect::Collect;
+use crate::data::Country;
 use crate::data::Numbers;
 
 pub struct Guam
@@ -37,6 +38,21 @@ impl Guam
 
 impl Collect for Guam
 {
+  /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 82,
+      name: "Guam".to_string(),
+      population: 167295,
+      geo_id: "GU".to_string(),
+      country_code: "GUM".to_string(),
+      continent: "Oceania".to_string()
+    }
+  }
+
   /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.

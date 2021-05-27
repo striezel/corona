@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 use crate::collect::api::Range;
 use crate::data::{Numbers, fill_missing_dates};
 use serde_json::value::Value;
@@ -457,6 +458,21 @@ impl Jersey
 
 impl Collect for Jersey
 {
+  /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 103,
+      name: "Jersey".to_string(),
+      population: 107796,
+      geo_id: "JE".to_string(),
+      country_code: "JEY".to_string(),
+      continent: "Europe".to_string()
+    }
+  }
+
   /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.

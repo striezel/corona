@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 
 pub struct IvoryCoast
 {
@@ -34,6 +35,21 @@ impl IvoryCoast
 
 impl Collect for IvoryCoast
 {
+  /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 48,
+      name: "Cote d'Ivoire".to_string(),
+      population: 25716554,
+      geo_id: "CI".to_string(),
+      country_code: "CIV".to_string(),
+      continent: "Africa".to_string()
+    }
+  }
+
   /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.

@@ -17,6 +17,7 @@
 
 use crate::collect::Collect;
 use crate::collect::api::Range;
+use crate::data::Country;
 use crate::data::Numbers;
 
 pub struct CasesOnAnInternationalConveyance
@@ -36,6 +37,21 @@ impl CasesOnAnInternationalConveyance
 
 impl Collect for CasesOnAnInternationalConveyance
 {
+  /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 38,
+      name: "Cases on an international conveyance Japan".to_string(),
+      population: -1,
+      geo_id: "JPG11668".to_string(),
+      country_code: "".to_string(),
+      continent: "Other".to_string()
+    }
+  }
+
   /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.

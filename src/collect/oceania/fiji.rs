@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 
 pub struct Fiji
 {
@@ -34,6 +35,21 @@ impl Fiji
 
 impl Collect for Fiji
 {
+  /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 69,
+      name: "Fiji".to_string(),
+      population: 889955,
+      geo_id: "FJ".to_string(),
+      country_code: "FJI".to_string(),
+      continent: "Oceania".to_string()
+    }
+  }
+
   /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.

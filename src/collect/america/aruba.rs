@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
 use crate::data::Numbers;
@@ -37,6 +38,21 @@ impl Aruba
 
 impl Collect for Aruba
 {
+  /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 10,
+      name: "Aruba".to_string(),
+      population: 106310,
+      geo_id: "AW".to_string(),
+      country_code: "ABW".to_string(),
+      continent: "America".to_string()
+    }
+  }
+
   /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.

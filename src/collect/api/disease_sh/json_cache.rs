@@ -19,7 +19,7 @@ use serde_json::Value;
 use std::sync::atomic::{AtomicBool, Ordering};
 
 /// Caches JSON data of disease.sh API for all countries.
-struct JsonCache
+pub struct JsonCache
 {
   done: AtomicBool,
   json: Vec<Value>

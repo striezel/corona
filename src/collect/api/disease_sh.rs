@@ -19,7 +19,7 @@ use crate::collect::api::Range;
 use crate::data::Numbers;
 use serde_json::Value;
 
-mod json_cache;
+pub mod json_cache;
 
 /**
  * Request historical API of disease.sh for a single country.
@@ -240,7 +240,7 @@ fn construct_historical_api_url_usa_counties(county: &str, range: &Range) -> Str
  *         If an error occurred, an Err containing the error message is
  *         returned.
  */
-fn parse_json_timeline(json: &Value) -> Result<Vec<Numbers>, String>
+pub fn parse_json_timeline(json: &Value) -> Result<Vec<Numbers>, String>
 {
   use std::collections::HashMap;
   use std::convert::TryFrom;

@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
 use crate::data::Numbers;
@@ -37,6 +38,21 @@ impl UnitedStatesVirginIslands
 
 impl Collect for UnitedStatesVirginIslands
 {
+  /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 204,
+      name: "United States Virgin Islands".to_string(),
+      population: 104579,
+      geo_id: "VI".to_string(),
+      country_code: "VIR".to_string(),
+      continent: "America".to_string()
+    }
+  }
+
   /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.

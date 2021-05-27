@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 use crate::collect::api::Range;
 use crate::data::Numbers;
 
@@ -358,6 +359,21 @@ impl Switzerland
 
 impl Collect for Switzerland
 {
+  /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 187,
+      name: "Switzerland".to_string(),
+      population: 8544527,
+      geo_id: "CH".to_string(),
+      country_code: "CHE".to_string(),
+      continent: "Europe".to_string()
+    }
+  }
+
   /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.
