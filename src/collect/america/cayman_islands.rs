@@ -51,3 +51,23 @@ impl Collect for CaymanIslands
     disease_sh::request_historical_api_province("UK", "Cayman%20Islands", &range)
   }
 }
+
+#[cfg(test)]
+mod tests
+{
+  use super::*;
+
+  #[test]
+  fn has_data()
+  {
+    let data = CaymanIslands::new().collect(&Range::Recent);
+    assert!(data.is_ok());
+    let data = data.unwrap();
+    assert!(!data.is_empty());
+    // Elements should be sorted by date.
+    for idx in 1..data.len()
+    {
+      assert!(data[idx - 1].date < data[idx].date)
+    }
+  }
+}

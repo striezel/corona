@@ -69,7 +69,7 @@ mod tests
     // Elements should be sorted by date.
     for idx in 1..data.len()
     {
-      assert!(data[idx-1].date < data[idx].date)
+      assert!(data[idx - 1].date < data[idx].date)
     }
   }
 }

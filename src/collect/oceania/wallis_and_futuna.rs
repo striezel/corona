@@ -53,3 +53,23 @@ impl Collect for WallisAndFutuna
     // Note: Numbers seem to be a bit off / start later than ECDC numbers.
   }
 }
+
+#[cfg(test)]
+mod tests
+{
+  use super::*;
+
+  #[test]
+  fn has_data()
+  {
+    let data = WallisAndFutuna::new().collect(&Range::Recent);
+    assert!(data.is_ok());
+    let data = data.unwrap();
+    assert!(!data.is_empty());
+    // Elements should be sorted by date.
+    for idx in 1..data.len()
+    {
+      assert!(data[idx - 1].date < data[idx].date)
+    }
+  }
+}
