@@ -19,6 +19,12 @@ improvements may be omitted.)_
   suprise to anyone who knows a bit about SQL performance, but I just haven't
   gotten around to implement it the faster way before.)
 
+* Furthermore, the `collect` operation will now try to use less HTTP requests,
+  resulting in a speedup of ca. 50 % relative to version 0.8.5. Your numbers may
+  vary, depending on network, I/O and processor performance. (Before the change,
+  it took ca. 140 seconds to do a collect operation on my laptop, now it only
+  takes ca. 62 seconds.)
+
 * The `version` command does now show the version of SQLite, too.
 
 * All database-related operations will now check the used version of SQLite and
