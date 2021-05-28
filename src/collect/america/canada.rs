@@ -17,6 +17,7 @@
 
 use crate::collect::api::Range;
 use crate::collect::Collect;
+use crate::collect::JsonCache;
 use crate::data::Country;
 use crate::data::Numbers;
 
@@ -222,6 +223,12 @@ impl Collect for Canada
       return Ok(vec);
     }
     Ok(vec.drain(vec.len()-30..).collect())
+  }
+
+  fn collect_cached(&self, range: &Range, _cache: &JsonCache) -> Result<Vec<Numbers>, String>
+  {
+    // Cannot cache CSV data in a useful way.
+    self.collect(range)
   }
 }
 

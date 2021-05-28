@@ -15,9 +15,9 @@
  -------------------------------------------------------------------------------
 */
 
-use crate::collect::Collect;
-use crate::data::Country;
 use crate::collect::api::Range;
+use crate::collect::{Collect, JsonCache};
+use crate::data::Country;
 use crate::data::Numbers;
 
 pub struct Liechtenstein
@@ -79,6 +79,23 @@ impl Collect for Liechtenstein
     }
     Ok(vec.drain(vec.len()-30..).collect())
   }
+
+  /**
+   * Collects new data of the specified time range, using the cache.
+   * If there is no cached data, it may fallback to non-cached data collection.
+   *
+   * @param  range   the data range to collect
+   * @param  cache   the cached JSON data
+   * @return Returns a vector containing new daily numbers for cases + deaths.
+   *         Returns an Err(), if no data could be retrieved.
+   */
+  fn collect_cached(&self, range: &Range, _cache: &JsonCache) -> Result<Vec<Numbers>, String>
+  {
+    // Data comes from CSV in Swiss CSV data, so fall back to collect().
+    // TODO: Cache Swiss CSV once it is downloaded. This would allow reuse for
+    //       cached collect of Switzerland and save us three(?) HTTP requests.
+    self.collect(range)
+  }
 }
 
 #[cfg(test)]
@@ -96,7 +113,7 @@ mod tests
     // Elements should be sorted by date.
     for idx in 1..data.len()
     {
-      assert!(data[idx-1].date < data[idx].date)
+      assert!(data[idx - 1].date < data[idx].date)
     }
   }
 }

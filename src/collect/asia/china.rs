@@ -15,8 +15,8 @@
  -------------------------------------------------------------------------------
 */
 
-use crate::collect::Collect;
-use crate::data::Country;
+use crate::collect::{Collect, JsonCache, Range};
+use crate::data::{Country, Numbers};
 
 pub struct China
 {
@@ -63,4 +63,10 @@ impl Collect for China
   // disease.sh historical API.
 
   // Note: JHU numbers seem slightly higher than ECDC numbers.
+
+  fn collect_cached(&self, range: &Range, _cache: &JsonCache) -> Result<Vec<Numbers>, String>
+  {
+    // Data for complete China is not in cache. Use normal collect().
+    self.collect(range)
+  }
 }

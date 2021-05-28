@@ -62,6 +62,22 @@ impl Collect for Myanmar
     "MM" // Myanmar
   }
 
+  /**
+   * Returns the name of the country for which the data is collected as it
+   * appears in the API data.
+   */
+  fn name_in_api(&self) -> String {
+    String::from("Burma")
+  }
+
+  /**
+   * Returns the name of the province for which the data is collected as it
+   * appears in the API data. May be empty.
+   */
+  fn province_in_api(&self) -> &str {
+    ""
+  }
+
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
     // disease.sh API also still lists Myanmar as Burma, so we have to use "BU"

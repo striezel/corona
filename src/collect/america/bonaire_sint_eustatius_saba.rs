@@ -62,6 +62,22 @@ impl Collect for BonaireSintEustatiusSaba
     "BQ" // Bonaire, Sint Eustatius and Saba
   }
 
+  /**
+   * Returns the name of the country for which the data is collected as it
+   * appears in the API data.
+   */
+  fn name_in_api(&self) -> String {
+    String::from("Netherlands")
+  }
+
+  /**
+   * Returns the name of the province for which the data is collected as it
+   * appears in the API data. May be empty.
+   */
+  fn province_in_api(&self) -> &str {
+    "bonaire, sint eustatius and saba"
+  }
+
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
     disease_sh::request_historical_api_first_of_multiple_provinces("NL", "bonaire%2C%20sint%20eustatius%20and%20saba%7C", &range)

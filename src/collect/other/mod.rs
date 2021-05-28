@@ -17,6 +17,7 @@
 
 use crate::collect::Collect;
 use crate::collect::api::Range;
+use crate::collect::JsonCache;
 use crate::data::Country;
 use crate::data::Numbers;
 
@@ -130,5 +131,11 @@ impl Collect for CasesOnAnInternationalConveyance
       Numbers { date: "2020-03-02".to_string(), cases: 0, deaths: 0 },
       Numbers { date: "2020-03-10".to_string(), cases: -9, deaths: 1 },
     ])
+  }
+
+  fn collect_cached(&self, range: &Range, _cache: &JsonCache) -> Result<Vec<Numbers>, String>
+  {
+    // Use hardcoded values, that is even faster than caching.
+    self.collect(range)
   }
 }

@@ -62,6 +62,22 @@ impl Collect for CaymanIslands
     "KY" // Cayman Islands
   }
 
+  /**
+   * Returns the name of the country for which the data is collected as it
+   * appears in the API data.
+   */
+  fn name_in_api(&self) -> String {
+    String::from("UK")
+  }
+
+  /**
+   * Returns the name of the province for which the data is collected as it
+   * appears in the API data. May be empty.
+   */
+  fn province_in_api(&self) -> &str {
+    "cayman islands"
+  }
+
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
     disease_sh::request_historical_api_province("UK", "Cayman%20Islands", &range)

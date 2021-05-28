@@ -18,6 +18,7 @@
 use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
 use crate::collect::Collect;
+use crate::collect::JsonCache;
 use crate::data::Country;
 use crate::data::Numbers;
 
@@ -65,6 +66,12 @@ impl Collect for Guam
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
     disease_sh::request_historical_api_usa_counties("guam", &range)
+  }
+
+  fn collect_cached(&self, range: &Range, _cache: &JsonCache) -> Result<Vec<Numbers>, String>
+  {
+    // No caching for US provinces yet.
+    self.collect(range)
   }
 }
 

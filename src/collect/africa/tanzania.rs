@@ -59,6 +59,22 @@ impl Collect for Tanzania
     "TZ" // Tanzania
   }
 
+  /**
+   * Returns the name of the country for which the data is collected as it
+   * appears in the API data.
+   */
+  fn name_in_api(&self) -> String {
+    String::from("Tanzania")
+  }
+
+  /**
+   * Returns the name of the province for which the data is collected as it
+   * appears in the API data. May be empty.
+   */
+  fn province_in_api(&self) -> &str {
+    ""
+  }
+
   // Uses the default implementation of collect(), which is to query the
   // disease.sh historical API.
 }

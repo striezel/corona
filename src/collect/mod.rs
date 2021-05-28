@@ -54,13 +54,17 @@ pub trait Collect
    * Returns the name of the country for which the data is collected as it
    * appears in the API data.
    */
-  fn name_in_api(&self) -> &str { "France"}
+  fn name_in_api(&self) -> String {
+    self.country().name
+  }
 
   /**
    * Returns the name of the province for which the data is collected as it
    * appears in the API data. May be empty.
    */
-  fn province_in_api(&self) -> &str { ""}
+  fn province_in_api(&self) -> &str {
+    ""
+  }
 
   /**
    * Collects new data of an unspecified time range.
@@ -75,13 +79,27 @@ pub trait Collect
     disease_sh::request_historical_api(self.geo_id(), &range)
   }
 
+  /**
+   * Collects new data of the specified time range, using the cache.
+   * If there is no cached data, it may fallback to non-cached data collection.
+   *
+   * @param  range   the data range to collect
+   * @param  cache   the cached JSON data
+   * @return Returns a vector containing new daily numbers for cases + deaths.
+   *         Returns an Err(), if no data could be retrieved.
+   */
   fn collect_cached(&self, range: &Range, cache: &JsonCache) -> Result<Vec<Numbers>, String>
   {
-    let json = cache.find_json(self.name_in_api(), self.province_in_api());
+    let json = cache.find_json(&self.name_in_api(), self.province_in_api());
     match json
     {
       Some(value) => disease_sh::parse_json_timeline(value),
-      None => disease_sh::request_historical_api(self.geo_id(), &range)
+      None =>
+      {
+        println!("    Info: Could not find data for {} in cache, doing extra request.",
+                 self.country().name);
+        self.collect(&range)
+      }
     }
   }
 }
@@ -374,26 +392,23 @@ impl Collector
     println!("Collecting data for {} {} ...", self.elements.len(),
              if self.elements.len() != 1 { "countries" } else { "country "}
     );
-    let world = crate::world::World::new();
+
+    let mut cache = JsonCache::new();
+    if !cache.load()
+    {
+      println!("Warning: Failed to load worldwide data into cache. Due to this \
+                failure the data collection may be slower than usual.");
+    }
+
     let mut count_ok: u32 = 0;
     let mut errors: Vec<String> = Vec::new();
     for country in self.elements.iter()
     {
-      // Find matching country data.
-      let country_data = match world.find_by_geo_id(&country.geo_id())
-      {
-        Some(c) => c,
-        None =>
-        {
-          errors.push(country.geo_id().to_string());
-          eprintln!("Error: Could not find country data for geo id '{}'!",
-                    &country.geo_id());
-          continue;
-        }
-      };
+      // Get associated country data.
+      let country_data = country.country();
 
       println!("Collecting data for {} ...", &country_data.name);
-      let data = country.collect(&Range::All);
+      let data = country.collect_cached(&Range::All, &cache);
       match data
       {
         Ok(vector) =>
@@ -447,5 +462,61 @@ impl Collector
       }
     }
     errors.is_empty()
+  }
+}
+
+#[cfg(test)]
+mod tests
+{
+  use super::*;
+
+  #[test]
+  fn matching_geo_id()
+  {
+    let all = Collector::all();
+
+    for elem in all.iter()
+    {
+      let country_geo_id = elem.country().geo_id;
+      let impl_geo_id = elem.geo_id();
+      assert_eq!(country_geo_id, impl_geo_id);
+    }
+  }
+
+  #[test]
+  fn matching_non_cached_and_cached_data()
+  {
+    let sample: Vec<Box<dyn Collect>> = vec![
+      Box::new(Afghanistan::new()),
+      Box::new(Brazil::new()),
+      Box::new(Cyprus::new()),
+      Box::new(FaroeIslands::new()),
+      Box::new(Laos::new()),
+      Box::new(Madagascar::new()),
+      Box::new(Mexico::new()),
+      Box::new(NewZealand::new()),
+      Box::new(SaoTomeAndPrincipe::new()),
+      Box::new(Tanzania::new())
+    ];
+
+    let mut cache = JsonCache::new();
+    assert!(cache.load());
+
+    for elem in sample.iter()
+    {
+      let non_cached_data = elem.collect(&Range::All);
+      let cached_data = elem.collect_cached(&Range::All, &cache);
+      assert!(non_cached_data.is_ok());
+      assert!(cached_data.is_ok());
+      let non_cached_data = non_cached_data.unwrap();
+      let cached_data = cached_data.unwrap();
+      assert_eq!(non_cached_data.len(), cached_data.len());
+      for idx in 0..cached_data.len()
+      {
+        assert_eq!(cached_data[idx].date, non_cached_data[idx].date);
+        assert_eq!(cached_data[idx].cases, non_cached_data[idx].cases);
+        assert_eq!(cached_data[idx].deaths, non_cached_data[idx].deaths);
+      }
+    }
   }
 }

@@ -15,11 +15,9 @@
  -------------------------------------------------------------------------------
 */
 
-use crate::collect::Collect;
-use crate::collect::api::disease_sh;
-use crate::collect::api::Range;
-use crate::data::Country;
-use crate::data::Numbers;
+use crate::collect::{Collect, JsonCache};
+use crate::collect::api::{disease_sh, Range};
+use crate::data::{Country, Numbers};
 
 pub struct SaoTomeAndPrincipe
 {
@@ -69,6 +67,28 @@ impl Collect for SaoTomeAndPrincipe
     {
       Ok(vector) => Ok(disease_sh::shift_one_day_later(&vector)),
       Err(e) => Err(e)
+    }
+  }
+
+  fn collect_cached(&self, range: &Range, cache: &JsonCache) -> Result<Vec<Numbers>, String>
+  {
+    let json = cache.find_json(&self.name_in_api(), self.province_in_api());
+    match json
+    {
+      Some(value) =>
+      {
+        match disease_sh::parse_json_timeline(value)
+        {
+          Ok(vector) => Ok(disease_sh::shift_one_day_later(&vector)),
+          Err(e) => Err(e)
+        }
+      },
+      None =>
+        {
+          println!("    Info: Could not find data for {} in cache, doing extra request.",
+                   self.country().name);
+          self.collect(&range)
+        }
     }
   }
 }
