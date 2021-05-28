@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 
 pub struct NorthMacedonia
 {
@@ -35,12 +36,43 @@ impl NorthMacedonia
 impl Collect for NorthMacedonia
 {
   /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 145,
+      name: "North Macedonia".to_string(),
+      population: 2077132,
+      geo_id: "MK".to_string(),
+      country_code: "MKD".to_string(),
+      continent: "Europe".to_string()
+    }
+  }
+
+  /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.
    */
   fn geo_id(&self) -> &str
   {
     "MK" // North Macedonia
+  }
+
+  /**
+   * Returns the name of the country for which the data is collected as it
+   * appears in the API data.
+   */
+  fn name_in_api(&self) -> String {
+    String::from("Macedonia")
+  }
+
+  /**
+   * Returns the name of the province for which the data is collected as it
+   * appears in the API data. May be empty.
+   */
+  fn province_in_api(&self) -> &str {
+    ""
   }
 
   // Uses the default implementation of collect(), which is to query the

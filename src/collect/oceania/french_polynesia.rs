@@ -18,6 +18,7 @@
 use crate::collect::Collect;
 use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
+use crate::data::Country;
 use crate::data::Numbers;
 
 pub struct FrenchPolynesia
@@ -38,12 +39,43 @@ impl FrenchPolynesia
 impl Collect for FrenchPolynesia
 {
   /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 72,
+      name: "French Polynesia".to_string(),
+      population: 279285,
+      geo_id: "PF".to_string(),
+      country_code: "PYF".to_string(),
+      continent: "Oceania".to_string()
+    }
+  }
+
+  /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.
    */
   fn geo_id(&self) -> &str
   {
     "PF" // French Polynesia
+  }
+
+  /**
+   * Returns the name of the country for which the data is collected as it
+   * appears in the API data.
+   */
+  fn name_in_api(&self) -> String {
+    String::from("France")
+  }
+
+  /**
+   * Returns the name of the province for which the data is collected as it
+   * appears in the API data. May be empty.
+   */
+  fn province_in_api(&self) -> &str {
+    "french polynesia"
   }
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>

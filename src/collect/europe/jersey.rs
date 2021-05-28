@@ -15,8 +15,9 @@
  -------------------------------------------------------------------------------
 */
 
-use crate::collect::Collect;
 use crate::collect::api::Range;
+use crate::collect::{Collect, JsonCache};
+use crate::data::Country;
 use crate::data::{Numbers, fill_missing_dates};
 use serde_json::value::Value;
 
@@ -458,6 +459,21 @@ impl Jersey
 impl Collect for Jersey
 {
   /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 103,
+      name: "Jersey".to_string(),
+      population: 107796,
+      geo_id: "JE".to_string(),
+      country_code: "JEY".to_string(),
+      continent: "Europe".to_string()
+    }
+  }
+
+  /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.
    */
@@ -480,6 +496,21 @@ impl Collect for Jersey
       return Ok(vec);
     }
     Ok(vec.drain(vec.len()-30..).collect())
+  }
+
+  /**
+   * Collects new data of the specified time range, using the cache.
+   * If there is no cached data, it may fallback to non-cached data collection.
+   *
+   * @param  range   the data range to collect
+   * @param  cache   the cached JSON data
+   * @return Returns a vector containing new daily numbers for cases + deaths.
+   *         Returns an Err(), if no data could be retrieved.
+   */
+  fn collect_cached(&self, range: &Range, _cache: &JsonCache) -> Result<Vec<Numbers>, String>
+  {
+    // Data for Jersey is not in cache. Fall back to collect().
+    self.collect(range)
   }
 }
 

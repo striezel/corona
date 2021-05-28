@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 
 pub struct Estonia
 {
@@ -34,6 +35,21 @@ impl Estonia
 
 impl Collect for Estonia
 {
+  /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 64,
+      name: "Estonia".to_string(),
+      population: 1324820,
+      geo_id: "EE".to_string(),
+      country_code: "EST".to_string(),
+      continent: "Europe".to_string()
+    }
+  }
+
   /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.

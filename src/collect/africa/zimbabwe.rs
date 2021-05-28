@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 
 pub struct Zimbabwe
 {
@@ -34,6 +35,21 @@ impl Zimbabwe
 
 impl Collect for Zimbabwe
 {
+  /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 214,
+      name: "Zimbabwe".to_string(),
+      population: 14645473,
+      geo_id: "ZW".to_string(),
+      country_code: "ZWE".to_string(),
+      continent: "Africa".to_string()
+    }
+  }
+
   /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.

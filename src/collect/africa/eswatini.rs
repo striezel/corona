@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 
 pub struct Eswatini
 {
@@ -35,12 +36,43 @@ impl Eswatini
 impl Collect for Eswatini
 {
   /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 65,
+      name: "Eswatini".to_string(),
+      population: 1148133,
+      geo_id: "SZ".to_string(),
+      country_code: "SWZ".to_string(),
+      continent: "Africa".to_string()
+    }
+  }
+
+  /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.
    */
   fn geo_id(&self) -> &str
   {
     "SZ" // Eswatini
+  }
+
+  /**
+   * Returns the name of the country for which the data is collected as it
+   * appears in the API data.
+   */
+  fn name_in_api(&self) -> String {
+    String::from("Swaziland")
+  }
+
+  /**
+   * Returns the name of the province for which the data is collected as it
+   * appears in the API data. May be empty.
+   */
+  fn province_in_api(&self) -> &str {
+    ""
   }
 
   // Uses the default implementation of collect(), which is to query the

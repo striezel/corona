@@ -16,8 +16,10 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
+use crate::collect::JsonCache;
 use crate::data::Numbers;
 
 pub struct UnitedStatesVirginIslands
@@ -38,6 +40,21 @@ impl UnitedStatesVirginIslands
 impl Collect for UnitedStatesVirginIslands
 {
   /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 204,
+      name: "United States Virgin Islands".to_string(),
+      population: 104579,
+      geo_id: "VI".to_string(),
+      country_code: "VIR".to_string(),
+      continent: "America".to_string()
+    }
+  }
+
+  /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.
    */
@@ -49,6 +66,12 @@ impl Collect for UnitedStatesVirginIslands
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
     disease_sh::request_historical_api_usa_counties("virgin%20islands", &range)
+  }
+
+  fn collect_cached(&self, range: &Range, _cache: &JsonCache) -> Result<Vec<Numbers>, String>
+  {
+    // No caching for US provinces yet.
+    self.collect(range)
   }
 }
 

@@ -15,7 +15,8 @@
  -------------------------------------------------------------------------------
 */
 
-use crate::collect::Collect;
+use crate::collect::{Collect, JsonCache};
+use crate::data::Country;
 use crate::collect::api::Range;
 use crate::data::Numbers;
 use std::path::{Path, PathBuf};
@@ -182,6 +183,21 @@ impl Germany
 impl Collect for Germany
 {
   /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 76,
+      name: "Germany".to_string(),
+      population: 83019213,
+      geo_id: "DE".to_string(),
+      country_code: "DEU".to_string(),
+      continent: "Europe".to_string()
+    }
+  }
+
+  /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.
    */
@@ -204,6 +220,12 @@ impl Collect for Germany
       return Ok(vec);
     }
     Ok(vec.drain(vec.len()-30..).collect())
+  }
+
+  fn collect_cached(&self, range: &Range, _cache: &JsonCache) -> Result<Vec<Numbers>, String>
+  {
+    // Cannot cache CSV data in a reasonable way. Fall back to normal collect.
+    self.collect(range)
   }
 }
 

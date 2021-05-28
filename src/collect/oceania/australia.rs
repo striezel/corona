@@ -15,7 +15,8 @@
  -------------------------------------------------------------------------------
 */
 
-use crate::collect::Collect;
+use crate::collect::{Collect, Range, JsonCache};
+use crate::data::{Country, Numbers};
 
 pub struct Australia
 {
@@ -35,6 +36,21 @@ impl Australia
 impl Collect for Australia
 {
   /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 11,
+      name: "Australia".to_string(),
+      population: 25203200,
+      geo_id: "AU".to_string(),
+      country_code: "AUS".to_string(),
+      continent: "Oceania".to_string()
+    }
+  }
+
+  /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.
    */
@@ -45,4 +61,20 @@ impl Collect for Australia
 
   // Uses the default implementation of collect(), which is to query the
   // disease.sh historical API.
+
+
+  /**
+   * Collects new data of the specified time range, using the cache.
+   * If there is no cached data, it may fallback to non-cached data collection.
+   *
+   * @param  range   the data range to collect
+   * @param  cache   the cached JSON data
+   * @return Returns a vector containing new daily numbers for cases + deaths.
+   *         Returns an Err(), if no data could be retrieved.
+   */
+  fn collect_cached(&self, range: &Range, _cache: &JsonCache) -> Result<Vec<Numbers>, String>
+  {
+    // Data for complete Australia is not in cache. Fall back to collect().
+    self.collect(range)
+  }
 }

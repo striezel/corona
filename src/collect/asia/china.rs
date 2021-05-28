@@ -15,7 +15,8 @@
  -------------------------------------------------------------------------------
 */
 
-use crate::collect::Collect;
+use crate::collect::{Collect, JsonCache, Range};
+use crate::data::{Country, Numbers};
 
 pub struct China
 {
@@ -35,6 +36,21 @@ impl China
 impl Collect for China
 {
   /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 43,
+      name: "China".to_string(),
+      population: 1433783692,
+      geo_id: "CN".to_string(),
+      country_code: "CHN".to_string(),
+      continent: "Asia".to_string()
+    }
+  }
+
+  /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.
    */
@@ -47,4 +63,10 @@ impl Collect for China
   // disease.sh historical API.
 
   // Note: JHU numbers seem slightly higher than ECDC numbers.
+
+  fn collect_cached(&self, range: &Range, _cache: &JsonCache) -> Result<Vec<Numbers>, String>
+  {
+    // Data for complete China is not in cache. Use normal collect().
+    self.collect(range)
+  }
 }

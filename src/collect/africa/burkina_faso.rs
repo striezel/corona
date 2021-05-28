@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 
 pub struct BurkinaFaso
 {
@@ -34,6 +35,21 @@ impl BurkinaFaso
 
 impl Collect for BurkinaFaso
 {
+  /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 32,
+      name: "Burkina Faso".to_string(),
+      population: 20321383,
+      geo_id: "BF".to_string(),
+      country_code: "BFA".to_string(),
+      continent: "Africa".to_string()
+    }
+  }
+
   /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.

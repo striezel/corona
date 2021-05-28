@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
 use crate::data::Numbers;
@@ -38,12 +39,43 @@ impl TurksAndCaicosIslands
 impl Collect for TurksAndCaicosIslands
 {
   /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 197,
+      name: "Turks and Caicos islands".to_string(),
+      population: 38194,
+      geo_id: "TC".to_string(),
+      country_code: "TCA".to_string(),
+      continent: "America".to_string()
+    }
+  }
+
+  /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.
    */
   fn geo_id(&self) -> &str
   {
     "TC" // Turks and Caicos Islands
+  }
+
+  /**
+   * Returns the name of the country for which the data is collected as it
+   * appears in the API data.
+   */
+  fn name_in_api(&self) -> String {
+    String::from("UK")
+  }
+
+  /**
+   * Returns the name of the province for which the data is collected as it
+   * appears in the API data. May be empty.
+   */
+  fn province_in_api(&self) -> &str {
+    "turks and caicos islands"
   }
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>

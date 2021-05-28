@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
 use crate::data::Numbers;
@@ -38,12 +39,43 @@ impl UnitedKingdom
 impl Collect for UnitedKingdom
 {
   /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 201,
+      name: "United Kingdom".to_string(),
+      population: 66647112,
+      geo_id: "UK".to_string(),
+      country_code: "GBR".to_string(),
+      continent: "Europe".to_string()
+    }
+  }
+
+  /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.
    */
   fn geo_id(&self) -> &str
   {
     "UK" // United Kingdom
+  }
+
+  /**
+   * Returns the name of the country for which the data is collected as it
+   * appears in the API data.
+   */
+  fn name_in_api(&self) -> String {
+    String::from("UK")
+  }
+
+  /**
+   * Returns the name of the province for which the data is collected as it
+   * appears in the API data. May be empty.
+   */
+  fn province_in_api(&self) -> &str {
+    ""
   }
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>

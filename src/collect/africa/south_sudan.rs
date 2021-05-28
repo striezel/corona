@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 
 pub struct SouthSudan
 {
@@ -34,6 +35,21 @@ impl SouthSudan
 
 impl Collect for SouthSudan
 {
+  /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 181,
+      name: "South Sudan".to_string(),
+      population: 11062114,
+      geo_id: "SS".to_string(),
+      country_code: "SSD".to_string(),
+      continent: "Africa".to_string()
+    }
+  }
+
   /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.

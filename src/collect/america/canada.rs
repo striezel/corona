@@ -17,6 +17,8 @@
 
 use crate::collect::api::Range;
 use crate::collect::Collect;
+use crate::collect::JsonCache;
+use crate::data::Country;
 use crate::data::Numbers;
 
 pub struct Canada
@@ -182,6 +184,21 @@ impl Canada
 impl Collect for Canada
 {
   /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 36,
+      name: "Canada".to_string(),
+      population: 37411038,
+      geo_id: "CA".to_string(),
+      country_code: "CAN".to_string(),
+      continent: "America".to_string()
+    }
+  }
+
+  /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.
    */
@@ -206,6 +223,12 @@ impl Collect for Canada
       return Ok(vec);
     }
     Ok(vec.drain(vec.len()-30..).collect())
+  }
+
+  fn collect_cached(&self, range: &Range, _cache: &JsonCache) -> Result<Vec<Numbers>, String>
+  {
+    // Cannot cache CSV data in a useful way.
+    self.collect(range)
   }
 }
 

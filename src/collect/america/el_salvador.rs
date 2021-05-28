@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 
 pub struct ElSalvador
 {
@@ -34,6 +35,21 @@ impl ElSalvador
 
 impl Collect for ElSalvador
 {
+  /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 61,
+      name: "El Salvador".to_string(),
+      population: 6453550,
+      geo_id: "SV".to_string(),
+      country_code: "SLV".to_string(),
+      continent: "America".to_string()
+    }
+  }
+
   /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.

@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 
 pub struct BruneiDarussalam
 {
@@ -35,12 +36,43 @@ impl BruneiDarussalam
 impl Collect for BruneiDarussalam
 {
   /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 30,
+      name: "Brunei Darussalam".to_string(),
+      population: 433296,
+      geo_id: "BN".to_string(),
+      country_code: "BRN".to_string(),
+      continent: "Asia".to_string()
+    }
+  }
+
+  /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.
    */
   fn geo_id(&self) -> &str
   {
     "BN" // Brunei Darussalam
+  }
+
+  /**
+   * Returns the name of the country for which the data is collected as it
+   * appears in the API data.
+   */
+  fn name_in_api(&self) -> String {
+    String::from("Brunei")
+  }
+
+  /**
+   * Returns the name of the province for which the data is collected as it
+   * appears in the API data. May be empty.
+   */
+  fn province_in_api(&self) -> &str {
+    ""
   }
 
   // Uses the default implementation of collect(), which is to query the

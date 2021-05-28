@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
 use crate::data::Numbers;
@@ -38,12 +39,43 @@ impl SintMaarten
 impl Collect for SintMaarten
 {
   /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 174,
+      name: "Sint Maarten".to_string(),
+      population: 42389,
+      geo_id: "SX".to_string(),
+      country_code: "SXM".to_string(),
+      continent: "America".to_string()
+    }
+  }
+
+  /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.
    */
   fn geo_id(&self) -> &str
   {
     "SX" // Sint Maarten
+  }
+
+  /**
+   * Returns the name of the country for which the data is collected as it
+   * appears in the API data.
+   */
+  fn name_in_api(&self) -> String {
+    String::from("Netherlands")
+  }
+
+  /**
+   * Returns the name of the province for which the data is collected as it
+   * appears in the API data. May be empty.
+   */
+  fn province_in_api(&self) -> &str {
+    "sint maarten"
   }
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>

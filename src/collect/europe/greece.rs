@@ -16,6 +16,7 @@
 */
 
 use crate::collect::Collect;
+use crate::data::Country;
 
 pub struct Greece
 {
@@ -34,6 +35,21 @@ impl Greece
 
 impl Collect for Greece
 {
+  /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 79,
+      name: "Greece".to_string(),
+      population: 10724599,
+      geo_id: "GR".to_string(),
+      country_code: "GRC".to_string(),
+      continent: "Europe".to_string()
+    }
+  }
+
   /**
    * Returns the geo id (two-letter code) of the country for which the data
    * is collected.
