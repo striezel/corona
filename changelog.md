@@ -4,6 +4,13 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version NEXT (2021-06-??)
+
+Dependency updates:
+
+* update bumpalo to 3.7.0
+* update unicode-normalization to 0.1.18
+
 ## Version 0.9.0 (2021-05-29)
 
 * The `collect` operation does now directly generate the accumulated case
