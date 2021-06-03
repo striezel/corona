@@ -10,7 +10,7 @@ Dependency updates:
 
 * update bumpalo to 3.7.0
 * update regex-automata to 0.1.10
-* update unicode-normalization to 0.1.18
+* update unicode-normalization to 0.1.19
 
 ## Version 0.9.0 (2021-05-29)
 
