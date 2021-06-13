@@ -10,6 +10,7 @@ Dependency updates:
 
 * update bumpalo to 3.7.0
 * update libc to 0.2.97
+* update once_cell to 1.8.0
 * update rand_chacha to 0.3.1
 * update regex-automata to 0.1.10
 * update security-framework to version 2.3.1
