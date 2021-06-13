@@ -9,7 +9,7 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update bumpalo to 3.7.0
-* update libc to 0.2.96
+* update libc to 0.2.97
 * update rand_chacha to 0.3.1
 * update regex-automata to 0.1.10
 * update security-framework to version 2.3.1
