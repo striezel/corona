@@ -16,6 +16,7 @@ Dependency updates:
 * update rand_chacha to 0.3.1
 * update rand_core to 0.6.3
 * update rand_hc to 0.3.1
+* update redox_syscall to 0.2.9
 * update regex-automata to 0.1.10
 * update security-framework to version 2.3.1
 * update security-framework-sys to version 2.3.0
