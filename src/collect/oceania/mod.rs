@@ -16,6 +16,7 @@
 */
 
 mod australia;
+mod cook_islands;
 mod fiji;
 mod french_polynesia;
 mod guam;
@@ -29,6 +30,7 @@ mod vanuatu;
 mod wallis_and_futuna;
 
 pub use australia::Australia;
+pub use cook_islands::CookIslands;
 pub use fiji::Fiji;
 pub use french_polynesia::FrenchPolynesia;
 pub use guam::Guam;

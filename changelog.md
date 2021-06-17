@@ -7,7 +7,7 @@ improvements may be omitted.)_
 ## Version NEXT (2021-06-??)
 
 Case numbers for the Cook Islands are no longer included in the case numbers of
-New Zealand.
+New Zealand. The Cook Islands are now listed as a separate country.
 
 Dependency updates:
 

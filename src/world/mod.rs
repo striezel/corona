@@ -401,6 +401,14 @@ impl World
           continent: "Africa".to_string()
         },
         Country {
+          country_id: 215,
+          name: "Cook Islands".to_string(),
+          population: 17_459,
+          geo_id: "CK".to_string(),
+          country_code: "COK".to_string(),
+          continent: "Oceania".to_string()
+        },
+        Country {
           country_id: 47,
           name: "Costa Rica".to_string(),
           population: 5047561,

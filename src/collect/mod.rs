@@ -188,6 +188,7 @@ impl Collector
       Box::new(Colombia::new()),
       Box::new(Comoros::new()),
       Box::new(Congo::new()),
+      Box::new(CookIslands::new()),
       Box::new(CostaRica::new()),
       Box::new(IvoryCoast::new()), // Cote d'Ivore
       Box::new(Croatia::new()),
