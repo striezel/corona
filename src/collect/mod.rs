@@ -514,7 +514,11 @@ mod tests
       for idx in 0..cached_data.len()
       {
         assert_eq!(cached_data[idx].date, non_cached_data[idx].date);
-        assert_eq!(cached_data[idx].cases, non_cached_data[idx].cases);
+        assert_eq!(cached_data[idx].cases, non_cached_data[idx].cases,
+          "Cases for {} on {} do not match!\nCached cases: {}\nNon-cached cases: {}",
+          elem.country().name, cached_data[idx].date, cached_data[idx].cases,
+          non_cached_data[idx].cases
+        );
         assert_eq!(cached_data[idx].deaths, non_cached_data[idx].deaths);
       }
     }

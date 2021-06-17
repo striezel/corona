@@ -15,8 +15,9 @@
  -------------------------------------------------------------------------------
 */
 
-use crate::collect::Collect;
-use crate::data::Country;
+use crate::collect::api::disease_sh;
+use crate::collect::{Collect, Range};
+use crate::data::{Country, Numbers};
 
 pub struct NewZealand
 {
@@ -59,8 +60,10 @@ impl Collect for NewZealand
     "NZ" // NewZealand
   }
 
-  // NewZealand uses the default implementation of collect(), which is to query
-  // the disease.sh historical API.
+  fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
+  {
+    disease_sh::request_historical_api_province("NZ", "mainland", &range)
+  }
 
   // Note: Case numbers (totals) seem to be a bit higher than ECDC's.
 }

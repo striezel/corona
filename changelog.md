@@ -6,6 +6,9 @@ improvements may be omitted.)_
 
 ## Version NEXT (2021-06-??)
 
+Case numbers for the Cook Islands are no longer included in the case numbers of
+New Zealand.
+
 Dependency updates:
 
 * update bumpalo to 3.7.0
