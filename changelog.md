@@ -27,7 +27,7 @@ Dependency updates:
 * update security-framework-sys to version 2.3.0
 * update syn to 1.0.73
 * update unicode-normalization to 0.1.19
-* update vcpkg to 0.2.14
+* update vcpkg to 0.2.15
 * update zip to 0.5.13
 
 ## Version 0.9.0 (2021-05-29)
