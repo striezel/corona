@@ -16,7 +16,7 @@ Dependency updates:
 * update libc to 0.2.97
 * update once_cell to 1.8.0
 * update openssl to 0.10.35
-* update openssl-sys to 0.9.64
+* update openssl-sys to 0.9.65
 * update rand to 0.8.4
 * update rand_chacha to 0.3.1
 * update rand_core to 0.6.3
