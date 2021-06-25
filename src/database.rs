@@ -809,7 +809,7 @@ mod tests
    *          future schema updates, so they can be considered "constant" data.
    * @return Returns an open database.
    */
-  fn get_sqlite_db() -> Database
+  fn get_sqlite_db_ecdc() -> Database
   {
     let db_path = Path::new(file!()) // current file: src/database.rs
       .parent()                      // parent: src/
@@ -879,7 +879,7 @@ mod tests
   #[test]
   fn continents()
   {
-    let db = get_sqlite_db();
+    let db = get_sqlite_db_ecdc();
 
     let continents = db.continents();
     // Vector of continents must not be empty.
@@ -897,7 +897,7 @@ mod tests
   #[test]
   fn countries()
   {
-    let db = get_sqlite_db();
+    let db = get_sqlite_db_ecdc();
 
     let countries = db.countries();
     // Vector of countries must not be empty.
@@ -927,7 +927,7 @@ mod tests
   #[test]
   fn countries_of_continent()
   {
-    let db = get_sqlite_db();
+    let db = get_sqlite_db_ecdc();
 
     let countries = db.countries_of_continent("Europe");
     // Vector of countries must not be empty.
@@ -1053,7 +1053,7 @@ mod tests
   #[test]
   fn numbers()
   {
-    let db = get_sqlite_db();
+    let db = get_sqlite_db_ecdc();
 
     let numbers = db.numbers(&76);
     // Vector of data must not be empty.
@@ -1091,7 +1091,7 @@ mod tests
   #[test]
   fn numbers_with_incidence()
   {
-    let db = get_sqlite_db();
+    let db = get_sqlite_db_ecdc();
 
     let numbers = db.numbers_with_incidence(&76);
     // Vector of data must not be empty.
@@ -1140,7 +1140,7 @@ mod tests
   #[test]
   fn numbers_world()
   {
-    let db = get_sqlite_db();
+    let db = get_sqlite_db_ecdc();
 
     let numbers = db.numbers_world();
     // Vector of data must not be empty.
@@ -1177,7 +1177,7 @@ mod tests
   #[test]
   fn accumulated_numbers()
   {
-    let db = get_sqlite_db();
+    let db = get_sqlite_db_ecdc();
 
     let numbers = db.accumulated_numbers(&76);
     // Vector of data must not be empty.
@@ -1215,7 +1215,7 @@ mod tests
   #[test]
   fn accumulated_numbers_world()
   {
-    let db = get_sqlite_db();
+    let db = get_sqlite_db_ecdc();
 
     let numbers = db.accumulated_numbers_world();
     // Vector of data must not be empty.
@@ -1252,7 +1252,7 @@ mod tests
   #[test]
   fn incidence14()
   {
-    let db = get_sqlite_db();
+    let db = get_sqlite_db_ecdc();
 
     let incidences = db.incidence14(&76);
     // Vector of data must not be empty.
@@ -1286,7 +1286,7 @@ mod tests
   #[test]
   fn incidence14_negative_luxembourg()
   {
-    let db = get_sqlite_db();
+    let db = get_sqlite_db_ecdc();
 
     let incidences = db.incidence14(&118);
     // Vector of data must not be empty.
@@ -1390,7 +1390,7 @@ mod tests
   #[test]
   fn calculate_total_numbers_no_operation()
   {
-    let db = get_sqlite_db();
+    let db = get_sqlite_db_ecdc();
 
     // This is a no-op on the existing database, because it already has the
     // columns with the total numbers. However, this test checks that the
