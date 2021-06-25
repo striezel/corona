@@ -1323,7 +1323,8 @@ mod tests
   {
     let db = get_sqlite_db_live();
 
-    let incidences = db.incidence7(&76);
+    // Country id 77 is Germany in the current DB.
+    let incidences = db.incidence7(&77);
     // Vector of data must not be empty.
     assert!(!incidences.is_empty());
     // There should be more than 300 entries, ...
@@ -1357,7 +1358,8 @@ mod tests
   {
     let db = get_sqlite_db_live();
 
-    let incidences = db.incidence7(&117);
+    // Country id 118 is Luxembourg in the live DB.
+    let incidences = db.incidence7(&118);
     // Vector of data must not be empty.
     assert!(!incidences.is_empty());
     // There should be more than 300 entries, ...
