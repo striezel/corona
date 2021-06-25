@@ -13,6 +13,7 @@ Dependency updates:
 
 * update bumpalo to 3.7.0
 * update cpufeatures to 0.1.5
+* update hermit-abi to 0.1.19
 * update ipnet to 2.3.1
 * update libc to 0.2.97
 * update once_cell to 1.8.0
