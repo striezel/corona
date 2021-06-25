@@ -15,9 +15,9 @@
  -------------------------------------------------------------------------------
 */
 
+mod checks;
 mod collect;
 pub mod configuration;
-mod checks;
 mod csv;
 mod data;
 mod database;
@@ -84,7 +84,7 @@ pub fn run(op: &Operation) -> Result<(), String>
       let info = info::Info::new(&config)?;
       if !info.run()
       {
-        return Err(format!("Could not get data for '{}'!", config.country_name))
+        return Err(format!("Could not get data for '{}'!", config.country_name));
       }
       Ok(())
     },
@@ -96,7 +96,11 @@ pub fn run(op: &Operation) -> Result<(), String>
         Some(v) => format!("corona, version {}", v)
       };
       println!("{}", version);
-      println!("(using SQLite version {} ({}))", rusqlite::version(), rusqlite::version_number());
+      println!(
+        "(using SQLite version {} ({}))",
+        rusqlite::version(),
+        rusqlite::version_number()
+      );
 
       Ok(())
     }

@@ -15,9 +15,9 @@
  -------------------------------------------------------------------------------
 */
 
+use crate::collect::api::Range;
 use crate::collect::{Collect, JsonCache};
 use crate::data::Country;
-use crate::collect::api::Range;
 use crate::data::Numbers;
 use std::path::{Path, PathBuf};
 
@@ -47,8 +47,10 @@ impl Germany
     let result = Germany::extract_from_file(&xlsx_path);
     if std::fs::remove_file(&xlsx_path).is_err()
     {
-      println!("Info: Could not remove downloaded spreadsheet file {}!",
-               xlsx_path.display());
+      println!(
+        "Info: Could not remove downloaded spreadsheet file {}!",
+        xlsx_path.display()
+      );
     }
     result
   }
@@ -98,7 +100,7 @@ impl Germany
    */
   fn extract_from_file(path: &Path) -> Result<Vec<Numbers>, String>
   {
-    use calamine::{Reader, open_workbook, Xlsx, DataType};
+    use calamine::{open_workbook, DataType, Reader, Xlsx};
     use chrono::prelude::*;
     use chrono::{Duration, Utc};
 
@@ -119,7 +121,8 @@ impl Germany
     }
 
     let date_regex = regex::RegexBuilder::new("^([0-9]{2})\\.([0-9]{2})\\.([0-9]{4})$")
-      .build().unwrap();
+      .build()
+      .unwrap();
     let excel_epoch_date = Utc.ymd(1899, 12, 30);
     let mut result: Vec<Numbers> = Vec::new();
     for row_idx in 3..range.end().unwrap_or((0, 0)).0 + 1
@@ -128,7 +131,9 @@ impl Germany
       {
         Some(DataType::Float(f)) | Some(DataType::DateTime(f)) =>
         {
-          let d = excel_epoch_date.checked_add_signed(Duration::days(*f as i64)).unwrap();
+          let d = excel_epoch_date
+            .checked_add_signed(Duration::days(*f as i64))
+            .unwrap();
           format!("{}-{:0>2}-{:0>2}", d.year(), d.month(), d.day())
         },
         Some(DataType::String(s)) =>
@@ -219,7 +224,7 @@ impl Collect for Germany
     {
       return Ok(vec);
     }
-    Ok(vec.drain(vec.len()-30..).collect())
+    Ok(vec.drain(vec.len() - 30..).collect())
   }
 
   fn collect_cached(&self, range: &Range, _cache: &JsonCache) -> Result<Vec<Numbers>, String>
@@ -244,14 +249,17 @@ mod tests
     // Elements should be sorted by date.
     for idx in 1..data.len()
     {
-      assert!(data[idx-1].date < data[idx].date)
+      assert!(data[idx - 1].date < data[idx].date)
     }
   }
 
   #[test]
   fn has_all_dates()
   {
-    let path = format!("{}/tests/Fallzahlen_Kum_Tab.xlsx", env!("CARGO_MANIFEST_DIR"));
+    let path = format!(
+      "{}/tests/Fallzahlen_Kum_Tab.xlsx",
+      env!("CARGO_MANIFEST_DIR")
+    );
     let path = Path::new(&path);
     let data = Germany::extract_from_file(&path);
     assert!(data.is_ok());

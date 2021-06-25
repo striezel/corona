@@ -58,7 +58,9 @@ impl Turkey
     use reqwest::StatusCode;
     use std::io::Read;
 
-    let mut res = match reqwest::blocking::get("https://covid19.saglik.gov.tr/TR-66935/genel-koronavirus-tablosu.html")
+    let mut res = match reqwest::blocking::get(
+      "https://covid19.saglik.gov.tr/TR-66935/genel-koronavirus-tablosu.html"
+    )
     {
       Ok(responded) => responded,
       Err(e) => return Err(format!("HTTP request failed: {}", e))
@@ -108,11 +110,12 @@ impl Turkey
     let json = match json.as_array()
     {
       Some(vec) => vec,
-      None => return Err("JSON is not an array!".to_string()),
+      None => return Err("JSON is not an array!".to_string())
     };
     // Date format is something like "31.12.2020".
     let date_regex = regex::RegexBuilder::new("^([0-9]{2})\\.([0-9]{2})\\.([0-9]{4})$")
-                    .build().unwrap();
+      .build()
+      .unwrap();
     let mut result: Vec<Numbers> = Vec::new();
     for day in json.iter()
     {
@@ -128,25 +131,19 @@ impl Turkey
       };
       let cases: i32 = match day.get("gunluk_vaka")
       {
-        Some(Value::String(s)) =>
+        Some(Value::String(s)) => match s.replace('.', "").parse()
         {
-          match s.replace('.', "").parse()
-          {
-            Ok(i) => i,
-            Err(_) => continue
-          }
+          Ok(i) => i,
+          Err(_) => continue
         },
         _ => continue
       };
       let deaths: i32 = match day.get("gunluk_vefat")
       {
-        Some(Value::String(s)) =>
+        Some(Value::String(s)) => match s.replace('.', "").parse()
         {
-          match s.replace('.', "").parse()
-          {
-            Ok(i) => i,
-            Err(_) => continue
-          }
+          Ok(i) => i,
+          Err(_) => continue
         },
         _ => continue
       };
@@ -197,7 +194,7 @@ impl Collect for Turkey
     {
       return Ok(vec);
     }
-    Ok(vec.drain(vec.len()-30..).collect())
+    Ok(vec.drain(vec.len() - 30..).collect())
   }
 
   /**
@@ -231,7 +228,7 @@ mod tests
     // Elements should be sorted by date.
     for idx in 1..data.len()
     {
-      assert!(data[idx-1].date < data[idx].date)
+      assert!(data[idx - 1].date < data[idx].date)
     }
   }
 }

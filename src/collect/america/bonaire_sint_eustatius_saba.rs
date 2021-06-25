@@ -15,10 +15,10 @@
  -------------------------------------------------------------------------------
 */
 
-use crate::collect::Collect;
-use crate::data::Country;
 use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
+use crate::collect::Collect;
+use crate::data::Country;
 use crate::data::Numbers;
 
 pub struct BonaireSintEustatiusSaba
@@ -66,7 +66,8 @@ impl Collect for BonaireSintEustatiusSaba
    * Returns the name of the country for which the data is collected as it
    * appears in the API data.
    */
-  fn name_in_api(&self) -> String {
+  fn name_in_api(&self) -> String
+  {
     String::from("Netherlands")
   }
 
@@ -74,13 +75,18 @@ impl Collect for BonaireSintEustatiusSaba
    * Returns the name of the province for which the data is collected as it
    * appears in the API data. May be empty.
    */
-  fn province_in_api(&self) -> &str {
+  fn province_in_api(&self) -> &str
+  {
     "bonaire, sint eustatius and saba"
   }
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
-    disease_sh::request_historical_api_first_of_multiple_provinces("NL", "bonaire%2C%20sint%20eustatius%20and%20saba%7C", &range)
+    disease_sh::request_historical_api_first_of_multiple_provinces(
+      "NL",
+      "bonaire%2C%20sint%20eustatius%20and%20saba%7C",
+      &range
+    )
   }
 }
 
@@ -99,7 +105,7 @@ mod tests
     // Elements should be sorted by date.
     for idx in 1..data.len()
     {
-      assert!(data[idx-1].date < data[idx].date)
+      assert!(data[idx - 1].date < data[idx].date)
     }
   }
 }

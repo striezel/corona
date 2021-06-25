@@ -84,7 +84,10 @@ impl Csv
       Ok(db) => db,
       Err(_) =>
       {
-        eprintln!("Error: Database file {} does not exist or is not readable!", self.config.db_path);
+        eprintln!(
+          "Error: Database file {} does not exist or is not readable!",
+          self.config.db_path
+        );
         return false;
       }
     };
@@ -92,16 +95,20 @@ impl Csv
     if countries.is_empty()
     {
       // Something is wrong here, there is no data.
-      eprintln!("Error: Could not find any countries in the database {}!",
-                self.config.db_path);
+      eprintln!(
+        "Error: Could not find any countries in the database {}!",
+        self.config.db_path
+      );
       return false;
     }
     // Do not overwrite existing file.
     let path = Path::new(&self.config.csv_output_file);
     if path.exists()
     {
-      eprintln!("Error: A file or directory named {} already exists!",
-                self.config.csv_output_file);
+      eprintln!(
+        "Error: A file or directory named {} already exists!",
+        self.config.csv_output_file
+      );
       return false;
     }
     // Write CSV header.
@@ -114,10 +121,21 @@ impl Csv
         return false;
       }
     };
-    const CSV_HEADER: [&str; 13] = ["dateRep", "day", "month", "year", "cases", "deaths",
-      "countriesAndTerritories", "geoId","countryterritoryCode", "popData2019", "continentExp",
+    const CSV_HEADER: [&str; 13] = [
+      "dateRep",
+      "day",
+      "month",
+      "year",
+      "cases",
+      "deaths",
+      "countriesAndTerritories",
+      "geoId",
+      "countryterritoryCode",
+      "popData2019",
+      "continentExp",
       "Cumulative_number_for_14_days_of_COVID-19_cases_per_100000",
-      "Cumulative_number_for_7_days_of_COVID-19_cases_per_100000"];
+      "Cumulative_number_for_7_days_of_COVID-19_cases_per_100000"
+    ];
     if let Err(e) = writer.write_record(&CSV_HEADER)
     {
       eprintln!("Error: Could not write CSV header! {}", e);
@@ -130,8 +148,10 @@ impl Csv
       let numbers = db.numbers_with_incidence(&country.country_id);
       if numbers.is_empty()
       {
-        eprintln!("Error while retrieving data for {} ({}) from the database!",
-                  &country.name, &country.geo_id);
+        eprintln!(
+          "Error while retrieving data for {} ({}) from the database!",
+          &country.name, &country.geo_id
+        );
         return false;
       }
       for num in numbers.iter()
@@ -140,9 +160,12 @@ impl Csv
         let success = writer.write_record(&rec);
         if success.is_err()
         {
-          eprintln!("Error while writing data record for {} to {}! {}",
-                    &country.name, &self.config.csv_output_file,
-                    success.unwrap_err());
+          eprintln!(
+            "Error while writing data record for {} to {}! {}",
+            &country.name,
+            &self.config.csv_output_file,
+            success.unwrap_err()
+          );
           return false;
         }
       }

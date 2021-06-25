@@ -63,7 +63,8 @@ impl Collect for Eswatini
    * Returns the name of the country for which the data is collected as it
    * appears in the API data.
    */
-  fn name_in_api(&self) -> String {
+  fn name_in_api(&self) -> String
+  {
     String::from("Swaziland")
   }
 
@@ -71,7 +72,8 @@ impl Collect for Eswatini
    * Returns the name of the province for which the data is collected as it
    * appears in the API data. May be empty.
    */
-  fn province_in_api(&self) -> &str {
+  fn province_in_api(&self) -> &str
+  {
     ""
   }
 

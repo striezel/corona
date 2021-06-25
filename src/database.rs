@@ -15,10 +15,12 @@
  -------------------------------------------------------------------------------
 */
 
+use crate::data::{
+  Country, Incidence14, Incidence7, Numbers, NumbersAndIncidence, NumbersAndIncidenceAndTotals
+};
 use std::path::Path;
-use crate::data::{Country, Incidence14, Incidence7, Numbers, NumbersAndIncidence, NumbersAndIncidenceAndTotals};
 
-use rusqlite::{Connection, params};
+use rusqlite::{params, Connection};
 
 pub struct Database
 {
@@ -155,9 +157,7 @@ impl Database
       Ok(statement) => statement,
       Err(_) => return -1
     };
-    let rows = stmt.query_map(params![geo_id], |row| {
-      Ok(row.get(0).unwrap_or(-1i64))
-    });
+    let rows = stmt.query_map(params![geo_id], |row| Ok(row.get(0).unwrap_or(-1i64)));
     let rows = match rows
     {
       Ok(mapped_rows) => mapped_rows,
@@ -173,7 +173,8 @@ impl Database
     // The requested geo id was not found - insert new country.
     let mut stmt = match self.conn.prepare(
       "INSERT INTO country (name, population, geoId, countryCode, continent) \
-       VALUES (@countryname, @pop, @geo, @code, @continent);")
+       VALUES (@countryname, @pop, @geo, @code, @continent);"
+    )
     {
       Ok(statement) => statement,
       Err(_) => return -1 // failed to prepare statement
@@ -310,7 +311,8 @@ impl Database
       let row = rows.next();
       match row
       {
-        Ok(Some(row)) => {
+        Ok(Some(row)) =>
+        {
           let i14d = row.get(3).unwrap_or(-1.0f64);
           let i7d = row.get(4).unwrap_or(-1.0f64);
           data.push(NumbersAndIncidence {
@@ -534,7 +536,8 @@ impl Database
     {
       match rows.next()
       {
-        Ok(Some(row)) => {
+        Ok(Some(row)) =>
+        {
           let name = row.get(1).unwrap_or_else(|_e| String::new());
           if name == "totalCases"
           {
@@ -572,7 +575,10 @@ impl Database
   fn calculate_total_cases(&self, verbose: &bool) -> bool
   {
     // add new column
-    match self.conn.execute("ALTER TABLE covid19 ADD COLUMN totalCases INTEGER;", params![])
+    match self.conn.execute(
+      "ALTER TABLE covid19 ADD COLUMN totalCases INTEGER;",
+      params![]
+    )
     {
       Ok(_) => if *verbose
       {
@@ -593,7 +599,8 @@ impl Database
       "UPDATE covid19 AS c1 \
        SET totalCases=(SELECT SUM(cases) FROM covid19 AS c2 \
        WHERE c2.countryId = c1.countryId AND c2.date <= c1.date);",
-      params![])
+      params![]
+    )
     {
       Ok(affected) => if *verbose
       {
@@ -618,7 +625,10 @@ impl Database
   fn calculate_total_deaths(&self, verbose: &bool) -> bool
   {
     // add new column
-    match self.conn.execute("ALTER TABLE covid19 ADD COLUMN totalDeaths INTEGER;", params![])
+    match self.conn.execute(
+      "ALTER TABLE covid19 ADD COLUMN totalDeaths INTEGER;",
+      params![]
+    )
     {
       Ok(_) => if *verbose
       {
@@ -639,7 +649,8 @@ impl Database
       "UPDATE covid19 AS c1 \
        SET totalDeaths=(SELECT SUM(deaths) FROM covid19 AS c2 \
        WHERE c2.countryId = c1.countryId AND c2.date <= c1.date);",
-      params![])
+      params![]
+    )
     {
       Ok(affected) => if *verbose
       {

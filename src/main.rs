@@ -33,11 +33,20 @@ fn main()
       Some(name) => name.to_string_lossy().into_owned(),
       None => args[0].clone()
     };
-    eprintln!("Usage: {} html /path/to/corona.db /path/to/output/directory [/path/to/main.tpl]", basename);
+    eprintln!(
+      "Usage: {} html /path/to/corona.db /path/to/output/directory [/path/to/main.tpl]",
+      basename
+    );
     eprintln!("           or");
-    eprintln!("Usage: {} csv /path/to/corona.db /path/to/output.csv", basename);
+    eprintln!(
+      "Usage: {} csv /path/to/corona.db /path/to/output.csv",
+      basename
+    );
     eprintln!("           or");
-    eprintln!("Usage: {} db /path/to/input.csv /path/to/output.db", basename);
+    eprintln!(
+      "Usage: {} db /path/to/input.csv /path/to/output.db",
+      basename
+    );
     eprintln!("           or");
     eprintln!("Usage: {} collect /path/to/output.db", basename);
     eprintln!("           or");

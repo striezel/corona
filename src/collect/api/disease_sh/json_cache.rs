@@ -53,7 +53,8 @@ impl JsonCache
     }
 
     let the_json = crate::collect::api::disease_sh::perform_api_request(
-      "https://corona.lmao.ninja/v3/covid-19/historical/?lastdays=all");
+      "https://corona.lmao.ninja/v3/covid-19/historical/?lastdays=all"
+    );
     match the_json
     {
       Ok(serde_json::Value::Array(json)) =>
@@ -87,8 +88,14 @@ impl JsonCache
       return None;
     }
 
-    let real_province = if province.is_empty() { serde_json::Value::Null }
-                               else { serde_json::Value::String(province.to_string()) };
+    let real_province = if province.is_empty()
+    {
+      serde_json::Value::Null
+    }
+    else
+    {
+      serde_json::Value::String(province.to_string())
+    };
     for elem in self.json.iter()
     {
       // Country name should match element "country".

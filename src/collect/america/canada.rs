@@ -58,7 +58,9 @@ impl Canada
     use reqwest::StatusCode;
     use std::io::Read;
 
-    let mut res = match reqwest::blocking::get("https://health-infobase.canada.ca/src/data/covidLive/covid19.csv")
+    let mut res = match reqwest::blocking::get(
+      "https://health-infobase.canada.ca/src/data/covidLive/covid19.csv"
+    )
     {
       Ok(responded) => responded,
       Err(e) => return Err(format!("HTTP request failed: {}", e))
@@ -97,7 +99,8 @@ impl Canada
     let mut result: Vec<Numbers> = Vec::new();
     let mut record = csv::StringRecord::new();
     let date_regex = regex::RegexBuilder::new("^([0-9]{2})\\-([0-9]{2})\\-([0-9]{4})$")
-                    .build().unwrap();
+      .build()
+      .unwrap();
     loop
     {
       match reader.read_record(&mut record)
@@ -134,11 +137,18 @@ impl Canada
       // "2020-12-31".
       if !date_regex.is_match(&date)
       {
-        return Err(format!("Error: Date format does not match the DD-MM-YYYY pattern: '{}'.", date));
+        return Err(format!(
+          "Error: Date format does not match the DD-MM-YYYY pattern: '{}'.",
+          date
+        ));
       }
       let date = format!("{}-{}-{}", &date[6..10], &date[3..5], &date[0..2]);
       // Daily new cases: "numtoday", index 15.
-      let cases: i32 = record.get(Canada::INDEX_CASES).unwrap().parse().unwrap_or(-1);
+      let cases: i32 = record
+        .get(Canada::INDEX_CASES)
+        .unwrap()
+        .parse()
+        .unwrap_or(-1);
       // Daily new deaths: "numdeathstoday", index 19.
       let deaths: i32 = record.get(Canada::INDEX_DEATHS).unwrap().parse().unwrap_or(-1);
       result.push(Numbers { date, cases, deaths });
@@ -161,19 +171,25 @@ impl Canada
     let headers = match reader.headers()
     {
       Ok(head) => head,
-      Err(e) => {
+      Err(e) =>
+      {
         return Err(format!("Error: Could not read header of CSV: {}", e));
       }
     };
     // Highest required column index is "numdeathstoday", so the CSV needs at
     // least INDEX_DEATHS + 1 columns.
     const REQUIRED_COLUMNS: usize = Canada::INDEX_DEATHS + 1;
-    if headers.len() < REQUIRED_COLUMNS || &headers[Canada::INDEX_PRNAME] != "prname"
-      || &headers[Canada::INDEX_DATE] != "date" || &headers[Canada::INDEX_CASES] != "numtoday"
+    if headers.len() < REQUIRED_COLUMNS
+      || &headers[Canada::INDEX_PRNAME] != "prname"
+      || &headers[Canada::INDEX_DATE] != "date"
+      || &headers[Canada::INDEX_CASES] != "numtoday"
       || &headers[Canada::INDEX_DEATHS] != "numdeathstoday"
     {
-      eprintln!("Error: CSV headers do not match the expected headers. \
-                 Found the following headers: {:?}", headers);
+      eprintln!(
+        "Error: CSV headers do not match the expected headers. \
+         Found the following headers: {:?}",
+        headers
+      );
       return Ok(false);
     }
     // Headers match. :)
@@ -222,7 +238,7 @@ impl Collect for Canada
     {
       return Ok(vec);
     }
-    Ok(vec.drain(vec.len()-30..).collect())
+    Ok(vec.drain(vec.len() - 30..).collect())
   }
 
   fn collect_cached(&self, range: &Range, _cache: &JsonCache) -> Result<Vec<Numbers>, String>
@@ -247,7 +263,7 @@ mod tests
     // Elements should be sorted by date.
     for idx in 1..data.len()
     {
-      assert!(data[idx-1].date < data[idx].date)
+      assert!(data[idx - 1].date < data[idx].date)
     }
   }
 }

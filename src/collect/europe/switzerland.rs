@@ -15,9 +15,9 @@
  -------------------------------------------------------------------------------
 */
 
+use crate::collect::api::Range;
 use crate::collect::{Collect, JsonCache};
 use crate::data::Country;
-use crate::collect::api::Range;
 use crate::data::Numbers;
 
 pub struct Switzerland
@@ -69,8 +69,8 @@ impl Switzerland
   fn get_official_csv_data_urls() -> Result<Urls, String>
   {
     use reqwest::StatusCode;
-    use std::io::Read;
     use serde_json::Value;
+    use std::io::Read;
 
     let mut res = match reqwest::blocking::get("https://www.covid19.admin.ch/api/data/context")
     {
@@ -92,7 +92,13 @@ impl Switzerland
     let json: Value = match serde_json::from_str(&body)
     {
       Ok(v) => v,
-      Err(e) => return Err(format!("Failed to deserialize JSON from covid19.admin.ch/api/context: {}", e))
+      Err(e) =>
+      {
+        return Err(format!(
+          "Failed to deserialize JSON from covid19.admin.ch/api/context: {}",
+          e
+        ))
+      }
     };
     let json = match json.get("sources")
     {
@@ -131,7 +137,10 @@ impl Switzerland
       Some(_) => return Err(String::from("JSON from API contains element 'death', but it is not a string!"))
     };
 
-    Ok(Urls { cases_url: cases.clone(), deaths_url: death.clone() })
+    Ok(Urls {
+      cases_url: cases.clone(),
+      deaths_url: death.clone()
+    })
   }
 
   /**
@@ -180,7 +189,10 @@ impl Switzerland
                         Body:\n{}", res.status(), res.headers(), body_deaths));
     }
 
-    Ok(CsvContent { cases_csv: body_cases, deaths_csv: body_deaths })
+    Ok(CsvContent {
+      cases_csv: body_cases,
+      deaths_csv: body_deaths
+    })
   }
 
   fn parse_csv_content(csv_content: &CsvContent, geo_region: &str) -> Result<Vec<Numbers>, String>
@@ -200,7 +212,8 @@ impl Switzerland
     let mut result: Vec<Numbers> = Vec::new();
     let mut record = csv::StringRecord::new();
     let date_regex = regex::RegexBuilder::new("^([0-9]{4})\\-([0-9]{2})\\-([0-9]{2})$")
-                    .build().unwrap();
+      .build()
+      .unwrap();
     // potential endless loop
     loop
     {
@@ -238,7 +251,10 @@ impl Switzerland
       // Date has a format like "2020-12-31", i. e. it fits already.
       if !date_regex.is_match(&date)
       {
-        return Err(format!("Error: Date format does not match the YYYY-MM-DD pattern: '{}'.", date));
+        return Err(format!(
+          "Error: Date format does not match the YYYY-MM-DD pattern: '{}'.",
+          date
+        ));
       }
       // Daily new cases: "entries", idx 2.
       let cases: i32 = record.get(2).unwrap().parse().unwrap_or(-1);
@@ -293,7 +309,10 @@ impl Switzerland
       // Date has a format like "2020-12-31", i. e. it fits already.
       if !date_regex.is_match(&date)
       {
-        return Err(format!("Error: Date format does not match the YYYY-MM-DD pattern: '{}'.", date));
+        return Err(format!(
+          "Error: Date format does not match the YYYY-MM-DD pattern: '{}'.",
+          date
+        ));
       }
       // Daily new deaths: "entries", idx 2.
       let deaths: i32 = record.get(2).unwrap().parse().unwrap_or(-1);
@@ -330,22 +349,23 @@ impl Switzerland
     let headers = match reader.headers()
     {
       Ok(head) => head,
-      Err(e) => {
+      Err(e) =>
+      {
         return Err(format!("Error: Could not read header of CSV: {}", e));
       }
     };
-    let expected_headers = vec![
-      "geoRegion", "datum", "entries"
-    ];
+    let expected_headers = vec!["geoRegion", "datum", "entries"];
     if headers.len() < 3
     {
       eprintln!("Error: CSV headers do not have enough columns. \
                  Found the following headers: {:?}", headers);
       return Ok(false);
     }
-    let actual_headers = vec![headers.get(0).unwrap_or_default(),
-                              headers.get(1).unwrap_or_default(),
-                              headers.get(2).unwrap_or_default()];
+    let actual_headers = vec![
+      headers.get(0).unwrap_or_default(),
+      headers.get(1).unwrap_or_default(),
+      headers.get(2).unwrap_or_default(),
+    ];
     if actual_headers != expected_headers
     {
       eprintln!("Error: CSV headers do not match the expected headers. \
@@ -396,7 +416,7 @@ impl Collect for Switzerland
     {
       return Ok(vec);
     }
-    Ok(vec.drain(vec.len()-30..).collect())
+    Ok(vec.drain(vec.len() - 30..).collect())
   }
 
   /**

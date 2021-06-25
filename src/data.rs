@@ -131,7 +131,7 @@ pub fn calculate_incidence(numbers: &[Numbers], population: &i32) -> Vec<Numbers
     cases: numbers[6].cases,
     deaths: numbers[6].deaths,
     incidence_14d: None,
-    incidence_7d: Some(sum7 as f64 * 100_000.0 / *population as f64),
+    incidence_7d: Some(sum7 as f64 * 100_000.0 / *population as f64)
   });
 
   // Calculate values for days 8 till 13.
@@ -144,7 +144,7 @@ pub fn calculate_incidence(numbers: &[Numbers], population: &i32) -> Vec<Numbers
       cases: elem.cases,
       deaths: elem.deaths,
       incidence_14d: None,
-      incidence_7d: Some(sum7 as f64 * 100_000.0 / *population as f64),
+      incidence_7d: Some(sum7 as f64 * 100_000.0 / *population as f64)
     });
   }
 
@@ -167,7 +167,7 @@ pub fn calculate_incidence(numbers: &[Numbers], population: &i32) -> Vec<Numbers
     cases: numbers[13].cases,
     deaths: numbers[13].deaths,
     incidence_14d: Some(sum14 as f64 * 100_000.0 / *population as f64),
-    incidence_7d: Some(sum7 as f64 * 100_000.0 / *population as f64),
+    incidence_7d: Some(sum7 as f64 * 100_000.0 / *population as f64)
   });
 
   // Calculate values for days 15 onwards.
@@ -181,7 +181,7 @@ pub fn calculate_incidence(numbers: &[Numbers], population: &i32) -> Vec<Numbers
       cases: numbers[idx].cases,
       deaths: numbers[idx].deaths,
       incidence_14d: Some(sum14 as f64 * 100_000.0 / *population as f64),
-      incidence_7d: Some(sum7 as f64 * 100_000.0 / *population as f64),
+      incidence_7d: Some(sum7 as f64 * 100_000.0 / *population as f64)
     });
   }
 
@@ -907,10 +907,13 @@ mod tests
   #[test]
   fn calculate_totals_one_element()
   {
-    let numbers = vec![
-      NumbersAndIncidence { date: "2020-10-31".to_string(), cases: 19059,
-        deaths: 103, incidence_7d: Some(123.45), incidence_14d: None }
-    ];
+    let numbers = vec![NumbersAndIncidence {
+      date: "2020-10-31".to_string(),
+      cases: 19059,
+      deaths: 103,
+      incidence_7d: Some(123.45),
+      incidence_14d: None
+    }];
     let totals = calculate_totals(&numbers);
 
     assert_eq!(totals.len(), 1);

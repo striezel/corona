@@ -15,11 +15,11 @@
  -------------------------------------------------------------------------------
 */
 
-use crate::collect::Collect;
-use crate::data::Country;
 use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
+use crate::collect::Collect;
 use crate::collect::JsonCache;
+use crate::data::Country;
 use crate::data::Numbers;
 
 pub struct UnitedStatesVirginIslands

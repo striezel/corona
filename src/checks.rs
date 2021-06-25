@@ -18,7 +18,9 @@
 /// enum to hold the status of a check
 pub enum Status
 {
-  Ok, Warn(String), Error(String)
+  Ok,
+  Warn(String),
+  Error(String)
 }
 
 /**
@@ -34,16 +36,21 @@ pub fn sqlite_check() -> Status
   // match expression with ranges is still experimental, so we have to use ifs.
   if sqlite_version < 3_006_008
   {
-    return Error(format!("The SQLite version you are using ({}) is too old \
-                          for this program. At least 3.6.8 is required.", rusqlite::version()));
+    return Error(format!(
+      "The SQLite version you are using ({}) is too old for this program. \
+       At least SQLite 3.6.8 is required.",
+      rusqlite::version()
+    ));
   }
   if sqlite_version < 3_026_000
   {
     use crate::checks::Status::Warn;
-    return Warn(format!("The SQLite version you are using ({}) may be too old \
-                         to use all features of this program. Some features may \
-                          not work. Update to SQLite 3.26.0 or later to avoid \
-                          that warning.", rusqlite::version()));
+    return Warn(format!(
+      "The SQLite version you are using ({}) may be too old to use all \
+       features of this program. Some features may not work. Update to \
+       SQLite 3.26.0 or later to avoid that warning.",
+      rusqlite::version()
+    ));
   }
 
   crate::checks::Status::Ok

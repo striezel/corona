@@ -15,7 +15,7 @@
  -------------------------------------------------------------------------------
 */
 
-use crate::collect::{Collect, Range, JsonCache};
+use crate::collect::{Collect, JsonCache, Range};
 use crate::data::{Country, Numbers};
 
 pub struct Australia

@@ -38,8 +38,8 @@ pub struct HtmlConfiguration
 #[derive(Copy, Clone)]
 pub enum DateFormat
 {
-  Iso8601,   // YYYY-MM-DD
-  LegacyEcdc // DD/MM/YYYY
+  Iso8601,    // YYYY-MM-DD
+  LegacyEcdc  // DD/MM/YYYY
 }
 
 pub struct CsvConfiguration
@@ -80,13 +80,19 @@ pub fn parse_args(args: &[String]) -> Result<Operation, String>
     // 3:   /path/to/output.csv
     if args.len() < 4
     {
-      return Err(String::from("Not enough command line parameters for CSV mode!"));
+      return Err(String::from(
+        "Not enough command line parameters for CSV mode!"
+      ));
     }
 
     let db_path = args[2].clone();
     let csv_output_file = args[3].clone();
     let date_format = DateFormat::Iso8601; // TODO: make this an adjustable parameter
-    return Ok(Operation::Csv(CsvConfiguration { db_path, csv_output_file, date_format }));
+    return Ok(Operation::Csv(CsvConfiguration {
+      db_path,
+      csv_output_file,
+      date_format
+    }));
   }
 
   if args[1] == "html"
@@ -98,7 +104,9 @@ pub fn parse_args(args: &[String]) -> Result<Operation, String>
     // 4:   /path/to/main.tpl (optional)
     if args.len() < 4
     {
-      return Err(String::from("Not enough command line parameters for HTML generation!"));
+      return Err(String::from(
+        "Not enough command line parameters for HTML generation!"
+      ));
     }
 
     let db_path = args[2].clone();
@@ -115,7 +123,9 @@ pub fn parse_args(args: &[String]) -> Result<Operation, String>
     // 3:   /path/to/corona.db
     if args.len() < 4
     {
-      return Err(String::from("Not enough command line parameters for DB operation!"));
+      return Err(String::from(
+        "Not enough command line parameters for DB operation!"
+      ));
     }
 
     let csv_input_file = args[2].clone();
@@ -130,7 +140,9 @@ pub fn parse_args(args: &[String]) -> Result<Operation, String>
     // 2:   /path/to/new/corona.db
     if args.len() < 3
     {
-      return Err(String::from("Not enough command line parameters for data collection!"));
+      return Err(String::from(
+        "Not enough command line parameters for data collection!"
+      ));
     }
 
     let db_path = args[2].clone();
@@ -144,15 +156,21 @@ pub fn parse_args(args: &[String]) -> Result<Operation, String>
     // 2:   NameOfTheCountry
     if args.len() < 3
     {
-      return Err(String::from("Not enough command line parameters: A country name must be specified!"));
+      return Err(String::from(
+        "Not enough command line parameters: A country name must be specified!"
+      ));
     }
 
-    let country_name = args.iter().skip(2)
+    let country_name = args
+      .iter()
+      .skip(2)
       .fold(String::new(), |mut all, elem| {
         all.push(' ');
         all.push_str(elem);
-        all})
-      .trim().to_string();
+        all
+      })
+      .trim()
+      .to_string();
     return Ok(Operation::Info(InfoConfiguration { country_name }));
   }
 
@@ -162,5 +180,7 @@ pub fn parse_args(args: &[String]) -> Result<Operation, String>
   }
 
   // invalid command line parameters
-  Err(String::from("Invalid command line parameters have been specified!"))
+  Err(String::from(
+    "Invalid command line parameters have been specified!"
+  ))
 }

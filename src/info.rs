@@ -63,17 +63,16 @@ impl Info
     let world = crate::world::World::new();
     let country = match world.find_by_geo_id(&self.country_name.to_uppercase())
     {
-      None =>
+      None => match world.find_by_name(&self.country_name)
       {
-        match world.find_by_name(&self.country_name)
+        Some(c) => c,
+        None =>
         {
-          Some(c) => c,
-          None =>
-          {
-            eprintln!("Error: Could not find a matching country for '{}'!",
-                      &self.country_name);
-            return false;
-          }
+          eprintln!(
+            "Error: Could not find a matching country for '{}'!",
+            &self.country_name
+          );
+          return false;
         }
       },
       Some(c) => c
@@ -83,9 +82,12 @@ impl Info
     let collector = match all.iter().find(|c| c.geo_id() == country.geo_id)
     {
       Some(collect) => collect,
-      None => {
-        eprintln!("Error: Could not find a matching country for '{}'!",
-                  &self.country_name);
+      None =>
+      {
+        eprintln!(
+          "Error: Could not find a matching country for '{}'!",
+          &self.country_name
+        );
         return false;
       }
     };
@@ -95,14 +97,20 @@ impl Info
       Ok(num) => num,
       Err(e) =>
       {
-        eprintln!("Error: Could not get recent data for {}.\n{}", country.name, e);
+        eprintln!(
+          "Error: Could not get recent data for {}.\n{}",
+          country.name, e
+        );
         return false;
       }
     };
 
     let numbers = calculate_incidence(&numbers, &country.population);
 
-    println!("Coronavirus cases in {} ({}):", country.name, country.geo_id);
+    println!(
+      "Coronavirus cases in {} ({}):",
+      country.name, country.geo_id
+    );
     let mut has_incidence = false;
     for elem in numbers.iter().rev().take(10)
     {

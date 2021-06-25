@@ -15,10 +15,10 @@
  -------------------------------------------------------------------------------
 */
 
-use crate::collect::Collect;
-use crate::data::Country;
 use crate::collect::api::disease_sh;
 use crate::collect::api::Range;
+use crate::collect::Collect;
+use crate::data::Country;
 use crate::data::Numbers;
 
 pub struct Montserrat
@@ -66,7 +66,8 @@ impl Collect for Montserrat
    * Returns the name of the country for which the data is collected as it
    * appears in the API data.
    */
-  fn name_in_api(&self) -> String {
+  fn name_in_api(&self) -> String
+  {
     String::from("UK")
   }
 
@@ -74,7 +75,8 @@ impl Collect for Montserrat
    * Returns the name of the province for which the data is collected as it
    * appears in the API data. May be empty.
    */
-  fn province_in_api(&self) -> &str {
+  fn province_in_api(&self) -> &str
+  {
     "montserrat"
   }
 

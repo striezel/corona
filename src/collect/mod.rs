@@ -26,6 +26,7 @@ mod other;
 use crate::collect::api::disease_sh;
 use crate::collect::api::disease_sh::json_cache::JsonCache;
 use crate::collect::api::Range;
+use crate::configuration::CollectConfiguration;
 use crate::data::Country;
 use crate::data::Numbers;
 use africa::*;
@@ -34,7 +35,6 @@ use asia::*;
 use europe::*;
 use oceania::*;
 use other::*;
-use crate::configuration::CollectConfiguration;
 
 /// common trait / interface for collecting new data
 pub trait Collect
@@ -54,7 +54,8 @@ pub trait Collect
    * Returns the name of the country for which the data is collected as it
    * appears in the API data.
    */
-  fn name_in_api(&self) -> String {
+  fn name_in_api(&self) -> String
+  {
     self.country().name
   }
 
@@ -62,7 +63,8 @@ pub trait Collect
    * Returns the name of the province for which the data is collected as it
    * appears in the API data. May be empty.
    */
-  fn province_in_api(&self) -> &str {
+  fn province_in_api(&self) -> &str
+  {
     ""
   }
 
@@ -96,8 +98,10 @@ pub trait Collect
       Some(value) => disease_sh::parse_json_timeline(value),
       None =>
       {
-        println!("    Info: Could not find data for {} in cache, doing extra request.",
-                 self.country().name);
+        println!(
+          "    Info: Could not find data for {} in cache, doing extra request.",
+          self.country().name
+        );
         self.collect(&range)
       }
     }
@@ -423,8 +427,11 @@ impl Collector
           if country_id <= 0
           {
             errors.push(format!("{} ({})", &country.geo_id(), &country_data.name));
-            eprintln!("Error: Could not insert country data for geo id '{}' ({}) into database!",
-                      &country.geo_id(), &country_data.name);
+            eprintln!(
+              "Error: Could not insert country data for geo id '{}' ({}) into database!",
+              &country.geo_id(),
+              &country_data.name
+            );
             continue;
           }
           let with_incidence = crate::data::calculate_incidence(&vector, &country_data.population);
@@ -433,8 +440,11 @@ impl Collector
           if !inserted
           {
             errors.push(format!("{} ({})", &country.geo_id(), &country_data.name));
-            eprintln!("Error: Could not insert numbers for {} ({}) into database!",
-                      &country_data.name, &country.geo_id());
+            eprintln!(
+              "Error: Could not insert numbers for {} ({}) into database!",
+              &country_data.name,
+              &country.geo_id()
+            );
           }
           else
           {
@@ -444,8 +454,12 @@ impl Collector
         },
         Err(error) =>
         {
-          eprintln!("Error while collecting data for {} ({}): {}",
-                    &country.geo_id(), &country_data.name, error);
+          eprintln!(
+            "Error while collecting data for {} ({}): {}",
+            &country.geo_id(),
+            &country_data.name,
+            error
+          );
           errors.push(format!("{} ({})", &country.geo_id(), &country_data.name));
         }
       }

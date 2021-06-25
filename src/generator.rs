@@ -68,7 +68,10 @@ impl Generator
     {
       if !path.exists()
       {
-        return Err(format!("Template file '{}' does not exist!", path.display()));
+        return Err(format!(
+          "Template file '{}' does not exist!",
+          path.display()
+        ));
       }
     }
 
@@ -105,8 +108,12 @@ impl Generator
     let db = match db
     {
       Ok(db) => db,
-      Err(_) => {
-        eprintln!("Error: Database file {} does not exist or is not readable!", self.config.db_path);
+      Err(_) =>
+      {
+        eprintln!(
+          "Error: Database file {} does not exist or is not readable!",
+          self.config.db_path
+        );
         return false;
       }
     };
@@ -130,15 +137,20 @@ impl Generator
     if countries.is_empty()
     {
       // Something is wrong here, there is no data.
-      eprintln!("Error: Could not find any countries in the database {}!",
-                self.config.db_path);
+      eprintln!(
+        "Error: Could not find any countries in the database {}!",
+        self.config.db_path
+      );
       return false;
     }
     for country in countries.iter()
     {
       if !self.generate_country(&db, &country)
       {
-        eprintln!("Error while generating file for {} ({})!", &country.name, &country.geo_id);
+        eprintln!(
+          "Error while generating file for {} ({})!",
+          &country.name, &country.geo_id
+        );
         return false;
       }
     }
@@ -186,7 +198,10 @@ impl Generator
       {
         if !tpl.load_from_file(&path)
         {
-          eprintln!("Error: Could not load main template file '{}'!", path.display());
+          eprintln!(
+            "Error: Could not load main template file '{}'!",
+            path.display()
+          );
           return false;
         }
       }
@@ -615,8 +630,16 @@ impl Generator
     // previous day, because not all countries have numbers for the latest day
     // yet. To avoid that, remove the latest day, if necessary.
     // Sometimes it also affects more latest days instead of just one.
-    let max = data.iter().rev().take(5).max_by(|x, y| x.cases.cmp(&y.cases).then(x.deaths.cmp(&y.deaths)));
-    let pos = data.iter().rev().take(5).position(|elem| elem.cases == max.unwrap().cases);
+    let max = data
+      .iter()
+      .rev()
+      .take(5)
+      .max_by(|x, y| x.cases.cmp(&y.cases).then(x.deaths.cmp(&y.deaths)));
+    let pos = data
+      .iter()
+      .rev()
+      .take(5)
+      .position(|elem| elem.cases == max.unwrap().cases);
     if let Some(idx) = pos
     {
       // Remove the last elements.
@@ -830,8 +853,11 @@ impl Generator
     let created = fs::create_dir_all(&path);
     if created.is_err()
     {
-      eprintln!("Error: Could not create directory {:?}: {}",
-                path, created.unwrap_err());
+      eprintln!(
+        "Error: Could not create directory {:?}: {}",
+        path,
+        created.unwrap_err()
+      );
       return false;
     }
 
@@ -855,12 +881,15 @@ impl Generator
       return match cp_success
       {
         Ok(_bytes_written) => true,
-        Err(e) => {
-          eprintln!("Error: Could not copy asset file {:?} to {:?}: {}",
-                    plotly_origin, plotly_destination, e);
+        Err(e) =>
+        {
+          eprintln!(
+            "Error: Could not copy asset file {:?} to {:?}: {}",
+            plotly_origin, plotly_destination, e
+          );
           false
         }
-      }
+      };
     }
 
     // File does not exist, so download it from CDN.
@@ -871,7 +900,8 @@ impl Generator
     let mut res = match reqwest::blocking::get(&url)
     {
       Ok(responded) => responded,
-      Err(e) => {
+      Err(e) =>
+      {
         eprintln!("Download of plotly.js failed: {}", e);
         return false;
       }
@@ -901,7 +931,8 @@ impl Generator
     match std::fs::write(&plotly_destination, &body)
     {
       Ok(()) => true,
-      Err(e) => {
+      Err(e) =>
+      {
         eprintln!("Error while writing plotly.js file: {}", e);
         false
       }

@@ -74,7 +74,10 @@ pub fn request_historical_api_first_of_multiple_provinces(geo_id: &str, province
   let vec: Vec<Value> = match json
   {
     Value::Array(vector) => vector,
-    _ => return Err("Error: Found invalid JSON format in request for multiple provinces.".to_string())
+    _ =>
+    {
+      return Err("Error: Found invalid JSON format in request for multiple provinces.".to_string())
+    }
   };
   if vec.is_empty()
   {
@@ -130,7 +133,8 @@ pub fn request_historical_api_usa_counties(county: &str, range: &Range) -> Resul
           numbers.push(Numbers {
             date: num.date.clone(),
             cases: num.cases,
-            deaths: num.deaths });
+            deaths: num.deaths
+          });
           // Vector may need to be sorted, because we do not know whether it is
           // still sorted after the push().
           may_need_sorting = true;
@@ -249,7 +253,12 @@ pub fn parse_json_timeline(json: &Value) -> Result<Vec<Numbers>, String>
   {
     Some(Value::Object(map)) => map,
     None => return Err(String::from("JSON from API does not contain timeline!")),
-    Some(_) => return Err(String::from("JSON from API contains timeline, but it is not an object!"))
+    Some(_) =>
+    {
+      return Err(String::from(
+        "JSON from API contains timeline, but it is not an object!"
+      ))
+    }
   };
   let cases = match timeline.get("cases")
   {
@@ -266,8 +275,8 @@ pub fn parse_json_timeline(json: &Value) -> Result<Vec<Numbers>, String>
   // Date is something like e. g. "12/31/20" for 31st December 2020 or
   // "1/1/21" for 1st January 2021.
   let date_exp = regex::RegexBuilder::new("^([0-9]+)/([0-9]+)/([0-9]{2})$")
-                .build()
-                .unwrap();
+    .build()
+    .unwrap();
   let mut numbers: HashMap<String, Numbers> = HashMap::new();
   for (date, num) in cases.iter()
   {
@@ -275,7 +284,10 @@ pub fn parse_json_timeline(json: &Value) -> Result<Vec<Numbers>, String>
     {
       None =>
       {
-        println!("Found date '{}' which does not match the pattern. Skipping it.", date);
+        println!(
+          "Found date '{}' which does not match the pattern. Skipping it.",
+          date
+        );
         continue;
       },
       Some(cap) =>
@@ -301,7 +313,10 @@ pub fn parse_json_timeline(json: &Value) -> Result<Vec<Numbers>, String>
     {
       None =>
       {
-        println!("Found date '{}' which does not match the pattern. Skipping it.", date);
+        println!(
+          "Found date '{}' which does not match the pattern. Skipping it.",
+          date
+        );
         continue;
       },
       Some(cap) =>
@@ -334,12 +349,12 @@ pub fn parse_json_timeline(json: &Value) -> Result<Vec<Numbers>, String>
   numbers.sort_unstable_by(|a, b| a.date.cmp(&b.date));
   // Rebuild with daily values calculated by differences.
   let mut numbers_diff = Vec::new();
-  for idx  in 1..numbers.len()
+  for idx in 1..numbers.len()
   {
     numbers_diff.push(Numbers {
       date: numbers[idx].date.clone(),
-      cases: numbers[idx].cases - numbers[idx-1].cases,
-      deaths: numbers[idx].deaths - numbers[idx-1].deaths
+      cases: numbers[idx].cases - numbers[idx - 1].cases,
+      deaths: numbers[idx].deaths - numbers[idx - 1].deaths
     });
   }
 
@@ -387,7 +402,7 @@ mod tests
     assert!(numbers.len() > 0);
     for idx in 1..numbers.len()
     {
-      assert!(numbers[idx-1].date < numbers[idx].date)
+      assert!(numbers[idx - 1].date < numbers[idx].date)
     }
 
     let all_numbers = request_historical_api("ES", &Range::All);
@@ -396,7 +411,7 @@ mod tests
     assert!(all_numbers.len() > 0);
     for idx in 1..all_numbers.len()
     {
-      assert!(all_numbers[idx-1].date < all_numbers[idx].date)
+      assert!(all_numbers[idx - 1].date < all_numbers[idx].date)
     }
 
     // All data should have more entries than recent data.
@@ -412,7 +427,7 @@ mod tests
     assert!(numbers.len() > 0);
     for idx in 1..numbers.len()
     {
-      assert!(numbers[idx-1].date < numbers[idx].date)
+      assert!(numbers[idx - 1].date < numbers[idx].date)
     }
 
     let all_numbers = request_historical_api_province("DK", "mainland", &Range::All);
@@ -421,7 +436,7 @@ mod tests
     assert!(all_numbers.len() > 0);
     for idx in 1..all_numbers.len()
     {
-      assert!(all_numbers[idx-1].date < all_numbers[idx].date)
+      assert!(all_numbers[idx - 1].date < all_numbers[idx].date)
     }
 
     // All data should have more entries than recent data.
@@ -437,7 +452,7 @@ mod tests
     assert!(numbers.len() > 0);
     for idx in 1..numbers.len()
     {
-      assert!(numbers[idx-1].date < numbers[idx].date)
+      assert!(numbers[idx - 1].date < numbers[idx].date)
     }
 
     let all_numbers = request_historical_api_usa_counties("guam", &Range::All);
@@ -446,7 +461,7 @@ mod tests
     assert!(all_numbers.len() > 0);
     for idx in 1..all_numbers.len()
     {
-      assert!(all_numbers[idx-1].date < all_numbers[idx].date)
+      assert!(all_numbers[idx - 1].date < all_numbers[idx].date)
     }
 
     // All data should have more entries than recent data.
@@ -456,22 +471,30 @@ mod tests
   #[test]
   fn historical_api_first_of_multiple_provinces()
   {
-    let numbers = request_historical_api_first_of_multiple_provinces("NL", "bonaire%2C%20sint%20eustatius%20and%20saba%7C", &Range::Recent);
+    let numbers = request_historical_api_first_of_multiple_provinces(
+      "NL",
+      "bonaire%2C%20sint%20eustatius%20and%20saba%7C",
+      &Range::Recent
+    );
     assert!(numbers.is_ok());
     let numbers = numbers.unwrap();
     assert!(numbers.len() > 0);
     for idx in 1..numbers.len()
     {
-      assert!(numbers[idx-1].date < numbers[idx].date)
+      assert!(numbers[idx - 1].date < numbers[idx].date)
     }
 
-    let all_numbers = request_historical_api_first_of_multiple_provinces("NL", "bonaire%2C%20sint%20eustatius%20and%20saba%7C", &Range::All);
+    let all_numbers = request_historical_api_first_of_multiple_provinces(
+      "NL",
+      "bonaire%2C%20sint%20eustatius%20and%20saba%7C",
+      &Range::All
+    );
     assert!(all_numbers.is_ok());
     let all_numbers = all_numbers.unwrap();
     assert!(all_numbers.len() > 0);
     for idx in 1..all_numbers.len()
     {
-      assert!(all_numbers[idx-1].date < all_numbers[idx].date)
+      assert!(all_numbers[idx - 1].date < all_numbers[idx].date)
     }
 
     // All data should have more entries than recent data.
@@ -482,9 +505,21 @@ mod tests
   fn shift_one_day()
   {
     let old: Vec<Numbers> = vec![
-       Numbers { date: "2020-01-01".to_string(), cases: 12, deaths: 0},
-       Numbers { date: "2020-01-02".to_string(), cases: 17, deaths: 1},
-       Numbers { date: "2020-01-03".to_string(), cases: 28, deaths: 2}
+      Numbers {
+        date: "2020-01-01".to_string(),
+        cases: 12,
+        deaths: 0
+      },
+      Numbers {
+        date: "2020-01-02".to_string(),
+        cases: 17,
+        deaths: 1
+      },
+      Numbers {
+        date: "2020-01-03".to_string(),
+        cases: 28,
+        deaths: 2
+      },
     ];
     let shifted = shift_one_day_later(&old);
     assert_eq!(2, shifted.len());

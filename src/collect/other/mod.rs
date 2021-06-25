@@ -15,8 +15,8 @@
  -------------------------------------------------------------------------------
 */
 
-use crate::collect::Collect;
 use crate::collect::api::Range;
+use crate::collect::Collect;
 use crate::collect::JsonCache;
 use crate::data::Country;
 use crate::data::Numbers;

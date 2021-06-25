@@ -18,7 +18,7 @@
 use crate::collect::api::Range;
 use crate::collect::{Collect, JsonCache};
 use crate::data::Country;
-use crate::data::{Numbers, fill_missing_dates};
+use crate::data::{fill_missing_dates, Numbers};
 use serde_json::value::Value;
 
 pub struct Jersey
@@ -68,7 +68,9 @@ impl Jersey
     use reqwest::StatusCode;
     use std::io::Read;
 
-    let mut res = match reqwest::blocking::get("https://www.gov.je/Datasets/ListOpenData?ListName=COVID19&type=json")
+    let mut res = match reqwest::blocking::get(
+      "https://www.gov.je/Datasets/ListOpenData?ListName=COVID19&type=json"
+    )
     {
       Ok(responded) => responded,
       Err(e) => return Err(format!("HTTP request failed: {}", e))
@@ -120,29 +122,26 @@ impl Jersey
     {
       let date = match elem.get("Date")
       {
-        Some(value) =>
+        Some(value) => match value.as_str()
         {
-          match value.as_str()
-          {
-            Some(s) => s.to_string(),
-            None => return Err("Element 'Date' is not a string!".to_string())
-          }
+          Some(s) => s.to_string(),
+          None => return Err("Element 'Date' is not a string!".to_string())
         },
         None => return Err("Element 'Date' does not exist!".to_string())
       };
       if !date_exp.is_match(&date)
       {
-        return Err(format!("Date value '{}' does not match the YYYY-MM-DD format!", date));
+        return Err(format!(
+          "Date value '{}' does not match the YYYY-MM-DD format!",
+          date
+        ));
       }
       let cases = match elem.get("CasesDailyNewConfirmedCases")
       {
-        Some(value) =>
+        Some(value) => match value.as_str()
         {
-          match value.as_str()
-          {
-            Some(s) => s.to_string(),
-            None => return Err("Element 'CasesDailyNewConfirmedCases' is not a string!".to_string())
-          }
+          Some(s) => s.to_string(),
+          None => return Err("Element 'CasesDailyNewConfirmedCases' is not a string!".to_string())
         },
         None => return Err("Element 'CasesDailyNewConfirmedCases' does not exist!".to_string())
       };
@@ -153,13 +152,10 @@ impl Jersey
       };
       let deaths = match elem.get("MortalityTotalDeaths")
       {
-        Some(value) =>
+        Some(value) => match value.as_str()
         {
-          match value.as_str()
-          {
-            Some(s) => s.to_string(),
-            None => return Err("Element 'MortalityTotalDeaths' is not a string!".to_string())
-          }
+          Some(s) => s.to_string(),
+          None => return Err("Element 'MortalityTotalDeaths' is not a string!".to_string())
         },
         None => return Err("Element 'MortalityTotalDeaths' does not exist!".to_string())
       };
@@ -210,7 +206,7 @@ impl Jersey
       }
       if numbers[idx].deaths == Jersey::I32_MIN
       {
-        numbers[idx].deaths = numbers[idx-1].deaths;
+        numbers[idx].deaths = numbers[idx - 1].deaths;
       }
     }
 
@@ -220,12 +216,12 @@ impl Jersey
     let mut to_remove = Vec::new();
     for idx in 1..len
     {
-      if numbers[idx].date == numbers[idx-1].date
+      if numbers[idx].date == numbers[idx - 1].date
       {
         // Just use the maximum value of both and store it into the element
         // with the lower index, marking the higher index for removal.
-        numbers[idx-1].cases = numbers[idx].cases.max(numbers[idx-1].cases);
-        numbers[idx-1].deaths = numbers[idx].deaths.max(numbers[idx-1].deaths);
+        numbers[idx - 1].cases = numbers[idx].cases.max(numbers[idx - 1].cases);
+        numbers[idx - 1].deaths = numbers[idx].deaths.max(numbers[idx - 1].deaths);
         to_remove.push(idx);
       }
     }
@@ -242,7 +238,7 @@ impl Jersey
     let deaths: Vec<i32> = numbers.iter().map(|e| e.deaths).collect();
     for idx in 1..len
     {
-      numbers[idx].deaths = deaths[idx] - deaths[idx-1];
+      numbers[idx].deaths = deaths[idx] - deaths[idx - 1];
     }
 
     // Done.
@@ -495,7 +491,7 @@ impl Collect for Jersey
     {
       return Ok(vec);
     }
-    Ok(vec.drain(vec.len()-30..).collect())
+    Ok(vec.drain(vec.len() - 30..).collect())
   }
 
   /**
@@ -529,8 +525,12 @@ mod tests
     // Elements should be sorted by date.
     for idx in 1..data.len()
     {
-      assert!(data[idx - 1].date < data[idx].date,
-              "Date {} is not less than {}!", data[idx - 1].date, data[idx].date);
+      assert!(
+        data[idx - 1].date < data[idx].date,
+        "Date {} is not less than {}!",
+        data[idx - 1].date,
+        data[idx].date
+      );
     }
   }
 
@@ -566,16 +566,21 @@ mod tests
     let old = data.iter().find(|elem| elem.date == "2020-03-30");
     assert!(old.is_some());
 
-    let old_count = data.iter().filter(|x| x.date < "2020-07-30".to_string()).count();
+    let old_count = data
+      .iter()
+      .filter(|x| x.date < "2020-07-30".to_string())
+      .count();
     assert!(old_count > 100);
 
     let mut accumulated_cases = 0;
     let mut accumulated_deaths = 0;
-    data.iter().filter(|x| x.date < "2021-05-19".to_string())
-        .for_each(|x| {
-          accumulated_cases+= x.cases;
-          accumulated_deaths+= x.deaths;
-        });
+    data
+      .iter()
+      .filter(|x| x.date < "2021-05-19".to_string())
+      .for_each(|x| {
+        accumulated_cases += x.cases;
+        accumulated_deaths += x.deaths;
+      });
 
     // Case numbers should be approx. 3236 by the given date.
     println!("Cases: {}", accumulated_cases);

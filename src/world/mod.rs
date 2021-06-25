@@ -1777,6 +1777,9 @@ impl World
   pub fn find_by_name(&self, name: &str) -> Option<&Country>
   {
     let lc_name = name.to_lowercase();
-    self.all_countries.iter().find(|c| c.name.to_lowercase() == lc_name)
+    self
+      .all_countries
+      .iter()
+      .find(|c| c.name.to_lowercase() == lc_name)
   }
 }

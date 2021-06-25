@@ -77,7 +77,7 @@ impl Collect for Liechtenstein
     {
       return Ok(vec);
     }
-    Ok(vec.drain(vec.len()-30..).collect())
+    Ok(vec.drain(vec.len() - 30..).collect())
   }
 
   /**

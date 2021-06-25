@@ -121,17 +121,30 @@ impl Db
     let headers = match reader.headers()
     {
       Ok(head) => head,
-      Err(e) => {
-        eprintln!("Error: Could not read header of CSV file {}: {}",
-                  &self.config.csv_input_file, e);
+      Err(e) =>
+      {
+        eprintln!(
+          "Error: Could not read header of CSV file {}: {}",
+          &self.config.csv_input_file, e
+        );
         return false;
       }
     };
-    let expected_headers = vec!["dateRep", "day", "month", "year", "cases",
-                                "deaths", "countriesAndTerritories", "geoId",
-                                "countryterritoryCode", "popData2019", "continentExp",
-                                "Cumulative_number_for_14_days_of_COVID-19_cases_per_100000",
-                                "Cumulative_number_for_7_days_of_COVID-19_cases_per_100000"];
+    let expected_headers = vec![
+      "dateRep",
+      "day",
+      "month",
+      "year",
+      "cases",
+      "deaths",
+      "countriesAndTerritories",
+      "geoId",
+      "countryterritoryCode",
+      "popData2019",
+      "continentExp",
+      "Cumulative_number_for_14_days_of_COVID-19_cases_per_100000",
+      "Cumulative_number_for_7_days_of_COVID-19_cases_per_100000",
+    ];
     if headers != expected_headers && headers != expected_headers[0..12]
     {
       eprintln!("Error: CSV headers do not match the expected headers. \
@@ -203,7 +216,13 @@ impl Db
         let population: i64 = record.get(9).unwrap().parse().unwrap_or(-1);
         let continent = record.get(10).unwrap();
         // Get country id or insert country.
-        country_id = db.get_country_id_or_insert(&current_geo_id, &name, &population, &country_code, &continent);
+        country_id = db.get_country_id_or_insert(
+          &current_geo_id,
+          &name,
+          &population,
+          &country_code,
+          &continent
+        );
         if country_id == -1
         {
           eprintln!("Error: Could not insert country data into database!");
@@ -227,8 +246,10 @@ impl Db
       };
       if cases == I64_MIN || deaths == I64_MIN
       {
-        eprintln!("Error: Got invalid case numbers on line {}.",
-                  record.position().unwrap().line());
+        eprintln!(
+          "Error: Got invalid case numbers on line {}.",
+          record.position().unwrap().line()
+        );
         return false;
       }
       let incidence14: f64 = match record.get(11).unwrap().is_empty()
@@ -250,7 +271,9 @@ impl Db
        */
       if batch.is_empty()
       {
-        batch = String::from("INSERT INTO covid19 (countryId, date, cases, deaths, incidence14, incidence7) VALUES ");
+        batch = String::from(
+          "INSERT INTO covid19 (countryId, date, cases, deaths, incidence14, incidence7) VALUES "
+        );
         batch_count = 0;
       }
 
