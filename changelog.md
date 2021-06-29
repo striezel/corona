@@ -4,6 +4,13 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version NEXT (2021-07-??)
+
+Dependency updates:
+
+* update hashbrown to 0.11.2
+* update indexmap to 1.7.0
+
 ## Version 0.9.1 (2021-06-28)
 
 Case numbers for the Cook Islands are no longer included in the case numbers of
