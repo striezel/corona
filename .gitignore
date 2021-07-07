@@ -1,0 +1,8 @@
+# Rust binary files
+target/
+
+# swap files
+*.swp
+
+# IntelliJ IDEA files
+.idea/
