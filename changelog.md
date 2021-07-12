@@ -8,6 +8,7 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update cc to 1.0.69
 * update hashbrown to 0.11.2
 * update indexmap to 1.7.0
 * update libc to 0.2.98
