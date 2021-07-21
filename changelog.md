@@ -13,6 +13,7 @@ Dependency updates:
 * update indexmap to 1.7.0
 * update libc to 0.2.98
 * update thiserror and thiserror-impl to 1.0.26
+* update tinyvec to 1.3.0
 
 ## Version 0.9.1 (2021-06-28)
 
