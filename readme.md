@@ -32,8 +32,6 @@ For more information see the [readme file in the data/ directory](./data/readme.
 [![GitHub CI Rust MSRV](https://github.com/striezel/corona/workflows/Minimum%20Supported%20Rust%20Version/badge.svg)](https://github.com/striezel/corona/actions)
 * GitLab:
 [![GitLab pipeline status](https://gitlab.com/striezel/corona/badges/master/pipeline.svg)](https://gitlab.com/striezel/corona/)
-* Travis CI:
-[![Build Status](https://travis-ci.org/striezel/corona.svg?branch=master)](https://travis-ci.org/striezel/corona)
 * Windows:
   * MSVC toolchain:
     [![Build status](https://ci.appveyor.com/api/projects/status/9t7rta43ovt8slce/branch/master?svg=true)](https://ci.appveyor.com/project/striezel/corona/branch/master)
