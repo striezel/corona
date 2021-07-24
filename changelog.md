@@ -9,11 +9,16 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update cc to 1.0.69
+* update futures-channel, futures-core, futures-io, futures-sink, futures-task
+  and futures-util to 0.3.16
 * update hashbrown to 0.11.2
 * update indexmap to 1.7.0
 * update libc to 0.2.98
+* update pin-project + pin-project-internal to 1.0.8
+* update proc-macro2 to 1.0.28
+* update syn to 1.0.74
 * update thiserror and thiserror-impl to 1.0.26
-* update tinyvec to 1.3.0
+* update tinyvec to 1.3.1
 
 ## Version 0.9.1 (2021-06-28)
 
