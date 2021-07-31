@@ -83,6 +83,6 @@ impl Collect for Anguilla
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
     // Anguilla is a overseas territory of the UK.
-    disease_sh::request_historical_api_province("UK", "Anguilla", &range)
+    disease_sh::request_historical_api_province("UK", "Anguilla", range)
   }
 }

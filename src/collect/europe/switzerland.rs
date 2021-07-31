@@ -249,7 +249,7 @@ impl Switzerland
         None => continue
       };
       // Date has a format like "2020-12-31", i. e. it fits already.
-      if !date_regex.is_match(&date)
+      if !date_regex.is_match(date)
       {
         return Err(format!(
           "Error: Date format does not match the YYYY-MM-DD pattern: '{}'.",
@@ -307,7 +307,7 @@ impl Switzerland
         None => continue
       };
       // Date has a format like "2020-12-31", i. e. it fits already.
-      if !date_regex.is_match(&date)
+      if !date_regex.is_match(date)
       {
         return Err(format!(
           "Error: Date format does not match the YYYY-MM-DD pattern: '{}'.",

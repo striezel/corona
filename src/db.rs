@@ -107,7 +107,7 @@ impl Db
       return false;
     }
     // parse CSV values
-    Db::parse_csv_into_db(&db, &mut reader)
+    Db::parse_csv_into_db(db, &mut reader)
   }
 
   /**
@@ -217,11 +217,11 @@ impl Db
         let continent = record.get(10).unwrap();
         // Get country id or insert country.
         country_id = db.get_country_id_or_insert(
-          &current_geo_id,
+          current_geo_id,
           &name,
           &population,
-          &country_code,
-          &continent
+          country_code,
+          continent
         );
         if country_id == -1
         {

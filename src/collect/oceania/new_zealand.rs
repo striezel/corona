@@ -62,7 +62,7 @@ impl Collect for NewZealand
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
-    disease_sh::request_historical_api_province("NZ", "mainland", &range)
+    disease_sh::request_historical_api_province("NZ", "mainland", range)
   }
 
   // Note: Case numbers (totals) seem to be a bit higher than ECDC's.

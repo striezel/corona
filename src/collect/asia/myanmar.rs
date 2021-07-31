@@ -84,7 +84,7 @@ impl Collect for Myanmar
   {
     // disease.sh API also still lists Myanmar as Burma, so we have to use "BU"
     // here instead of MM.
-    disease_sh::request_historical_api("BU", &range)
+    disease_sh::request_historical_api("BU", range)
   }
 }
 

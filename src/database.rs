@@ -112,7 +112,7 @@ impl Database
     let sql = "SELECT countryId, name, population, geoId, countryCode, continent FROM country \
                WHERE geoId <> '' AND continent <> 'Other' \
                ORDER BY name ASC;";
-    let mut stmt = match self.conn.prepare(&sql)
+    let mut stmt = match self.conn.prepare(sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -201,7 +201,7 @@ impl Database
     let sql = "SELECT DISTINCT continent FROM country \
                WHERE continent <> 'Other' \
                ORDER BY continent ASC;";
-    let mut stmt = match self.conn.prepare(&sql)
+    let mut stmt = match self.conn.prepare(sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -233,7 +233,7 @@ impl Database
     let sql = "SELECT countryId, name, population, geoId, countryCode, continent FROM country \
                WHERE geoId <> '' AND continent = ? \
                ORDER BY name ASC;";
-    let mut stmt = match self.conn.prepare(&sql)
+    let mut stmt = match self.conn.prepare(sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -272,7 +272,7 @@ impl Database
     let sql = "SELECT date, cases, deaths FROM covid19 \
                WHERE countryId = ? \
                ORDER BY date ASC;";
-    let mut stmt = match self.conn.prepare(&sql)
+    let mut stmt = match self.conn.prepare(sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -292,7 +292,7 @@ impl Database
     let sql = "SELECT date, cases, deaths, IFNULL(incidence14, -1.0), IFNULL(incidence7, -1.0) FROM covid19 \
                WHERE countryId = ? \
                ORDER BY date DESC;";
-    let mut stmt = match self.conn.prepare(&sql)
+    let mut stmt = match self.conn.prepare(sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -378,7 +378,7 @@ impl Database
     let sql = "SELECT date, SUM(cases), SUM(deaths) FROM covid19 \
                GROUP BY date \
                ORDER BY date ASC;";
-    let mut stmt = match self.conn.prepare(&sql)
+    let mut stmt = match self.conn.prepare(sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -398,7 +398,7 @@ impl Database
     let sql = "SELECT date, totalCases, totalDeaths FROM covid19 \
                WHERE countryId = ? \
                ORDER BY date ASC;";
-    let mut stmt = match self.conn.prepare(&sql)
+    let mut stmt = match self.conn.prepare(sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -417,7 +417,7 @@ impl Database
     let sql = "SELECT date, SUM(totalCases), SUM(totalDeaths) FROM covid19 \
                GROUP BY date \
                ORDER BY date ASC;";
-    let mut stmt = match self.conn.prepare(&sql)
+    let mut stmt = match self.conn.prepare(sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -438,7 +438,7 @@ impl Database
     let sql = "SELECT date, round(incidence7, 2) FROM covid19 \
                WHERE countryId = ? AND ABS(IFNULL(incidence7, -1.0)+1.0) > 0.000001 \
                ORDER BY date ASC;";
-    let mut stmt = match self.conn.prepare(&sql)
+    let mut stmt = match self.conn.prepare(sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -480,7 +480,7 @@ impl Database
     let sql = "SELECT date, round(incidence14, 2) FROM covid19 \
                WHERE countryId = ? AND ABS(IFNULL(incidence14, -1.0)+1.0) > 0.000001 \
                ORDER BY date ASC;";
-    let mut stmt = match self.conn.prepare(&sql)
+    let mut stmt = match self.conn.prepare(sql)
     {
       Ok(x) => x,
       Err(_) => return vec![]
@@ -553,11 +553,11 @@ impl Database
       }
     }
 
-    if !has_total_cases && !self.calculate_total_cases(&verbose)
+    if !has_total_cases && !self.calculate_total_cases(verbose)
     {
       return false;
     }
-    if !has_total_deaths && !self.calculate_total_deaths(&verbose)
+    if !has_total_deaths && !self.calculate_total_deaths(verbose)
     {
       return false;
     }
@@ -716,7 +716,7 @@ impl Database
       }
 
       batch.push('(');
-      batch.push_str(&cid_as_string);
+      batch.push_str(cid_as_string);
       batch.push_str(", ");
       batch.push_str(&Database::quote(&elem.date));
       batch.push_str(", ");

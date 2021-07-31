@@ -65,7 +65,7 @@ impl Collect for PuertoRico
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
-    disease_sh::request_historical_api_usa_counties("puerto%20rico", &range)
+    disease_sh::request_historical_api_usa_counties("puerto%20rico", range)
   }
 
   fn collect_cached(&self, range: &Range, _cache: &JsonCache) -> Result<Vec<Numbers>, String>

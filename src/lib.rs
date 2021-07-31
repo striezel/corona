@@ -36,7 +36,7 @@ pub fn run(op: &Operation) -> Result<(), String>
     Operation::Html(config) =>
     {
       use generator::Generator;
-      let gen = Generator::new(&config)?;
+      let gen = Generator::new(config)?;
       if !gen.generate()
       {
         return Err("Generation of HTML files failed!".to_string());
@@ -48,7 +48,7 @@ pub fn run(op: &Operation) -> Result<(), String>
     {
       use crate::csv::Csv;
 
-      let csv = Csv::new(&config)?;
+      let csv = Csv::new(config)?;
       if !csv.create_csv()
       {
         return Err("Failed to write CSV file!".to_string());
@@ -60,7 +60,7 @@ pub fn run(op: &Operation) -> Result<(), String>
     {
       use crate::db::Db;
 
-      let db = Db::new(&config)?;
+      let db = Db::new(config)?;
       if !db.create_db()
       {
         return Err("Failed to create SQLite database from CSV file!".to_string());
@@ -72,7 +72,7 @@ pub fn run(op: &Operation) -> Result<(), String>
     {
       use crate::collect::Collector;
 
-      let collector = Collector::new(&config)?;
+      let collector = Collector::new(config)?;
       if !collector.run()
       {
         return Err(String::from("An error occurred during data collection."));
@@ -81,7 +81,7 @@ pub fn run(op: &Operation) -> Result<(), String>
     },
     Operation::Info(config) =>
     {
-      let info = info::Info::new(&config)?;
+      let info = info::Info::new(config)?;
       if !info.run()
       {
         return Err(format!("Could not get data for '{}'!", config.country_name));

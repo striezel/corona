@@ -82,6 +82,6 @@ impl Collect for Montserrat
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
-    disease_sh::request_historical_api_province("UK", "Montserrat", &range)
+    disease_sh::request_historical_api_province("UK", "Montserrat", range)
   }
 }

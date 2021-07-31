@@ -85,7 +85,7 @@ impl Collect for BonaireSintEustatiusSaba
     disease_sh::request_historical_api_first_of_multiple_provinces(
       "NL",
       "bonaire%2C%20sint%20eustatius%20and%20saba%7C",
-      &range
+      range
     )
   }
 }

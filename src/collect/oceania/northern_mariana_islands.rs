@@ -65,7 +65,7 @@ impl Collect for NorthernMarianaIslands
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
-    disease_sh::request_historical_api_usa_counties("northern%20mariana%20islands", &range)
+    disease_sh::request_historical_api_usa_counties("northern%20mariana%20islands", range)
   }
 
   fn collect_cached(&self, range: &Range, _cache: &JsonCache) -> Result<Vec<Numbers>, String>

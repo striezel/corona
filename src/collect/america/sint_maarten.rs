@@ -82,7 +82,7 @@ impl Collect for SintMaarten
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
-    disease_sh::request_historical_api_province("NL", "sint%20maarten", &range)
+    disease_sh::request_historical_api_province("NL", "sint%20maarten", range)
   }
 }
 

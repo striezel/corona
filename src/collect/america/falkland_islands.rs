@@ -82,7 +82,7 @@ impl Collect for FalklandIslands
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
-    disease_sh::request_historical_api_province("UK", "falkland%20islands%20(malvinas)", &range)
+    disease_sh::request_historical_api_province("UK", "falkland%20islands%20(malvinas)", range)
   }
 }
 

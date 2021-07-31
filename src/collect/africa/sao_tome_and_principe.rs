@@ -63,7 +63,7 @@ impl Collect for SaoTomeAndPrincipe
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
     // disease.sh historical API seems to be off by one day, so let's fix that.
-    match disease_sh::request_historical_api(self.geo_id(), &range)
+    match disease_sh::request_historical_api(self.geo_id(), range)
     {
       Ok(vector) => Ok(disease_sh::shift_one_day_later(&vector)),
       Err(e) => Err(e)
@@ -86,7 +86,7 @@ impl Collect for SaoTomeAndPrincipe
           "    Info: Could not find data for {} in cache, doing extra request.",
           self.country().name
         );
-        self.collect(&range)
+        self.collect(range)
       }
     }
   }

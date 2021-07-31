@@ -95,7 +95,7 @@ impl Template
       return false;
     }
     self.sections.clear();
-    for cap in re.captures_iter(&content)
+    for cap in re.captures_iter(content)
     {
       if cap[1] != cap[3]
       {
@@ -179,13 +179,13 @@ impl Template
     };
     for (tag_name, tag_value) in self.tags.iter()
     {
-      let find = String::from(TAG_OPENER) + &tag_name + TAG_CLOSER;
-      out = out.replace(&find, &html::special_chars(&tag_value));
+      let find = String::from(TAG_OPENER) + tag_name + TAG_CLOSER;
+      out = out.replace(&find, &html::special_chars(tag_value));
     }
     for (inc_name, inc_value) in self.includes.iter()
     {
-      let find: String = String::from(INTEGRATE_OPENER) + &inc_name + INTEGRATE_CLOSER;
-      out = out.replace(&find, &inc_value);
+      let find: String = String::from(INTEGRATE_OPENER) + inc_name + INTEGRATE_CLOSER;
+      out = out.replace(&find, inc_value);
     }
     Some(out)
   }

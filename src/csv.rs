@@ -156,7 +156,7 @@ impl Csv
       }
       for num in numbers.iter()
       {
-        let rec = Csv::num_to_vec(&num, &country, date_format);
+        let rec = Csv::num_to_vec(num, country, date_format);
         let success = writer.write_record(&rec);
         if success.is_err()
         {

@@ -32,7 +32,7 @@ pub mod json_cache;
  */
 pub fn request_historical_api(geo_id: &str, range: &Range) -> Result<Vec<Numbers>, String>
 {
-  let url = construct_historical_api_url(geo_id, "", &range);
+  let url = construct_historical_api_url(geo_id, "", range);
   let json = perform_api_request(&url)?;
   parse_json_timeline(&json)
 }
@@ -49,7 +49,7 @@ pub fn request_historical_api(geo_id: &str, range: &Range) -> Result<Vec<Numbers
  */
 pub fn request_historical_api_province(geo_id: &str, province: &str, range: &Range) -> Result<Vec<Numbers>, String>
 {
-  let url = construct_historical_api_url(geo_id, province, &range);
+  let url = construct_historical_api_url(geo_id, province, range);
   let json = perform_api_request(&url)?;
   parse_json_timeline(&json)
 }
@@ -69,7 +69,7 @@ pub fn request_historical_api_province(geo_id: &str, province: &str, range: &Ran
  */
 pub fn request_historical_api_first_of_multiple_provinces(geo_id: &str, provinces: &str, range: &Range) -> Result<Vec<Numbers>, String>
 {
-  let url = construct_historical_api_url(geo_id, provinces, &range);
+  let url = construct_historical_api_url(geo_id, provinces, range);
   let json = perform_api_request(&url)?;
   let vec: Vec<Value> = match json
   {
@@ -97,7 +97,7 @@ pub fn request_historical_api_first_of_multiple_provinces(geo_id: &str, province
  */
 pub fn request_historical_api_usa_counties(county: &str, range: &Range) -> Result<Vec<Numbers>, String>
 {
-  let url = construct_historical_api_url_usa_counties(county, &range);
+  let url = construct_historical_api_url_usa_counties(county, range);
   let json = perform_api_request(&url)?;
   // The API for US counties returns an array, where each element within is the
   // data for a province within the area. To get the total numbers, those have
@@ -112,7 +112,7 @@ pub fn request_historical_api_usa_counties(county: &str, range: &Range) -> Resul
   let mut numbers: Vec<Numbers> = Vec::new();
   for elem in vec.iter()
   {
-    let partial_numbers = parse_json_timeline(&elem)?;
+    let partial_numbers = parse_json_timeline(elem)?;
     if numbers.is_empty()
     {
       numbers = partial_numbers;
@@ -280,7 +280,7 @@ pub fn parse_json_timeline(json: &Value) -> Result<Vec<Numbers>, String>
   let mut numbers: HashMap<String, Numbers> = HashMap::new();
   for (date, num) in cases.iter()
   {
-    let iso_date = match date_exp.captures(&date)
+    let iso_date = match date_exp.captures(date)
     {
       None =>
       {
@@ -309,7 +309,7 @@ pub fn parse_json_timeline(json: &Value) -> Result<Vec<Numbers>, String>
   }
   for (date, num) in deaths.iter()
   {
-    let iso_date = match date_exp.captures(&date)
+    let iso_date = match date_exp.captures(date)
     {
       None =>
       {

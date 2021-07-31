@@ -145,7 +145,7 @@ impl Generator
     }
     for country in countries.iter()
     {
-      if !self.generate_country(&db, &country)
+      if !self.generate_country(&db, country)
       {
         eprintln!(
           "Error while generating file for {} ({})!",
@@ -196,7 +196,7 @@ impl Generator
       },
       Some(path) =>
       {
-        if !tpl.load_from_file(&path)
+        if !tpl.load_from_file(path)
         {
           eprintln!(
             "Error: Could not load main template file '{}'!",
@@ -250,20 +250,20 @@ impl Generator
       None => return false
     };
     // graph
-    let graph = self.generate_graph(&db, &country, &mut tpl);
+    let graph = self.generate_graph(db, country, &mut tpl);
     let graph = match graph
     {
       Some(stringy) => stringy,
       None => return false
     };
-    let graph_accu = self.generate_accumulated_graph(&db, &country, &mut tpl);
+    let graph_accu = self.generate_accumulated_graph(db, country, &mut tpl);
     let graph_accu = match graph_accu
     {
       Some(stringy) => stringy,
       None => return false
     };
     let mut graph = graph + "\n<br />\n" + &graph_accu;
-    let graph_incidence = self.generate_incidence_graph(&db, &country, &mut tpl);
+    let graph_incidence = self.generate_incidence_graph(db, country, &mut tpl);
     let graph_incidence = match graph_incidence
     {
       Some(stringy) => stringy,
@@ -328,12 +328,12 @@ impl Generator
       None => return false
     };
     // graph
-    let graph = match self.generate_graph_world(&db, &mut tpl)
+    let graph = match self.generate_graph_world(db, &mut tpl)
     {
       Some(generated) => generated,
       None => return false
     };
-    let graph_accu = match self.generate_accumulated_graph_world(&db, &mut tpl)
+    let graph_accu = match self.generate_accumulated_graph_world(db, &mut tpl)
     {
       Some(generated) => generated,
       None => return false
@@ -391,14 +391,14 @@ impl Generator
         return false;
       }
       tpl.integrate("scripts", &scripts);
-      tpl.tag("title", &("Coronavirus incidence in ".to_owned() + &continent));
+      tpl.tag("title", &("Coronavirus incidence in ".to_owned() + continent));
       let header = match tpl.generate()
       {
         Some(generated) => generated,
         None => return false
       };
       // template: graph
-      let graph = self.generate_graph_continent(&db, &continent, &mut tpl);
+      let graph = self.generate_graph_continent(db, continent, &mut tpl);
       let graph = match graph
       {
         Some(g) => g,
@@ -777,7 +777,7 @@ impl Generator
     }
     let mut traces = String::new();
     // iterate over countries
-    let countries = db.countries_of_continent(&continent);
+    let countries = db.countries_of_continent(continent);
     for country in countries.iter()
     {
       let data = db.incidence14(&country.country_id);
@@ -998,7 +998,7 @@ impl Generator
     for continent in continents.iter()
     {
       tpl.tag("url", &("./continent_".to_owned() + &continent.to_lowercase() + ".html"));
-      tpl.tag("text", &continent);
+      tpl.tag("text", continent);
       continent_links = match tpl.generate()
       {
         Some(generated) => continent_links + &generated,

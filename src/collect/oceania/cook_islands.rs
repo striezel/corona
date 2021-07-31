@@ -62,7 +62,7 @@ impl Collect for CookIslands
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
-    disease_sh::request_historical_api_province("NZ", "cook%20islands", &range)
+    disease_sh::request_historical_api_province("NZ", "cook%20islands", range)
   }
 
   /**

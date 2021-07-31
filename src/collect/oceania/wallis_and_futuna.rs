@@ -64,7 +64,7 @@ impl Collect for WallisAndFutuna
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
-    disease_sh::request_historical_api_province("FR", "wallis%20and%20futuna", &range)
+    disease_sh::request_historical_api_province("FR", "wallis%20and%20futuna", range)
 
     // Note: Numbers seem to be a bit off / start later than ECDC numbers.
   }

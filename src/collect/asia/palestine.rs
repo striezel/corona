@@ -82,7 +82,7 @@ impl Collect for Palestine
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
-    disease_sh::request_historical_api("West%20Bank%20and%20Gaza", &range)
+    disease_sh::request_historical_api("West%20Bank%20and%20Gaza", range)
     // Note: JHU numbers seem to be a bit delayed and / or lower than the ECDC
     // numbers.
   }

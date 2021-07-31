@@ -135,7 +135,7 @@ impl Canada
       };
       // Date has a format like "31-12-2020", but needs to be inverted to e. g.
       // "2020-12-31".
-      if !date_regex.is_match(&date)
+      if !date_regex.is_match(date)
       {
         return Err(format!(
           "Error: Date format does not match the DD-MM-YYYY pattern: '{}'.",

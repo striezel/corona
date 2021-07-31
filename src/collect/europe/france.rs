@@ -64,7 +64,7 @@ impl Collect for France
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
-    disease_sh::request_historical_api_province("FR", "mainland", &range)
+    disease_sh::request_historical_api_province("FR", "mainland", range)
 
     // Note: Those numbers are slightly higher than the ECDC numbers, even
     // though only the mainland is included in those JHU numbers.

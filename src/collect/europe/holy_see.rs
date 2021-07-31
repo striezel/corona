@@ -64,7 +64,7 @@ impl Collect for HolySee
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
-    disease_sh::request_historical_api("Holy%20See", &range)
+    disease_sh::request_historical_api("Holy%20See", range)
   }
 }
 

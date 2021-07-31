@@ -78,7 +78,7 @@ pub trait Collect
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
     // Default implementation: Use disease.sh API.
-    disease_sh::request_historical_api(self.geo_id(), &range)
+    disease_sh::request_historical_api(self.geo_id(), range)
   }
 
   /**
@@ -102,7 +102,7 @@ pub trait Collect
           "    Info: Could not find data for {} in cache, doing extra request.",
           self.country().name
         );
-        self.collect(&range)
+        self.collect(range)
       }
     }
   }
@@ -419,7 +419,7 @@ impl Collector
         Ok(vector) =>
         {
           // Insert country into database.
-          let country_id = db.get_country_id_or_insert(&country.geo_id(),
+          let country_id = db.get_country_id_or_insert(country.geo_id(),
                                                        &country_data.name,
                                                        &(country_data.population as i64),
                                                        &country_data.country_code,
