@@ -13,6 +13,7 @@ Dependency updates:
   and futures-util to 0.3.16
 * update hashbrown to 0.11.2
 * update indexmap to 1.7.0
+* update js-sys to 0.3.52
 * update libc to 0.2.98
 * update pin-project + pin-project-internal to 1.0.8
 * update proc-macro2 to 1.0.28
@@ -21,6 +22,10 @@ Dependency updates:
 * update syn to 1.0.74
 * update thiserror and thiserror-impl to 1.0.26
 * update tinyvec to 1.3.1
+* update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
+  wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.75
+* update wasm-bindgen-futures to 0.4.24
+* update web-sys to 0.3.52
 
 ## Version 0.9.1 (2021-06-28)
 
