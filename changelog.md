@@ -14,7 +14,7 @@ Dependency updates:
 * update hashbrown to 0.11.2
 * update indexmap to 1.7.0
 * update js-sys to 0.3.52
-* update libc to 0.2.98
+* update libc to 0.2.99
 * update pin-project + pin-project-internal to 1.0.8
 * update proc-macro2 to 1.0.28
 * update redox_syscall to 0.2.10
