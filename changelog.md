@@ -8,6 +8,7 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update bitflags to 1.3.1
 * update cc to 1.0.69
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task
   and futures-util to 0.3.16
@@ -15,6 +16,7 @@ Dependency updates:
 * update indexmap to 1.7.0
 * update js-sys to 0.3.52
 * update libc to 0.2.99
+* update matches to 0.1.9
 * update native-tls to 0.2.8
 * update pin-project + pin-project-internal to 1.0.8
 * update proc-macro2 to 1.0.28
