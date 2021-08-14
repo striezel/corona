@@ -26,6 +26,7 @@ Dependency updates:
 * update syn to 1.0.74
 * update thiserror and thiserror-impl to 1.0.26
 * update tinyvec to 1.3.1
+* update unicode-bidi to 0.3.6
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.75
 * update wasm-bindgen-futures to 0.4.24
