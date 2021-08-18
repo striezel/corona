@@ -16,7 +16,10 @@ Dependency updates:
 * update js-sys to 0.3.52
 * update libc to 0.2.99
 * update matches to 0.1.9
+* update memchr to 2.4.1
 * update native-tls to 0.2.8
+* update openssl to 0.10.36
+* update openssl-sys to 0.9.66
 * update pin-project + pin-project-internal to 1.0.8
 * update proc-macro2 to 1.0.28
 * update redox_syscall to 0.2.10
