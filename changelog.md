@@ -12,6 +12,7 @@ Dependency updates:
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task
   and futures-util to 0.3.16
 * update hashbrown to 0.11.2
+* update httparse to 1.5.0
 * update indexmap to 1.7.0
 * update js-sys to 0.3.52
 * update libc to 0.2.99
