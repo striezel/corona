@@ -14,7 +14,7 @@ Dependency updates:
 * update hashbrown to 0.11.2
 * update httparse to 1.5.1
 * update indexmap to 1.7.0
-* update js-sys to 0.3.52
+* update js-sys to 0.3.53
 * update libc to 0.2.99
 * update matches to 0.1.9
 * update memchr to 2.4.1
@@ -32,9 +32,9 @@ Dependency updates:
 * update tinyvec to 1.3.1
 * update unicode-bidi to 0.3.6
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
-  wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.75
-* update wasm-bindgen-futures to 0.4.24
-* update web-sys to 0.3.52
+  wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.76
+* update wasm-bindgen-futures to 0.4.26
+* update web-sys to 0.3.53
 
 ## Version 0.9.1 (2021-06-28)
 
