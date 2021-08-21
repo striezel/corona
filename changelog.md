@@ -27,7 +27,7 @@ Dependency updates:
 * update serde to 1.0.127
 * update serde_json to 1.0.66
 * update slab to 0.4.4
-* update syn to 1.0.74
+* update syn to 1.0.75
 * update thiserror and thiserror-impl to 1.0.26
 * update tinyvec to 1.3.1
 * update unicode-bidi to 0.3.6
