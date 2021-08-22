@@ -14,8 +14,9 @@ Dependency updates:
 * update hashbrown to 0.11.2
 * update httparse to 1.5.1
 * update indexmap to 1.7.0
+* update itoa to 0.4.8
 * update js-sys to 0.3.53
-* update libc to 0.2.99
+* update libc to 0.2.100
 * update matches to 0.1.9
 * update memchr to 2.4.1
 * update native-tls to 0.2.8
@@ -24,7 +25,7 @@ Dependency updates:
 * update pin-project + pin-project-internal to 1.0.8
 * update proc-macro2 to 1.0.28
 * update redox_syscall to 0.2.10
-* update serde to 1.0.127
+* update serde to 1.0.128
 * update serde_json to 1.0.66
 * update slab to 0.4.4
 * update syn to 1.0.75
