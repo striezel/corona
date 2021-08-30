@@ -27,13 +27,13 @@ Dependency updates:
 * update pin-project + pin-project-internal to 1.0.8
 * update proc-macro2 to 1.0.28
 * update redox_syscall to 0.2.10
-* update security-framework-sys to 2.4.0
+* update security-framework-sys to 2.4.2
 * update serde to 1.0.130
 * update serde_json to 1.0.67
 * update sha2 to 0.9.6
 * update slab to 0.4.4
 * update syn to 1.0.75
-* update thiserror and thiserror-impl to 1.0.26
+* update thiserror and thiserror-impl to 1.0.28
 * update tinyvec to 1.3.1
 * update unicode-bidi to 0.3.6
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
