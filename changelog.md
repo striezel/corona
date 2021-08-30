@@ -10,6 +10,7 @@ Dependency updates:
 
 * update bytes to 1.1.0
 * update cc to 1.0.69
+* update cpufeatures to 0.2.1
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task
   and futures-util to 0.3.16
 * update hashbrown to 0.11.2
@@ -27,8 +28,9 @@ Dependency updates:
 * update proc-macro2 to 1.0.28
 * update redox_syscall to 0.2.10
 * update security-framework-sys to 2.4.0
-* update serde to 1.0.129
-* update serde_json to 1.0.66
+* update serde to 1.0.130
+* update serde_json to 1.0.67
+* update sha2 to 0.9.6
 * update slab to 0.4.4
 * update syn to 1.0.75
 * update thiserror and thiserror-impl to 1.0.26
