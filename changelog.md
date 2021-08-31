@@ -9,10 +9,11 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update bytes to 1.1.0
-* update cc to 1.0.69
+* update cc to 1.0.70
 * update cpufeatures to 0.2.1
+* update flate2 to 1.0.21
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task
-  and futures-util to 0.3.16
+  and futures-util to 0.3.17
 * update hashbrown to 0.11.2
 * update httparse to 1.5.1
 * update indexmap to 1.7.0
@@ -25,7 +26,7 @@ Dependency updates:
 * update openssl to 0.10.36
 * update openssl-sys to 0.9.66
 * update pin-project + pin-project-internal to 1.0.8
-* update proc-macro2 to 1.0.28
+* update proc-macro2 to 1.0.29
 * update redox_syscall to 0.2.10
 * update security-framework-sys to 2.4.2
 * update serde to 1.0.130
