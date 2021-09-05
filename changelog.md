@@ -34,7 +34,7 @@ Dependency updates:
 * update sha2 to 0.9.6
 * update slab to 0.4.4
 * update syn to 1.0.76
-* update thiserror and thiserror-impl to 1.0.28
+* update thiserror and thiserror-impl to 1.0.29
 * update tinyvec to 1.3.1
 * update typenum to 1.14.0
 * update unicode-bidi to 0.3.6
