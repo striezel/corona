@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version NEXT (2021-07-??)
+## Version NEXT (2021-09-??)
 
 Dependency updates:
 
@@ -18,7 +18,7 @@ Dependency updates:
 * update httparse to 1.5.1
 * update indexmap to 1.7.0
 * update itoa to 0.4.8
-* update js-sys to 0.3.53
+* update js-sys to 0.3.54
 * update libc to 0.2.101
 * update matches to 0.1.9
 * update memchr to 2.4.1
@@ -31,7 +31,7 @@ Dependency updates:
 * update security-framework-sys to 2.4.2
 * update serde to 1.0.130
 * update serde_json to 1.0.67
-* update sha2 to 0.9.6
+* update sha2 to 0.9.8
 * update slab to 0.4.4
 * update syn to 1.0.76
 * update thiserror and thiserror-impl to 1.0.29
@@ -39,9 +39,9 @@ Dependency updates:
 * update typenum to 1.14.0
 * update unicode-bidi to 0.3.6
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
-  wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.76
-* update wasm-bindgen-futures to 0.4.26
-* update web-sys to 0.3.53
+  wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.77
+* update wasm-bindgen-futures to 0.4.27
+* update web-sys to 0.3.54
 
 ## Version 0.9.1 (2021-06-28)
 
