@@ -35,7 +35,7 @@ Dependency updates:
 * update slab to 0.4.4
 * update syn to 1.0.76
 * update thiserror and thiserror-impl to 1.0.29
-* update tinyvec to 1.3.1
+* update tinyvec to 1.4.0
 * update typenum to 1.14.0
 * update unicode-bidi to 0.3.6
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
