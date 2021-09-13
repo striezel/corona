@@ -11,7 +11,7 @@ Dependency updates:
 * update bytes to 1.1.0
 * update cc to 1.0.70
 * update cpufeatures to 0.2.1
-* update flate2 to 1.0.21
+* update flate2 to 1.0.22
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task
   and futures-util to 0.3.17
 * update hashbrown to 0.11.2
