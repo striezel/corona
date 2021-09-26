@@ -2,11 +2,7 @@
 # version of the Rust compiler.
 name: Minimum Supported Rust Version
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [ push, pull_request ]
 
 jobs:
   msrv:
