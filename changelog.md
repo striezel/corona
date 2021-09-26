@@ -28,6 +28,7 @@ Dependency updates:
 * update native-tls to 0.2.8
 * update openssl to 0.10.36
 * update openssl-sys to 0.9.67
+* update pkg-config to 0.3.20
 * update pin-project + pin-project-internal to 1.0.8
 * update proc-macro2 to 1.0.29
 * update redox_syscall to 0.2.10
@@ -36,9 +37,9 @@ Dependency updates:
 * update serde_json to 1.0.68
 * update sha2 to 0.9.8
 * update slab to 0.4.4
-* update syn to 1.0.76
+* update syn to 1.0.77
 * update thiserror and thiserror-impl to 1.0.29
-* update tinyvec to 1.4.0
+* update tinyvec to 1.5.0
 * update typenum to 1.14.0
 * update unicode-bidi to 0.3.6
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
