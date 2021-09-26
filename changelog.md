@@ -16,6 +16,8 @@ Dependency updates:
 * update bitflags to 1.3.2
 * update http to 0.2.5
 * update security-framework to 2.4.2
+* update tracing to 0.1.28
+* update tracing-core to 0.1.20
 
 ## Version 0.9.2 (2021-09-26)
 
