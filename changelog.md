@@ -11,6 +11,10 @@ been released on 27th August 2020, a bit more than a year ago, so it is probably
 safe to update to that version. For the Rust release announcement see
 <https://blog.rust-lang.org/2020/08/27/Rust-1.46.0.html>.
 
+Dependency updates:
+
+* update http to 0.2.5
+
 ## Version 0.9.2 (2021-09-26)
 
 This version brings various dependency updates, but no significant new features.
