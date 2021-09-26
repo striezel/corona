@@ -11,6 +11,9 @@ been released on 27th August 2020, a bit more than a year ago, so it is probably
 safe to update to that version. For the Rust release announcement see
 <https://blog.rust-lang.org/2020/08/27/Rust-1.46.0.html>.
 
+Also, the version pinnings for the crates bitflags, tracing and tracing-code
+have been removed.
+
 Dependency updates:
 
 * update bitflags to 1.3.2
