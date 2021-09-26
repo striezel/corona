@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version NEXT (2021-09-??)
+## Version 0.10.0 (2021-09-27)
 
 The Minimum Supported Rust Version (MSRV) is bumped to 1.46.0. Rust 1.46.0 has
 been released on 27th August 2020, a bit more than a year ago, so it is probably
