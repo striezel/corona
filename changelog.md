@@ -4,6 +4,38 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version NEXT (2021-09-??)
+
+The reqwest library has been updated to 0.11.x, fixing some vulnerabilities in
+indirect dependencies and updating and / or removing some indirect dependencies.
+
+Fixed vulnerabilities:
+* RUSTSEC-2021-0078 in hyper
+  (see <https://rustsec.org/advisories/RUSTSEC-2021-0078>)
+* RUSTSEC-2021-0079 in hyper
+  (see <https://rustsec.org/advisories/RUSTSEC-2021-0079>)
+* RUSTSEC-2020-0016 in net2, dependency is removed
+  (see <https://rustsec.org/advisories/RUSTSEC-2020-0016>)
+
+Dependency updates:
+
+* remove fuchsia-zircon, fuchsia-zircon-sys
+* update h2 to 0.3.4
+* update http-body to 0.4.3
+* update httpdate to 1.0.1
+* update hyper to 0.14.13
+* update hyper-tls to 0.5.0
+* remove iovec, kernel32-sys, mime_guess
+* update mio to 0.7.13
+* update miow to 0.3.7
+* remove net2, pin-project and pin-project-internal
+* update reqwest to 0.11.4
+* update socket2 to 0.4.2
+* update tokio to 1.12.0
+* move from tokio-tls to tokio-native-tls 0.3.0
+* update tokio-util to 0.6.8
+* remove tracing-futures, unicase, winapi-build, ws2_32-sys
+
 ## Version 0.10.0 (2021-09-27)
 
 The Minimum Supported Rust Version (MSRV) is bumped to 1.46.0. Rust 1.46.0 has
