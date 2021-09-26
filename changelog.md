@@ -6,6 +6,11 @@ improvements may be omitted.)_
 
 ## Version NEXT (2021-09-??)
 
+The Minimum Supported Rust Version (MSRV) is bumped to 1.46.0. Rust 1.46.0 has
+been released on 27th August 2020, a bit more than a year ago, so it is probably
+safe to update to that version. For the Rust release announcement see
+<https://blog.rust-lang.org/2020/08/27/Rust-1.46.0.html>.
+
 Dependency updates:
 
 * update bstr to 0.2.17
