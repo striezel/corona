@@ -6,6 +6,8 @@ improvements may be omitted.)_
 
 ## Version NEXT (2021-09-??)
 
+This version brings various dependency updates, but no significant new features.
+
 Dependency updates:
 
 * update bstr to 0.2.17
