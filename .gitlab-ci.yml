@@ -34,7 +34,7 @@ centos:
     - cargo test
 
 debian:
-  image: debian:10-slim
+  image: debian:11-slim
   stage: build
   before_script:
     - apt-get update
