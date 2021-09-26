@@ -13,6 +13,7 @@ safe to update to that version. For the Rust release announcement see
 
 Dependency updates:
 
+* update bitflags to 1.3.2
 * update http to 0.2.5
 
 ## Version 0.9.2 (2021-09-26)
