@@ -11,6 +11,10 @@ been released on 27th August 2020, a bit more than a year ago, so it is probably
 safe to update to that version. For the Rust release announcement see
 <https://blog.rust-lang.org/2020/08/27/Rust-1.46.0.html>.
 
+## Version 0.9.2 (2021-09-26)
+
+This version brings various dependency updates, but no significant new features.
+
 Dependency updates:
 
 * update bstr to 0.2.17
@@ -22,7 +26,6 @@ Dependency updates:
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task
   and futures-util to 0.3.17
 * update hashbrown to 0.11.2
-* update http to 0.2.4
 * update httparse to 1.5.1
 * update indexmap to 1.7.0
 * update itoa to 0.4.8
