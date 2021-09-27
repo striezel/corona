@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version NEXT (2021-09-??)
+## Version 0.10.1 (2021-09-27)
 
 The reqwest library has been updated to 0.11.x, fixing some vulnerabilities in
 indirect dependencies and updating and / or removing some indirect dependencies.
