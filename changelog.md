@@ -4,6 +4,12 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version NEXT (2021-09-??)
+
+Dependency updates:
+
+* update libc to 0.2.103
+
 ## Version 0.10.1 (2021-09-27)
 
 The reqwest library has been updated to 0.11.x, fixing some vulnerabilities in
