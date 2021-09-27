@@ -17,6 +17,10 @@ Fixed vulnerabilities:
 * RUSTSEC-2020-0016 in net2, dependency is removed
   (see <https://rustsec.org/advisories/RUSTSEC-2020-0016>)
 
+Furthermore, rusqlite, the crate for SQLite database handling, has been updated
+to 0.24.2, bringing SQLite 3.33.0 when using the bundled SQLite version, e. g.
+on Windows builds.
+
 Dependency updates:
 
 * remove fuchsia-zircon, fuchsia-zircon-sys
@@ -25,11 +29,14 @@ Dependency updates:
 * update httpdate to 1.0.1
 * update hyper to 0.14.13
 * update hyper-tls to 0.5.0
-* remove iovec, kernel32-sys, mime_guess
+* remove iovec
+* update libsqlite3-sys to 0.20.1
+* remove linked-hash-map, lru-cache, kernel32-sys, mime_guess
 * update mio to 0.7.13
 * update miow to 0.3.7
 * remove net2, pin-project and pin-project-internal
 * update reqwest to 0.11.4
+* update rusqlite to 0.24.2
 * update socket2 to 0.4.2
 * update tokio to 1.12.0
 * move from tokio-tls to tokio-native-tls 0.3.0
