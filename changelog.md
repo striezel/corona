@@ -8,7 +8,9 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update h2 to 0.3.6
 * update libc to 0.2.103
+* update smallvec to 1.7.0
 
 ## Version 0.10.1 (2021-09-27)
 
