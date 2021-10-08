@@ -12,10 +12,12 @@ Dependency updates:
 * update h2 to 0.3.6
 * update libc to 0.2.103
 * update quote to 1.0.10
+* update reqwest to 0.11.5
 * update smallvec to 1.7.0
 * update syn to 1.0.80
 * update tracing to 0.1.28
 * update tracing-core to 0.1.21
+* update unicode-bidi to 0.3.7
 
 ## Version 0.10.1 (2021-09-27)
 
