@@ -9,6 +9,8 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update cc to 1.0.71
+* update core-foundation to 0.9.2
+* update core-foundation-sys to 0.8.3
 * update h2 to 0.3.6
 * update libc to 0.2.103
 * update proc-macro2 to 1.0.30
