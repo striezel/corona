@@ -13,9 +13,11 @@ Dependency updates:
 * update core-foundation-sys to 0.8.3
 * update h2 to 0.3.6
 * update libc to 0.2.103
+* update ppv-lite86 to 0.2.14
 * update proc-macro2 to 1.0.30
 * update quote to 1.0.10
 * update reqwest to 0.11.5
+* update slab to 0.4.5
 * update smallvec to 1.7.0
 * update syn to 1.0.80
 * update thiserror and thiserror-impl to 1.0.30
