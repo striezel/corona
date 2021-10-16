@@ -98,6 +98,24 @@ instead.
 That's it. It may take a minute for Cargo to download the dependencies and
 compile them, but after that you are ready to start using the application.
 
+## Building with Docker
+
+You can also use the provided `Dockerfile` to build the application inside of a
+container. Docker 17.05 or later is required for this, since the Dockerfile does
+a multi-stage build.
+
+To start the build type
+
+    docker build . -t corona
+
+into your terminal. This will take a while. After that is finished, you can type
+
+    docker run --rm -d -p 3210:80 corona
+
+to start the container. It will bind to port 3210 of the local system, so the
+HTML output can be viewed at <http://localhost:3210/> in a browser on the same
+system.
+
 ## Using the application
 
 Currently, the application supports three modes of operation:
