@@ -206,16 +206,16 @@ fn construct_historical_api_url(geo_id: &str, province: &str, range: &Range) -> 
   {
     match range
     {
-      Range::Recent => format!("https://corona.lmao.ninja/v3/covid-19/historical/{}", geo_id),
-      Range::All => format!("https://corona.lmao.ninja/v3/covid-19/historical/{}?lastdays=all", geo_id)
+      Range::Recent => format!("https://disease.sh/v3/covid-19/historical/{}", geo_id),
+      Range::All => format!("https://disease.sh/v3/covid-19/historical/{}?lastdays=all", geo_id)
     }
   }
   else
   {
     match range
     {
-      Range::Recent => format!("https://corona.lmao.ninja/v3/covid-19/historical/{}/{}", geo_id, province),
-      Range::All => format!("https://corona.lmao.ninja/v3/covid-19/historical/{}/{}?lastdays=all", geo_id, province)
+      Range::Recent => format!("https://disease.sh/v3/covid-19/historical/{}/{}", geo_id, province),
+      Range::All => format!("https://disease.sh/v3/covid-19/historical/{}/{}?lastdays=all", geo_id, province)
     }
   }
 }
@@ -231,8 +231,8 @@ fn construct_historical_api_url_usa_counties(county: &str, range: &Range) -> Str
 {
   match range
   {
-    Range::Recent => format!("https://corona.lmao.ninja/v3/covid-19/historical/usacounties/{}", county),
-    Range::All => format!("https://corona.lmao.ninja/v3/covid-19/historical/usacounties/{}?lastdays=all", county)
+    Range::Recent => format!("https://disease.sh/v3/covid-19/historical/usacounties/{}", county),
+    Range::All => format!("https://disease.sh/v3/covid-19/historical/usacounties/{}?lastdays=all", county)
   }
 }
 

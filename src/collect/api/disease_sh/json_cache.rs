@@ -53,7 +53,7 @@ impl JsonCache
     }
 
     let the_json = crate::collect::api::disease_sh::perform_api_request(
-      "https://corona.lmao.ninja/v3/covid-19/historical/?lastdays=all"
+      "https://disease.sh/v3/covid-19/historical/?lastdays=all"
     );
     match the_json
     {

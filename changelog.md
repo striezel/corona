@@ -6,6 +6,14 @@ improvements may be omitted.)_
 
 ## Version NEXT (2021-10-??)
 
+Switch to canonical URL of disease.sh API.
+
+The program does now use `https://disease.sh/` as base URL for API requests.
+This seems to be more reliable than the previously used alternative base URL
+`https://corona.lmao.ninja/` which had problems with Cloudflare (like 502 Bad
+Gateway, etc.) rather often, so that requests sometimes failed due to outages
+of it or problems with Cloudflare.
+
 Dependency updates:
 
 * update cc to 1.0.71
