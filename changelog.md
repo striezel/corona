@@ -4,6 +4,12 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version NEXT (2021-10-??)
+
+Dependency updates:
+
+* update mio to 0.7.14
+
 ## Version 0.10.2 (2021-10-16)
 
 Switch to canonical URL of disease.sh API.
