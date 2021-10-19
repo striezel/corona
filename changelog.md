@@ -8,7 +8,9 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update encoding_rs to 0.8.29
 * update mio to 0.7.14
+* update reqwest to 0.11.6
 
 ## Version 0.10.2 (2021-10-16)
 
