@@ -9,6 +9,9 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update encoding_rs to 0.8.29
+* update h2 to 0.3.7
+* update http-body to 0.4.4
+* update hyper to 0.14.14
 * update mio to 0.7.14
 * update reqwest to 0.11.6
 
