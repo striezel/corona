@@ -8,11 +8,15 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update bumpalo to 3.8.0
 * update encoding_rs to 0.8.29
 * update h2 to 0.3.7
 * update http-body to 0.4.4
 * update hyper to 0.14.14
+* update libc to 0.2.105
 * update mio to 0.7.14
+* update pkg-config to 0.3.22
+* update ppv-lite86 to 0.2.15
 * update reqwest to 0.11.6
 
 ## Version 0.10.2 (2021-10-16)
