@@ -15,9 +15,13 @@ Dependency updates:
 * update hyper to 0.14.14
 * update libc to 0.2.105
 * update mio to 0.7.14
+* update openssl to 0.10.37
+* update openssl-sys to 0.9.68
 * update pkg-config to 0.3.22
 * update ppv-lite86 to 0.2.15
+* update proc-macro2 to 1.0.32
 * update reqwest to 0.11.6
+* update syn to 1.0.81
 
 ## Version 0.10.2 (2021-10-16)
 
