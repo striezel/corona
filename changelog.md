@@ -22,6 +22,8 @@ Dependency updates:
 * update proc-macro2 to 1.0.32
 * update reqwest to 0.11.6
 * update syn to 1.0.81
+* update tokio to 1.13.0
+* update tokio-util to 0.6.9
 
 ## Version 0.10.2 (2021-10-16)
 
