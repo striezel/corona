@@ -13,7 +13,7 @@ Dependency updates:
 * update h2 to 0.3.7
 * update http-body to 0.4.4
 * update hyper to 0.14.14
-* update libc to 0.2.105
+* update libc to 0.2.106
 * update mio to 0.7.14
 * update openssl to 0.10.37
 * update openssl-sys to 0.9.68
