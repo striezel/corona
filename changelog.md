@@ -15,8 +15,8 @@ Dependency updates:
 * update hyper to 0.14.14
 * update libc to 0.2.106
 * update mio to 0.7.14
-* update openssl to 0.10.37
-* update openssl-sys to 0.9.68
+* update openssl to 0.10.38
+* update openssl-sys to 0.9.70
 * update pkg-config to 0.3.22
 * update ppv-lite86 to 0.2.15
 * update proc-macro2 to 1.0.32
