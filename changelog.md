@@ -9,11 +9,12 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update bumpalo to 3.8.0
+* update cc to 1.0.72
 * update encoding_rs to 0.8.29
 * update h2 to 0.3.7
 * update http-body to 0.4.4
 * update hyper to 0.14.14
-* update libc to 0.2.106
+* update libc to 0.2.107
 * update mio to 0.7.14
 * update openssl to 0.10.38
 * update openssl-sys to 0.9.70
@@ -23,6 +24,7 @@ Dependency updates:
 * update reqwest to 0.11.6
 * update serde_json to 1.0.69
 * update syn to 1.0.81
+* update tinyvec to 1.5.1
 * update tokio to 1.13.0
 * update tokio-util to 0.6.9
 
