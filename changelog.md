@@ -22,7 +22,7 @@ Dependency updates:
 * update ppv-lite86 to 0.2.15
 * update proc-macro2 to 1.0.32
 * update reqwest to 0.11.6
-* update serde_json to 1.0.69
+* update serde_json to 1.0.70
 * update syn to 1.0.81
 * update tinyvec to 1.5.1
 * update tokio to 1.13.0
