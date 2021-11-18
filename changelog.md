@@ -13,7 +13,8 @@ Dependency updates:
 * update encoding_rs to 0.8.29
 * update h2 to 0.3.7
 * update http-body to 0.4.4
-* update hyper to 0.14.14
+* update httpdate to 1.0.2
+* update hyper to 0.14.15
 * update libc to 0.2.107
 * update mio to 0.7.14
 * update openssl to 0.10.38
@@ -25,7 +26,7 @@ Dependency updates:
 * update serde_json to 1.0.70
 * update syn to 1.0.81
 * update tinyvec to 1.5.1
-* update tokio to 1.13.0
+* update tokio to 1.14.0
 * update tokio-util to 0.6.9
 
 ## Version 0.10.2 (2021-10-16)
