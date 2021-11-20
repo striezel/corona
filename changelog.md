@@ -18,12 +18,12 @@ Dependency updates:
 * update libc to 0.2.107
 * update mio to 0.7.14
 * update openssl to 0.10.38
-* update openssl-sys to 0.9.70
+* update openssl-sys to 0.9.71
 * update pkg-config to 0.3.22
 * update ppv-lite86 to 0.2.15
 * update proc-macro2 to 1.0.32
 * update reqwest to 0.11.6
-* update serde_json to 1.0.70
+* update serde_json to 1.0.71
 * update syn to 1.0.81
 * update tinyvec to 1.5.1
 * update tokio to 1.14.0
