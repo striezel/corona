@@ -15,7 +15,7 @@ Dependency updates:
 * update http-body to 0.4.4
 * update httpdate to 1.0.2
 * update hyper to 0.14.15
-* update libc to 0.2.107
+* update libc to 0.2.108
 * update mio to 0.7.14
 * update openssl to 0.10.38
 * update openssl-sys to 0.9.71
