@@ -4,13 +4,16 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version NEXT (2021-10-??)
+## Version NEXT (2021-11-??)
 
 Dependency updates:
 
 * update bumpalo to 3.8.0
 * update cc to 1.0.72
+* update crc32fast to 1.2.2
 * update encoding_rs to 0.8.29
+* update futures-channel, futures-core, futures-io, futures-sink, futures-task,
+  and futures-util to 0.3.17
 * update h2 to 0.3.7
 * update http-body to 0.4.4
 * update httpdate to 1.0.2
