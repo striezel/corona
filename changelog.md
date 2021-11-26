@@ -6,6 +6,11 @@ improvements may be omitted.)_
 
 ## Version NEXT (2021-11-??)
 
+The data collection for Germany is switched to the disease.sh API. The previous
+data source, a spreadsheet of the Robert Koch Institute, has changed its update
+interval from daily to weekly updates, and therefore it cannot be used to get
+up to date data for the current day anymore.
+
 Dependency updates:
 
 * update bumpalo to 3.8.0

@@ -31,7 +31,8 @@ exceptions:
   (<https://health-infobase.canada.ca/src/data/covidLive/covid19.csv>), and the
   program uses it to generate.
 
-* **Germany**: The data for Germany is retrieved from the Robert Koch Institute,
+* **Germany**: _(only before 2021-11-25)_
+  The data for Germany is retrieved from the Robert Koch Institute,
   the foremost public institution for disease control and prevention in Germany.
   It is an agency of the federal government of Germany. Data source is the
   spreadsheet from this site, which seems to be available in German only:
