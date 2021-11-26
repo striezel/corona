@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version NEXT (2021-11-??)
+## Version 0.10.3 (2021-11-26)
 
 The data collection for Germany is switched to the disease.sh API. The previous
 data source, a spreadsheet of the Robert Koch Institute, has changed its update
