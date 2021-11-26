@@ -54,6 +54,16 @@ exceptions:
   <https://covid19.saglik.gov.tr/TR-66935/genel-koronavirus-tablosu.html>, and
   the program uses those.
 
+### RKI data
+
+The German Robert Koch Institute (RKI) changed the update interval of their
+provided data (the spreadsheet file) on 25th November 2021 from daily to weekly
+updates. Therefore, this data source can no longer be used to get up to date
+data for the current day.
+
+The latest collected data that has been available from that source is available
+in the files `corona-2021-11-23.db` or `corona-2021-11-23.csv`, respectively.
+
 ### ECDC data
 
 _Note: This data is outdated, it shows the numbers as of 14th December 2020.
