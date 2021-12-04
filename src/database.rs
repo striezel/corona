@@ -834,6 +834,27 @@ mod tests
   }
 
   /**
+   * Gets a database instance connected to the old corona.db file which still
+   * used the RKI data for Germany in the data directory.
+   *
+   * @remarks The records in that SQLite database are stale, apart from possible
+   *          future schema updates, so they can be considered "constant" data.
+   * @return Returns an open database.
+   */
+  fn get_sqlite_db_rki() -> Database
+  {
+    let db_path = Path::new(file!()) // current file: src/database.rs
+      .parent()                      // parent: src/
+      .unwrap()                      // safe to unwrap, because directory exists
+      .join("..")                    // up one directory
+      .join("data")                  // into directory data/
+      .join("corona-2021-11-23.db"); // and to the corona.db file;
+    let db = Database::new(db_path.to_str().unwrap());
+    assert!(db.is_ok());
+    return db.unwrap();
+  }
+
+  /**
    * Gets a database instance connected to the current corona.db file in data directory.
    *
    * @remarks The data in that file may change regularly, so do not rely on it
@@ -1332,7 +1353,7 @@ mod tests
   #[test]
   fn incidence7()
   {
-    let db = get_sqlite_db_live();
+    let db = get_sqlite_db_rki();
 
     // Country id 77 is Germany in the current DB.
     let incidences = db.incidence7(&77);
