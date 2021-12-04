@@ -4,6 +4,13 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version NEXT (2021-12-??)
+
+Dependency updates:
+
+* update reqwest to 0.11.7
+* update ryu to 1.0.6
+
 ## Version 0.10.3 (2021-11-26)
 
 The data collection for Germany is switched to the disease.sh API. The previous
@@ -31,7 +38,6 @@ Dependency updates:
 * update ppv-lite86 to 0.2.15
 * update proc-macro2 to 1.0.32
 * update reqwest to 0.11.6
-* update ryu to 1.0.6
 * update serde_json to 1.0.72
 * update syn to 1.0.82
 * update tinyvec to 1.5.1
