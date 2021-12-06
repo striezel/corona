@@ -8,6 +8,9 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update libc to 0.2.109
+* update pkg-config to 0.3.23
+* update proc-macro2 to 1.0.33
 * update reqwest to 0.11.7
 * update ryu to 1.0.6
 
