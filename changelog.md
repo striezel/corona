@@ -11,11 +11,12 @@ Dependency updates:
 * update encoding_rs to 0.8.30
 * update h2 to 0.3.9
 * update hyper to 0.14.16
-* update libc to 0.2.109
-* update pkg-config to 0.3.23
+* update libc to 0.2.111
+* update openssl-sys to 0.9.72
+* update pkg-config to 0.3.24
 * update proc-macro2 to 1.0.33
 * update reqwest to 0.11.7
-* update ryu to 1.0.7
+* update ryu to 1.0.8
 * update serde to 1.0.131
 
 ## Version 0.10.3 (2021-11-26)
