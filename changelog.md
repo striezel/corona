@@ -36,7 +36,7 @@ Dependency updates:
 * update crc32fast to 1.2.2
 * update encoding_rs to 0.8.29
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
-  and futures-util to 0.3.17
+  and futures-util to 0.3.18
 * update h2 to 0.3.7
 * update http-body to 0.4.4
 * update httpdate to 1.0.2
@@ -226,7 +226,7 @@ Dependency updates:
   database created during `collect`, the overall procedure is now much faster,
   because SQLite can handle batch inserts of several thousand records faster
   than several thousands of single row update statements. (This should be no
-  suprise to anyone who knows a bit about SQL performance, but I just haven't
+  surprise to anyone who knows a bit about SQL performance, but I just haven't
   gotten around to implement it the faster way before.)
 
 * Furthermore, the `collect` operation will now try to use less HTTP requests,
@@ -460,11 +460,11 @@ Dependencies are updated:
 
 ## Version 0.5.2 (2021-02-05)
 
-Dependencies are updated to fix vulnerablities in them:
+Dependencies are updated to fix vulnerabilities in them:
 
 * update smallvec to version 1.6.1 to fix
   [RUSTSEC-2021-0003](https://rustsec.org/advisories/RUSTSEC-2021-0003)
-* uncritical package updates (i .e. not fixing known security vulnerabilites):
+* uncritical package updates (i .e. not fixing known security vulnerabilities):
   * update bumpalo to version 3.6.0
   * update byteorder to version 1.4.2
   * update encoding_rs to version 0.8.28
@@ -580,6 +580,6 @@ replacement for the PHP prototype.
 
 ## Version 0.1.0 (2020-12-23 to 2020-12-28)
 
-Version 0.1.0 is not a real version but bascially just the first, incomplete
+Version 0.1.0 is not a real version but basically just the first, incomplete
 implementation of the application. Do not use that version anymore, because the
 generation of the HTML files may not work or it may be incomplete.
