@@ -11,7 +11,7 @@ Dependency updates:
 * update encoding_rs to 0.8.30
 * update h2 to 0.3.9
 * update hyper to 0.14.16
-* update libc to 0.2.111
+* update libc to 0.2.112
 * update once_cell to 1.9.0
 * update openssl-sys to 0.9.72
 * update pkg-config to 0.3.24
@@ -20,6 +20,7 @@ Dependency updates:
 * update ryu to 1.0.9
 * update serde to 1.0.131
 * update serde_json to 1.0.73
+* update tokio to 1.15.0
 
 ## Version 0.10.3 (2021-11-26)
 
