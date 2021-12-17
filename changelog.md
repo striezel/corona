@@ -18,7 +18,7 @@ Dependency updates:
 * update proc-macro2 to 1.0.34
 * update reqwest to 0.11.7
 * update ryu to 1.0.9
-* update serde to 1.0.131
+* update serde to 1.0.132
 * update serde_json to 1.0.73
 * update tokio to 1.15.0
 
