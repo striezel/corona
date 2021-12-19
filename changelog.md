@@ -9,6 +9,8 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update encoding_rs to 0.8.30
+* update futures-channel, futures-core, futures-io, futures-sink, futures-task,
+  and futures-util to 0.3.19
 * update h2 to 0.3.9
 * update hyper to 0.14.16
 * update libc to 0.2.112
