@@ -18,7 +18,8 @@ Dependency updates:
 * update once_cell to 1.9.0
 * update openssl-sys to 0.9.72
 * update pkg-config to 0.3.24
-* update proc-macro2 to 1.0.34
+* update proc-macro2 to 1.0.36
+* update quote to 1.0.13
 * update reqwest to 0.11.8
 * update ryu to 1.0.9
 * update serde to 1.0.132
