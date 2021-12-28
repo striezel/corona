@@ -19,7 +19,7 @@ Dependency updates:
 * update openssl-sys to 0.9.72
 * update pkg-config to 0.3.24
 * update proc-macro2 to 1.0.36
-* update quote to 1.0.13
+* update quote to 1.0.14
 * update reqwest to 0.11.8
 * update ryu to 1.0.9
 * update serde to 1.0.132
