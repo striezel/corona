@@ -18,6 +18,7 @@ Dependency updates:
 * update once_cell to 1.9.0
 * update openssl-sys to 0.9.72
 * update pkg-config to 0.3.24
+* update ppv-lite86 to 0.2.16
 * update proc-macro2 to 1.0.36
 * update quote to 1.0.14
 * update reqwest to 0.11.8
@@ -27,6 +28,7 @@ Dependency updates:
 * update syn to 1.0.84
 * update tokio to 1.15.0
 * update typenum to 1.15.0
+* update version_check to 0.9.4
 
 ## Version 0.10.3 (2021-11-26)
 
