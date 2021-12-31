@@ -12,11 +12,13 @@ Dependency updates:
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   and futures-util to 0.3.19
 * update h2 to 0.3.9
+* update http to 0.2.6
 * update hyper to 0.14.16
 * update libc to 0.2.112
 * update num_cpus to 1.13.1
 * update once_cell to 1.9.0
 * update openssl-sys to 0.9.72
+* update pin-project-lite to 0.2.8
 * update pkg-config to 0.3.24
 * update ppv-lite86 to 0.2.16
 * update proc-macro2 to 1.0.36
