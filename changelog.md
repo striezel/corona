@@ -25,8 +25,8 @@ Dependency updates:
 * update quote to 1.0.14
 * update reqwest to 0.11.8
 * update ryu to 1.0.9
-* update serde to 1.0.132
-* update serde_json to 1.0.73
+* update serde to 1.0.133
+* update serde_json to 1.0.74
 * update syn to 1.0.84
 * update tokio to 1.15.0
 * update typenum to 1.15.0
