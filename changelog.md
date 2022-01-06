@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version NEXT (2022-01-??)
+## Version 0.10.4 (2022-01-06)
 
 The minified plotly.js library is replaced by the minified plotly-basic.js file.
 That version contains all plot types that the application needs, but it is
