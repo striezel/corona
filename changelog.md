@@ -15,8 +15,8 @@ Dependency updates:
 * update ahash to 0.7.6
 * remove hashbrown 0.9.1
 * update hashlink to 0.7.0
-* update libsqlite3-sys to 0.23.2
-* update rusqlite to 0.26.3
+* update libsqlite3-sys to 0.22.2
+* update rusqlite to 0.25.4
 
 ## Version 0.10.4 (2022-01-06)
 
