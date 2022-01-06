@@ -6,6 +6,13 @@ improvements may be omitted.)_
 
 ## Version NEXT (2022-01-??)
 
+The minified plotly.js library is replaced by the minified plotly-basic.js file.
+That version contains all plot types that the application needs, but it is
+signficantly smaller than the full library (3.3 MB vs. 0.9 MB).
+
+Furthermore, the plotly.js library is updated from version 1.58.3 to version
+1.58.5.
+
 Dependency updates:
 
 * update encoding_rs to 0.8.30
