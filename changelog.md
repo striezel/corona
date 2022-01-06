@@ -4,6 +4,16 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version NEXT (2022-01-??)
+
+The database library for SQLite, rusqlite, is updated to version 0.25.4. It
+contains some minor breaking changes and API changes, but in the context of this
+application it does not break database operations.
+
+Dependency updates:
+
+* update rusqlite to 0.25.4
+
 ## Version 0.10.4 (2022-01-06)
 
 The minified plotly.js library is replaced by the minified plotly-basic.js file.

@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021  Dirk Stolle
+    Copyright (C) 2020, 2021, 2022  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -20,7 +20,7 @@ use crate::data::{
 };
 use std::path::Path;
 
-use rusqlite::{params, Connection};
+use rusqlite::{named_params, params, Connection};
 
 pub struct Database
 {
@@ -179,11 +179,11 @@ impl Database
       Ok(statement) => statement,
       Err(_) => return -1 // failed to prepare statement
     };
-    if stmt.execute_named(&[("@countryname", &name),
-                            ("@pop", population),
-                            ("@geo", &geo_id),
-                            ("@code", &country_code),
-                            ("@continent", &continent)]).is_err()
+    if stmt.execute(named_params!{ "@countryname": &name,
+                                   "@pop": population,
+                                   "@geo": &geo_id,
+                                   "@code": &country_code,
+                                   "@continent": &continent}).is_err()
     {
       return -1;
     };
