@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version NEXT (2022-01-??)
+## Version 0.10.5 (2022-01-07)
 
 The database library for SQLite, rusqlite, is updated to version 0.25.4. It
 contains some minor breaking changes and API changes, but in the context of this
