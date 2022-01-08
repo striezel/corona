@@ -24,20 +24,14 @@ use std::fs; // for create_dir_all() and copy()
 use std::path::Path;
 use std::path::PathBuf;
 
+mod plotly;
+use plotly::Plotly;
+
 #[cfg(not(target_family = "windows"))]
 const MAIN_TEMPLATE: &str = include_str!("./templates/main.tpl");
 
 #[cfg(target_family = "windows")]
 const MAIN_TEMPLATE: &str = include_str!(".\\templates\\main.tpl");
-
-/// basic file name of the plotly.js file
-const PLOTLY_FILE_NAME: &str = "plotly-basic-1.58.5.min.js";
-
-/// relative path to plotly.js
-const PLOTLY_ASSET_PATH: &str = "./assets/plotly-basic-1.58.5.min.js";
-
-/// SHA256 digest of plotly.js
-const PLOTLY_SHA256: &str = "75e92469b4c54da6c7ed5286841d69ffe47bbfb4ded1624d2e1e2afa0596362d";
 
 pub struct Generator
 {
@@ -229,7 +223,7 @@ impl Generator
     {
       return false;
     }
-    tpl.tag("path", PLOTLY_ASSET_PATH);
+    tpl.tag("path", Plotly::ASSET_PATH);
     let scripts = match tpl.generate()
     {
       Some(generated) => generated,
@@ -309,7 +303,7 @@ impl Generator
     {
       return false;
     }
-    tpl.tag("path", PLOTLY_ASSET_PATH);
+    tpl.tag("path", Plotly::ASSET_PATH);
     let scripts = match tpl.generate()
     {
       Some(stringy) => stringy,
@@ -379,7 +373,7 @@ impl Generator
       {
         return false;
       }
-      tpl.tag("path", PLOTLY_ASSET_PATH);
+      tpl.tag("path", Plotly::ASSET_PATH);
       let scripts = match tpl.generate()
       {
         Some(generated) => generated,
@@ -873,8 +867,8 @@ impl Generator
    */
   fn copy_or_download_plotly_js(&self, assets_destination: &Path) -> bool
   {
-    let plotly_origin = Generator::get_assets_path().join(PLOTLY_FILE_NAME);
-    let plotly_destination = assets_destination.join(PLOTLY_FILE_NAME);
+    let plotly_origin = Generator::get_assets_path().join(Plotly::FILE_NAME);
+    let plotly_destination = assets_destination.join(Plotly::FILE_NAME);
     if plotly_origin.exists()
     {
       let cp_success = fs::copy(&plotly_origin, &plotly_destination);
@@ -893,67 +887,7 @@ impl Generator
     }
 
     // File does not exist, so download it from CDN.
-    use reqwest::StatusCode;
-    use std::io::Read;
-    // Retrieve minified JS file.
-    let url = format!("https://cdn.plot.ly/{}", PLOTLY_FILE_NAME);
-    let mut res = match reqwest::blocking::get(&url)
-    {
-      Ok(responded) => responded,
-      Err(e) =>
-      {
-        eprintln!("Download of plotly.js failed: {}", e);
-        return false;
-      }
-    };
-    let mut body: Vec<u8> = Vec::new();
-    if let Err(e) = res.read_to_end(&mut body)
-    {
-      eprintln!("Failed to read plotly.js into buffer: {}", e);
-      return false;
-    }
-    if res.status() != StatusCode::OK
-    {
-      eprintln!("HTTP request failed with unexpected status code: {}\n\
-                 Headers:\n{:#?}\n\
-                 Body:\n{:?}", res.status(), res.headers(), body);
-      return false;
-    }
-
-    // Check SHA256 hash of the file.
-    if !self.check_hash_plotly_js(&body)
-    {
-      eprintln!("Error: SHA256 hash of the downloaded plotly.js does not match \
-                 the expected hash!");
-      return false;
-    }
-
-    match std::fs::write(&plotly_destination, &body)
-    {
-      Ok(()) => true,
-      Err(e) =>
-      {
-        eprintln!("Error while writing plotly.js file: {}", e);
-        false
-      }
-    }
-  }
-
-  /**
-   * Checks whether the data has the expected hash.
-   *
-   * @return Returns true, if the hash matches. Returns false otherwise.
-   */
-  fn check_hash_plotly_js(&self, data: &[u8]) -> bool
-  {
-    use sha2::Digest;
-    let mut hash = sha2::Sha256::new();
-    hash.update(&data);
-    let digest = hash.finalize();
-    // Transform hash into hexadecimal string.
-    let digest_string: String = digest[..].iter().map(|&x| format!("{:02x}", x)).collect();
-    // Compare with expected value.
-    digest_string == PLOTLY_SHA256
+    Plotly::download(&plotly_destination)
   }
 
   /**
@@ -1105,12 +1039,5 @@ mod tests
     assert!(directory.join("us.html").exists());
     // clean up
     assert!(fs::remove_dir_all(directory).is_ok());
-  }
-
-  #[test]
-  fn constants_contain_same_plotly_version()
-  {
-    assert!(!PLOTLY_FILE_NAME.is_empty());
-    assert!(PLOTLY_ASSET_PATH.contains(PLOTLY_FILE_NAME))
   }
 }
