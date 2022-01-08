@@ -9,7 +9,7 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update h2 to 0.3.10
-* update sha2 t0 0.9.9
+* update sha2 to 0.10.1
 * update syn to 1.0.85
 
 ## Version 0.10.5 (2022-01-07)
