@@ -9,8 +9,10 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update h2 to 0.3.10
+* update indexmap to 1.8.0
 * update sha2 to 0.10.1
 * update syn to 1.0.85
+* update tempfile to 3.3.0
 
 ## Version 0.10.5 (2022-01-07)
 
