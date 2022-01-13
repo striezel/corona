@@ -8,6 +8,7 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update bumpalo to 3.9.1
 * update h2 to 0.3.10
 * update indexmap to 1.8.0
 * update openssl-probe to 0.1.5
