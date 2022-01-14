@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021  Dirk Stolle
+    Copyright (C) 2020, 2021, 2022  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -195,6 +195,15 @@ impl Csv
     let day: String = num.date[8..10].trim_start_matches('0').to_string();
     let month = num.date[5..7].trim_start_matches('0').to_string();
     let year = num.date[0..4].to_string();
+    /* When .to_string() is removed as suggested by the clippy lint, then the
+       build fails with:
+
+       error[E0277]: the size for values of type `str` cannot be known at compilation time
+       help: the trait `Sized` is not implemented for `str`
+
+       Therefore, the suggested change cannot be applied here.
+     */
+    #[allow(clippy::to_string_in_format_args)]
     let date_rep = match format
     {
         DateFormat::Iso8601 =>  format!("{}-{}-{}", year, num.date[5..7].to_string(), num.date[8..10].to_string()),

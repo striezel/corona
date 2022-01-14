@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2021  Dirk Stolle
+    Copyright (C) 2021, 2022  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -290,6 +290,15 @@ pub fn parse_json_timeline(json: &Value) -> Result<Vec<Numbers>, String>
         );
         continue;
       },
+      /* When .to_string() is removed as suggested by the clippy lint, then the
+         build fails with:
+
+         error[E0277]: the size for values of type `str` cannot be known at compilation time
+          help: the trait `Sized` is not implemented for `str`
+
+         Therefore, the suggested change cannot be applied here.
+       */
+      #[allow(clippy::to_string_in_format_args)]
       Some(cap) =>
       {
         format!("20{}-{:0>2}-{:0>2}", cap[3].to_string(), cap[1].to_string(), cap[2].to_string())
@@ -319,6 +328,15 @@ pub fn parse_json_timeline(json: &Value) -> Result<Vec<Numbers>, String>
         );
         continue;
       },
+      /* When .to_string() is removed as suggested by the clippy lint, then the
+         build fails with:
+
+         error[E0277]: the size for values of type `str` cannot be known at compilation time
+         help: the trait `Sized` is not implemented for `str`
+
+         Therefore, the suggested change cannot be applied here.
+       */
+      #[allow(clippy::to_string_in_format_args)]
       Some(cap) =>
       {
         format!("20{}-{:0>2}-{:0>2}", cap[3].to_string(), cap[1].to_string(), cap[2].to_string())
