@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2021  Dirk Stolle
+    Copyright (C) 2021, 2022  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -51,11 +51,6 @@ impl Jersey
     Jersey::add_old_data(&mut numbers);
     Ok(numbers)
   }
-
-  // The constant value i32::MIN only exists in Rust 1.43 and later. However,
-  // the minimum supported Rust version (MSRV) for this program is 1.40, so
-  // this constant has to be declared manually.
-  const I32_MIN: i32 = -2147483648;
 
   /**
    * Retrieves the JSON data from the official Jersey government website.
@@ -148,7 +143,7 @@ impl Jersey
       let cases = match cases.parse()
       {
         Ok(i) => i,
-        Err(_) => Jersey::I32_MIN
+        Err(_) => i32::MIN
       };
       let deaths = match elem.get("MortalityTotalDeaths")
       {
@@ -162,7 +157,7 @@ impl Jersey
       let deaths = match deaths.parse()
       {
         Ok(i) => i,
-        Err(_) => Jersey::I32_MIN
+        Err(_) => i32::MIN
       };
       result.push(Numbers { date, cases, deaths });
     }
@@ -194,17 +189,17 @@ impl Jersey
     }
     // On some days (e. g. weekends) there is no testing and not numbers are
     // reported. In that case the JSON gives an empty string for those numbers.
-    // Empty strings are transformed to Jersey::I32_MIN by the parse method, so
-    // these days can be identified easily.
+    // Empty strings are transformed to i32::MIN by the parse method, so these
+    // days can be identified easily.
     // In those cases the numbers from the previous day can be used instead.
     for idx in 0..len
     {
-      if numbers[idx].cases == Jersey::I32_MIN
+      if numbers[idx].cases == i32::MIN
       {
         // No new cases reported on that day.
         numbers[idx].cases = 0;
       }
-      if numbers[idx].deaths == Jersey::I32_MIN
+      if numbers[idx].deaths == i32::MIN
       {
         numbers[idx].deaths = numbers[idx - 1].deaths;
       }

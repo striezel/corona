@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021  Dirk Stolle
+    Copyright (C) 2020, 2021, 2022  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -165,16 +165,6 @@ impl Db
    */
   fn parse_csv_into_db(db: &Database, reader: &mut csv::Reader<std::fs::File>) -> bool
   {
-    // Note: The constant i64::MIN is only available in Rust 1.43 or later,
-    // but e. g. Debian 10 (current stable version) only has 1.41, so the
-    // use of that constant has to be avoided.
-    const I64_MIN: i64 = -9223372036854775808;
-    // Note: The constant f64::NAN is only available in Rust 1.43 or later,
-    // but e. g. Debian 10 (current stable version) only has 1.41, so the
-    // use of that constant has to be avoided.
-    #[allow(clippy::eq_op)]
-    #[allow(clippy::zero_divided_by_zero)]
-    const F64_NAN: f64 = 0.0_f64 / 0.0_f64;
     let mut last_geo_id = String::new();
     let mut country_id: i64 = -1;
     let mut record = csv::StringRecord::new();
@@ -236,15 +226,15 @@ impl Db
       let year_str = record.get(3).unwrap();
       let cases: i64 = match record.get(4).unwrap().is_empty()
       {
-        false => record.get(4).unwrap().parse().unwrap_or(I64_MIN),
+        false => record.get(4).unwrap().parse().unwrap_or(i64::MIN),
         true => 0
       };
       let deaths: i64 = match record.get(5).unwrap().is_empty()
       {
-        false => record.get(5).unwrap().parse().unwrap_or(I64_MIN),
+        false => record.get(5).unwrap().parse().unwrap_or(i64::MIN),
         true => 0
       };
-      if cases == I64_MIN || deaths == I64_MIN
+      if cases == i64::MIN || deaths == i64::MIN
       {
         eprintln!(
           "Error: Got invalid case numbers on line {}.",
@@ -254,13 +244,13 @@ impl Db
       }
       let incidence14: f64 = match record.get(11).unwrap().is_empty()
       {
-        false => record.get(11).unwrap().parse().unwrap_or(F64_NAN /* NaN */),
-        true => F64_NAN /* NaN */
+        false => record.get(11).unwrap().parse().unwrap_or(f64::NAN /* NaN */),
+        true => f64::NAN /* NaN */
       };
       let incidence7: f64 = match record.get(12).unwrap_or_default().is_empty()
       {
-        false => record.get(12).unwrap().parse().unwrap_or(F64_NAN /* NaN */),
-        true => F64_NAN /* NaN */
+        false => record.get(12).unwrap().parse().unwrap_or(f64::NAN /* NaN */),
+        true => f64::NAN /* NaN */
       };
       let date = format!("{}-{:0>2}-{:0>2}", year_str, month_str, day_str);
       /*                       ^^^
