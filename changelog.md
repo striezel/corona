@@ -9,11 +9,13 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update bumpalo to 3.9.1
+* update getrandom to 0.2.4
 * update h2 to 0.3.10
 * update indexmap to 1.8.0
 * update openssl-probe to 0.1.5
 * update reqwest to 0.11.9
 * update sha2 to 0.10.1
+* update smallvec to 1.8.0
 * update syn to 1.0.85
 * update tempfile to 3.3.0
 
