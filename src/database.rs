@@ -16,8 +16,10 @@
 */
 
 use crate::data::{
-  Country, Incidence14, Incidence7, Numbers, NumbersAndIncidence, NumbersAndIncidenceAndTotals
+  Country, Incidence14, Incidence7, IncidenceWithDay,
+  Numbers, NumbersAndIncidence, NumbersAndIncidenceAndTotals
 };
+use std::collections::HashMap;
 use std::path::Path;
 
 use rusqlite::{named_params, params, Connection};
@@ -463,6 +465,75 @@ impl Database
         Ok(None) => break,
         _ => return vec![]
       }
+    }
+
+    data
+  }
+
+  /**
+   * Get the 7-day incidence values of Covid-19 for a specific country, separated by year.
+   * E. g., if there is data for three years (2020, 2021, 2022), then the map will have
+   * those years as keys, and the associated values are the incidence values for that year,
+   * sorted in ascending order by day of year (ranges from 1 to 366).
+   *
+   * @param countryId   id of the country
+   * @return Returns a map of vectors of incidences.
+   *         This may be an empty map, if no values are known.
+   */
+  pub fn incidence7_by_year(&self, country_id: &i32) -> HashMap<u16, Vec<IncidenceWithDay>>
+  {
+    let sql = "SELECT CAST(strftime('%Y', date) AS INTEGER), \
+                            CAST(ltrim(strftime('%j', date), '0') AS INTEGER), \
+                            round(incidence7, 2) FROM covid19 \
+               WHERE countryId = ? AND ABS(IFNULL(incidence7, -1.0)+1.0) > 0.000001 \
+               ORDER BY date ASC;";
+    let mut stmt = match self.conn.prepare(sql)
+    {
+      Ok(x) => x,
+      Err(_) => return HashMap::new()
+    };
+    let rows = stmt.query(params![&country_id]);
+    let mut rows = match rows
+    {
+      Ok(r) => r,
+      Err(_) => return HashMap::new()
+    };
+
+    let mut data = HashMap::new();
+    let mut current_year = 0u16;
+    let mut current_data = Vec::new();
+
+    // potential infinite loop
+    loop
+    {
+      let row = rows.next();
+      match row
+      {
+        Ok(Some(row)) =>
+        {
+          let year = row.get(0).unwrap_or(0u16);
+          if current_year != year
+          {
+            if !current_data.is_empty()
+            {
+              data.insert(current_year, current_data);
+            }
+            current_year = year;
+            current_data = Vec::new();
+          }
+          current_data.push(IncidenceWithDay{
+            day_of_year: row.get(1).unwrap_or(0u16),
+            incidence: row.get(2).unwrap_or(0.0)
+          });
+        },
+        Ok(None) => break,
+        _ => return HashMap::new()
+      }
+    }
+
+    if !current_data.is_empty()
+    {
+      data.insert(current_year, current_data);
     }
 
     data
@@ -1419,6 +1490,47 @@ mod tests
     let found = found.unwrap();
     assert_eq!(luxembourg_2020_09_03.date, found.date);
     assert_eq!(luxembourg_2020_09_03.incidence_7d, found.incidence_7d);
+  }
+
+  #[test]
+  fn incidence7_by_year()
+  {
+    let db = get_sqlite_db_rki();
+
+    // Country id 77 is Germany in the current DB.
+    let incidences = db.incidence7_by_year(&77);
+    // Vector of data must not be empty.
+    assert!(!incidences.is_empty());
+    // Data for 2020 and 2021 should exist.
+    println!("keys: {:?}", incidences.keys());
+    assert!(incidences.contains_key(&2020));
+    assert!(incidences.contains_key(&2021));
+    // There should be more than 300 entries, ...
+    assert!(incidences[&2020].len() > 300);
+    assert!(incidences[&2021].len() > 300);
+    // ... but less than 367, because a year can have only up to 366 days.
+    assert!(incidences[&2020].len() < 367);
+    assert!(incidences[&2021].len() < 367);
+    // Check whether a specific value is in the vector.
+    let germany_2020_10_23 = IncidenceWithDay {
+      day_of_year: 297, // 2020-10-23
+      incidence: 65.93 // 65.92931686789, rounded to two decimals after the point
+    };
+    let found = incidences[&2020].iter().find(|&i| i.day_of_year == 297);
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(germany_2020_10_23.day_of_year, found.day_of_year);
+    assert_eq!(germany_2020_10_23.incidence, found.incidence);
+    // Check another value (2021-02-12|66.4713600693854).
+    let germany_2021_02_12 = IncidenceWithDay {
+      day_of_year: 43, // 2021-02-12
+      incidence: 66.47 // rounded to two decimals after the point
+    };
+    let found = incidences[&2021].iter().find(|&i| i.day_of_year == 43);
+    assert!(found.is_some());
+    let found = found.unwrap();
+    assert_eq!(germany_2021_02_12.day_of_year, found.day_of_year);
+    assert_eq!(germany_2021_02_12.incidence, found.incidence);
   }
 
   #[test]

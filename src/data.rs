@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021  Dirk Stolle
+    Copyright (C) 2020, 2021, 2022  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -72,6 +72,13 @@ pub struct Incidence14
 {
   pub date: String,
   pub incidence_14d: f64
+}
+
+/// struct to hold incidence value for a single day in a single country
+pub struct IncidenceWithDay
+{
+  pub day_of_year: u16, // day of year, range [1;366]
+  pub incidence: f64
 }
 
 /**
