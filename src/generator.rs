@@ -882,7 +882,7 @@ impl Generator
         false => "[\"".to_owned() + &dates.join("\",\"") + "\"]",
         true => "[]".to_string()
       };
-      // graph: indicence values
+      // graph: incidence values
       let incidence = match incidence.is_empty()
       {
         false => "[".to_owned() + &incidence.join(",") + "]",
