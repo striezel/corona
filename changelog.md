@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version NEXT (2022-01-??)
+## Version 0.11.0 (2022-01-16)
 
 A new plot is added to the graphs for each country: a comparision of the
 incidence values by year. This should provide an easier way to see how the cases
