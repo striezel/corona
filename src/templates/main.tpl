@@ -119,6 +119,30 @@
 The 7-day incidence is the number of infections per 100000 inhabitants over the last seven days.</div>
 <!--section-end::graphIncidence-->
 
+<!--section-start::graphIncidenceByYear-->
+<div id="{{plotId}}"> </div>
+<script>
+  var traces = [];
+
+{{>traces}}
+  var layout = {
+    title: '{{title}}',
+    xaxis: {
+       title: 'Day of year'
+    },
+    yaxis: {
+       title: '7-day incidences'
+    }
+  };
+  Plotly.newPlot('{{plotId}}', traces, layout, {
+      displaylogo: false,
+      modeBarButtonsToRemove: ['sendDataToCloud']
+  });
+</script>
+<br />
+<div style="text-align: center; font-style: italic;">The 7-day incidence is the number of infections per 100000 inhabitants over the last seven days.</div>
+<!--section-end::graphIncidenceByYear-->
+
 <!--section-start::graphContinent-->
 <div id="{{plotId}}"> </div>
 <script>
@@ -146,6 +170,7 @@ The 7-day incidence is the number of infections per 100000 inhabitants over the 
       x: {{>dates}},
       y: {{>incidence}},
       type: 'scatter',
+      mode: 'lines',
       name: '{{name}}'
   });<!--section-end::trace-->
 

@@ -6,6 +6,11 @@ improvements may be omitted.)_
 
 ## Version NEXT (2022-01-??)
 
+A new plot is added to the graphs for each country: a comparision of the
+incidence values by year. This should provide an easier way to see how the cases
+are changing over the years. Note that this plot is only available for those
+countries where 7-day incidence values are available.
+
 Dependency updates:
 
 * update bumpalo to 3.9.1

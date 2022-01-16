@@ -257,6 +257,16 @@ impl Generator
       None => return false
     };
     let mut graph = graph + "\n<br />\n" + &graph_accu;
+    let graph_years = self.generate_graph_incidence_by_year(db, country, &mut tpl);
+    let graph_years = match graph_years
+    {
+      Some(stringy) => stringy,
+      None => return false
+    };
+    if !graph_years.is_empty()
+    {
+      graph = graph_years + "\n<br />\n" + &graph;
+    }
     let graph_incidence = self.generate_incidence_graph(db, country, &mut tpl);
     let graph_incidence = match graph_incidence
     {
@@ -750,6 +760,82 @@ impl Generator
     };
     tpl.integrate("incidence7", &incidence);
 
+    tpl.generate()
+  }
+
+  /**
+   * Generates the HTML snippet containing the graph with 7-day incidence numbers of a country,
+   * separated by years.
+   *
+   * @param db       reference to the Database instance
+   * @param country  country data (id, name, etc.)
+   * @param tpl      loaded template instance of main.tpl
+   * @return Returns a string containing the HTML snippet, if the generation was successful.
+   *         Returns None, if an error occurred.
+   */
+  fn generate_graph_incidence_by_year(&self, db: &Database, country: &Country, tpl: &mut Template) -> Option<String>
+  {
+    let years = db.incidence7_by_year(&country.country_id);
+    // If there is only one year or no data at all, then there is no reason to make this graph.
+    if years.len() <= 1
+    {
+      return Some(String::new());
+    }
+    // load graph section
+    if !tpl.load_section("trace")
+    {
+      return None;
+    }
+    let mut traces = String::new();
+
+    // Keys in a map are not necessarily in sort order or insertion order, so
+    // they have to be sorted explicitly to maintain reproducibility.
+    let mut available_years: Vec<&u16> = years.keys().collect();
+    available_years.sort_unstable();
+
+    for year in available_years.iter()
+    {
+      let data = &years[year];
+      // prepare data for plot
+      let capacity = data.len();
+      let mut days: Vec<String> = Vec::with_capacity(capacity);
+      let mut incidence: Vec<String> = Vec::with_capacity(capacity);
+      for d in data.iter()
+      {
+        days.push(d.day_of_year.to_string());
+        incidence.push(d.incidence.to_string());
+      }
+      // graph: day_of_year values
+      let days = match days.is_empty()
+      {
+        false => "[".to_owned() + &days.join(",") + "]",
+        true => "[]".to_string()
+      };
+      // graph: incidence values
+      let incidence = match incidence.is_empty()
+      {
+        false => "[".to_owned() + &incidence.join(",") + "]",
+        true => "[]".to_string()
+      };
+      // template generation for data
+      tpl.integrate("dates", &days);
+      tpl.integrate("incidence", &incidence);
+      tpl.tag("name", &year.to_string());
+      traces = match tpl.generate()
+      {
+        Some(generated) => traces + &generated,
+        None => return None
+      };
+    }
+    // template: graph
+    if !tpl.load_section("graphIncidenceByYear")
+    {
+      return None;
+    }
+    tpl.integrate("traces", &traces);
+    tpl.tag("plotId", &("graph_incidence_years_".to_owned() + &country.geo_id.to_lowercase()));
+    tpl.tag("title", &("Coronavirus: 7-day incidence by year in ".to_owned()
+           + &country.name + " (" + &country.geo_id + ")"));
     tpl.generate()
   }
 
