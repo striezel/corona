@@ -4,6 +4,14 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version NEXT (2022-01-??)
+
+Dependency updates:
+
+* update security-framework + security-framework-sys to 2.5.0
+* update serde_json to 1.0.75
+* update serde_urlencoded to 0.7.1
+
 ## Version 0.11.0 (2022-01-16)
 
 A new plot is added to the graphs for each country: a comparision of the
