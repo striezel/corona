@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2021, 2022  Dirk Stolle
+    Copyright (C) 2022  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -15,36 +15,50 @@
  -------------------------------------------------------------------------------
 */
 
-mod australia;
-mod cook_islands;
-mod fiji;
-mod french_polynesia;
-mod guam;
-mod marshall_islands;
-mod micronesia;
-mod new_caledonia;
-mod new_zealand;
-mod northern_mariana_islands;
-mod palau;
-mod papua_new_guinea;
-mod solomon_islands;
-mod tonga;
-mod vanuatu;
-mod wallis_and_futuna;
+use crate::collect::Collect;
+use crate::data::Country;
 
-pub use australia::Australia;
-pub use cook_islands::CookIslands;
-pub use fiji::Fiji;
-pub use french_polynesia::FrenchPolynesia;
-pub use guam::Guam;
-pub use marshall_islands::MarshallIslands;
-pub use micronesia::Micronesia;
-pub use new_caledonia::NewCaledonia;
-pub use new_zealand::NewZealand;
-pub use northern_mariana_islands::NorthernMarianaIslands;
-pub use palau::Palau;
-pub use papua_new_guinea::PapuaNewGuinea;
-pub use solomon_islands::SolomonIslands;
-pub use tonga::Tonga;
-pub use vanuatu::Vanuatu;
-pub use wallis_and_futuna::WallisAndFutuna;
+pub struct Tonga
+{
+}
+
+impl Tonga
+{
+  /**
+   * Returns a new instance.
+   */
+  pub fn new() -> Tonga
+  {
+    Tonga { }
+  }
+}
+
+impl Collect for Tonga
+{
+  /**
+   * Returns the country associated with the Collect trait implementation.
+   */
+  fn country(&self) -> Country
+  {
+    Country {
+      country_id: 217,
+      name: "Tonga".to_string(),
+      population: 105697,
+      geo_id: "TO".to_string(),
+      country_code: "TON".to_string(),
+      continent: "Oceania".to_string()
+    }
+  }
+
+  /**
+   * Returns the geo id (two-letter code) of the country for which the data
+   * is collected.
+   */
+  fn geo_id(&self) -> &str
+  {
+    "TO" // Tonga
+  }
+
+  // Uses the default implementation of collect(), which is to query the
+  // disease.sh historical API.
+}

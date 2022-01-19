@@ -6,6 +6,10 @@ improvements may be omitted.)_
 
 ## Version NEXT (2022-01-??)
 
+The countries Micronesia (i. e. Federated States of Micronesia), Palau and Tonga
+are added to the program. Numbers for those countries can now be queried via the
+`info` sub command, and data collection will now include those countries, too.
+
 Dependency updates:
 
 * update security-framework + security-framework-sys to 2.5.0

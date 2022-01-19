@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2021  Dirk Stolle
+    Copyright (C) 2021, 2022  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -274,6 +274,7 @@ impl Collector
       Box::new(Mauritania::new()),
       Box::new(Mauritius::new()),
       Box::new(Mexico::new()),
+      Box::new(Micronesia::new()),
       Box::new(Moldova::new()),
       Box::new(Monaco::new()),
       Box::new(Mongolia::new()),
@@ -295,6 +296,7 @@ impl Collector
       Box::new(Norway::new()),
       Box::new(Oman::new()),
       Box::new(Pakistan::new()),
+      Box::new(Palau::new()),
       Box::new(Palestine::new()),
       Box::new(Panama::new()),
       Box::new(PapuaNewGuinea::new()),
@@ -340,6 +342,7 @@ impl Collector
       Box::new(Thailand::new()),
       Box::new(TimorLeste::new()),
       Box::new(Togo::new()),
+      Box::new(Tonga::new()),
       Box::new(TrinidadAndTobago::new()),
       Box::new(Tunisia::new()),
       Box::new(Turkey::new()),

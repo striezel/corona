@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2021  Dirk Stolle
+    Copyright (C) 2021, 2022  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -1065,6 +1065,14 @@ impl World
           continent: "America".to_string()
         },
         Country {
+          country_id: 215,
+          name: "Micronesia".to_string(),
+          population: 115021,
+          geo_id: "FM".to_string(),
+          country_code: "FSM".to_string(),
+          continent: "Oceania".to_string()
+        },
+        Country {
           country_id: 129,
           name: "Moldova".to_string(),
           population: 4043258,
@@ -1231,6 +1239,14 @@ impl World
           geo_id: "PK".to_string(),
           country_code: "PAK".to_string(),
           continent: "Asia".to_string()
+        },
+        Country {
+          country_id: 216,
+          name: "Palau".to_string(),
+          population: 18092,
+          geo_id: "PW".to_string(),
+          country_code: "PLW".to_string(),
+          continent: "Oceania".to_string()
         },
         Country {
           country_id: 150,
@@ -1583,6 +1599,14 @@ impl World
           geo_id: "TG".to_string(),
           country_code: "TGO".to_string(),
           continent: "Africa".to_string()
+        },
+        Country {
+          country_id: 217,
+          name: "Tonga".to_string(),
+          population: 105697,
+          geo_id: "TO".to_string(),
+          country_code: "TON".to_string(),
+          continent: "Oceania".to_string()
         },
         Country {
           country_id: 194,
