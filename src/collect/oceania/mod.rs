@@ -15,6 +15,7 @@
  -------------------------------------------------------------------------------
 */
 
+mod american_samoa;
 mod australia;
 mod cook_islands;
 mod fiji;
@@ -27,11 +28,13 @@ mod new_zealand;
 mod northern_mariana_islands;
 mod palau;
 mod papua_new_guinea;
+mod samoa;
 mod solomon_islands;
 mod tonga;
 mod vanuatu;
 mod wallis_and_futuna;
 
+pub use american_samoa::AmericanSamoa;
 pub use australia::Australia;
 pub use cook_islands::CookIslands;
 pub use fiji::Fiji;
@@ -44,6 +47,7 @@ pub use new_zealand::NewZealand;
 pub use northern_mariana_islands::NorthernMarianaIslands;
 pub use palau::Palau;
 pub use papua_new_guinea::PapuaNewGuinea;
+pub use samoa::Samoa;
 pub use solomon_islands::SolomonIslands;
 pub use tonga::Tonga;
 pub use vanuatu::Vanuatu;

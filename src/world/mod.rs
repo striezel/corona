@@ -57,6 +57,14 @@ impl World
           continent: "Africa".to_string()
         },
         Country {
+          country_id: 218,
+          name: "American Samoa".to_string(),
+          population: 55197,
+          geo_id: "AS".to_string(),
+          country_code: "ASM".to_string(),
+          continent: "Oceania".to_string()
+        },
+        Country {
           country_id: 4,
           name: "Andorra".to_string(),
           population: 76177,
@@ -1375,6 +1383,14 @@ impl World
           geo_id: "VC".to_string(),
           country_code: "VCT".to_string(),
           continent: "America".to_string()
+        },
+        Country {
+          country_id: 219,
+          name: "Samoa".to_string(),
+          population: 198410,
+          geo_id: "WS".to_string(),
+          country_code: "WSM".to_string(),
+          continent: "Oceania".to_string()
         },
         Country {
           country_id: 166,
