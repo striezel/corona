@@ -253,6 +253,7 @@ impl Collector
       Box::new(Jordan::new()),
       Box::new(Kazakhstan::new()),
       Box::new(Kenya::new()),
+      Box::new(Kiribati::new()),
       Box::new(Kosovo::new()),
       Box::new(Kuwait::new()),
       Box::new(Kyrgyzstan::new()),

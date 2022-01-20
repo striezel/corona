@@ -6,10 +6,10 @@ improvements may be omitted.)_
 
 ## Version NEXT (2022-01-??)
 
-The countries American Samoa, Micronesia (i. e. Federated States of Micronesia),
-Samoa, Palau and Tonga are added to the program. Numbers for those countries can
-now be queried via the `info` sub command, and data collection will now include
-those countries, too.
+The countries American Samoa, Kiribati, Micronesia (i. e. Federated States of
+Micronesia), Samoa, Palau and Tonga are added to the program. Numbers for those
+countries can now be queried via the `info` sub command, and data collection
+will now include those countries, too.
 
 Dependency updates:
 

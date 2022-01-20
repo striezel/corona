@@ -897,6 +897,14 @@ impl World
           continent: "Africa".to_string()
         },
         Country {
+          country_id: 220,
+          name: "Kiribati".to_string(),
+          population: 119940,
+          geo_id: "KI".to_string(),
+          country_code: "KIR".to_string(),
+          continent: "Oceania".to_string()
+        },
+        Country {
           country_id: 107,
           name: "Kosovo".to_string(),
           population: 1798506,
