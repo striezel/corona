@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version NEXT (2022-01-??)
+## Version 0.11.1 (2022-01-21)
 
 The countries American Samoa, Kiribati, Micronesia (i. e. Federated States of
 Micronesia), Samoa, Palau and Tonga are added to the program. Numbers for those
