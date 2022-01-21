@@ -13,9 +13,18 @@ will now include those countries, too.
 
 Dependency updates:
 
+* update js-sys to 0.3.56
+* update libc to 0.2.113
 * update security-framework + security-framework-sys to 2.5.0
+* update serde to 1.0.134
 * update serde_json to 1.0.75
 * update serde_urlencoded to 0.7.1
+* update socket2 to 0.4.3
+* update syn to 1.0.86
+* update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
+  wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.79
+* update wasm-bindgen-futures to 0.4.29
+* update web-sys to 0.3.56
 
 ## Version 0.11.0 (2022-01-16)
 
