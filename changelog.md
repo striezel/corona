@@ -10,7 +10,8 @@ Dependency updates:
 
 * update fastrand to 1.7.0
 * update quote to 1.0.15
-* update serde_json to 1.0.76
+* update serde to 1.0.135
+* update serde_json to 1.0.78
 
 ## Version 0.11.1 (2022-01-21)
 
