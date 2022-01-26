@@ -1461,8 +1461,8 @@ mod tests
   {
     let db = get_sqlite_db_live();
 
-    // Country id 118 is Luxembourg in the live DB.
-    let incidences = db.incidence7(&118);
+    // Country id 120 is Luxembourg in the live DB.
+    let incidences = db.incidence7(&120);
     // Vector of data must not be empty.
     assert!(!incidences.is_empty());
     // There should be more than 300 entries, ...
@@ -1470,7 +1470,7 @@ mod tests
     // ... but less than 6000, because vector has only data from one country.
     assert!(incidences.len() < 6000);
     // Check whether a specific value is in the vector.
-    // 117|2020-08-28|-1348|0|-134.388021384799|-183.093498226078|6580|124
+    // 120|2020-08-28|-1348|0|-134.388021384799|-183.093498226078|6580|124
     let luxembourg_2020_08_28 = Incidence7 {
       date: String::from("2020-08-28"),
       incidence_7d: -183.09 // rounded to two decimals after the point
