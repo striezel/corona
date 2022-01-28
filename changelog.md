@@ -10,11 +10,12 @@ Dependency updates:
 
 * update fastrand to 1.7.0
 * update h2 to 0.3.11
-* update libc to 0.2.115
+* update libc to 0.2.116
 * update quote to 1.0.15
 * update serde to 1.0.136
 * update serde_json to 1.0.78
 * update socket2 to 0.4.4
+* update tokio to 1.16.1
 
 ## Version 0.11.1 (2022-01-21)
 
