@@ -12,6 +12,7 @@ Dependency updates:
 * update h2 to 0.3.11
 * update libc to 0.2.116
 * update quote to 1.0.15
+* update security-framework and security-framework-sys to 2.6.0
 * update serde to 1.0.136
 * update serde_json to 1.0.78
 * update socket2 to 0.4.4
