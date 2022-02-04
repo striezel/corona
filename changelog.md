@@ -4,19 +4,21 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version NEXT (2022-01-??)
+## Version NEXT (2022-02-??)
 
 Dependency updates:
 
 * update fastrand to 1.7.0
 * update h2 to 0.3.11
-* update libc to 0.2.116
+* update libc to 0.2.117
 * update quote to 1.0.15
 * update security-framework and security-framework-sys to 2.6.0
 * update serde to 1.0.136
 * update serde_json to 1.0.78
 * update socket2 to 0.4.4
 * update tokio to 1.16.1
+* update tracing to 0.1.30
+* update tracing-core to 0.1.22
 
 ## Version 0.11.1 (2022-01-21)
 
