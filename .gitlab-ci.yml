@@ -22,8 +22,8 @@ bionic_failcheck:
     - cargo --version
     - ./ci/failcheck_sqlite.sh
 
-centos:
-  image: centos:8
+rocky:
+  image: rockylinux:8
   stage: build
   before_script:
     - yum install -y bash cargo rust sqlite-devel openssl-devel
