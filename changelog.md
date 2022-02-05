@@ -8,11 +8,12 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update block-buffer to 0.10.1
 * update fastrand to 1.7.0
 * update h2 to 0.3.11
 * update libc to 0.2.117
 * update quote to 1.0.15
-* update security-framework and security-framework-sys to 2.6.0
+* update security-framework and security-framework-sys to 2.6.1
 * update serde to 1.0.136
 * update serde_json to 1.0.78
 * update socket2 to 0.4.4
