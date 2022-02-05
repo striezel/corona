@@ -61,7 +61,7 @@ All of that can usually be installed be typing
 
 or
 
-    # CentOS 8
+    # Rocky Linux 8 and similar distributions
     yum install cargo git rust sqlite-devel openssl-devel
 
 or
