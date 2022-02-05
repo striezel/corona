@@ -18,6 +18,6 @@ RUN cargo run --release collect /tmp/corona.db
 RUN cargo run --release html /tmp/corona.db /tmp/html-files
 
 # runtime stage: nginx to serve generated files
-FROM nginx:1.20.0-alpine AS runner
+FROM nginx:1.20-alpine AS runner
 LABEL maintainer="Dirk Stolle <striezel-dev@web.de>"
 COPY --from=builder --chown=nginx:nginx /tmp/html-files /usr/share/nginx/html
