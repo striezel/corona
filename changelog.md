@@ -10,6 +10,8 @@ Dependency updates:
 
 * update block-buffer to 0.10.1
 * update fastrand to 1.7.0
+* update futures-channel, futures-core, futures-io, futures-sink, futures-task,
+  and futures-util to 0.3.21
 * update h2 to 0.3.11
 * update libc to 0.2.117
 * update quote to 1.0.15
