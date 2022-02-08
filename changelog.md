@@ -8,7 +8,8 @@ improvements may be omitted.)_
 
 Dependency updates:
 
-* update block-buffer to 0.10.1
+* update autocfg to 1.1.0
+* update block-buffer to 0.10.2
 * update core-foundation to 0.9.3
 * update fastrand to 1.7.0
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
