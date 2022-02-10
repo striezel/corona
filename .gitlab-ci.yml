@@ -1,6 +1,7 @@
 alpine:
   image: alpine:latest
   stage: build
+  retry: 2
   before_script:
     - apk update
     - apk add bash cargo rust sqlite-dev openssl-dev
@@ -25,6 +26,7 @@ bionic_failcheck:
 rocky:
   image: rockylinux:8
   stage: build
+  retry: 2
   before_script:
     - yum install -y bash cargo rust sqlite-devel openssl-devel
   script:
@@ -36,6 +38,7 @@ rocky:
 debian:
   image: debian:11-slim
   stage: build
+  retry: 2
   before_script:
     - apt-get update
     - export DEBIAN_FRONTEND=noninteractive
