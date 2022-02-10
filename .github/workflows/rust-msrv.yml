@@ -27,4 +27,4 @@ jobs:
         cargo run -- version
     - name: Run tests
       run: |
-        cargo test
+        cargo test || cargo test || cargo test
