@@ -11,10 +11,13 @@ Dependency updates:
 * update autocfg to 1.1.0
 * update block-buffer to 0.10.2
 * update core-foundation to 0.9.3
+* update crypto-common to 0.1.2
+* update digest to 0.10.2
 * update fastrand to 1.7.0
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   and futures-util to 0.3.21
 * update h2 to 0.3.11
+* update httparse to 1.6.0
 * update libc to 0.2.117
 * update quote to 1.0.15
 * update security-framework and security-framework-sys to 2.6.1
