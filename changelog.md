@@ -18,7 +18,9 @@ Dependency updates:
   and futures-util to 0.3.21
 * update h2 to 0.3.11
 * update httparse to 1.6.0
+* update hyper to 0.14.17
 * update libc to 0.2.117
+* update ntapi to 0.3.7
 * update quote to 1.0.15
 * update security-framework and security-framework-sys to 2.6.1
 * update serde to 1.0.136
