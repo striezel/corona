@@ -19,12 +19,12 @@ Dependency updates:
 * update h2 to 0.3.11
 * update httparse to 1.6.0
 * update hyper to 0.14.17
-* update libc to 0.2.117
+* update libc to 0.2.118
 * update ntapi to 0.3.7
 * update quote to 1.0.15
 * update security-framework and security-framework-sys to 2.6.1
 * update serde to 1.0.136
-* update serde_json to 1.0.78
+* update serde_json to 1.0.79
 * update socket2 to 0.4.4
 * update tokio to 1.16.1
 * update tracing to 0.1.30
