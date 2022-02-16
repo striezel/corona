@@ -15,7 +15,7 @@ jobs:
       run: |
         wget -O /tmp/ru.sh https://sh.rustup.rs
         chmod u+x /tmp/ru.sh
-        /tmp/ru.sh -y --profile minimal --default-toolchain 1.46
+        /tmp/ru.sh -y --profile minimal --default-toolchain 1.48
         source $HOME/.cargo/env
         export PATH="$HOME/.cargo/bin:$PATH"
     - name: List installed Rust and Cargo version
