@@ -248,7 +248,7 @@ pub fn calculate_totals(numbers: &[NumbersAndIncidence]) -> Vec<NumbersAndIncide
  */
 pub fn fill_missing_dates(numbers: &mut Vec<Numbers>) -> Result<(), String>
 {
-  use chrono::NaiveDate;
+  use time::{Date, format_description};
 
   let len = numbers.len();
   if len <= 1
@@ -257,24 +257,30 @@ pub fn fill_missing_dates(numbers: &mut Vec<Numbers>) -> Result<(), String>
   }
 
   let mut needs_sort = false;
-  let mut previous = match NaiveDate::parse_from_str(&numbers[0].date, "%Y-%m-%d")
+  let format = format_description::parse("[year]-[month]-[day]").unwrap();
+  let mut previous = match Date::parse(&numbers[0].date, &format)
   {
     Ok(d) => d,
     Err(_e) => return Err(format!("Could not parse date '{}'!", &numbers[0].date))
   };
   for idx in 1..len
   {
-    let current = match NaiveDate::parse_from_str(&numbers[idx].date, "%Y-%m-%d")
+    let current = match Date::parse(&numbers[idx].date, &format)
     {
       Ok(d) => d,
       Err(_e) => return Err(format!("Could not parse date '{}'!", &numbers[idx].date))
     };
-    previous = previous.succ();
+    previous = previous.next_day().unwrap();
     let mut inserts: usize = 0; // counter guard against prolonged loops
     while previous != current && inserts <= 100
     {
-      numbers.push(Numbers { date: previous.format("%Y-%m-%d").to_string(), cases: 0, deaths: 0 });
-      previous = previous.succ();
+      let previous_as_string = match previous.format(&format)
+      {
+        Ok(s) => s,
+        Err(_) => return Err(format!("Could not format date '{}'!", previous))
+      };
+      numbers.push(Numbers { date: previous_as_string, cases: 0, deaths: 0 });
+      previous = previous.next_day().unwrap();
       inserts += 1;
       needs_sort = true;
     }

@@ -11,10 +11,19 @@ been released on 19th November 2020, a bit more than a year ago, so it is probab
 safe to update to that version. For the Rust release announcement see
 <https://blog.rust-lang.org/2020/11/19/Rust-1.48.html>.
 
+The `chrono` dependency is removed in favour of a newer version of the `time`
+dependency. That way two vulnerabilities in those dependencies are fixed.
+[RUSTSEC-2020-0071](https://rustsec.org/advisories/RUSTSEC-2020-0071) /
+[CVE-2020-26235](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-26235)
+is fixed by upgrading the `time` crate.
+[RUSTSEC-2020-0159](https://rustsec.org/advisories/RUSTSEC-2020-0159) is fixed
+by removing the dependency on the `chrono` crate.
+
 Dependency updates:
 
 * update autocfg to 1.1.0
 * update block-buffer to 0.10.2
+* remove chrono
 * update core-foundation to 0.9.3
 * update crypto-common to 0.1.2
 * update digest to 0.10.2
@@ -31,6 +40,7 @@ Dependency updates:
 * update serde to 1.0.136
 * update serde_json to 1.0.79
 * update socket2 to 0.4.4
+* update time to 0.3.2
 * update tokio to 1.16.1
 * update tracing to 0.1.30
 * update tracing-core to 0.1.22
