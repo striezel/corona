@@ -4,6 +4,15 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version NEXT (2022-02-??)
+
+Dependency updates:
+
+* update cc to 1.0.73
+* update crypto-common to 0.1.3
+* update digest to 0.10.3
+* update sha2 to 0.10.2
+
 ## Version 0.12.0 (2022-02-16)
 
 The Minimum Supported Rust Version (MSRV) is bumped to 1.48.0. Rust 1.48.0 has
