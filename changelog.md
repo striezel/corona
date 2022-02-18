@@ -12,6 +12,7 @@ Dependency updates:
 * update crypto-common to 0.1.3
 * update digest to 0.10.3
 * update sha2 to 0.10.2
+* update tracing to 0.1.31
 
 ## Version 0.12.0 (2022-02-16)
 
