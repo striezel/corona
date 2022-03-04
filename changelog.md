@@ -13,6 +13,8 @@ Dependency updates:
 * update digest to 0.10.3
 * update getrandom to 0.2.5
 * update libc to 0.2.119
+* update once_cell to 1.10.0
+* update redox_syscall to 0.2.11
 * update sha2 to 0.10.2
 * update tracing to 0.1.31
 
