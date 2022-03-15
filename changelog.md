@@ -18,10 +18,12 @@ Dependency updates:
 * update once_cell to 1.10.0
 * update redox_syscall to 0.2.11
 * update regex to 1.5.5
+* update reqwest to 0.11.10
 * update sha2 to 0.10.2
-* update syn to 1.0.87
+* update syn to 1.0.88
 * update tracing to 0.1.32
 * update tracing-core to 0.1.23
+* update winreg to 0.10.1
 
 ## Version 0.12.0 (2022-02-16)
 
