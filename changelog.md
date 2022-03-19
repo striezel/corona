@@ -9,18 +9,20 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update cc to 1.0.73
+* update cpufeatures to 0.2.2
 * update crypto-common to 0.1.3
 * update digest to 0.10.3
 * update getrandom to 0.2.5
 * update h2 to 0.3.12
 * update ipnet to 2.4.0
-* update libc to 0.2.120
+* update libc to 0.2.121
 * update once_cell to 1.10.0
+* update quote to 1.0.16
 * update redox_syscall to 0.2.11
 * update regex to 1.5.5
 * update reqwest to 0.11.10
 * update sha2 to 0.10.2
-* update syn to 1.0.88
+* update syn to 1.0.89
 * update tracing to 0.1.32
 * update tracing-core to 0.1.23
 * update winreg to 0.10.1
