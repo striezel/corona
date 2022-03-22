@@ -16,6 +16,7 @@ Dependency updates:
 * update h2 to 0.3.12
 * update ipnet to 2.4.0
 * update libc to 0.2.121
+* update log to 0.4.16
 * update once_cell to 1.10.0
 * update quote to 1.0.16
 * update redox_syscall to 0.2.11
