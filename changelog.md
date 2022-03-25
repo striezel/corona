@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version NEXT (2022-02-??)
+## Version NEXT (2022-03-??)
 
 Dependency updates:
 
@@ -14,12 +14,13 @@ Dependency updates:
 * update digest to 0.10.3
 * update getrandom to 0.2.5
 * update h2 to 0.3.12
+* update hyper to 0.14.18
 * update ipnet to 2.4.0
 * update libc to 0.2.121
 * update log to 0.4.16
 * update once_cell to 1.10.0
 * update quote to 1.0.16
-* update redox_syscall to 0.2.11
+* update redox_syscall to 0.2.12
 * update regex to 1.5.5
 * update reqwest to 0.11.10
 * update sha2 to 0.10.2
