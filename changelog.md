@@ -19,7 +19,7 @@ Dependency updates:
 * update libc to 0.2.121
 * update log to 0.4.16
 * update once_cell to 1.10.0
-* update quote to 1.0.16
+* update quote to 1.0.17
 * update redox_syscall to 0.2.12
 * update regex to 1.5.5
 * update reqwest to 0.11.10
