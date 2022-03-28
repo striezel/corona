@@ -12,12 +12,13 @@ Dependency updates:
 * update cpufeatures to 0.2.2
 * update crypto-common to 0.1.3
 * update digest to 0.10.3
-* update getrandom to 0.2.5
+* update getrandom to 0.2.6
 * update h2 to 0.3.12
 * update hyper to 0.14.18
 * update ipnet to 2.4.0
 * update libc to 0.2.121
 * update log to 0.4.16
+* update native-tls to 0.2.9
 * update once_cell to 1.10.0
 * update quote to 1.0.17
 * update redox_syscall to 0.2.12
