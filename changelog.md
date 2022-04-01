@@ -13,7 +13,7 @@ Dependency updates:
 * update crypto-common to 0.1.3
 * update digest to 0.10.3
 * update getrandom to 0.2.6
-* update h2 to 0.3.12
+* update h2 to 0.3.13
 * update hyper to 0.14.18
 * update indexmap to 1.8.1
 * update ipnet to 2.4.0
@@ -28,6 +28,7 @@ Dependency updates:
 * update reqwest to 0.11.10
 * update sha2 to 0.10.2
 * update syn to 1.0.90
+* update tokio-util to 0.7.1
 * update tracing to 0.1.32
 * update tracing-core to 0.1.23
 * update winreg to 0.10.1
