@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version NEXT (2022-03-??)
+## Version NEXT (2022-04-??)
 
 Dependency updates:
 
@@ -27,10 +27,11 @@ Dependency updates:
 * update regex to 1.5.5
 * update reqwest to 0.11.10
 * update sha2 to 0.10.2
+* update slab to 0.4.6
 * update syn to 1.0.90
 * update tokio-util to 0.7.1
 * update tracing to 0.1.32
-* update tracing-core to 0.1.23
+* update tracing-core to 0.1.24
 * update winreg to 0.10.1
 
 ## Version 0.12.0 (2022-02-16)
