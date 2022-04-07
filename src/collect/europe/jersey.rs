@@ -242,7 +242,7 @@ impl Jersey
   /**
    * Removes an odd data point, where number of deaths is off.
    */
-  fn remove_oddity(numbers: &mut Vec<Numbers>)
+  fn remove_oddity(numbers: &mut [Numbers])
   {
     let april_8 = match numbers.iter().position(|elem| elem.date == "2021-04-08")
     {
