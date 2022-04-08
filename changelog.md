@@ -18,6 +18,7 @@ Dependency updates:
 * update hyper to 0.14.18
 * update indexmap to 1.8.1
 * update ipnet to 2.4.0
+* update js-sys to 0.3.57
 * update libc to 0.2.122
 * update log to 0.4.16
 * update native-tls to 0.2.10
@@ -34,6 +35,10 @@ Dependency updates:
 * update tokio-util to 0.7.1
 * update tracing to 0.1.32
 * update tracing-core to 0.1.24
+* update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
+  wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.80
+* update wasm-bindgen-futures to 0.4.30
+* update web-sys to 0.3.57
 * update winreg to 0.10.1
 
 ## Version 0.12.0 (2022-02-16)
