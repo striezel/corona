@@ -15,6 +15,7 @@ Dependency updates:
 * update encoding_rs to 0.8.31
 * update getrandom to 0.2.6
 * update h2 to 0.3.13
+* update httparse to 1.7.0
 * update hyper to 0.14.18
 * update indexmap to 1.8.1
 * update ipnet to 2.4.0
@@ -25,7 +26,7 @@ Dependency updates:
 * update once_cell to 1.10.0
 * update pkg-config to 0.3.25
 * update proc-macro2 to 1.0.37
-* update quote to 1.0.17
+* update quote to 1.0.18
 * update redox_syscall to 0.2.13
 * update regex to 1.5.5
 * update reqwest to 0.11.10
@@ -33,7 +34,7 @@ Dependency updates:
 * update slab to 0.4.6
 * update syn to 1.0.91
 * update tokio-util to 0.7.1
-* update tracing to 0.1.32
+* update tracing to 0.1.33
 * update tracing-core to 0.1.24
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.80
