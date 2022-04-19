@@ -18,9 +18,9 @@ Dependency updates:
 * update httparse to 1.7.0
 * update hyper to 0.14.18
 * update indexmap to 1.8.1
-* update ipnet to 2.4.0
+* update ipnet to 2.5.0
 * update js-sys to 0.3.57
-* update libc to 0.2.123
+* update libc to 0.2.124
 * update log to 0.4.16
 * update native-tls to 0.2.10
 * update once_cell to 1.10.0
