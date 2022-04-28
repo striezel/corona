@@ -15,7 +15,7 @@ Dependency updates:
 * update encoding_rs to 0.8.31
 * update getrandom to 0.2.6
 * update h2 to 0.3.13
-* update httparse to 1.7.0
+* update httparse to 1.7.1
 * update hyper to 0.14.18
 * update indexmap to 1.8.1
 * update ipnet to 2.5.0
@@ -24,6 +24,7 @@ Dependency updates:
 * update log to 0.4.16
 * update native-tls to 0.2.10
 * update once_cell to 1.10.0
+* update pin-project-lite to 0.2.9
 * update pkg-config to 0.3.25
 * update proc-macro2 to 1.0.37
 * update quote to 1.0.18
@@ -36,6 +37,7 @@ Dependency updates:
 * update tokio-util to 0.7.1
 * update tracing to 0.1.34
 * update tracing-core to 0.1.26
+* update tinyvec to 1.6.0
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.80
 * update wasm-bindgen-futures to 0.4.30
