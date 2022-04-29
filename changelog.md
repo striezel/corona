@@ -20,7 +20,7 @@ Dependency updates:
 * update indexmap to 1.8.1
 * update ipnet to 2.5.0
 * update js-sys to 0.3.57
-* update libc to 0.2.124
+* update libc to 0.2.125
 * update log to 0.4.16
 * update native-tls to 0.2.10
 * update once_cell to 1.10.0
@@ -33,11 +33,12 @@ Dependency updates:
 * update reqwest to 0.11.10
 * update sha2 to 0.10.2
 * update slab to 0.4.6
-* update syn to 1.0.91
+* update syn to 1.0.92
 * update tokio-util to 0.7.1
 * update tracing to 0.1.34
 * update tracing-core to 0.1.26
 * update tinyvec to 1.6.0
+* update unicode-bidi to 0.3.8
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.80
 * update wasm-bindgen-futures to 0.4.30
