@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version NEXT (2022-04-??)
+## Version NEXT (2022-05-??)
 
 Dependency updates:
 
@@ -22,6 +22,7 @@ Dependency updates:
 * update js-sys to 0.3.57
 * update libc to 0.2.125
 * update log to 0.4.16
+* update memchr to 2.5.0
 * update native-tls to 0.2.10
 * update once_cell to 1.10.0
 * update pin-project-lite to 0.2.9
@@ -31,11 +32,13 @@ Dependency updates:
 * update redox_syscall to 0.2.13
 * update regex to 1.5.5
 * update reqwest to 0.11.10
+* update serde_json to 1.0.80
 * update sha2 to 0.10.2
 * update slab to 0.4.6
 * update syn to 1.0.92
 * update tokio-util to 0.7.1
 * update tracing to 0.1.34
+* update tracing-attributes to 0.1.21
 * update tracing-core to 0.1.26
 * update tinyvec to 1.6.0
 * update unicode-bidi to 0.3.8
