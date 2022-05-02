@@ -32,6 +32,7 @@ Dependency updates:
 * update redox_syscall to 0.2.13
 * update regex to 1.5.5
 * update reqwest to 0.11.10
+* update serde to 1.0.137
 * update serde_json to 1.0.80
 * update sha2 to 0.10.2
 * update slab to 0.4.6
@@ -42,6 +43,7 @@ Dependency updates:
 * update tracing-core to 0.1.26
 * update tinyvec to 1.6.0
 * update unicode-bidi to 0.3.8
+* update unicode-xid to 0.2.3
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.80
 * update wasm-bindgen-futures to 0.4.30
