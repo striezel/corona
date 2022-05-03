@@ -25,6 +25,8 @@ Dependency updates:
 * update memchr to 2.5.0
 * update native-tls to 0.2.10
 * update once_cell to 1.10.0
+* update openssl to 0.10.39
+* update openssl-sys to 0.9.73
 * update pin-project-lite to 0.2.9
 * update pkg-config to 0.3.25
 * update proc-macro2 to 1.0.37
