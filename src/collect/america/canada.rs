@@ -58,9 +58,16 @@ impl Canada
     use reqwest::StatusCode;
     use std::io::Read;
 
-    let mut res = match reqwest::blocking::get(
+    let client = reqwest::blocking::Client::builder()
+        .danger_accept_invalid_certs(true).build();
+    let client = match client
+    {
+      Ok(c) => c,
+      Err(e) => return Err(format!("Client initialization failed: {}", e))
+    };
+    let mut res = match client.get(
       "https://health-infobase.canada.ca/src/data/covidLive/covid19.csv"
-    )
+    ).send()
     {
       Ok(responded) => responded,
       Err(e) => return Err(format!("HTTP request failed: {}", e))

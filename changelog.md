@@ -6,6 +6,11 @@ improvements may be omitted.)_
 
 ## Version NEXT (2022-05-??)
 
+The certificate validation for requesting data from health-infobase.canada.ca
+for Canada has been disabled, because the current certificate chain is
+incomplete. However, this is the official source for Canadian COVID numbers, so
+there is no better workaround at the moment, if we want to get data from there.
+
 Dependency updates:
 
 * update cc to 1.0.73
