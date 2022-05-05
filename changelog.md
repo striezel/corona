@@ -26,11 +26,11 @@ Dependency updates:
 * update ipnet to 2.5.0
 * update js-sys to 0.3.57
 * update libc to 0.2.125
-* update log to 0.4.16
+* update log to 0.4.17
 * update memchr to 2.5.0
 * update native-tls to 0.2.10
 * update once_cell to 1.10.0
-* update openssl to 0.10.39
+* update openssl to 0.10.40
 * update openssl-sys to 0.9.73
 * update pin-project-lite to 0.2.9
 * update pkg-config to 0.3.25
@@ -40,7 +40,7 @@ Dependency updates:
 * update regex to 1.5.5
 * update reqwest to 0.11.10
 * update serde to 1.0.137
-* update serde_json to 1.0.80
+* update serde_json to 1.0.81
 * update sha2 to 0.10.2
 * update slab to 0.4.6
 * update syn to 1.0.92
