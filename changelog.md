@@ -20,7 +20,6 @@ Dependency updates:
 * update encoding_rs to 0.8.31
 * update getrandom to 0.2.6
 * update h2 to 0.3.13
-* update http to 0.2.7
 * update httparse to 1.7.1
 * update hyper to 0.14.18
 * update indexmap to 1.8.1

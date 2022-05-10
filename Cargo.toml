@@ -27,6 +27,8 @@ reqwest = { version = "0.11", features = ["blocking"] }
 rusqlite = "0.25.4"
 serde_json = "1.0"
 sha2 = "0.10"
+# Pin http to 0.2.6, because 0.2.7 needs rustc 1.49, but our MSRV is 1.48.0.
+http = "=0.2.6"
 # Pin time to 0.3.2, because 0.3.3 needs rustc 1.51, but our MSRV is 1.48.0.
 time = { version = "=0.3.2", features = ["formatting", "parsing"] }
 # Pin tokio to 1.16.1, because 1.17.0 needs rustc 1.49, but our MSRV is 1.48.0.
