@@ -43,7 +43,7 @@ Dependency updates:
 * update serde_json to 1.0.81
 * update sha2 to 0.10.2
 * update slab to 0.4.6
-* update syn to 1.0.93
+* update syn to 1.0.94
 * update tokio-util to 0.7.1
 * update tracing to 0.1.34
 * update tracing-attributes to 0.1.21
