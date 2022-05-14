@@ -22,4 +22,4 @@ jobs:
         cargo --version
     - name: Lint with clippy
       run: |
-        cargo clippy -- -D warnings -A clippy::suspicious_else_formatting
+        cargo clippy -- -D warnings

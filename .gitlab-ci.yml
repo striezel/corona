@@ -63,4 +63,4 @@ clippy:
   script:
     - rustc --version
     - cargo --version
-    - cargo clippy -- -D warnings -A clippy::suspicious_else_formatting
+    - cargo clippy -- -D warnings
