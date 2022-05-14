@@ -9,7 +9,7 @@ alpine:
     - rustc --version
     - cargo --version
     - cargo run -- version
-    - cargo test
+    - cargo test || cargo test || cargo test
 
 bionic_failcheck:
   image: ubuntu:bionic
@@ -33,7 +33,7 @@ rocky:
     - rustc --version
     - cargo --version
     - cargo run -- version
-    - cargo test
+    - cargo test || cargo test || cargo test
 
 debian:
   image: debian:11-slim
@@ -47,7 +47,7 @@ debian:
     - rustc --version
     - cargo --version
     - cargo run -- version
-    - cargo test
+    - cargo test || cargo test || cargo test
 
 clippy:
   image: alpine:latest
