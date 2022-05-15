@@ -24,6 +24,7 @@ Dependency updates:
 * update hyper to 0.14.18
 * update indexmap to 1.8.1
 * update ipnet to 2.5.0
+* update itoa to 1.0.2
 * update js-sys to 0.3.57
 * update libc to 0.2.125
 * update log to 0.4.17
@@ -39,12 +40,13 @@ Dependency updates:
 * update redox_syscall to 0.2.13
 * update regex to 1.5.5
 * update reqwest to 0.11.10
+* update ryu to 1.0.10
 * update serde to 1.0.137
 * update serde_json to 1.0.81
 * update sha2 to 0.10.2
 * update slab to 0.4.6
 * update syn to 1.0.94
-* update tokio-util to 0.7.1
+* update tokio-util to 0.7.2
 * update tracing to 0.1.34
 * update tracing-attributes to 0.1.21
 * update tracing-core to 0.1.26
