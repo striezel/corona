@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version NEXT (2022-05-??)
+## Version 0.12.1 (2022-05-17)
 
 The certificate validation for requesting data from health-infobase.canada.ca
 for Canada has been disabled, because the current certificate chain is
