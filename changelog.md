@@ -11,6 +11,12 @@ for Canada has been disabled, because the current certificate chain is
 incomplete. However, this is the official source for Canadian COVID numbers, so
 there is no better workaround at the moment, if we want to get data from there.
 
+Furthermore, the plotly.js library is updated from version 1.58.5 to version
+2.12.1. This is a breaking change, because it removes support for Internet
+Explorer 9 and 10. Those browsers have reached end of life (IE 9 on 14th January
+2020 and IE 10 on 31st January 2020) and nobody should be using those anymore.
+Therefore it's reasonably safe to drop support for them and update plotly.js.
+
 Dependency updates:
 
 * update cc to 1.0.73
