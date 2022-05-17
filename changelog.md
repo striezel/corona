@@ -26,7 +26,7 @@ Dependency updates:
 * update ipnet to 2.5.0
 * update itoa to 1.0.2
 * update js-sys to 0.3.57
-* update libc to 0.2.125
+* update libc to 0.2.126
 * update log to 0.4.17
 * update memchr to 2.5.0
 * update native-tls to 0.2.10
@@ -35,7 +35,7 @@ Dependency updates:
 * update openssl-sys to 0.9.73
 * update pin-project-lite to 0.2.9
 * update pkg-config to 0.3.25
-* update proc-macro2 to 1.0.38
+* update proc-macro2 to 1.0.39
 * update quote to 1.0.18
 * update redox_syscall to 0.2.13
 * update regex to 1.5.5
@@ -45,7 +45,7 @@ Dependency updates:
 * update serde_json to 1.0.81
 * update sha2 to 0.10.2
 * update slab to 0.4.6
-* update syn to 1.0.94
+* update syn to 1.0.95
 * update tokio-util to 0.7.2
 * update tracing to 0.1.34
 * update tracing-attributes to 0.1.21
