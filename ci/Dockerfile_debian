@@ -1,0 +1,15 @@
+FROM debian:11-slim
+ENV DEBIAN_FRONTEND=noninteractive
+# Always update packages first.
+RUN apt-get update && apt-get upgrade -y && \
+    # Install build dependencies.
+    apt-get install -y bash cargo rustc libsqlite3-dev libssl-dev pkg-config && \
+    # Install git to get repository, fetch known cargo crates and update the
+    # crates.io index.
+    apt-get install -y --no-install-recommends --no-install-suggests git && \
+    cd /opt && git clone https://gitlab.com/striezel/corona.git && \
+    cd ./corona && cargo fetch && \
+    # Remove repository ...
+    cd / && rm -rf /opt/corona && \
+    # ... and git. Then clean APT cache.
+    apt-get purge -y git git-man && apt-get clean

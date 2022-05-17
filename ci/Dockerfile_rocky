@@ -1,0 +1,14 @@
+FROM rockylinux:8
+# Always update packages first.
+RUN yum update -y && \
+    # Install build dependencies.
+    yum install -y bash cargo rust sqlite-devel openssl-devel && \
+    # Install git to get repository, fetch known cargo crates and update the
+    # crates.io index.
+    yum install -y git && \
+    cd /opt && git clone https://gitlab.com/striezel/corona.git && \
+    cd ./corona && cargo fetch && \
+    # Remove repository ...
+    cd / && rm -rf /opt/corona && \
+    # ... and git. Then clean package cache.
+    yum remove -y git && yum clean all
