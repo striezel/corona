@@ -4,6 +4,13 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version 0.?.? (2022-05-??)
+
+Dependency updates:
+
+* update once_cell to 1.11.0
+* update schannel to 0.1.20
+
 ## Version 0.12.1 (2022-05-17)
 
 The certificate validation for requesting data from health-infobase.canada.ca
