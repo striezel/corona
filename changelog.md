@@ -8,7 +8,10 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update http-body to 0.4.5
 * update once_cell to 1.11.0
+* update regex to 1.5.6
+* update regex-syntax to 0.6.26
 * update schannel to 0.1.20
 
 ## Version 0.12.1 (2022-05-17)
