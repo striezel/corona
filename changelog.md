@@ -4,12 +4,14 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version 0.?.? (2022-05-??)
+## Version 0.?.? (2022-06-??)
 
 Dependency updates:
 
+* update bumpalo to 3.10.0
 * update http-body to 0.4.5
 * update hyper to 0.14.19
+* update indexmap to 1.8.2
 * update once_cell to 1.12.0
 * update regex to 1.5.6
 * update regex-syntax to 0.6.26
