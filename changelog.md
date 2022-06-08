@@ -13,9 +13,11 @@ Dependency updates:
 * update hyper to 0.14.19
 * update indexmap to 1.8.2
 * update once_cell to 1.12.0
+* update openssl-sys to 0.9.74
 * update regex to 1.5.6
 * update regex-syntax to 0.6.26
 * update schannel to 0.1.20
+* update syn to 1.0.96
 
 ## Version 0.12.1 (2022-05-17)
 
