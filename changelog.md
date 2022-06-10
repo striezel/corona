@@ -18,6 +18,8 @@ Dependency updates:
 * update regex-syntax to 0.6.26
 * update schannel to 0.1.20
 * update syn to 1.0.96
+* update tracing to 0.1.35
+* update tracing-core to 0.1.27
 
 ## Version 0.12.1 (2022-05-17)
 
