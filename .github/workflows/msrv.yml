@@ -1,25 +1,30 @@
-name: Clippy lints
+# This workflow checks that the application builds properly when using an older
+# version of the Rust compiler.
+name: Minimum Supported Rust Version
 
 on: [ push, pull_request ]
 
 jobs:
-  clippy:
+  msrv:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Install packages
       run: sudo apt-get install -y curl gcc g++ libsqlite3-dev wget libssl-dev pkg-config
-    - name: Rustup
+    - name: Rustup MSRV
       run: |
         wget -O /tmp/ru.sh https://sh.rustup.rs
         chmod u+x /tmp/ru.sh
-        /tmp/ru.sh -y --profile minimal --component clippy
+        /tmp/ru.sh -y --profile minimal --default-toolchain 1.48
         source $HOME/.cargo/env
         export PATH="$HOME/.cargo/bin:$PATH"
     - name: List installed Rust and Cargo version
       run: |
         rustc --version
         cargo --version
-    - name: Lint with clippy
+    - name: Show application version
       run: |
-        cargo clippy -- -D warnings
+        cargo run -- version
+    - name: Run tests
+      run: |
+        cargo test || cargo test || cargo test

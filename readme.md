@@ -27,7 +27,7 @@ For more information see the [readme file in the data/ directory](./data/readme.
 ![It works. Why?](https://forthebadge.com/images/badges/it-works-why.svg)
 
 * GitHub:
-[![GitHub CI Rust tests](https://github.com/striezel/corona/workflows/Rust%20application%20tests/badge.svg)](https://github.com/striezel/corona/actions)
+[![GitHub CI tests](https://github.com/striezel/corona/workflows/Ubuntu%20LTS/badge.svg)](https://github.com/striezel/corona/actions)
 [![GitHub CI Rust linting](https://github.com/striezel/corona/workflows/Clippy%20lints/badge.svg)](https://github.com/striezel/corona/actions)
 [![GitHub CI Rust MSRV](https://github.com/striezel/corona/workflows/Minimum%20Supported%20Rust%20Version/badge.svg)](https://github.com/striezel/corona/actions)
 * GitLab:
@@ -36,9 +36,9 @@ For more information see the [readme file in the data/ directory](./data/readme.
   * MSVC toolchain:
     [![Build status](https://ci.appveyor.com/api/projects/status/9t7rta43ovt8slce/branch/master?svg=true)](https://ci.appveyor.com/project/striezel/corona/branch/master)
   * GNU toolchain:
-    [![GitHub CI Rust on Windows with GNU toolchain](https://github.com/striezel/corona/workflows/Rust%20on%20Windows%20with%20GNU%20toolchain/badge.svg)](https://github.com/striezel/corona/actions)
+    [![GitHub CI Windows with GNU toolchain](https://github.com/striezel/corona/workflows/Windows%20with%20GNU%20toolchain/badge.svg)](https://github.com/striezel/corona/actions)
 * MacOS:
-[![GitHub CI Rust on MacOS](https://github.com/striezel/corona/workflows/Rust%20on%20MacOS/badge.svg)](https://github.com/striezel/corona/actions)
+[![GitHub CI on MacOS](https://github.com/striezel/corona/workflows/MacOS/badge.svg)](https://github.com/striezel/corona/actions)
 
 ## Building the application from source
 

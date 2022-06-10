@@ -1,4 +1,4 @@
-name: Rust application tests
+name: Ubuntu LTS
 
 on: [ push, pull_request ]
 
@@ -6,7 +6,7 @@ jobs:
   rust_tests:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Install packages
       run: |
         sudo apt-get update
