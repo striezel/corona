@@ -14,11 +14,13 @@ Dependency updates:
 * update indexmap to 1.8.2
 * update once_cell to 1.12.0
 * update openssl-sys to 0.9.74
+* update quote to 1.0.18
 * update regex to 1.5.6
 * update regex-syntax to 0.6.26
 * update reqwest to 0.11.11
 * update schannel to 0.1.20
-* update syn to 1.0.96
+* update syn to 1.0.98
+* update tower-service to 0.3.2
 * update tracing to 0.1.35
 * update tracing-core to 0.1.27
 * update unicode-ident to 1.0.1
