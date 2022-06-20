@@ -9,9 +9,11 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update bumpalo to 3.10.0
+* update getrandom to 0.2.7
 * update http-body to 0.4.5
 * update hyper to 0.14.19
 * update indexmap to 1.8.2
+* update js-sys to 0.3.58
 * update once_cell to 1.12.0
 * update openssl-sys to 0.9.74
 * update quote to 1.0.18
@@ -24,6 +26,10 @@ Dependency updates:
 * update tracing to 0.1.35
 * update tracing-core to 0.1.27
 * update unicode-ident to 1.0.1
+* update wasi to 0.11.0+wasi-snapshot-preview1
+* update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
+  wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.81
+* update web-sys to 0.3.58
 
 ## Version 0.12.1 (2022-05-17)
 
