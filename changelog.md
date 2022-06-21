@@ -16,6 +16,7 @@ Dependency updates:
 * update js-sys to 0.3.58
 * update once_cell to 1.12.0
 * update openssl-sys to 0.9.74
+* update proc-macro2 to 1.0.40
 * update quote to 1.0.18
 * update regex to 1.5.6
 * update regex-syntax to 0.6.26
@@ -29,6 +30,7 @@ Dependency updates:
 * update wasi to 0.11.0+wasi-snapshot-preview1
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.81
+* update wasm-bindgen-futures to 0.4.31
 * update web-sys to 0.3.58
 
 ## Version 0.12.1 (2022-05-17)
