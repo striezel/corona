@@ -6,6 +6,11 @@ improvements may be omitted.)_
 
 ## Version 0.?.? (2022-06-??)
 
+Ignore JSON elements with empty dates returned by Jersey's API.
+(It seems the last element contains completely empty data at the moment, i. e.
+not only the date but also case numbers etc. are just empty strings. This is
+obviously an error, so it is just ignored.)
+
 Dependency updates:
 
 * update bumpalo to 3.10.0

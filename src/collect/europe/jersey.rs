@@ -124,6 +124,10 @@ impl Jersey
         },
         None => return Err("Element 'Date' does not exist!".to_string())
       };
+      if date.is_empty()
+      {
+        continue;
+      }
       if !date_exp.is_match(&date)
       {
         return Err(format!(
