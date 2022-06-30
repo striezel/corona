@@ -43,7 +43,7 @@ build_image_rocky:
 
 rocky:
   image: registry.gitlab.com/striezel/corona/ci-rocky:8
-  stage: build
+  stage: test
   retry: 2
   before_script:
     - yum update -y
@@ -73,7 +73,7 @@ build_image_debian:
 
 debian:
   image: registry.gitlab.com/striezel/corona/ci-debian:11
-  stage: build
+  stage: test
   retry: 2
   before_script:
     - apt-get update
@@ -87,7 +87,7 @@ debian:
 
 clippy:
   image: alpine:latest
-  stage: build
+  stage: test
   before_script:
     - apk update
     - apk add bash curl wget sqlite-dev gcc g++ openssl-dev
