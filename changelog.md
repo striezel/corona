@@ -27,7 +27,8 @@ Dependency updates:
 * update regex-syntax to 0.6.26
 * update reqwest to 0.11.11
 * update schannel to 0.1.20
-* update smallvec to 1.8.1
+* update serde_json to 1.0.82
+* update smallvec to 1.9.0
 * update syn to 1.0.98
 * update tower-service to 0.3.2
 * update tracing to 0.1.35
