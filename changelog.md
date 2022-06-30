@@ -11,6 +11,9 @@ Ignore JSON elements with empty dates returned by Jersey's API.
 not only the date but also case numbers etc. are just empty strings. This is
 obviously an error, so it is just ignored.)
 
+The regular expression for retrieval of JSON data for Turkey is adjusted to
+match the new, current website.
+
 Dependency updates:
 
 * update bumpalo to 3.10.0

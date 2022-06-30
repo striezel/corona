@@ -78,7 +78,7 @@ impl Turkey
                         Body:\n{}", res.status(), res.headers(), body));
     }
     // JSON is within a <script> block using assignment statement.
-    let pattern = "var geneldurumjson = (.*);//\\]\\]>";
+    let pattern = "var geneldurumjson = (.*);";
     // Use regular expression builder with pattern above.
     let re = regex::RegexBuilder::new(pattern)
       // Build it and unwrap it, because it does not error out with proper pattern.
