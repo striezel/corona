@@ -1,0 +1,14 @@
+FROM alpine:latest
+# Always update packages first.
+RUN apk update && \
+    # Install build dependencies.
+    apk add bash cargo rust sqlite-dev openssl-dev && \
+    # Install git to get repository, fetch known cargo crates and update the
+    # crates.io index.
+    apk add git && \
+    cd /opt && git clone https://gitlab.com/striezel/corona.git && \
+    cd ./corona && cargo fetch && \
+    # Remove repository ...
+    cd / && rm -rf /opt/corona && \
+    # ... and git.
+    apk del git

@@ -1,10 +1,25 @@
+build_image_alpine:
+  image: docker:20
+  stage: build
+  services:
+    - docker:20-dind
+  script:
+    - cd ci/
+    - docker build -t $CI_REGISTRY/striezel/corona/ci-alpine:latest . -f Dockerfile_alpine
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker push $CI_REGISTRY/striezel/corona/ci-alpine:latest
+    - docker logout $CI_REGISTRY
+  # Only build new image when the Dockerfile or the GitLab CI configuration
+  # changes.
+  only:
+    changes:
+      - ci/Dockerfile_alpine
+      - .gitlab-ci.yml
+
 alpine:
-  image: alpine:latest
+  image: registry.gitlab.com/striezel/corona/ci-alpine:latest
   stage: test
   retry: 2
-  before_script:
-    - apk update
-    - apk add bash cargo rust sqlite-dev openssl-dev
   script:
     - rustc --version
     - cargo --version
