@@ -1,6 +1,6 @@
 alpine:
   image: alpine:latest
-  stage: build
+  stage: test
   retry: 2
   before_script:
     - apk update
@@ -11,13 +11,31 @@ alpine:
     - cargo run -- version
     - cargo test || cargo test || cargo test
 
-bionic_failcheck:
-  image: ubuntu:bionic
+build_image_bionic:
+  image: docker:20
   stage: build
+  services:
+    - docker:20-dind
+  script:
+    - cd ci/
+    - docker build -t $CI_REGISTRY/striezel/corona/ci-bionic:latest . -f Dockerfile_bionic
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker push $CI_REGISTRY/striezel/corona/ci-bionic:latest
+    - docker logout $CI_REGISTRY
+  # Only build new image when the Dockerfile or the GitLab CI configuration
+  # changes.
+  only:
+    changes:
+      - ci/Dockerfile_bionic
+      - .gitlab-ci.yml
+
+bionic_failcheck:
+  image: registry.gitlab.com/striezel/corona/ci-bionic:latest
+  stage: test
   before_script:
     - apt-get update
     - export DEBIAN_FRONTEND=noninteractive
-    - apt-get install -y bash cargo rustc libsqlite3-dev libssl-dev pkg-config
+    - apt-get upgrade -y
   script:
     - rustc --version
     - cargo --version
