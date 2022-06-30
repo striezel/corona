@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version 0.?.? (2022-06-??)
+## Version 0.12.2 (2022-06-30)
 
 Ignore JSON elements with empty dates returned by Jersey's API.
 (It seems the last element contains completely empty data at the moment, i. e.
