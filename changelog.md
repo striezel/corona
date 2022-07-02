@@ -4,6 +4,14 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version 0.?.? (2022-07-??)
+
+Dependency updates:
+
+* update serde to 1.0.138
+* update tracing-attributes to 0.1.22
+* update unicode-normalization to 0.1.21
+
 ## Version 0.12.2 (2022-06-30)
 
 Ignore JSON elements with empty dates returned by Jersey's API.
