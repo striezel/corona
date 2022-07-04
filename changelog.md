@@ -8,7 +8,6 @@ improvements may be omitted.)_
 
 Dependency updates:
 
-* update crypto-common to 0.1.4
 * update once_cell to 1.12.1
 * update serde to 1.0.138
 * update tracing-attributes to 0.1.22
