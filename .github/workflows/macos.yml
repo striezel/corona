@@ -6,8 +6,8 @@ jobs:
     runs-on: ${{ matrix.os }}-latest
     strategy:
       matrix:
-        # Could also build on nightly, but is it worth it?
-        channel: [stable, beta]
+        # Could also build on beta and nightly, but is it worth it?
+        channel: [stable]
         os: [macos]
     steps:
     - uses: actions/checkout@v3
