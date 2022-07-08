@@ -6,9 +6,9 @@ cache:
 
 environment:
   matrix:
-# Build channels stable, beta and nightly for 64 bit on MSVC toolchain.
-    - channel: nightly
-      target: x86_64-pc-windows-msvc
+# Build channels stable and  beta for 64 bit on MSVC toolchain.
+#    - channel: nightly
+#      target: x86_64-pc-windows-msvc
     - channel: beta
       target: x86_64-pc-windows-msvc
     - channel: stable
