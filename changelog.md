@@ -10,6 +10,8 @@ Dependency updates:
 
 * update hyper to 0.14.20
 * update once_cell to 1.13.0
+* update openssl to 0.10.41
+* update openssl-sys to 0.9.75
 * update regex to 1.6.0
 * update regex-syntax to 0.6.27
 * update serde to 1.0.138
