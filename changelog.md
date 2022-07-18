@@ -8,7 +8,7 @@ improvements may be omitted.)_
 
 Dependency updates:
 
-* update crypto-common to 0.1.5
+* update crypto-common to 0.1.6
 * update hyper to 0.14.20
 * update once_cell to 1.13.0
 * update openssl to 0.10.41
@@ -17,6 +17,7 @@ Dependency updates:
 * update regex-syntax to 0.6.27
 * update serde to 1.0.139
 * update tracing-attributes to 0.1.22
+* update unicode-ident to 1.0.2
 * update unicode-normalization to 0.1.21
 
 ## Version 0.12.2 (2022-06-30)
