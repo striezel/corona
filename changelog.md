@@ -8,6 +8,7 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update bytes to 1.2.0
 * update crypto-common to 0.1.6
 * update hyper to 0.14.20
 * update once_cell to 1.13.0
@@ -16,6 +17,7 @@ Dependency updates:
 * update regex to 1.6.0
 * update regex-syntax to 0.6.27
 * update serde to 1.0.139
+* update slab to 0.4.7
 * update tracing-attributes to 0.1.22
 * update unicode-ident to 1.0.2
 * update unicode-normalization to 0.1.21
