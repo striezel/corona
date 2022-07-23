@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version 0.?.? (2022-07-??)
+## Version 0.12.3 (2022-07-24)
 
 The data collection for Canada is switched to the disease.sh API. The previous
 data source, a CSV file of the Public Health Agency of Canada, has changed its
