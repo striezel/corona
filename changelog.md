@@ -6,6 +6,11 @@ improvements may be omitted.)_
 
 ## Version 0.?.? (2022-07-??)
 
+The data collection for Canada is switched to the disease.sh API. The previous
+data source, a CSV file of the Public Health Agency of Canada, has changed its
+update interval from daily to weekly updates, and therefore it cannot be used
+to get up to date data for the current day anymore.
+
 Dependency updates:
 
 * update bytes to 1.2.0

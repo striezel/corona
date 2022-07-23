@@ -26,7 +26,8 @@ a command-line utility to get numbers on the Coronavirus.
 Data source is mainly the Johns Hopkins University, with a few notable
 exceptions:
 
-* **Canada**: The government of Canada provides case numbers at
+* **Canada**: _(only before 2022-07-23)_
+  The government of Canada provides case numbers at
   <https://health-infobase.canada.ca/>, e. g. as CSV data
   (<https://health-infobase.canada.ca/src/data/covidLive/covid19.csv>), and the
   program uses it to generate.
