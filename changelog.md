@@ -10,13 +10,15 @@ Dependency updates:
 
 * update bytes to 1.2.0
 * update crypto-common to 0.1.6
+* update fastrand to 1.7.0
 * update hyper to 0.14.20
 * update once_cell to 1.13.0
 * update openssl to 0.10.41
 * update openssl-sys to 0.9.75
+* update redox_syscall to 0.2.15
 * update regex to 1.6.0
 * update regex-syntax to 0.6.27
-* update serde to 1.0.139
+* update serde to 1.0.140
 * update slab to 0.4.7
 * update tracing-attributes to 0.1.22
 * update unicode-ident to 1.0.2
