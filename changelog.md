@@ -9,9 +9,11 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update js-sys to 0.3.59
-* update proc-macro2 to 1.0.41
+* update proc-macro2 to 1.0.42
+* update redox_syscall to 0.2.16
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.82
+* update wasm-bindgen-futures to 0.4.32
 * update web-sys to 0.3.59
 
 ## Version 0.12.3 (2022-07-24)
