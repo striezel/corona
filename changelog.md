@@ -8,9 +8,12 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update bytes to 1.2.1
 * update js-sys to 0.3.59
 * update proc-macro2 to 1.0.42
 * update redox_syscall to 0.2.16
+* update tracing to 0.1.36
+* update tracing-core to 0.1.29
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.82
 * update wasm-bindgen-futures to 0.4.32
