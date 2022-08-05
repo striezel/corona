@@ -10,11 +10,15 @@ Dependency updates:
 
 * update bytes to 1.2.1
 * update generic-array to 0.14.6
+* update itoa to 1.0.3
 * update js-sys to 0.3.59
+* update libc to 0.2.127
 * update proc-macro2 to 1.0.42
 * update redox_syscall to 0.2.16
 * update ryu to 1.0.11
-* update serde to 1.0.141
+* update serde to 1.0.142
+* update serde_json to 1.0.83
+* update syn to 1.0.99
 * update tracing to 0.1.36
 * update tracing-core to 0.1.29
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
