@@ -13,7 +13,8 @@ Dependency updates:
 * update itoa to 1.0.3
 * update js-sys to 0.3.59
 * update libc to 0.2.127
-* update proc-macro2 to 1.0.42
+* update proc-macro2 to 1.0.43
+* update quote to 1.0.21
 * update redox_syscall to 0.2.16
 * update ryu to 1.0.11
 * update serde to 1.0.142
@@ -21,6 +22,7 @@ Dependency updates:
 * update syn to 1.0.99
 * update tracing to 0.1.36
 * update tracing-core to 0.1.29
+* update unicode-ident to 1.0.3
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.82
 * update wasm-bindgen-futures to 0.4.32
