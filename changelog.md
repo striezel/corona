@@ -17,7 +17,7 @@ Dependency updates:
 * update quote to 1.0.21
 * update redox_syscall to 0.2.16
 * update ryu to 1.0.11
-* update serde to 1.0.143
+* update serde to 1.0.142
 * update serde_json to 1.0.83
 * update syn to 1.0.99
 * update tracing to 0.1.36
