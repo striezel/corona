@@ -9,6 +9,8 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update bytes to 1.2.1
+* update futures-channel, futures-core, futures-io, futures-sink, futures-task,
+  and futures-util to 0.3.23
 * update generic-array to 0.14.6
 * update itoa to 1.0.3
 * update js-sys to 0.3.59
