@@ -1,4 +1,5 @@
 <!--section-start::header-->  <head>
+    <meta charset="utf-8">
     <title>{{title}}</title>
     {{>scripts}}
   </head><!--section-end::header-->

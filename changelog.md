@@ -6,6 +6,10 @@ improvements may be omitted.)_
 
 ## Version 0.?.? (2022-07-??)
 
+The generated HTML files do now contain a '<meta>` element to indicate that the
+used character encoding is UTF-8. This avoids problems with non-ASCII characters
+in some browsers.
+
 Dependency updates:
 
 * update bytes to 1.2.1
