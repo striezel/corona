@@ -12,6 +12,9 @@ in some browsers.
 
 Dependency updates:
 
+* update bumpalo to 3.11.0 (breaks MSRV in theory, but in practice this only
+  affects WebAssembly builds, and we do not build for WebAssembly targets at the
+  moment, because it's not supported for this project yet)
 * update bytes to 1.2.1
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   and futures-util to 0.3.23
