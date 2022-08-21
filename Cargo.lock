@@ -109,6 +109,7 @@ dependencies = [
  "csv",
  "h2",
  "http",
+ "indexmap",
  "regex",
  "reqwest",
  "rusqlite",
