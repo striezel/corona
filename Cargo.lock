@@ -107,6 +107,7 @@ version = "0.12.3"
 dependencies = [
  "bumpalo",
  "csv",
+ "h2",
  "http",
  "regex",
  "reqwest",
