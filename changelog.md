@@ -16,6 +16,7 @@ Dependency updates:
   affects WebAssembly builds, and we do not build for WebAssembly targets at the
   moment, because it's not supported for this project yet)
 * update bytes to 1.2.1
+* update cpufeatures to 0.2.4
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   and futures-util to 0.3.23
 * update generic-array to 0.14.6
@@ -28,7 +29,7 @@ Dependency updates:
 * update redox_syscall to 0.2.16
 * update ryu to 1.0.11
 * update serde to 1.0.144
-* update serde_json to 1.0.83
+* update serde_json to 1.0.85
 * update syn to 1.0.99
 * update tracing to 0.1.36
 * update tracing-core to 0.1.29
