@@ -10,6 +10,11 @@ The generated HTML files do now contain a '<meta>` element to indicate that the
 used character encoding is UTF-8. This avoids problems with non-ASCII characters
 in some browsers.
 
+The data collection for Turkey is switched to the disease.sh API. The previous
+data source, JSON data of the Turkish Health Ministry, has changed its update
+interval from daily to weekly updates, and therefore it cannot be used to get up
+to date data for the current day anymore.
+
 Dependency updates:
 
 * update bumpalo to 3.11.0 (breaks MSRV in theory, but in practice this only
