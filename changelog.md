@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version 0.?.? (2022-08-??)
+## Version 0.12.6 (2022-08-28)
 
 Downgrade `security-framework` dependency to version 2.6.1 stay true to the
 current MSRV 1.48.
