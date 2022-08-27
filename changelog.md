@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version 0.?.? (2022-07-??)
+## Version 0.12.4 (2022-08-28)
 
 The generated HTML files do now contain a '<meta>` element to indicate that the
 used character encoding is UTF-8. This avoids problems with non-ASCII characters
