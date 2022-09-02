@@ -11,6 +11,7 @@ Dependency updates:
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   futures-util to 0.3.24
 * update httparse to 1.8.0
+* update sha2 to 0.10.5
 * update socket2 to 0.4.7
 
 ## Version 0.12.6 (2022-08-28)
