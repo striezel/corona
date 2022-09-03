@@ -27,4 +27,4 @@ jobs:
     - name: Build application
       run: cargo build --verbose --target ${{ matrix.arch }}-pc-windows-${{ matrix.variant }}
     - name: Run tests
-      run: cargo test --verbose --target ${{ matrix.arch }}-pc-windows-${{ matrix.variant }}
+      run: cargo test --verbose --target ${{ matrix.arch }}-pc-windows-${{ matrix.variant }} || cargo test --verbose --target ${{ matrix.arch }}-pc-windows-${{ matrix.variant }} || cargo test --verbose --target ${{ matrix.arch }}-pc-windows-${{ matrix.variant }}
