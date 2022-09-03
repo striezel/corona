@@ -45,4 +45,4 @@ install:
 build: false
 test_script:
   - git apply --ignore-whitespace ci\windows.patch
-  - cargo test --verbose
+  - cargo test --verbose || cargo test --verbose || cargo test --verbose
