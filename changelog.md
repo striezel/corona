@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version 0.?.? (2022-08-??)
+## Version 0.?.? (2022-09-??)
 
 Dependency updates:
 
@@ -15,6 +15,7 @@ Dependency updates:
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   futures-util to 0.3.24
 * update httparse to 1.8.0
+* update idna to 0.3.0
 * update once_cell to 1.14.0
 * update percent-encoding to 2.2.0
 * update sha2 to 0.10.5
