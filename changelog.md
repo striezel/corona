@@ -11,12 +11,15 @@ Dependency updates:
 * update aho-corasick to 0.7.19
 * update block-buffer to 0.10.3
 * update cpufeatures to 0.2.5
+* update form_urlencoded to 1.1.0
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   futures-util to 0.3.24
 * update httparse to 1.8.0
 * update once_cell to 1.14.0
+* update percent-encoding to 2.2.0
 * update sha2 to 0.10.5
 * update socket2 to 0.4.7
+* update url to 2.3.1
 
 ## Version 0.12.6 (2022-08-28)
 
