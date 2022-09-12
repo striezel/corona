@@ -16,11 +16,16 @@ Dependency updates:
   futures-util to 0.3.24
 * update httparse to 1.8.0
 * update idna to 0.3.0
+* update js-sys to 0.3.60
 * update once_cell to 1.14.0
 * update percent-encoding to 2.2.0
 * update sha2 to 0.10.5
 * update socket2 to 0.4.7
 * update url to 2.3.1
+* update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
+  wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.83
+* update wasm-bindgen-futures to 0.4.33
+* update web-sys to 0.3.60
 
 ## Version 0.12.6 (2022-08-28)
 
