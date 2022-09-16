@@ -22,6 +22,8 @@ Dependency updates:
 * update percent-encoding to 2.2.0
 * update sha2 to 0.10.6
 * update socket2 to 0.4.7
+* update unicode-ident to 1.0.4
+* update unicode-normalization to 0.1.22
 * update url to 2.3.1
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.83
