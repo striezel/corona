@@ -18,10 +18,12 @@ Dependency updates:
 * update httparse to 1.8.0
 * update idna to 0.3.0
 * update js-sys to 0.3.60
+* update libc to 0.2.133
 * update once_cell to 1.14.0
 * update percent-encoding to 2.2.0
 * update sha2 to 0.10.6
 * update socket2 to 0.4.7
+* update syn to 1.0.100
 * update unicode-ident to 1.0.4
 * update unicode-normalization to 0.1.22
 * update url to 2.3.1
