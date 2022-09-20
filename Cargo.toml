@@ -36,4 +36,4 @@ indexmap = "=1.8.2"
 # Pin time to 0.3.2, because 0.3.3 needs rustc 1.51, but our MSRV is 1.48.0.
 time = { version = "=0.3.2", features = ["formatting", "parsing"] }
 # Pin tokio to 1.16.1, because 1.17.0 needs rustc 1.49, but our MSRV is 1.48.0.
-tokio = "=1.16.1"
+tokio = "=1.21.1"
