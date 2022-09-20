@@ -30,7 +30,7 @@ sha2 = "0.10"
 # Pin h2 to 0.3.13, because 0.3.14 needs rustc 1.56, but our MSRV is 1.48.0.
 h2 = "=0.3.13"
 # Pin http to 0.2.6, because 0.2.7 needs rustc 1.49, but our MSRV is 1.48.0.
-http = "=0.2.6"
+http = "=0.2.8"
 # Pin indexmap to 1.8.2, because 1.9.0 needs rustc 1.56.1, but MSRV is 1.48.0.
 indexmap = "=1.8.2"
 # Pin time to 0.3.2, because 0.3.3 needs rustc 1.51, but our MSRV is 1.48.0.
