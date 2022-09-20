@@ -21,6 +21,7 @@ Dependency updates:
 * update libc to 0.2.133
 * update once_cell to 1.14.0
 * update percent-encoding to 2.2.0
+* update reqwest to 0.11.12
 * update sha2 to 0.10.6
 * update socket2 to 0.4.7
 * update syn to 1.0.100
