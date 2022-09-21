@@ -9,6 +9,12 @@ updates:
       interval: "daily"
     reviewers:
       - "striezel"
+    ignore:
+      - dependency-name: "h2"
+      - dependency-name: "http"
+      - dependency-name: "indexmap"
+      - dependency-name: "time"
+      - dependency-name: "tokio"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
