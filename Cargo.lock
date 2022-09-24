@@ -109,6 +109,7 @@ dependencies = [
  "h2",
  "http",
  "indexmap",
+ "once_cell",
  "regex",
  "reqwest",
  "rusqlite",
