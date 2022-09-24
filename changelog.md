@@ -44,7 +44,7 @@ Revert update of `bumpalo` dependency to stay true to the current MSRV 1.48.
 
 ## Version 0.12.4 (2022-08-28)
 
-The generated HTML files do now contain a '<meta>` element to indicate that the
+The generated HTML files do now contain a `<meta>` element to indicate that the
 used character encoding is UTF-8. This avoids problems with non-ASCII characters
 in some browsers.
 
