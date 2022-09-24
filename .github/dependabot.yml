@@ -9,10 +9,17 @@ updates:
       interval: "daily"
     reviewers:
       - "striezel"
+    allow:
+      # Allow both direct and indirect updates for all crates.
+      - dependency-type: "all"
     ignore:
+      # Updating some of our dependencies would break the MSRV build, so they
+      # are ignored.
+      - dependency-name: "bumpalo"
       - dependency-name: "h2"
       - dependency-name: "http"
       - dependency-name: "indexmap"
+      - dependency-name: "security-framework"
       - dependency-name: "time"
       - dependency-name: "tokio"
   - package-ecosystem: "github-actions"
