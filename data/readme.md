@@ -52,7 +52,8 @@ exceptions:
   point of view. :) This data also contains numbers for Liechtenstein, not just
   Switzerland, so it is used for both countries.
 
-* **Turkey**: The Turkish Ministry of Health provides official numbers at
+* **Turkey**: _(only before 2022-08-28 / before v0.12.4)_
+  The Turkish Ministry of Health provides official numbers at
   <https://covid19.saglik.gov.tr/TR-66935/genel-koronavirus-tablosu.html>, and
   the program uses those.
 
