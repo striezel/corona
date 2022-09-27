@@ -20,6 +20,7 @@ Dependency updates:
 * update js-sys to 0.3.60
 * update libc to 0.2.133
 * update once_cell to 1.14.0
+* update openssl-sys to 0.9.76
 * update percent-encoding to 2.2.0
 * update proc-macro2 to 1.0.44
 * update reqwest to 0.11.12
