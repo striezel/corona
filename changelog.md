@@ -28,7 +28,7 @@ Dependency updates:
 * update serde to 1.0.145
 * update sha2 to 0.10.6
 * update socket2 to 0.4.7
-* update syn to 1.0.100
+* update syn to 1.0.101
 * update unicode-ident to 1.0.4
 * update unicode-normalization to 0.1.22
 * update url to 2.3.1
