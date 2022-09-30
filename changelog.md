@@ -18,7 +18,7 @@ Dependency updates:
 * update httparse to 1.8.0
 * update idna to 0.3.0
 * update js-sys to 0.3.60
-* update libc to 0.2.133
+* update libc to 0.2.134
 * update once_cell to 1.14.0
 * update openssl to 0.10.42
 * update openssl-sys to 0.9.76
