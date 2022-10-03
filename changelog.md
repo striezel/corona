@@ -27,6 +27,7 @@ Dependency updates:
 * update reqwest to 0.11.12
 * update serde to 1.0.145
 * update sha2 to 0.10.6
+* update smallvec to 1.10.0
 * update socket2 to 0.4.7
 * update syn to 1.0.101
 * update unicode-ident to 1.0.4
