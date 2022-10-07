@@ -29,7 +29,7 @@ Dependency updates:
 * update sha2 to 0.10.6
 * update smallvec to 1.10.0
 * update socket2 to 0.4.7
-* update syn to 1.0.101
+* update syn to 1.0.102
 * update unicode-ident to 1.0.4
 * update unicode-normalization to 0.1.22
 * update url to 2.3.1
