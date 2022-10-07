@@ -30,6 +30,7 @@ Dependency updates:
 * update smallvec to 1.10.0
 * update socket2 to 0.4.7
 * update syn to 1.0.102
+* update tracing to 0.1.37
 * update tracing-attributes to 0.1.23
 * update tracing-core to 0.1.30
 * update unicode-ident to 1.0.4
