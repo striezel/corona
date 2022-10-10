@@ -17,6 +17,7 @@ Dependency updates:
   futures-util to 0.3.24
 * update httparse to 1.8.0
 * update idna to 0.3.0
+* update itoa to 1.0.4
 * update js-sys to 0.3.60
 * update libc to 0.2.134
 * update once_cell to 1.14.0
