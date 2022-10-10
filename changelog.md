@@ -34,7 +34,7 @@ Dependency updates:
 * update tracing to 0.1.37
 * update tracing-attributes to 0.1.23
 * update tracing-core to 0.1.30
-* update unicode-ident to 1.0.4
+* update unicode-ident to 1.0.5
 * update unicode-normalization to 0.1.22
 * update url to 2.3.1
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
