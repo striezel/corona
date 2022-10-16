@@ -24,7 +24,7 @@ Dependency updates:
 * update openssl to 0.10.42
 * update openssl-sys to 0.9.76
 * update percent-encoding to 2.2.0
-* update proc-macro2 to 1.0.46
+* update proc-macro2 to 1.0.47
 * update reqwest to 0.11.12
 * update serde to 1.0.145
 * update serde_json to 1.0.86
