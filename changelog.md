@@ -13,9 +13,9 @@ Dependency updates:
 * update cpufeatures to 0.2.5
 * update digest to 0.10.5
 * update form_urlencoded to 1.1.0
-* update futures-channel, futures-core, futures-io, futures-sink,
+* update futures-channel, futures-core, futures-io,
   futures-util to 0.3.24
-* update futures-task to 0.3.25
+* update futures-sink, futures-task to 0.3.25
 * update httparse to 1.8.0
 * update idna to 0.3.0
 * update itoa to 1.0.4
