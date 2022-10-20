@@ -15,6 +15,7 @@ Dependency updates:
 * update form_urlencoded to 1.1.0
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   futures-util to 0.3.25
+* update getrandom to 0.2.8
 * update httparse to 1.8.0
 * update idna to 0.3.0
 * update itoa to 1.0.4
@@ -31,7 +32,7 @@ Dependency updates:
 * update sha2 to 0.10.6
 * update smallvec to 1.10.0
 * update socket2 to 0.4.7
-* update syn to 1.0.102
+* update syn to 1.0.103
 * update tracing to 0.1.37
 * update tracing-attributes to 0.1.23
 * update tracing-core to 0.1.30
