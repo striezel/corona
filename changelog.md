@@ -27,7 +27,7 @@ Dependency updates:
 * update proc-macro2 to 1.0.47
 * update reqwest to 0.11.12
 * update serde to 1.0.145
-* update serde_json to 1.0.86
+* update serde_json to 1.0.87
 * update sha2 to 0.10.6
 * update smallvec to 1.10.0
 * update socket2 to 0.4.7
