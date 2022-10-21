@@ -9,6 +9,7 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update aho-corasick to 0.7.19
+* update base64 to 0.13.1
 * update block-buffer to 0.10.3
 * update cpufeatures to 0.2.5
 * update digest to 0.10.5
@@ -27,7 +28,7 @@ Dependency updates:
 * update percent-encoding to 2.2.0
 * update proc-macro2 to 1.0.47
 * update reqwest to 0.11.12
-* update serde to 1.0.145
+* update serde to 1.0.146
 * update serde_json to 1.0.87
 * update sha2 to 0.10.6
 * update smallvec to 1.10.0
