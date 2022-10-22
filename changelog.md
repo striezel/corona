@@ -24,11 +24,11 @@ Dependency updates:
 * update libc to 0.2.135
 * update once_cell to 1.14.0
 * update openssl to 0.10.42
-* update openssl-sys to 0.9.76
+* update openssl-sys to 0.9.77
 * update percent-encoding to 2.2.0
 * update proc-macro2 to 1.0.47
 * update reqwest to 0.11.12
-* update serde to 1.0.146
+* update serde to 1.0.147
 * update serde_json to 1.0.87
 * update sha2 to 0.10.6
 * update smallvec to 1.10.0
