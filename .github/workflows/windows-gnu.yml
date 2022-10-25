@@ -3,7 +3,7 @@ name: Windows with GNU toolchain
 on: push
 jobs:
   build-windows:
-    runs-on: windows-latest
+    runs-on: windows-2022
     strategy:
       fail-fast: false
       matrix:
@@ -27,4 +27,5 @@ jobs:
     - name: Build application
       run: cargo build --verbose --target ${{ matrix.arch }}-pc-windows-${{ matrix.variant }}
     - name: Run tests
+      # network tests can be a bit flaky, so try up to three times
       run: cargo test --verbose --target ${{ matrix.arch }}-pc-windows-${{ matrix.variant }} || cargo test --verbose --target ${{ matrix.arch }}-pc-windows-${{ matrix.variant }} || cargo test --verbose --target ${{ matrix.arch }}-pc-windows-${{ matrix.variant }}

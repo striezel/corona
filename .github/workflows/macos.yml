@@ -3,7 +3,7 @@ name: MacOS
 on: push
 jobs:
   build-macos:
-    runs-on: ${{ matrix.os }}-latest
+    runs-on: ${{ matrix.os }}-12
     strategy:
       matrix:
         # Could also build on beta and nightly, but is it worth it?
@@ -21,4 +21,5 @@ jobs:
     - name: Show version information
       run: cargo run -- version
     - name: Run tests
+      # network tests can be a bit flaky, so try up to three times
       run: cargo test || cargo test || cargo test

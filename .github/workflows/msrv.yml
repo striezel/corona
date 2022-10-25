@@ -26,5 +26,6 @@ jobs:
       run: |
         cargo run -- version
     - name: Run tests
+      # network tests can be a bit flaky, so try up to three times
       run: |
         cargo test || cargo test || cargo test
