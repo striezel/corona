@@ -21,7 +21,7 @@ Dependency updates:
 * update idna to 0.3.0
 * update itoa to 1.0.4
 * update js-sys to 0.3.60
-* update libc to 0.2.135
+* update libc to 0.2.136
 * update once_cell to 1.14.0
 * update openssl to 0.10.42
 * update openssl-sys to 0.9.77
