@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version 0.?.? (2022-10-??)
+## Version 0.?.? (2022-11-??)
 
 The plotly.js library is updated from version 2.12.1 to version 2.16.1.
 
@@ -27,6 +27,7 @@ Dependency updates:
 * update js-sys to 0.3.60
 * update libc to 0.2.137
 * update native-tls to 0.2.11
+* update num_cpus to 1.14.0
 * update once_cell to 1.14.0
 * update openssl to 0.10.42
 * update openssl-sys to 0.9.77
