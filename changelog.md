@@ -35,6 +35,8 @@ Dependency updates:
 * update pkg-config to 0.3.26
 * update proc-macro2 to 1.0.47
 * update reqwest to 0.11.12
+* update regex to 1.7.0
+* update regex-syntax to 0.6.28
 * update serde to 1.0.147
 * update serde_json to 1.0.87
 * update sha2 to 0.10.6
