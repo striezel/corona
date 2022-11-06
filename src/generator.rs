@@ -291,7 +291,7 @@ impl Generator
     };
     // write it to a file
     let file = format!("{}/{}.html", self.config.output_directory, country.geo_id.to_lowercase());
-    let written = fs::write(&file, &full.as_bytes());
+    let written = fs::write(file, full.as_bytes());
     written.is_ok()
   }
 
@@ -357,7 +357,7 @@ impl Generator
     };
     // write it to a file
     let file = format!("{}/world.html", self.config.output_directory);
-    let written = fs::write(&file, &full.as_bytes());
+    let written = fs::write(file, full.as_bytes());
     written.is_ok()
   }
 
@@ -422,7 +422,7 @@ impl Generator
       };
       // write it to a file
       let file = format!("{}/continent_{}.html", self.config.output_directory, &continent.to_lowercase());
-      let written = fs::write(&file, &full.as_bytes());
+      let written = fs::write(file, full.as_bytes());
       if written.is_err()
       {
         return false;
@@ -1074,7 +1074,7 @@ impl Generator
     };
     // write it to a file
     let file = format!("{}/index.html", self.config.output_directory);
-    let written = fs::write(&file, &full.as_bytes());
+    let written = fs::write(file, full.as_bytes());
     written.is_ok()
   }
 }

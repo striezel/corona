@@ -42,7 +42,7 @@ impl Plotly
   {
     use sha2::Digest;
     let mut hash = sha2::Sha256::new();
-    hash.update(&data);
+    hash.update(data);
     let digest = hash.finalize();
     // Transform hash into hexadecimal string.
     let digest_string: String = digest[..].iter().map(|&x| format!("{:02x}", x)).collect();
@@ -62,7 +62,7 @@ impl Plotly
     use std::io::Read;
     // Retrieve minified JS file.
     let url = format!("https://cdn.plot.ly/{}", Plotly::FILE_NAME);
-    let mut res = match reqwest::blocking::get(&url)
+    let mut res = match reqwest::blocking::get(url)
     {
       Ok(responded) => responded,
       Err(e) =>
@@ -93,7 +93,7 @@ impl Plotly
       return false;
     }
 
-    match std::fs::write(&destination, &body)
+    match std::fs::write(destination, &body)
     {
       Ok(()) => true,
       Err(e) =>
