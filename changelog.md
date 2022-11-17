@@ -15,7 +15,7 @@ Dependency updates:
 * update block-buffer to 0.10.3
 * update cc to 1.0.76
 * update cpufeatures to 0.2.5
-* update digest to 0.10.5
+* update digest to 0.10.6
 * update form_urlencoded to 1.1.0
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   futures-util to 0.3.25
