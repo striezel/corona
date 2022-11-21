@@ -13,7 +13,8 @@ Dependency updates:
 * update aho-corasick to 0.7.19
 * update base64 to 0.13.1
 * update block-buffer to 0.10.3
-* update cc to 1.0.76
+* update bytes to 1.3.0
+* update cc to 1.0.77
 * update cpufeatures to 0.2.5
 * update digest to 0.10.6
 * update form_urlencoded to 1.1.0
