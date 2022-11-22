@@ -10,7 +10,7 @@ The plotly.js library is updated from version 2.12.1 to version 2.16.2.
 
 Dependency updates:
 
-* update aho-corasick to 0.7.19
+* update aho-corasick to 0.7.20
 * update base64 to 0.13.1
 * update block-buffer to 0.10.3
 * update bytes to 1.3.0
@@ -40,7 +40,7 @@ Dependency updates:
 * update regex to 1.7.0
 * update regex-syntax to 0.6.28
 * update serde to 1.0.147
-* update serde_json to 1.0.88
+* update serde_json to 1.0.89
 * update sha2 to 0.10.6
 * update smallvec to 1.10.0
 * update socket2 to 0.4.7
