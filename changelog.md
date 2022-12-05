@@ -39,7 +39,7 @@ Dependency updates:
 * update reqwest to 0.11.13
 * update regex to 1.7.0
 * update regex-syntax to 0.6.28
-* update serde to 1.0.148
+* update serde to 1.0.149
 * update serde_json to 1.0.89
 * update sha2 to 0.10.6
 * update smallvec to 1.10.0
@@ -48,6 +48,7 @@ Dependency updates:
 * update tracing to 0.1.37
 * update tracing-attributes to 0.1.23
 * update tracing-core to 0.1.30
+* update typenum to 1.16.0
 * update unicode-ident to 1.0.5
 * update unicode-normalization to 0.1.22
 * update url to 2.3.1
