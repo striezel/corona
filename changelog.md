@@ -39,7 +39,7 @@ Dependency updates:
 * update reqwest to 0.11.13
 * update regex to 1.7.0
 * update regex-syntax to 0.6.28
-* update serde to 1.0.149
+* update serde to 1.0.150
 * update serde_json to 1.0.89
 * update sha2 to 0.10.6
 * update smallvec to 1.10.0
