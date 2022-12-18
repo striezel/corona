@@ -25,7 +25,7 @@ Dependency updates:
 * update hyper to 0.14.23
 * update idna to 0.3.0
 * update ipnet to 2.7.0
-* update itoa to 1.0.4
+* update itoa to 1.0.5
 * update js-sys to 0.3.60
 * update libc to 0.2.138
 * update native-tls to 0.2.11
@@ -36,15 +36,17 @@ Dependency updates:
 * update percent-encoding to 2.2.0
 * update pkg-config to 0.3.26
 * update proc-macro2 to 1.0.49
+* update quote to 1.0.23
 * update reqwest to 0.11.13
 * update regex to 1.7.0
 * update regex-syntax to 0.6.28
+* update ryu to 1.0.12
 * update serde to 1.0.151
 * update serde_json to 1.0.91
 * update sha2 to 0.10.6
 * update smallvec to 1.10.0
 * update socket2 to 0.4.7
-* update syn to 1.0.105
+* update syn to 1.0.107
 * update tracing to 0.1.37
 * update tracing-attributes to 0.1.23
 * update tracing-core to 0.1.30
