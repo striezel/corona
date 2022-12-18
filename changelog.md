@@ -35,12 +35,12 @@ Dependency updates:
 * update openssl-sys to 0.9.79
 * update percent-encoding to 2.2.0
 * update pkg-config to 0.3.26
-* update proc-macro2 to 1.0.47
+* update proc-macro2 to 1.0.49
 * update reqwest to 0.11.13
 * update regex to 1.7.0
 * update regex-syntax to 0.6.28
 * update serde to 1.0.151
-* update serde_json to 1.0.89
+* update serde_json to 1.0.91
 * update sha2 to 0.10.6
 * update smallvec to 1.10.0
 * update socket2 to 0.4.7
@@ -49,7 +49,7 @@ Dependency updates:
 * update tracing-attributes to 0.1.23
 * update tracing-core to 0.1.30
 * update typenum to 1.16.0
-* update unicode-ident to 1.0.5
+* update unicode-ident to 1.0.6
 * update unicode-normalization to 0.1.22
 * update url to 2.3.1
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
