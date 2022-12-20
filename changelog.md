@@ -31,8 +31,8 @@ Dependency updates:
 * update native-tls to 0.2.11
 * update num_cpus to 1.14.0
 * update once_cell to 1.14.0
-* update openssl to 0.10.44
-* update openssl-sys to 0.9.79
+* update openssl to 0.10.45
+* update openssl-sys to 0.9.80
 * update percent-encoding to 2.2.0
 * update pkg-config to 0.3.26
 * update proc-macro2 to 1.0.49
