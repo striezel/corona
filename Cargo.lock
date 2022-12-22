@@ -109,6 +109,7 @@ dependencies = [
  "h2",
  "http",
  "indexmap",
+ "num_cpus",
  "once_cell",
  "regex",
  "reqwest",
