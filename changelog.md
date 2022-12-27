@@ -41,7 +41,7 @@ Dependency updates:
 * update regex to 1.7.0
 * update regex-syntax to 0.6.28
 * update ryu to 1.0.12
-* update serde to 1.0.151
+* update serde to 1.0.152
 * update serde_json to 1.0.91
 * update sha2 to 0.10.6
 * update smallvec to 1.10.0
