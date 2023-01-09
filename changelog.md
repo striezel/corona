@@ -41,6 +41,7 @@ Dependency updates:
 * update regex to 1.7.1
 * update regex-syntax to 0.6.28
 * update ryu to 1.0.12
+* update schannel to 0.1.21
 * update serde to 1.0.152
 * update serde_json to 1.0.91
 * update sha2 to 0.10.6
@@ -59,7 +60,8 @@ Dependency updates:
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.83
 * update wasm-bindgen-futures to 0.4.33
 * update web-sys to 0.3.60
-
+* update windows-sys, windows_aarch64_msvc, windows_i686_gnu, windows_i686_msvc,
+  windows_x86_64_gnu, windows_x86_64_msvc to 0.42.0
 ## Version 0.12.6 (2022-08-28)
 
 Downgrade `security-framework` dependency to version 2.6.1 stay true to the
