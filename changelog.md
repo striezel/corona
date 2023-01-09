@@ -38,7 +38,7 @@ Dependency updates:
 * update proc-macro2 to 1.0.49
 * update quote to 1.0.23
 * update reqwest to 0.11.13
-* update regex to 1.7.0
+* update regex to 1.7.1
 * update regex-syntax to 0.6.28
 * update ryu to 1.0.12
 * update serde to 1.0.152
