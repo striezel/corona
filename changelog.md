@@ -60,8 +60,11 @@ Dependency updates:
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.83
 * update wasm-bindgen-futures to 0.4.33
 * update web-sys to 0.3.60
-* update windows-sys, windows_aarch64_msvc, windows_i686_gnu, windows_i686_msvc,
-  windows_x86_64_gnu, windows_x86_64_msvc to 0.42.0
+* update windows-sys to 0.42.0
+* update windows_aarch64_gnullvm, windows_aarch64_msvc, windows_i686_gnu,
+  windows_i686_msvc, windows_x86_64_gnu, windows_x86_64_gnullvm,
+  windows_x86_64_msvc to 0.42.1
+
 ## Version 0.12.6 (2022-08-28)
 
 Downgrade `security-framework` dependency to version 2.6.1 stay true to the
