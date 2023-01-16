@@ -35,7 +35,7 @@ Dependency updates:
 * update openssl-sys to 0.9.80
 * update percent-encoding to 2.2.0
 * update pkg-config to 0.3.26
-* update proc-macro2 to 1.0.49
+* update proc-macro2 to 1.0.50
 * update quote to 1.0.23
 * update reqwest to 0.11.13
 * update regex to 1.7.1
