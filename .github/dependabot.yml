@@ -22,6 +22,7 @@ updates:
       - dependency-name: "num_cpus"
       - dependency-name: "once_cell"
       - dependency-name: "security-framework"
+      - dependency-name: "security-framework-sys"
       - dependency-name: "time"
       - dependency-name: "tokio"
   - package-ecosystem: "github-actions"
