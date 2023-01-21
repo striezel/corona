@@ -53,6 +53,7 @@ Dependency updates:
 * update tracing-core to 0.1.30
 * update try-lock to 0.2.4
 * update typenum to 1.16.0
+* update unicode-bidi to 0.3.10
 * update unicode-ident to 1.0.6
 * update unicode-normalization to 0.1.22
 * update url to 2.3.1
