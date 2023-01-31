@@ -18,8 +18,8 @@ Dependency updates:
 * update cpufeatures to 0.2.5
 * update digest to 0.10.6
 * update form_urlencoded to 1.1.0
-* update futures-channel, futures-util to 0.3.25
-* update futures-core, futures-io, futures-sink, futures-task to 0.3.26
+* update futures-channel, futures-core, futures-io, futures-sink, futures-task,
+  futures-util to 0.3.26
 * update getrandom to 0.2.8
 * update httparse to 1.8.0
 * update hyper to 0.14.23
