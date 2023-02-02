@@ -23,7 +23,7 @@ Dependency updates:
   futures-util to 0.3.26
 * update getrandom to 0.2.8
 * update httparse to 1.8.0
-* update hyper to 0.14.23
+* update hyper to 0.14.24
 * update idna to 0.3.0
 * update ipnet to 2.7.1
 * update itoa to 1.0.5
