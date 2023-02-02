@@ -60,8 +60,8 @@ Dependency updates:
 * update url to 2.3.1
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.84
-* update wasm-bindgen-futures to 0.4.33
-* update web-sys to 0.3.60
+* update wasm-bindgen-futures to 0.4.34
+* update web-sys to 0.3.61
 * update windows-sys to 0.42.0
 * update windows_aarch64_gnullvm, windows_aarch64_msvc, windows_i686_gnu,
   windows_i686_msvc, windows_x86_64_gnu, windows_x86_64_gnullvm,
