@@ -6,7 +6,7 @@ improvements may be omitted.)_
 
 ## Version 0.?.? (2022-12-??)
 
-The plotly.js library is updated from version 2.12.1 to version 2.18.0.
+The plotly.js library is updated from version 2.12.1 to version 2.18.1.
 
 Dependency updates:
 
