@@ -58,7 +58,7 @@ Dependency updates:
 * update unicode-normalization to 0.1.22
 * update url to 2.3.1
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
-  wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.83
+  wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.84
 * update wasm-bindgen-futures to 0.4.33
 * update web-sys to 0.3.60
 * update windows-sys to 0.42.0
