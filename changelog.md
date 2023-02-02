@@ -27,7 +27,7 @@ Dependency updates:
 * update idna to 0.3.0
 * update ipnet to 2.7.1
 * update itoa to 1.0.5
-* update js-sys to 0.3.60
+* update js-sys to 0.3.61
 * update libc to 0.2.139
 * update native-tls to 0.2.11
 * update num_cpus to 1.14.0
