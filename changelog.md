@@ -17,6 +17,7 @@ Dependency updates:
 * update cc to 1.0.79
 * update cpufeatures to 0.2.5
 * update digest to 0.10.6
+* update encoding_rs to 0.8.32
 * update form_urlencoded to 1.1.0
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   futures-util to 0.3.26
