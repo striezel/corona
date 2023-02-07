@@ -25,6 +25,7 @@ updates:
       - dependency-name: "security-framework-sys"
       - dependency-name: "time"
       - dependency-name: "tokio"
+      - dependency-name: "tokio-native-tls"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
