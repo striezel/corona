@@ -9,7 +9,7 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update proc-macro2 to 1.0.51
-* update serde_json to 1.0.92
+* update serde_json to 1.0.93
 * update tinyvec_macros to 0.1.1
 
 ## Version 0.12.7 (2023-02-03)
