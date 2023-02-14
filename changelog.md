@@ -8,6 +8,7 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update fastrand to 1.9.0
 * update proc-macro2 to 1.0.51
 * update serde_json to 1.0.93
 * update tinyvec_macros to 0.1.1
