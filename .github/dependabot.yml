@@ -16,6 +16,7 @@ updates:
       # Updating some of our dependencies would break the MSRV build, so they
       # are ignored.
       - dependency-name: "bumpalo"
+      - dependency-name: "csv"
       - dependency-name: "h2"
       - dependency-name: "http"
       - dependency-name: "indexmap"
