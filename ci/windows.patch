@@ -3,7 +3,7 @@ index 06af990..a661f9b 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
 @@ -22,5 +22,5 @@ chrono = "0.4"
- csv = "1.1"
+ csv = "=1.1.6"
  regex = "1.6"
  reqwest = { version = "0.11", features = ["blocking"] }
 -rusqlite = "0.25.4"
