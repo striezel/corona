@@ -28,6 +28,13 @@ reqwest = { version = "0.11", features = ["blocking"] }
 rusqlite = "0.25.4"
 serde_json = "1.0"
 sha2 = "0.10"
+
+# The dependencies below are not really direct dependencies. They are just a
+# way of pinning certain crates to certain versions to ensure we stay true to
+# this project's MSRV. I know there is Cargo.lock to lock versions down, but
+# pinning them here also guarantees that a `cargo update` will not update them
+# to a newer version. Cargo.lock does not do that.
+
 # Pin h2 to 0.3.13, because 0.3.14 needs rustc 1.56, but our MSRV is 1.48.0.
 h2 = "=0.3.13"
 # Pin http to 0.2.6, because 0.2.7 needs rustc 1.49, but our MSRV is 1.48.0.
