@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2021, 2022  Dirk Stolle
+    Copyright (C) 2021, 2022, 2023  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -16,6 +16,8 @@
 */
 
 pub mod disease_sh;
+pub mod swiss_api;
+pub use swiss_api::SwissApi;
 
 /// Determines the amount of data that shall be collected.
 #[derive(PartialEq, Eq)]

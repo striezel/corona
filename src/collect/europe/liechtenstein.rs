@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2021  Dirk Stolle
+    Copyright (C) 2021, 2023  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -63,10 +63,10 @@ impl Collect for Liechtenstein
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
-    use super::switzerland::Switzerland;
+    use crate::collect::api::SwissApi;
     // CSV data for Switzerland also contains data for Liechtenstein
     // (FL = "Fürstentum Liechtenstein"), so let's use that here, too.
-    let vec = Switzerland::official_csv_data("FL");
+    let vec = SwissApi::official_csv_data("FL");
     if vec.is_err() || range == &Range::All
     {
       return vec;
