@@ -63,10 +63,10 @@ impl Collect for Liechtenstein
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
-    use crate::collect::api::SwissApi;
+    use crate::collect::api::swiss_api;
     // CSV data for Switzerland also contains data for Liechtenstein
     // (FL = "Fürstentum Liechtenstein"), so let's use that here, too.
-    let vec = SwissApi::official_csv_data("FL");
+    let vec = swiss_api::official_csv_data("FL");
     if vec.is_err() || range == &Range::All
     {
       return vec;

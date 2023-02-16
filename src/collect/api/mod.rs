@@ -17,7 +17,6 @@
 
 pub mod disease_sh;
 pub mod swiss_api;
-pub use swiss_api::SwissApi;
 
 /// Determines the amount of data that shall be collected.
 #[derive(PartialEq, Eq)]

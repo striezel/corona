@@ -16,7 +16,7 @@
 */
 
 use crate::collect::api::Range;
-use crate::collect::api::SwissApi;
+use crate::collect::api::swiss_api;
 use crate::collect::{Collect, JsonCache};
 use crate::data::Country;
 use crate::data::Numbers;
@@ -64,7 +64,7 @@ impl Collect for Switzerland
 
   fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
   {
-    let vec = SwissApi::official_csv_data("CH");
+    let vec = swiss_api::official_csv_data("CH");
     if vec.is_err() || range == &Range::All
     {
       return vec;

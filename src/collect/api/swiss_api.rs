@@ -29,352 +29,343 @@ struct CsvContent
   deaths_csv: String
 }
 
-pub struct SwissApi
+/**
+ * Downloads and parses the official CSV data for Switzerland.
+ *
+ * @param  geo_region  abbreviation for the canton, or "CH" for all of Switzerland
+ * @return Returns a vector of Numbers in case of success.
+ *         Returns a string containing an error message, if an error occurred.
+ */
+pub fn official_csv_data(geo_region: &str) -> Result<Vec<Numbers>, String>
 {
+  let urls = get_official_csv_data_urls()?;
+  let csv_content = get_official_csv_content(&urls)?;
+  parse_csv_content(&csv_content, geo_region)
 }
 
-impl SwissApi
+/**
+ * Gets the URLs of the official CSV data for Switzerland.
+ *
+ * @return Returns a Urls struct containing the URLs in case of success.
+ *         Returns a string containing an error message, if an error occurred.
+ */
+fn get_official_csv_data_urls() -> Result<Urls, String>
 {
-  /**
-   * Downloads and parses the official CSV data for Switzerland.
-   *
-   * @param  geo_region  abbreviation for the canton, or "CH" for all of Switzerland
-   * @return Returns a vector of Numbers in case of success.
-   *         Returns a string containing an error message, if an error occurred.
-   */
-  pub fn official_csv_data(geo_region: &str) -> Result<Vec<Numbers>, String>
+  use reqwest::StatusCode;
+  use serde_json::Value;
+  use std::io::Read;
+
+  let mut res = match reqwest::blocking::get("https://www.covid19.admin.ch/api/data/context")
   {
-    let urls = SwissApi::get_official_csv_data_urls()?;
-    let csv_content = SwissApi::get_official_csv_content(&urls)?;
-    SwissApi::parse_csv_content(&csv_content, geo_region)
+    Ok(responded) => responded,
+    Err(e) => return Err(format!("HTTP request failed: {}", e))
+  };
+  let mut body = String::new();
+  if let Err(e) = res.read_to_string(&mut body)
+  {
+    return Err(format!("Failed to read JSON into string: {}", e));
   }
 
-  /**
-   * Gets the URLs of the official CSV data for Switzerland.
-   *
-   * @return Returns a Urls struct containing the URLs in case of success.
-   *         Returns a string containing an error message, if an error occurred.
-   */
-  fn get_official_csv_data_urls() -> Result<Urls, String>
+  if res.status() != StatusCode::OK
   {
-    use reqwest::StatusCode;
-    use serde_json::Value;
-    use std::io::Read;
-
-    let mut res = match reqwest::blocking::get("https://www.covid19.admin.ch/api/data/context")
+    return Err(format!("HTTP request failed with unexpected status code: {}\n\
+                      Headers:\n{:#?}\n\
+                      Body:\n{}", res.status(), res.headers(), body));
+  }
+  let json: Value = match serde_json::from_str(&body)
+  {
+    Ok(v) => v,
+    Err(e) =>
     {
-      Ok(responded) => responded,
-      Err(e) => return Err(format!("HTTP request failed: {}", e))
-    };
-    let mut body = String::new();
-    if let Err(e) = res.read_to_string(&mut body)
-    {
-      return Err(format!("Failed to read JSON into string: {}", e));
+      return Err(format!(
+        "Failed to deserialize JSON from covid19.admin.ch/api/context: {}",
+        e
+      ))
     }
+  };
+  let json = match json.get("sources")
+  {
+    Some(Value::Object(map)) => map,
+    None => return Err(String::from("JSON from API does not contain element 'sources'!")),
+    Some(_) => return Err(String::from("JSON from API contains sources, but it is not an object!"))
+  };
+  let json = match json.get("individual")
+  {
+    Some(Value::Object(map)) => map,
+    None => return Err(String::from("JSON from API does not contain element 'individual'!")),
+    Some(_) => return Err(String::from("JSON from API contains individual, but it is not an object!"))
+  };
+  let json = match json.get("csv")
+  {
+    Some(Value::Object(map)) => map,
+    None => return Err(String::from("JSON from API does not contain element 'csv'!")),
+    Some(_) => return Err(String::from("JSON from API contains csv, but it is not an object!"))
+  };
+  let json = match json.get("daily")
+  {
+    Some(Value::Object(map)) => map,
+    None => return Err(String::from("JSON from API does not contain element 'daily'!")),
+    Some(_) => return Err(String::from("JSON from API contains daily, but it is not an object!"))
+  };
+  let cases = match json.get("cases")
+  {
+    Some(Value::String(s)) => s,
+    None => return Err(String::from("JSON from API does not contain element 'cases'!")),
+    Some(_) => return Err(String::from("JSON from API contains element 'cases', but it is not a string!"))
+  };
+  let death = match json.get("death")
+  {
+    Some(Value::String(s)) => s,
+    None => return Err(String::from("JSON from API does not contain element 'death'!")),
+    Some(_) => return Err(String::from("JSON from API contains element 'death', but it is not a string!"))
+  };
 
-    if res.status() != StatusCode::OK
+  Ok(Urls {
+    cases_url: cases.clone(),
+    deaths_url: death.clone()
+  })
+}
+
+/**
+ * Gets the CSV data for Switzerland as plain text.
+ *
+ * @param  urls    the URLs where the CSV files can be downloaded
+ * @return Returns a CsvContent struct containing the plain text CSV in case of success.
+ *         Returns a string containing an error message, if an error occurred.
+ */
+fn get_official_csv_content(urls: &Urls) -> Result<CsvContent, String>
+{
+  use reqwest::StatusCode;
+  use std::io::Read;
+  // Retrieve CSV with case numbers.
+  let mut res = match reqwest::blocking::get(&urls.cases_url)
+  {
+    Ok(responded) => responded,
+    Err(e) => return Err(format!("HTTP request failed: {}", e))
+  };
+  let mut body_cases = String::new();
+  if let Err(e) = res.read_to_string(&mut body_cases)
+  {
+    return Err(format!("Failed to read CSV into string: {}", e));
+  }
+  if res.status() != StatusCode::OK
+  {
+    return Err(format!("HTTP request failed with unexpected status code: {}\n\
+                      Headers:\n{:#?}\n\
+                      Body:\n{}", res.status(), res.headers(), body_cases));
+  }
+  // Retrieve CSV with numbers of deaths.
+  let mut res = match reqwest::blocking::get(&urls.deaths_url)
+  {
+    Ok(responded) => responded,
+    Err(e) => return Err(format!("HTTP request failed: {}", e))
+  };
+  let mut body_deaths = String::new();
+  if let Err(e) = res.read_to_string(&mut body_deaths)
+  {
+    return Err(format!("Failed to read CSV into string: {}", e));
+  }
+  if res.status() != StatusCode::OK
+  {
+    return Err(format!("HTTP request failed with unexpected status code: {}\n\
+                      Headers:\n{:#?}\n\
+                      Body:\n{}", res.status(), res.headers(), body_deaths));
+  }
+
+  Ok(CsvContent {
+    cases_csv: body_cases,
+    deaths_csv: body_deaths
+  })
+}
+
+fn parse_csv_content(csv_content: &CsvContent, geo_region: &str) -> Result<Vec<Numbers>, String>
+{
+  use csv::Reader;
+  // Parse CSV with cases.
+  let mut reader = Reader::from_reader(csv_content.cases_csv.as_bytes());
+  let check = match check_csv_headers(&mut reader)
+  {
+    Err(e) => return Err(e),
+    Ok(b) => b
+  };
+  if !check
+  {
+    return Err("CSV headers do not match!".to_string());
+  }
+  let mut result: Vec<Numbers> = Vec::new();
+  let mut record = csv::StringRecord::new();
+  let date_regex = regex::RegexBuilder::new("^([0-9]{4})\\-([0-9]{2})\\-([0-9]{2})$")
+    .build()
+    .unwrap();
+  // potential endless loop
+  loop
+  {
+    match reader.read_record(&mut record)
     {
-      return Err(format!("HTTP request failed with unexpected status code: {}\n\
-                        Headers:\n{:#?}\n\
-                        Body:\n{}", res.status(), res.headers(), body));
-    }
-    let json: Value = match serde_json::from_str(&body)
-    {
-      Ok(v) => v,
+      Ok(success) =>
+      {
+        if !success
+        {
+          // No more records to read.
+          break;
+        }
+      },
       Err(e) =>
       {
-        return Err(format!(
-          "Failed to deserialize JSON from covid19.admin.ch/api/context: {}",
-          e
-        ))
+        // Failed to read.
+        return Err(format!("Failed to read CSV record! {}", e));
       }
-    };
-    let json = match json.get("sources")
-    {
-      Some(Value::Object(map)) => map,
-      None => return Err(String::from("JSON from API does not contain element 'sources'!")),
-      Some(_) => return Err(String::from("JSON from API contains sources, but it is not an object!"))
-    };
-    let json = match json.get("individual")
-    {
-      Some(Value::Object(map)) => map,
-      None => return Err(String::from("JSON from API does not contain element 'individual'!")),
-      Some(_) => return Err(String::from("JSON from API contains individual, but it is not an object!"))
-    };
-    let json = match json.get("csv")
-    {
-      Some(Value::Object(map)) => map,
-      None => return Err(String::from("JSON from API does not contain element 'csv'!")),
-      Some(_) => return Err(String::from("JSON from API contains csv, but it is not an object!"))
-    };
-    let json = match json.get("daily")
-    {
-      Some(Value::Object(map)) => map,
-      None => return Err(String::from("JSON from API does not contain element 'daily'!")),
-      Some(_) => return Err(String::from("JSON from API contains daily, but it is not an object!"))
-    };
-    let cases = match json.get("cases")
-    {
-      Some(Value::String(s)) => s,
-      None => return Err(String::from("JSON from API does not contain element 'cases'!")),
-      Some(_) => return Err(String::from("JSON from API contains element 'cases', but it is not a string!"))
-    };
-    let death = match json.get("death")
-    {
-      Some(Value::String(s)) => s,
-      None => return Err(String::from("JSON from API does not contain element 'death'!")),
-      Some(_) => return Err(String::from("JSON from API contains element 'death', but it is not a string!"))
-    };
+    }
 
-    Ok(Urls {
-      cases_url: cases.clone(),
-      deaths_url: death.clone()
-    })
+    // If "geoRegion" (first column) does not match (e. g. it's not "CH"),
+    // it's the data for one of the other cantons (provinces) and it can be
+    // skipped, because we only want data for the correct region of
+    // Switzerland here.
+    if record.get(0).unwrap() != geo_region
+    {
+      continue;
+    }
+    // Date is in second column named "datum".
+    let date = match record.get(1)
+    {
+      Some(s) => s,
+      None => continue
+    };
+    // Date has a format like "2020-12-31", i. e. it fits already.
+    if !date_regex.is_match(date)
+    {
+      return Err(format!(
+        "Error: Date format does not match the YYYY-MM-DD pattern: '{}'.",
+        date
+      ));
+    }
+    // Daily new cases: "entries", idx 2.
+    let cases: i32 = record.get(2).unwrap().parse().unwrap_or(-1);
+    result.push(Numbers { date: date.to_string(), cases, deaths: 0 });
   }
 
-  /**
-   * Gets the CSV data for Switzerland as plain text.
-   *
-   * @param  urls    the URLs where the CSV files can be downloaded
-   * @return Returns a CsvContent struct containing the plain text CSV in case of success.
-   *         Returns a string containing an error message, if an error occurred.
-   */
-  fn get_official_csv_content(urls: &Urls) -> Result<CsvContent, String>
+  // Parse CSV with number of deaths.
+  let mut reader = Reader::from_reader(csv_content.deaths_csv.as_bytes());
+  let check = match check_csv_headers(&mut reader)
   {
-    use reqwest::StatusCode;
-    use std::io::Read;
-    // Retrieve CSV with case numbers.
-    let mut res = match reqwest::blocking::get(&urls.cases_url)
-    {
-      Ok(responded) => responded,
-      Err(e) => return Err(format!("HTTP request failed: {}", e))
-    };
-    let mut body_cases = String::new();
-    if let Err(e) = res.read_to_string(&mut body_cases)
-    {
-      return Err(format!("Failed to read CSV into string: {}", e));
-    }
-    if res.status() != StatusCode::OK
-    {
-      return Err(format!("HTTP request failed with unexpected status code: {}\n\
-                        Headers:\n{:#?}\n\
-                        Body:\n{}", res.status(), res.headers(), body_cases));
-    }
-    // Retrieve CSV with numbers of deaths.
-    let mut res = match reqwest::blocking::get(&urls.deaths_url)
-    {
-      Ok(responded) => responded,
-      Err(e) => return Err(format!("HTTP request failed: {}", e))
-    };
-    let mut body_deaths = String::new();
-    if let Err(e) = res.read_to_string(&mut body_deaths)
-    {
-      return Err(format!("Failed to read CSV into string: {}", e));
-    }
-    if res.status() != StatusCode::OK
-    {
-      return Err(format!("HTTP request failed with unexpected status code: {}\n\
-                        Headers:\n{:#?}\n\
-                        Body:\n{}", res.status(), res.headers(), body_deaths));
-    }
-
-    Ok(CsvContent {
-      cases_csv: body_cases,
-      deaths_csv: body_deaths
-    })
+    Err(e) => return Err(e),
+    Ok(b) => b
+  };
+  if !check
+  {
+    return Err("CSV headers do not match!".to_string());
   }
-
-  fn parse_csv_content(csv_content: &CsvContent, geo_region: &str) -> Result<Vec<Numbers>, String>
+  let mut may_need_sorting = false;
+  // potential endless loop # 2
+  loop
   {
-    use csv::Reader;
-    // Parse CSV with cases.
-    let mut reader = Reader::from_reader(csv_content.cases_csv.as_bytes());
-    let check = match SwissApi::check_csv_headers(&mut reader)
+    match reader.read_record(&mut record)
     {
-      Err(e) => return Err(e),
-      Ok(b) => b
-    };
-    if !check
-    {
-      return Err("CSV headers do not match!".to_string());
-    }
-    let mut result: Vec<Numbers> = Vec::new();
-    let mut record = csv::StringRecord::new();
-    let date_regex = regex::RegexBuilder::new("^([0-9]{4})\\-([0-9]{2})\\-([0-9]{2})$")
-      .build()
-      .unwrap();
-    // potential endless loop
-    loop
-    {
-      match reader.read_record(&mut record)
+      Ok(success) =>
       {
-        Ok(success) =>
+        if !success
         {
-          if !success
-          {
-            // No more records to read.
-            break;
-          }
-        },
-        Err(e) =>
-        {
-          // Failed to read.
-          return Err(format!("Failed to read CSV record! {}", e));
+          // No more records to read.
+          break;
         }
-      }
-
-      // If "geoRegion" (first column) does not match (i. e. it's not "CH"),
-      // it's the data for one of the other cantons (provinces) and it can be
-      // skipped, because we only want data for the correct region of
-      // Switzerland here.
-      if record.get(0).unwrap() != geo_region
-      {
-        continue;
-      }
-      // Date is in second column named "datum".
-      let date = match record.get(1)
-      {
-        Some(s) => s,
-        None => continue
-      };
-      // Date has a format like "2020-12-31", i. e. it fits already.
-      if !date_regex.is_match(date)
-      {
-        return Err(format!(
-          "Error: Date format does not match the YYYY-MM-DD pattern: '{}'.",
-          date
-        ));
-      }
-      // Daily new cases: "entries", idx 2.
-      let cases: i32 = record.get(2).unwrap().parse().unwrap_or(-1);
-      result.push(Numbers { date: date.to_string(), cases, deaths: 0 });
-    }
-
-    // Parse CSV with number of deaths.
-    let mut reader = Reader::from_reader(csv_content.deaths_csv.as_bytes());
-    let check = match SwissApi::check_csv_headers(&mut reader)
-    {
-      Err(e) => return Err(e),
-      Ok(b) => b
-    };
-    if !check
-    {
-      return Err("CSV headers do not match!".to_string());
-    }
-    let mut may_need_sorting = false;
-    // potential endless loop # 2
-    loop
-    {
-      match reader.read_record(&mut record)
-      {
-        Ok(success) =>
-        {
-          if !success
-          {
-            // No more records to read.
-            break;
-          }
-        },
-        Err(e) =>
-        {
-          // Failed to read.
-          return Err(format!("Failed to read CSV record! {}", e));
-        }
-      }
-
-      // If "geoRegion" (first column) is not "CH", it's the data for one of
-      // the cantons (provinces) and it can be skipped, because we only want
-      // data for all of Switzerland here.
-      if record.get(0).unwrap() != "CH"
-      {
-        continue;
-      }
-      // Date is in second column named "datum".
-      let date = match record.get(1)
-      {
-        Some(s) => s,
-        None => continue
-      };
-      // Date has a format like "2020-12-31", i. e. it fits already.
-      if !date_regex.is_match(date)
-      {
-        return Err(format!(
-          "Error: Date format does not match the YYYY-MM-DD pattern: '{}'.",
-          date
-        ));
-      }
-      // Daily new deaths: "entries", idx 2.
-      let deaths: i32 = record.get(2).unwrap().parse().unwrap_or(-1);
-      let pos = result.iter().position(|x| x.date == date);
-      if let Some(idx) = pos
-      {
-        result[idx].deaths = deaths;
-      }
-      else
-      {
-        result.push(Numbers { date: date.to_string(), cases: 0, deaths });
-        // Vector may need to be sorted, because we do know whether it is
-        // still sorted after the push().
-        may_need_sorting = true;
-      }
-    }
-
-    if may_need_sorting
-    {
-      result.sort_unstable_by(|a, b| a.date.cmp(&b.date));
-    }
-
-    Ok(result)
-  }
-
-  /**
-   * Checks whether the CSV headers match the expected headers.
-   *
-   * @param reader    an opened CSV reader
-   * @return Returns true, if the headers are correct. Returns false otherwise.
-   */
-  fn check_csv_headers(reader: &mut csv::Reader<&[u8]>) -> Result<bool, String>
-  {
-    let headers = match reader.headers()
-    {
-      Ok(head) => head,
+      },
       Err(e) =>
       {
-        return Err(format!("Error: Could not read header of CSV: {}", e));
+        // Failed to read.
+        return Err(format!("Failed to read CSV record! {}", e));
       }
+    }
+
+    // If "geoRegion" (first column) is not "CH", it's the data for one of
+    // the cantons (provinces) and it can be skipped, because we only want
+    // data for all of Switzerland here.
+    if record.get(0).unwrap() != "CH"
+    {
+      continue;
+    }
+    // Date is in second column named "datum".
+    let date = match record.get(1)
+    {
+      Some(s) => s,
+      None => continue
     };
-    let expected_headers = vec!["geoRegion", "datum", "entries"];
-    if headers.len() < 3
+    // Date has a format like "2020-12-31", i. e. it fits already.
+    if !date_regex.is_match(date)
     {
-      eprintln!("Error: CSV headers do not have enough columns. \
-                 Found the following headers: {:?}", headers);
-      return Ok(false);
+      return Err(format!(
+        "Error: Date format does not match the YYYY-MM-DD pattern: '{}'.",
+        date
+      ));
     }
-    let actual_headers = vec![
-      headers.get(0).unwrap_or_default(),
-      headers.get(1).unwrap_or_default(),
-      headers.get(2).unwrap_or_default(),
-    ];
-    if actual_headers != expected_headers
+    // Daily new deaths: "entries", idx 2.
+    let deaths: i32 = record.get(2).unwrap().parse().unwrap_or(-1);
+    let pos = result.iter().position(|x| x.date == date);
+    if let Some(idx) = pos
     {
-      eprintln!("Error: CSV headers do not match the expected headers. \
-                 Found the following headers: {:?}", headers);
-      return Ok(false);
+      result[idx].deaths = deaths;
     }
-    // Headers match. :)
-    Ok(true)
+    else
+    {
+      result.push(Numbers { date: date.to_string(), cases: 0, deaths });
+      // Vector may need to be sorted, because we do know whether it is
+      // still sorted after the push().
+      may_need_sorting = true;
+    }
   }
+
+  if may_need_sorting
+  {
+    result.sort_unstable_by(|a, b| a.date.cmp(&b.date));
+  }
+
+  Ok(result)
+}
+
+/**
+ * Checks whether the CSV headers match the expected headers.
+ *
+ * @param reader    an opened CSV reader
+ * @return Returns true, if the headers are correct. Returns false otherwise.
+ */
+fn check_csv_headers(reader: &mut csv::Reader<&[u8]>) -> Result<bool, String>
+{
+  let headers = match reader.headers()
+  {
+    Ok(head) => head,
+    Err(e) =>
+    {
+      return Err(format!("Error: Could not read header of CSV: {}", e));
+    }
+  };
+  let expected_headers = vec!["geoRegion", "datum", "entries"];
+  if headers.len() < 3
+  {
+    eprintln!("Error: CSV headers do not have enough columns. \
+               Found the following headers: {:?}", headers);
+    return Ok(false);
+  }
+  let actual_headers = vec![
+    headers.get(0).unwrap_or_default(),
+    headers.get(1).unwrap_or_default(),
+    headers.get(2).unwrap_or_default(),
+  ];
+  if actual_headers != expected_headers
+  {
+    eprintln!("Error: CSV headers do not match the expected headers. \
+               Found the following headers: {:?}", headers);
+    return Ok(false);
+  }
+  // Headers match. :)
+  Ok(true)
 }
 
 #[cfg(test)]
 mod tests
 {
-  use super::*;
-
   #[test]
   fn official_csv_data()
   {
-    let data = SwissApi::official_csv_data("CH");
+    let data = super::official_csv_data("CH");
     assert!(data.is_ok());
     let data = data.unwrap();
     assert!(data.len() >= 30);
