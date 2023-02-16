@@ -6,6 +6,9 @@ improvements may be omitted.)_
 
 ## Version 0.?.? (2023-02-??)
 
+In previous versions, the data for Liechtenstein showed the number of deaths for
+Switzerland instead of the numbers for Liechtenstein. This is now fixed.
+
 Dependency updates:
 
 * update fastrand to 1.9.0

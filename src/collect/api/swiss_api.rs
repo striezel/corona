@@ -276,10 +276,10 @@ fn parse_csv_content(csv_content: &CsvContent, geo_region: &str) -> Result<Vec<N
       }
     }
 
-    // If "geoRegion" (first column) is not "CH", it's the data for one of
-    // the cantons (provinces) and it can be skipped, because we only want
-    // data for all of Switzerland here.
-    if record.get(0).unwrap() != "CH"
+    // If "geoRegion" (first column) does not match, it's the data for one of
+    // the other cantons (provinces) and it can be skipped, because we only
+    // want data for the correct region of Switzerland here.
+    if record.get(0).unwrap() != geo_region
     {
       continue;
     }
