@@ -26,13 +26,13 @@ a command-line utility to get numbers on the Coronavirus.
 Data source is mainly the Johns Hopkins University, with a few notable
 exceptions:
 
-* **Canada**: _(only before 2022-07-23)_
+* **Canada**: _(only before 2022-07-23 / before v0.12.3)_
   The government of Canada provides case numbers at
   <https://health-infobase.canada.ca/>, e. g. as CSV data
   (<https://health-infobase.canada.ca/src/data/covidLive/covid19.csv>), and the
   program uses it to generate.
 
-* **Germany**: _(only before 2021-11-25)_
+* **Germany**: _(only before 2021-11-25 / before v0.10.3)_
   The data for Germany is retrieved from the Robert Koch Institute,
   the foremost public institution for disease control and prevention in Germany.
   It is an agency of the federal government of Germany. Data source is the
