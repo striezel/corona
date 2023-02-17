@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version 0.?.? (2023-02-??)
+## Version 0.12.8 (2023-02-17)
 
 In previous versions, the data for Liechtenstein showed the number of deaths for
 Switzerland instead of the numbers for Liechtenstein. This is now fixed.
