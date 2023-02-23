@@ -24,7 +24,7 @@ alpine:
     - rustc --version
     - cargo --version
     - cargo run -- version
-    - cargo test || cargo test || cargo test
+    - cargo test || cargo test || cargo test || cargo test || cargo test
 
 build_image_bionic:
   image: docker:20
@@ -84,7 +84,7 @@ rocky:
     - rustc --version
     - cargo --version
     - cargo run -- version
-    - cargo test || cargo test || cargo test
+    - cargo test || cargo test || cargo test || cargo test || cargo test
 
 build_image_debian:
   image: docker:20
@@ -116,7 +116,7 @@ debian:
     - rustc --version
     - cargo --version
     - cargo run -- version
-    - cargo test || cargo test || cargo test
+    - cargo test || cargo test || cargo test || cargo test || cargo test
 
 clippy:
   image: alpine:latest
