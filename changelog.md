@@ -9,6 +9,7 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update slab to 0.4.8
+* update syn to 1.0.108
 
 ## Version 0.12.8 (2023-02-17)
 
