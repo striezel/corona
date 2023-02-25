@@ -10,6 +10,7 @@ Dependency updates:
 
 * update slab to 0.4.8
 * update syn to 1.0.109
+* update tempfile to 3.4.0
 
 ## Version 0.12.8 (2023-02-17)
 
