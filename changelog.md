@@ -11,8 +11,10 @@ Dependency updates:
 * update itoa to 1.0.6
 * update ryu to 1.0.13
 * update slab to 0.4.8
+* update socket2 to 0.4.9
 * update syn to 1.0.109
 * update tempfile to 3.4.0
+* update unicode-ident to 1.0.7
 
 ## Version 0.12.8 (2023-02-17)
 
