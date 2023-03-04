@@ -8,6 +8,8 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update itoa to 1.0.6
+* update ryu to 1.0.13
 * update slab to 0.4.8
 * update syn to 1.0.109
 * update tempfile to 3.4.0
