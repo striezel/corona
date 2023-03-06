@@ -9,6 +9,7 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update itoa to 1.0.6
+* update rustix to 0.36.9
 * update ryu to 1.0.13
 * update slab to 0.4.8
 * update socket2 to 0.4.9
