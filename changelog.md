@@ -6,6 +6,8 @@ improvements may be omitted.)_
 
 ## Version 0.?.? (2023-02-??)
 
+The plotly.js library is updated from version 2.18.1 to version 2.18.2.
+
 Dependency updates:
 
 * update block-buffer to 0.10.4
