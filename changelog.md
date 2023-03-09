@@ -8,6 +8,7 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update block-buffer to 0.10.4
 * update itoa to 1.0.6
 * update io-lifetimes to 1.0.6
 * update rustix to 0.36.9
