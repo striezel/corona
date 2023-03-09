@@ -11,6 +11,7 @@ Dependency updates:
 * update block-buffer to 0.10.4
 * update itoa to 1.0.6
 * update io-lifetimes to 1.0.6
+* update libc to 0.2.140
 * update rustix to 0.36.9
 * update ryu to 1.0.13
 * update serde to 1.0.154
