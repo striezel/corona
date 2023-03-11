@@ -11,6 +11,8 @@ The plotly.js library is updated from version 2.18.1 to version 2.18.2.
 Dependency updates:
 
 * update block-buffer to 0.10.4
+* update futures-channel, futures-core, futures-io, futures-sink, futures-task,
+  futures-util to 0.3.27
 * update hyper to 0.14.25
 * update itoa to 1.0.6
 * update io-lifetimes to 1.0.6
