@@ -17,9 +17,11 @@ Dependency updates:
 * update itoa to 1.0.6
 * update io-lifetimes to 1.0.6
 * update libc to 0.2.140
+* update proc-macro2 to 1.0.52
+* update quote to 1.0.24
 * update rustix to 0.36.9
 * update ryu to 1.0.13
-* update serde to 1.0.154
+* update serde to 1.0.155
 * update serde_json to 1.0.94
 * update slab to 0.4.8
 * update socket2 to 0.4.9
