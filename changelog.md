@@ -18,7 +18,7 @@ Dependency updates:
 * update io-lifetimes to 1.0.6
 * update libc to 0.2.140
 * update proc-macro2 to 1.0.52
-* update quote to 1.0.24
+* update quote to 1.0.26
 * update rustix to 0.36.9
 * update ryu to 1.0.13
 * update serde to 1.0.155
@@ -29,6 +29,9 @@ Dependency updates:
 * update tempfile to 3.4.0
 * update unicode-bidi to 0.3.11
 * update unicode-ident to 1.0.8
+* update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
+  windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
+  windows_x86_64_gnullvm, windows_x86_64_msvc to 0.42.2
 
 ## Version 0.12.8 (2023-02-17)
 
