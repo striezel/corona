@@ -20,6 +20,7 @@ updates:
       - dependency-name: "h2"
       - dependency-name: "http"
       - dependency-name: "indexmap"
+      - dependency-name: "io-lifetimes"
       - dependency-name: "num_cpus"
       - dependency-name: "once_cell"
       - dependency-name: "security-framework"
