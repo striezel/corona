@@ -21,7 +21,7 @@ Dependency updates:
 * update openssl-sys to 0.9.81
 * update proc-macro2 to 1.0.52
 * update quote to 1.0.26
-* update rustix to 0.36.9
+* update rustix to 0.36.10
 * update ryu to 1.0.13
 * update serde to 1.0.157
 * update serde_json to 1.0.94
