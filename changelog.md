@@ -17,11 +17,12 @@ Dependency updates:
 * update itoa to 1.0.6
 * update io-lifetimes to 1.0.6
 * update libc to 0.2.140
+* update mime to 0.3.17
 * update openssl to 0.10.47
 * update openssl-sys to 0.9.82
 * update proc-macro2 to 1.0.52
 * update quote to 1.0.26
-* update rustix to 0.36.10
+* update rustix to 0.36.11
 * update ryu to 1.0.13
 * update serde to 1.0.157
 * update serde_json to 1.0.94
