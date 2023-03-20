@@ -24,13 +24,13 @@ Dependency updates:
 * update quote to 1.0.26
 * update rustix to 0.36.11
 * update ryu to 1.0.13
-* update serde to 1.0.157
+* update serde to 1.0.158
 * update serde_json to 1.0.94
 * update slab to 0.4.8
 * update socket2 to 0.4.9
 * update syn to 1.0.109
 * update tempfile to 3.4.0
-* update unicode-bidi to 0.3.12
+* update unicode-bidi to 0.3.13
 * update unicode-ident to 1.0.8
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
