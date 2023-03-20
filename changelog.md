@@ -18,7 +18,7 @@ Dependency updates:
 * update io-lifetimes to 1.0.6
 * update libc to 0.2.140
 * update openssl to 0.10.46
-* update openssl-sys to 0.9.81
+* update openssl-sys to 0.9.82
 * update proc-macro2 to 1.0.52
 * update quote to 1.0.26
 * update rustix to 0.36.10
