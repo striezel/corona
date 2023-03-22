@@ -22,6 +22,7 @@ Dependency updates:
 * update openssl-sys to 0.9.82
 * update proc-macro2 to 1.0.52
 * update quote to 1.0.26
+* update regex to 1.7.2
 * update regex-syntax to 0.6.29
 * update rustix to 0.36.11
 * update ryu to 1.0.13
