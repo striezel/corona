@@ -18,7 +18,7 @@ Dependency updates:
 * update io-lifetimes to 1.0.6
 * update libc to 0.2.140
 * update mime to 0.3.17
-* update openssl to 0.10.47
+* update openssl to 0.10.48
 * update openssl-sys to 0.9.83
 * update proc-macro2 to 1.0.53
 * update quote to 1.0.26
