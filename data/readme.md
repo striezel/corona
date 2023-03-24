@@ -11,12 +11,7 @@ Disease Prevention and Control (ECDC) at
 That data was mostly identical to the data from Johns Hopkins university, except
 for some European countries where other official sources were used.
 
-## Contents
-
-Depending on whether you want the new data or the old data (kept here for
-reference) you have two options:
-
-### New data (mainly from Johns Hopkins University)
+## New data (mainly from Johns Hopkins University)
 
 This directory contains an [SQLite](https://www.sqlite.org/) database containing
 the case numbers for every country, `corona.db`. That database
@@ -25,6 +20,19 @@ a command-line utility to get numbers on the Coronavirus.
 
 Data source is mainly the Johns Hopkins University, with a few notable
 exceptions:
+
+* **Jersey**: The government of the Island of Jersey provides its official
+  Coronavirus case numbers at
+  <https://www.gov.je/Health/Coronavirus/Pages/CoronavirusCases.aspx>, and the
+  program uses the corresponding JSON data to create the database / CSV file.
+
+* **Switzerland** and **Liechtenstein**: Switzerland provides data as CSV (and
+  JSON, too) at <https://www.covid19.admin.ch/> via an API entry point at
+  <https://www.covid19.admin.ch/api/data/context>. Well done from a technical
+  point of view. :) This data also contains numbers for Liechtenstein, not just
+  Switzerland, so it is used for both countries.
+
+### Data sources used in previous versions
 
 * **Canada**: _(only before 2022-07-23 / before v0.12.3)_
   The government of Canada provides case numbers at
@@ -41,21 +49,12 @@ exceptions:
   A more machine-readable/-friendly and open (non-proprietary) format would be
   better, but unfortunately that is as good as it gets for the moment.
 
-* **Jersey**: The government of the Island of Jersey provides its official
-  Coronavirus case numbers at
-  <https://www.gov.je/Health/Coronavirus/Pages/CoronavirusCases.aspx>, and the
-  program uses the corresponding JSON data to create the database / CSV file.
-
-* **Switzerland** and **Liechtenstein**: Switzerland provides data as CSV (and
-  JSON, too) at <https://www.covid19.admin.ch/> via an API entry point at
-  <https://www.covid19.admin.ch/api/data/context>. Well done from a technical
-  point of view. :) This data also contains numbers for Liechtenstein, not just
-  Switzerland, so it is used for both countries.
-
 * **Turkey**: _(only before 2022-08-28 / before v0.12.4)_
   The Turkish Ministry of Health provides official numbers at
   <https://covid19.saglik.gov.tr/TR-66935/genel-koronavirus-tablosu.html>, and
   the program uses those.
+
+## Historical data sources
 
 ### RKI data
 
