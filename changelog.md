@@ -4,13 +4,14 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version 0.?.? (2023-02-??)
+## Version 0.?.? (2023-03-??)
 
 The plotly.js library is updated from version 2.18.1 to version 2.20.0.
 
 Dependency updates:
 
 * update block-buffer to 0.10.4
+* update cpufeatures to 0.2.6
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   futures-util to 0.3.27
 * update hyper to 0.14.25
@@ -22,7 +23,7 @@ Dependency updates:
 * update openssl-sys to 0.9.83
 * update proc-macro2 to 1.0.53
 * update quote to 1.0.26
-* update regex to 1.7.2
+* update regex to 1.7.3
 * update regex-syntax to 0.6.29
 * update rustix to 0.36.11
 * update ryu to 1.0.13
