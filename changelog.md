@@ -15,6 +15,7 @@ Dependency updates:
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   futures-util to 0.3.27
 * update hyper to 0.14.25
+* update ipnet to 2.7.2
 * update itoa to 1.0.6
 * update io-lifetimes to 1.0.6
 * update libc to 0.2.140
@@ -28,7 +29,7 @@ Dependency updates:
 * update rustix to 0.36.11
 * update ryu to 1.0.13
 * update serde to 1.0.158
-* update serde_json to 1.0.94
+* update serde_json to 1.0.95
 * update slab to 0.4.8
 * update socket2 to 0.4.9
 * update syn to 1.0.109
