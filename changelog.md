@@ -29,7 +29,7 @@ Dependency updates:
 * update regex-syntax to 0.6.29
 * update rustix to 0.36.11
 * update ryu to 1.0.13
-* update serde to 1.0.158
+* update serde to 1.0.159
 * update serde_json to 1.0.95
 * update slab to 0.4.8
 * update socket2 to 0.4.9
