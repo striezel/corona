@@ -34,7 +34,7 @@ Dependency updates:
 * update slab to 0.4.8
 * update socket2 to 0.4.9
 * update syn to 1.0.109
-* update tempfile to 3.4.0
+* update tempfile to 3.5.0
 * update unicode-bidi to 0.3.13
 * update unicode-ident to 1.0.8
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
