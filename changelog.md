@@ -27,7 +27,7 @@ Dependency updates:
 * update quote to 1.0.26
 * update regex to 1.7.3
 * update regex-syntax to 0.6.29
-* update rustix to 0.36.11
+* update rustix to 0.37.5
 * update ryu to 1.0.13
 * update serde to 1.0.159
 * update serde_json to 1.0.95
