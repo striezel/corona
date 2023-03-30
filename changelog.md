@@ -13,7 +13,7 @@ Dependency updates:
 * update block-buffer to 0.10.4
 * update cpufeatures to 0.2.6
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
-  futures-util to 0.3.27
+  futures-util to 0.3.28
 * update generic-array to 0.14.7
 * update hyper to 0.14.25
 * update ipnet to 2.7.2
