@@ -20,6 +20,7 @@ Dependency updates:
 * update itoa to 1.0.6
 * update io-lifetimes to 1.0.6
 * update libc to 0.2.140
+* update linux-raw-sys to 0.3.1
 * update mime to 0.3.17
 * update openssl to 0.10.48
 * update openssl-sys to 0.9.83
