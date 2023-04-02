@@ -22,8 +22,8 @@ Dependency updates:
 * update libc to 0.2.140
 * update linux-raw-sys to 0.3.1
 * update mime to 0.3.17
-* update openssl to 0.10.48
-* update openssl-sys to 0.9.83
+* update openssl to 0.10.49
+* update openssl-sys to 0.9.84
 * update proc-macro2 to 1.0.54
 * update quote to 1.0.26
 * update regex to 1.7.3
