@@ -111,6 +111,7 @@ dependencies = [
  "indexmap",
  "num_cpus",
  "once_cell",
+ "openssl-macros",
  "regex",
  "reqwest",
  "rusqlite",
