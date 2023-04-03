@@ -25,7 +25,7 @@ Dependency updates:
 * update mime to 0.3.17
 * update openssl to 0.10.49
 * update openssl-sys to 0.9.84
-* update proc-macro2 to 1.0.55
+* update proc-macro2 to 1.0.56
 * update quote to 1.0.26
 * update regex to 1.7.3
 * update regex-syntax to 0.6.29
