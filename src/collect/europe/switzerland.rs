@@ -15,11 +15,8 @@
  -------------------------------------------------------------------------------
 */
 
-use crate::collect::api::Range;
-use crate::collect::api::swiss_api;
-use crate::collect::{Collect, JsonCache};
+use crate::collect::Collect;
 use crate::data::Country;
-use crate::data::Numbers;
 
 pub struct Switzerland
 {
@@ -62,36 +59,6 @@ impl Collect for Switzerland
     "CH" // Switzerland
   }
 
-  fn collect(&self, range: &Range) -> Result<Vec<Numbers>, String>
-  {
-    let vec = swiss_api::official_csv_data("CH");
-    if vec.is_err() || range == &Range::All
-    {
-      return vec;
-    }
-    // Shorten to 30 elements, if necessary.
-    let mut vec = vec.unwrap();
-    if vec.len() <= 30
-    {
-      return Ok(vec);
-    }
-    Ok(vec.drain(vec.len() - 30..).collect())
-  }
-
-  /**
-   * Collects new data of the specified time range, using the cache.
-   * If there is no cached data, it may fallback to non-cached data collection.
-   *
-   * @param  range   the data range to collect
-   * @param  cache   the cached JSON data
-   * @return Returns a vector containing new daily numbers for cases + deaths.
-   *         Returns an Err(), if no data could be retrieved.
-   */
-  fn collect_cached(&self, range: &Range, _cache: &JsonCache) -> Result<Vec<Numbers>, String>
-  {
-    // Data comes from Swiss CSV data, so fall back to collect().
-    // TODO: Cache Swiss CSV once it is downloaded. This would allow reuse for
-    //       cached collect of Liechtenstein and save us three(?) HTTP requests.
-    self.collect(range)
-  }
+  // Uses the default implementation of collect(), which is to query the
+  // disease.sh historical API.
 }

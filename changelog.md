@@ -6,6 +6,11 @@ improvements may be omitted.)_
 
 ## Version 0.?.? (2023-03-??)
 
+The data collection for Liechtenstein and Switzerland is switched to the
+disease.sh API. The previous data source, data provided via an API by the Swiss
+government, has not received data updates after 1st January 2023, and therefore
+it lacks more recent data.
+
 The plotly.js library is updated from version 2.18.1 to version 2.20.0.
 
 Dependency updates:

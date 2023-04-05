@@ -26,12 +26,6 @@ exceptions:
   <https://www.gov.je/Health/Coronavirus/Pages/CoronavirusCases.aspx>, and the
   program uses the corresponding JSON data to create the database / CSV file.
 
-* **Switzerland** and **Liechtenstein**: Switzerland provides data as CSV (and
-  JSON, too) at <https://www.covid19.admin.ch/> via an API entry point at
-  <https://www.covid19.admin.ch/api/data/context>. Well done from a technical
-  point of view. :) This data also contains numbers for Liechtenstein, not just
-  Switzerland, so it is used for both countries.
-
 ### Data sources used in previous versions
 
 * **Canada**: _(only before 2022-07-23 / before v0.12.3)_
@@ -48,6 +42,13 @@ exceptions:
   <https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Fallzahlen_Kum_Tab.xlsx>.
   A more machine-readable/-friendly and open (non-proprietary) format would be
   better, but unfortunately that is as good as it gets for the moment.
+
+* **Switzerland** and **Liechtenstein**: _(only before 2023-04-05)_
+  Switzerland provides data as CSV (and JSON, too) at
+  <https://www.covid19.admin.ch/> via an API entry point at
+  <https://www.covid19.admin.ch/api/data/context>. Well done from a technical
+  point of view. :) This data also contains numbers for Liechtenstein, not just
+  Switzerland, so it is used for both countries.
 
 * **Turkey**: _(only before 2022-08-28 / before v0.12.4)_
   The Turkish Ministry of Health provides official numbers at
