@@ -43,7 +43,7 @@ exceptions:
   A more machine-readable/-friendly and open (non-proprietary) format would be
   better, but unfortunately that is as good as it gets for the moment.
 
-* **Switzerland** and **Liechtenstein**: _(only before 2023-04-05)_
+* **Switzerland** and **Liechtenstein**: _(only before 2023-04-05 / before v0.12.9)_
   Switzerland provides data as CSV (and JSON, too) at
   <https://www.covid19.admin.ch/> via an API entry point at
   <https://www.covid19.admin.ch/api/data/context>. Well done from a technical
