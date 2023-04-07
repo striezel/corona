@@ -4,6 +4,12 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version 0.?.? (2023-04-??)
+
+Dependency updates:
+
+* update getrandom to 0.2.9
+
 ## Version 0.12.9 (2023-04-05)
 
 The data collection for Liechtenstein and Switzerland is switched to the
