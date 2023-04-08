@@ -8,6 +8,7 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update errno to 0.3.1
 * update getrandom to 0.2.9
 
 ## Version 0.12.9 (2023-04-05)
