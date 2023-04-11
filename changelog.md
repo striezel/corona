@@ -12,6 +12,7 @@ Dependency updates:
 * update getrandom to 0.2.9
 * update openssl to 0.10.50
 * update openssl-sys to 0.9.85
+* update serde to 1.0.160
 
 ## Version 0.12.9 (2023-04-05)
 
