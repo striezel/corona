@@ -13,6 +13,7 @@ Dependency updates:
 * update openssl to 0.10.50
 * update openssl-sys to 0.9.85
 * update serde to 1.0.160
+* update serde_json to 1.0.96
 
 ## Version 0.12.9 (2023-04-05)
 
