@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2021  Dirk Stolle
+    Copyright (C) 2021, 2023  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -133,6 +133,18 @@ impl Info
                 the last 14 days per\n100000 inhabitants. Note that some \
                 authorities like e. g. Germany's Robert Koch\nInstitute use a \
                 7-day incidence value instead, which is different.");
+    }
+
+    // Add note about when JHU ceased data collection. However, Jersey still
+    // uses another data source, so only show that when we are showing data for
+    // other countries.
+    if country.geo_id != "JE"
+    {
+      println!();
+      println!("Note: The Johns Hopkins Coronavirus Resource Center ceased its \
+                collecting and\nreporting of global COVID-19 data on 10th March \
+                2023. Since this data is currently\nused by the program, newer \
+                data cannot be shown.");
     }
 
     true

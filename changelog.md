@@ -6,6 +6,11 @@ improvements may be omitted.)_
 
 ## Version 0.?.? (2023-04-??)
 
+The Johns Hopkins Coronavirus Resource Center, currently the main source for
+data of this program, ceased its collecting and reporting of global COVID-19
+data on 10th March 2023. Therefore, newer data can currently not be displayed
+by this program and the `info` command will now show a note that explains this.
+
 Dependency updates:
 
 * update errno to 0.3.1
