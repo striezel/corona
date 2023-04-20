@@ -10,6 +10,7 @@ Dependency updates:
 
 * update errno to 0.3.1
 * update getrandom to 0.2.9
+* update libc to 0.2.142
 * update linux-raw-sys to 0.3.3
 * update openssl to 0.10.50
 * update openssl-sys to 0.9.85
