@@ -4,10 +4,6 @@ on: push
 jobs:
   build-windows:
     runs-on: windows-2022
-
-    # Remove this, once tokio and mio are bumped and ntapi is removed.
-    continue-on-error: true
-
     strategy:
       fail-fast: false
       matrix:
