@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version 0.?.? (2023-04-??)
+## Version 0.12.10 (2023-04-22)
 
 The Johns Hopkins Coronavirus Resource Center, currently the main source for
 data of this program, ceased its collecting and reporting of global COVID-19

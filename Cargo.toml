@@ -1,6 +1,6 @@
 [package]
 name = "corona"
-version = "0.12.9"
+version = "0.12.10"
 authors = ["Dirk Stolle <striezel-dev@web.de>"]
 description = "command-line application to generate graphs showing the Coronavirus (SARS-CoV-2, COVID-19) case numbers for various countries"
 readme = "readme.md"
