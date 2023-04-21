@@ -19,7 +19,7 @@ Dependency updates:
 * update libc to 0.2.142
 * update linux-raw-sys to 0.3.3
 * update openssl to 0.10.50
-* update openssl-sys to 0.9.85
+* update openssl-sys to 0.9.86
 * update serde to 1.0.160
 * update serde_json to 1.0.96
 
