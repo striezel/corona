@@ -13,6 +13,7 @@ by this program and the `info` command will now show a note that explains this.
 
 Dependency updates:
 
+* update cpufeatures to 0.2.7
 * update errno to 0.3.1
 * update getrandom to 0.2.9
 * update libc to 0.2.142
