@@ -4,6 +4,12 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version 0.?.? (2023-04-??)
+
+Dependency updates:
+
+* update linux-raw-sys to 0.3.4
+
 ## Version 0.12.10 (2023-04-22)
 
 The Johns Hopkins Coronavirus Resource Center, currently the main source for
