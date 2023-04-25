@@ -9,6 +9,7 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update linux-raw-sys to 0.3.4
+* update openssl-sys to 0.9.87
 
 ## Version 0.12.10 (2023-04-22)
 
