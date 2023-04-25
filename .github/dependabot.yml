@@ -32,6 +32,7 @@ updates:
       - dependency-name: "time"
       - dependency-name: "tokio"
       - dependency-name: "tokio-native-tls"
+      - dependency-name: "tracing-attributes"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
