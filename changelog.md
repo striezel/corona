@@ -10,6 +10,7 @@ Dependency updates:
 
 * update linux-raw-sys to 0.3.6
 * update openssl-sys to 0.9.87
+* update pkg-config to 0.3.27
 
 ## Version 0.12.10 (2023-04-22)
 
