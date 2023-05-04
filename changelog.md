@@ -6,6 +6,8 @@ improvements may be omitted.)_
 
 ## Version 0.?.? (2023-04-??)
 
+The plotly.js library is updated from version 2.20.0 to version 2.22.0.
+
 Dependency updates:
 
 * update linux-raw-sys to 0.3.7
