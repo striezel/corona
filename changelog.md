@@ -8,7 +8,7 @@ improvements may be omitted.)_
 
 Dependency updates:
 
-* update linux-raw-sys to 0.3.6
+* update linux-raw-sys to 0.3.7
 * update openssl-sys to 0.9.87
 * update pkg-config to 0.3.27
 
