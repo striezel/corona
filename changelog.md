@@ -4,6 +4,12 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version 0.?.? (2023-05-??)
+
+Dependency updates:
+
+* update serde to 1.0.162
+
 ## Version 0.12.11 (2023-05-05)
 
 The plotly.js library is updated from version 2.20.0 to version 2.22.0.
