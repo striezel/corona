@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021  Dirk Stolle
+    Copyright (C) 2020, 2021, 2023  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -22,6 +22,7 @@ mod csv;
 mod data;
 mod database;
 mod db;
+mod db_who;
 mod generator;
 mod info;
 mod template;
@@ -61,6 +62,18 @@ pub fn run(op: &Operation) -> Result<(), String>
       use crate::db::Db;
 
       let db = Db::new(config)?;
+      if !db.create_db()
+      {
+        return Err("Failed to create SQLite database from CSV file!".to_string());
+      }
+
+      Ok(())
+    },
+    Operation::DbWho(config) =>
+    {
+      use crate::db_who::DbWho;
+
+      let db = DbWho::new(config)?;
       if !db.create_db()
       {
         return Err("Failed to create SQLite database from CSV file!".to_string());

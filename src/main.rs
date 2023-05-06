@@ -48,6 +48,11 @@ fn main()
       basename
     );
     eprintln!("           or");
+    eprintln!(
+      "Usage: {} db_who /path/to/input.csv /path/to/output.db",
+      basename
+    );
+    eprintln!("           or");
     eprintln!("Usage: {} collect /path/to/output.db", basename);
     eprintln!("           or");
     eprintln!("Usage: {} info name_of_country", basename);

@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021  Dirk Stolle
+    Copyright (C) 2020, 2021, 2023  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -23,6 +23,7 @@ pub enum Operation
   Html(HtmlConfiguration),       // generate HTML files
   Csv(CsvConfiguration),         // write data to CSV
   Db(DbConfiguration),           // extract CSV data and write to DB
+  DbWho(DbConfiguration),        // extract CSV (WJO) data and write to DB
   Collect(CollectConfiguration), // collects data and creates a DB
   Info(InfoConfiguration),       // show info for a single country
   Version                        // show version
@@ -131,6 +132,24 @@ pub fn parse_args(args: &[String]) -> Result<Operation, String>
     let csv_input_file = args[2].clone();
     let db_path = args[3].clone();
     return Ok(Operation::Db(DbConfiguration { csv_input_file, db_path }));
+  }
+
+  if args[1] == "db_who"
+  {
+    // requires three parameters:
+    // 1:   db_who
+    // 2:   /path/to/input.csv
+    // 3:   /path/to/corona.db
+    if args.len() < 4
+    {
+      return Err(String::from(
+        "Not enough command line parameters for DB operation!"
+      ));
+    }
+
+    let csv_input_file = args[2].clone();
+    let db_path = args[3].clone();
+    return Ok(Operation::DbWho(DbConfiguration { csv_input_file, db_path }));
   }
 
   if args[1] == "collect"
