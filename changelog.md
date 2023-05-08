@@ -8,7 +8,8 @@ improvements may be omitted.)_
 
 Dependency updates:
 
-* update libc to 0.2.143
+* update libc to 0.2.144
+* update quote to 1.0.27
 * update serde to 1.0.162
 
 ## Version 0.12.11 (2023-05-05)
