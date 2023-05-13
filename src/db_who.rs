@@ -16,10 +16,11 @@
 */
 
 use super::configuration::DbConfiguration;
-use crate::data::Country;
+use crate::data::{Country, Numbers};
 use crate::database::Database;
 use crate::world::World;
 use csv::Reader;
+use crate::data;
 
 pub struct DbWho
 {
@@ -169,10 +170,10 @@ impl DbWho
   {
     let mut last_geo_id = String::new();
     let mut country_id: i64 = -1;
+    let mut population: i32 = -1;
     let mut record = csv::StringRecord::new();
-    let mut batch = String::new();
-    let mut batch_count: u32 = 0;
     let world = World::new();
+    let mut parsed_data = Vec::<Numbers>::new();
     loop
     {
       match reader.read_record(&mut record)
@@ -203,6 +204,14 @@ impl DbWho
       let current_geo_id = record.get(1).unwrap();
       if current_geo_id != last_geo_id
       {
+        // Insert data of previous country.
+        if country_id != -1
+          && !DbWho::save_numbers_into_db(db, &country_id, &population, &mut parsed_data)
+        {
+          eprintln!("Error: Could not insert country data into database!");
+          return false;
+        }
+        parsed_data.truncate(0);
         // new country
         let name = record.get(2).unwrap();
         let no_country = Country {
@@ -214,6 +223,7 @@ impl DbWho
           continent: record.get(3).unwrap().to_string()
         };
         let world_data = world.find_by_geo_id(current_geo_id).unwrap_or(&no_country);
+        population = world_data.population;
         // Get country id or insert country.
         country_id = db.get_country_id_or_insert(
           current_geo_id,
@@ -231,17 +241,17 @@ impl DbWho
       }
       // Add current record.
       let date = record.get(0).unwrap();
-      let cases: i64 = match record.get(4).unwrap().is_empty()
+      let cases: i32 = match record.get(4).unwrap().is_empty()
       {
-        false => record.get(4).unwrap().parse().unwrap_or(i64::MIN),
+        false => record.get(4).unwrap().parse().unwrap_or(i32::MIN),
         true => 0
       };
-      let deaths: i64 = match record.get(6).unwrap().is_empty()
+      let deaths: i32 = match record.get(6).unwrap().is_empty()
       {
-        false => record.get(5).unwrap().parse().unwrap_or(i64::MIN),
+        false => record.get(6).unwrap().parse().unwrap_or(i32::MIN),
         true => 0
       };
-      if cases == i64::MIN || deaths == i64::MIN
+      if cases == i32::MIN || deaths == i32::MIN
       {
         eprintln!(
           "Error: Got invalid case numbers on line {}.",
@@ -249,77 +259,81 @@ impl DbWho
         );
         return false;
       }
-      // TODO: Calculate incidence values.
-      let incidence14 = f64::NAN;
-      let incidence7 = f64::NAN;
-      if batch.is_empty()
-      {
-        batch = String::from(
-          "INSERT INTO covid19 (countryId, date, cases, deaths, incidence14, incidence7) VALUES "
-        );
-        batch_count = 0;
-      }
-
-      batch.push('(');
-      batch.push_str(&country_id.to_string());
-      batch.push_str(", ");
-      batch.push_str(&Database::quote(date));
-      batch.push_str(", ");
-      batch.push_str(&cases.to_string());
-      batch.push_str(", ");
-      batch.push_str(&deaths.to_string());
-      batch.push_str(", ");
-      if incidence14.is_nan()
-      {
-        batch.push_str("NULL");
-      }
-      else
-      {
-        batch.push_str(&incidence14.to_string());
-      }
-      batch.push_str(", ");
-      if incidence7.is_nan()
-      {
-        batch.push_str("NULL");
-      }
-      else
-      {
-        batch.push_str(&incidence7.to_string());
-      }
-      batch.push_str("),");
-      batch_count += 1;
-
-      // Perform one insert for every 250 data sets.
-      if batch_count >= 250 && !batch.is_empty()
-      {
-        // replace last ',' with ';' to make it valid SQL syntax
-        batch = batch[0..batch.len() - 1].to_string();
-        batch.push(';');
-        if !db.batch(&batch)
-        {
-          eprintln!("Error: Could not batch-insert case numbers into database!");
-          return false;
-        }
-
-        batch.truncate(0);
-        batch_count = 0;
-      } // if batch
+      parsed_data.push(Numbers { date: String::from(date), cases, deaths});
     }
     // Execute remaining batch inserts, if any are left.
-    if batch_count > 0 && !batch.is_empty()
+    if !parsed_data.is_empty()
+      && !DbWho::save_numbers_into_db(db, &country_id, &population, &mut parsed_data)
     {
-      // replace last ',' with ';' to make it valid SQL syntax
-      batch = batch[0..batch.len() - 1].to_string();
-      batch.push(';');
-      if !db.batch(&batch)
-      {
-        eprintln!("Error: Could not batch-insert case numbers into database!");
-        return false;
-      }
-    } // if batch remains
+      eprintln!("Error: Could not insert country data into database!");
+      return false;
+    }
 
     // Done.
     true
+  }
+
+  /**
+   * Writes case numbers of one country it into the database.
+   *
+   * @param db          an open SQLite database with existing tables
+   * @param country_id  id of the country in the database
+   * @param population  population of the country; or -1 if unknown
+   * @return Returns true, if all data was written to the database successfully.
+   *         Returns false otherwise.
+   */
+  fn save_numbers_into_db(db: &Database, country_id: &i64, population: &i32, numbers: &mut [Numbers]) -> bool
+  {
+    if numbers.is_empty()
+    {
+      return true;
+    }
+    numbers.sort_unstable_by(|a, b| a.date.cmp(&b.date));
+    let enriched_data = data::calculate_incidence(numbers, population);
+    let enriched_data = data::calculate_totals(&enriched_data);
+    // Build insert statement.
+    let mut batch = String::from(
+      "INSERT INTO covid19 (countryId, date, cases, deaths, incidence14, \
+       incidence7, totalCases, totalDeaths) VALUES "
+    );
+    // Reserve 60 bytes for every data record to avoid frequent reallocation.
+    batch.reserve(60 * enriched_data.len());
+    let country_id = country_id.to_string();
+    for elem in enriched_data.iter()
+    {
+      batch.push('(');
+      batch.push_str(&country_id);
+      batch.push_str(", ");
+      batch.push_str(&Database::quote(&elem.date));
+      batch.push_str(", ");
+      batch.push_str(&elem.cases.to_string());
+      batch.push_str(", ");
+      batch.push_str(&elem.deaths.to_string());
+      batch.push_str(", ");
+      match elem.incidence_14d
+      {
+        Some(float) => batch.push_str(&float.to_string()),
+        None => batch.push_str("NULL")
+      }
+      batch.push_str(", ");
+      match elem.incidence_7d
+      {
+        Some(float) => batch.push_str(&float.to_string()),
+        None => batch.push_str("NULL")
+      }
+      batch.push_str(", ");
+      batch.push_str(&elem.total_cases.to_string());
+      batch.push_str(", ");
+      batch.push_str(&elem.total_deaths.to_string());
+      batch.push_str("),");
+    }
+
+    // replace last ',' with ';' to make it valid SQL syntax
+    batch.truncate(batch.len() - 1);
+    batch.push(';');
+
+    // Insert all data in one go.
+    db.batch(&batch)
   }
 }
 
