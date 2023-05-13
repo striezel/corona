@@ -16,7 +16,9 @@
 */
 
 use super::configuration::DbConfiguration;
+use crate::data::Country;
 use crate::database::Database;
+use crate::world::World;
 use csv::Reader;
 
 pub struct DbWho
@@ -170,6 +172,7 @@ impl DbWho
     let mut record = csv::StringRecord::new();
     let mut batch = String::new();
     let mut batch_count: u32 = 0;
+    let world = World::new();
     loop
     {
       match reader.read_record(&mut record)
@@ -202,16 +205,22 @@ impl DbWho
       {
         // new country
         let name = record.get(2).unwrap();
-        let country_code = String::new(); // TODO: Get three letter code from World.
-        let population: i64 = -1; // TODO: Get population from World.
-        let continent = record.get(3).unwrap(); //TODO: Get from World.
+        let no_country = Country {
+          country_id: -1,
+          name: name.to_string(),
+          population: -1,
+          geo_id: current_geo_id.to_string(),
+          country_code: String::new(),
+          continent: record.get(3).unwrap().to_string()
+        };
+        let world_data = world.find_by_geo_id(current_geo_id).unwrap_or(&no_country);
         // Get country id or insert country.
         country_id = db.get_country_id_or_insert(
           current_geo_id,
           name,
-          &population,
-          &country_code,
-          continent
+          &i64::from(world_data.population),
+          &world_data.country_code,
+          &world_data.continent
         );
         if country_id == -1
         {
