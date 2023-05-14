@@ -300,7 +300,7 @@ impl Db
       if batch_count >= 250 && !batch.is_empty()
       {
         // replace last ',' with ';' to make it valid SQL syntax
-        batch = batch[0..batch.len() - 1].to_string();
+        batch.truncate(batch.len() - 1);
         batch.push(';');
         if !db.batch(&batch)
         {
@@ -316,7 +316,7 @@ impl Db
     if batch_count > 0 && !batch.is_empty()
     {
       // replace last ',' with ';' to make it valid SQL syntax
-      batch = batch[0..batch.len() - 1].to_string();
+      batch.truncate(batch.len() - 1);
       batch.push(';');
       if !db.batch(&batch)
       {
