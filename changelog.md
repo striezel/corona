@@ -9,6 +9,7 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update libc to 0.2.144
+* update proc-macro2 to 1.0.57
 * update quote to 1.0.27
 * update serde to 1.0.163
 * update tracng-core to 0.1.31
