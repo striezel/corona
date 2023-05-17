@@ -76,6 +76,12 @@ impl Db
    */
   pub fn create_db(&self) -> bool
   {
+    if !std::path::Path::new(&self.config.csv_input_file).is_file()
+    {
+      eprintln!("Error: {} does not exist or is not a file.",
+                self.config.csv_input_file);
+      return false;
+    }
     match Db::get_csv_type(&self.config.csv_input_file)
     {
       Some(CsvType::Ecdc) => {
