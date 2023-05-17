@@ -249,4 +249,30 @@ mod tests
     assert_eq!(detected, Some(CsvType::Who));
     assert!(std::fs::remove_file(path).is_ok());
   }
+
+  #[test]
+  fn get_csv_type_none_no_bom()
+  {
+    let mut path = std::env::temp_dir();
+    path.push("none_no_bom.csv");
+    let path = path.to_str().unwrap();
+    assert!(std::fs::write(path, b"C,S,V
+                                   2020-01-03,123,45").is_ok());
+    let detected = Db::get_csv_type(&path);
+    assert_eq!(detected, None);
+    assert!(std::fs::remove_file(path).is_ok());
+  }
+
+  #[test]
+  fn get_csv_type_none_with_bom()
+  {
+    let mut path = std::env::temp_dir();
+    path.push("none_with_bom.csv");
+    let path = path.to_str().unwrap();
+    assert!(std::fs::write(path, b"\xEF\xBB\xBFC,S,V
+                                   2020-01-03,123,45").is_ok());
+    let detected = Db::get_csv_type(&path);
+    assert_eq!(detected, None);
+    assert!(std::fs::remove_file(path).is_ok());
+  }
 }
