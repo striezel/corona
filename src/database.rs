@@ -926,20 +926,20 @@ mod tests
   }
 
   /**
-   * Gets a database instance connected to the current corona.db file in data directory.
+   * Gets a database instance connected to the old JHU corona.db file in data directory.
    *
-   * @remarks The data in that file may change regularly, so do not rely on it
-   *          being constant.
+   * @remarks The records in that SQLite database are stale, apart from possible
+   *          future schema updates, so they can be considered "constant" data.
    * @return Returns an open database.
    */
-  fn get_sqlite_db_live() -> Database
+  fn get_sqlite_db_jhu() -> Database
   {
     let db_path = Path::new(file!()) // current file: src/database.rs
       .parent()                      // parent: src/
       .unwrap()                      // safe to unwrap, because directory exists
       .join("..")                    // up one directory
       .join("data")                  // into directory data/
-      .join("corona.db");            // and to the corona.db file;
+      .join("corona-jhu-2023-03-09.db"); // and to the *.db file;
     let db = Database::new(db_path.to_str().unwrap());
     assert!(db.is_ok());
     return db.unwrap();
@@ -1459,7 +1459,7 @@ mod tests
   #[test]
   fn incidence7_negative_luxembourg()
   {
-    let db = get_sqlite_db_live();
+    let db = get_sqlite_db_jhu();
 
     // Country id 120 is Luxembourg in the live DB.
     let incidences = db.incidence7(&120);
