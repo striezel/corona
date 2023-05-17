@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021, 2022  Dirk Stolle
+    Copyright (C) 2020, 2021, 2022, 2023  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -19,12 +19,12 @@ use super::configuration::DbConfiguration;
 use crate::database::Database;
 use csv::Reader;
 
-pub struct Db
+pub struct DbEcdc
 {
   config: DbConfiguration
 }
 
-impl Db
+impl DbEcdc
 {
   /**
    * Creates a new instance.
@@ -34,7 +34,7 @@ impl Db
    *           Returns a string with an error message, if the configuration
    *           seems to be invalid.
    */
-  pub fn new(config: &DbConfiguration) -> Result<Db, String>
+  pub fn new(config: &DbConfiguration) -> Result<DbEcdc, String>
   {
     if config.db_path.is_empty()
     {
@@ -45,7 +45,7 @@ impl Db
       return Err("Path of CSV file must be set to a non-empty string!".to_string());
     }
 
-    Ok(Db
+    Ok(DbEcdc
     {
       config: DbConfiguration
       {
@@ -107,7 +107,7 @@ impl Db
       return false;
     }
     // parse CSV values
-    Db::parse_csv_into_db(db, &mut reader)
+    DbEcdc::parse_csv_into_db(db, &mut reader)
   }
 
   /**
@@ -367,7 +367,7 @@ mod tests
     };
     // scope for db
     {
-      let db = Db::new(&config).unwrap();
+      let db = DbEcdc::new(&config).unwrap();
       assert!(db.create_db());
       // Check that DB file exists.
       assert!(db_file_name.exists());

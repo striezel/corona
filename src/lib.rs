@@ -21,7 +21,7 @@ pub mod configuration;
 mod csv;
 mod data;
 mod database;
-mod db;
+mod db_ecdc;
 mod db_who;
 mod generator;
 mod info;
@@ -59,9 +59,9 @@ pub fn run(op: &Operation) -> Result<(), String>
     },
     Operation::Db(config) =>
     {
-      use crate::db::Db;
+      use crate::db_ecdc::DbEcdc;
 
-      let db = Db::new(config)?;
+      let db = DbEcdc::new(config)?;
       if !db.create_db()
       {
         return Err("Failed to create SQLite database from CSV file!".to_string());
