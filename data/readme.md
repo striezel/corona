@@ -57,6 +57,16 @@ exceptions:
 
 ## Historical data sources
 
+### JHU data
+
+The Coronavirus Resource Center at Johns Hopkins University ceased its
+collecting and reporting of global COVID-19 data on 10th March 2023. Therefore,
+newer data must be collected from other sources.
+
+The latest collected data that has been available from that source (via the
+disease.sh API) is available in the files `corona-jhu-2023-03-09.db` or
+`corona-jhu-2023-03-09.csv`, respectively.
+
 ### RKI data
 
 The German Robert Koch Institute (RKI) changed the update interval of their

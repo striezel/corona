@@ -6,6 +6,21 @@ improvements may be omitted.)_
 
 ## Version 0.?.? (2023-05-??)
 
+The program can now create a SQLite database from the data of a given CSV file
+with daily Coronavirus data using the CSV format used by the World Health
+Organization (WHO) at <https://covid19.who.int/WHO-COVID-19-global-data.csv>.
+The SQLite database creation uses the `db` subcommand, just like for the ECDC
+format. Assuming the file <https://covid19.who.int/WHO-COVID-19-global-data.csv>
+was downloaded to `/path/to/WHO-COVID-19-global-data.csv` then the database can
+be created by invoking
+
+    cargo run db /path/to/WHO-COVID-19-global-data.csv /path/to/sqlite.db
+
+In that case, the database file will be created at `/path/to/sqlite.db`.
+
+The `db` command still supports the ECDC format. It will detect the format of a
+CSV file by looking at its headers.
+
 Dependency updates:
 
 * update libc to 0.2.144

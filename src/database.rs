@@ -774,7 +774,7 @@ impl Database
       return false;
     }
 
-    let mut batch = String::new();
+    let mut batch = String::with_capacity(15000);
     let mut batch_count: u32 = 0;
 
     let cid_as_string: &str = &country_id.to_string();
@@ -823,7 +823,7 @@ impl Database
       if batch_count >= 250 && !batch.is_empty()
       {
         // replace last ',' with ';' to make it valid SQL syntax
-        batch = batch[0..batch.len() - 1].to_string();
+        batch.truncate(batch.len() - 1);
         batch.push(';');
         if !self.batch(&batch)
         {
@@ -840,7 +840,7 @@ impl Database
     if batch_count > 0 && !batch.is_empty()
     {
       // replace last ',' with ';' to make it valid SQL syntax
-      batch = batch[0..batch.len() - 1].to_string();
+      batch.truncate(batch.len() - 1);
       batch.push(';');
       if !self.batch(&batch)
       {
