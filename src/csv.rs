@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021, 2022  Dirk Stolle
+    Copyright (C) 2020, 2021, 2022, 2023  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -136,7 +136,7 @@ impl Csv
       "Cumulative_number_for_14_days_of_COVID-19_cases_per_100000",
       "Cumulative_number_for_7_days_of_COVID-19_cases_per_100000"
     ];
-    if let Err(e) = writer.write_record(&CSV_HEADER)
+    if let Err(e) = writer.write_record(CSV_HEADER)
     {
       eprintln!("Error: Could not write CSV header! {}", e);
       return false;

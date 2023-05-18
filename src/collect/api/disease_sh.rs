@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2021, 2022  Dirk Stolle
+    Copyright (C) 2021, 2022, 2023  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -247,7 +247,6 @@ fn construct_historical_api_url_usa_counties(county: &str, range: &Range) -> Str
 pub fn parse_json_timeline(json: &Value) -> Result<Vec<Numbers>, String>
 {
   use std::collections::HashMap;
-  use std::convert::TryFrom;
 
   let timeline = match json.get("timeline")
   {
