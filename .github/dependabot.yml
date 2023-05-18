@@ -17,12 +17,10 @@ updates:
       # are ignored.
       - dependency-name: "bumpalo"
       - dependency-name: "csv"
-      - dependency-name: "openssl"
       - dependency-name: "regex"
       - dependency-name: "security-framework"
       - dependency-name: "security-framework-sys"
       - dependency-name: "time"
-      - dependency-name: "tokio-native-tls"
       - dependency-name: "tracing"
       - dependency-name: "tracing-attributes"
   - package-ecosystem: "github-actions"

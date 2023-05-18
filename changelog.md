@@ -23,10 +23,12 @@ Dependency updates:
 * update mio to 0.8.6
 * update num_cpus to 1.15.0
 * update once_cell to 1.17.1
+* update openssl to 0.10.52
 * update openssl-macros to 0.1.1
 * update rustix to 0.37.19
 * update time to 0.3.9
 * update tokio to 1.28.1
+* update tokio-native-tls to 0.3.1
 
 ## Version 0.13.0 (2023-05-18)
 
