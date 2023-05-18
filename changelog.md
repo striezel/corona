@@ -22,12 +22,14 @@ Dependency updates:
 * update indexmap to 1.9.3
 * update io-lifetimes to 1.0.10
 * update js-sys to 0.3.63
+* update libsqlite3-sys to 0.24.2
 * update mio to 0.8.6
 * update num_cpus to 1.15.0
 * update once_cell to 1.17.1
 * update openssl to 0.10.52
 * update openssl-macros to 0.1.1
 * update proc-macro2 to 1.0.58
+* update rusqlite to 0.27.0
 * update rustix to 0.37.19
 * update security-framework to 2.7.0
 * update security-framework-sys to 2.9.0
