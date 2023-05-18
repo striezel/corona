@@ -17,7 +17,6 @@ updates:
       # are ignored.
       - dependency-name: "bumpalo"
       - dependency-name: "csv"
-      - dependency-name: "h2"
       - dependency-name: "http"
       - dependency-name: "indexmap"
       - dependency-name: "io-lifetimes"
