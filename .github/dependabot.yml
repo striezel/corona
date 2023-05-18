@@ -20,7 +20,6 @@ updates:
       - dependency-name: "io-lifetimes"
       - dependency-name: "num_cpus"
       - dependency-name: "openssl"
-      - dependency-name: "openssl-macros"
       - dependency-name: "regex"
       - dependency-name: "rustix"
       - dependency-name: "security-framework"
