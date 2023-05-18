@@ -4,6 +4,10 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version 0.?.? (2023-05-??)
+
+The plotly.js library is updated from version 2.22.0 to version 2.23.1.
+
 ## Version 0.13.0 (2023-05-18)
 
 The program can now create a SQLite database from the data of a given CSV file
