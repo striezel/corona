@@ -11,8 +11,12 @@ See the <https://striezel.github.io/corona/> for a snapshot of those graphs.
 
 ## Data source
 
-The tool uses the data provided by the Center for Systems Science and
-Engineering (CSSE) at Johns Hopkins University provided at
+The tool uses the data provided by the World Health Organization's Coronavirus
+Dashboard, provided at <https://covid19.who.int/data> and available in CSV
+format at <https://covid19.who.int/WHO-COVID-19-global-data.csv>.
+
+Alternatively, the `collect` subcommand uses the data provided by the Center for
+Systems Science and Engineering (CSSE) at Johns Hopkins University provided at
 <https://github.com/CSSEGISandData/COVID-19> and queries the data via the API
 provided by disease.sh at <https://disease.sh/docs/>.
 
