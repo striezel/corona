@@ -4,6 +4,12 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version 0.?.? (2023-05-??)
+
+Dependency updates:
+
+* update tokio-util to 0.7.8
+
 ## Version 0.14.0 (2023-05-18)
 
 The Minimum Supported Rust Version (MSRV) is bumped to 1.56.1. Rust 1.56.1 has
