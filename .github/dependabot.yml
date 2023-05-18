@@ -17,7 +17,6 @@ updates:
       # are ignored.
       - dependency-name: "bumpalo"
       - dependency-name: "csv"
-      - dependency-name: "num_cpus"
       - dependency-name: "openssl"
       - dependency-name: "regex"
       - dependency-name: "security-framework"

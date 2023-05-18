@@ -21,6 +21,7 @@ Dependency updates:
 * update indexmap to 1.9.3
 * update io-lifetimes to 1.0.10
 * update mio to 0.8.6
+* update num_cpus to 1.15.0
 * update once_cell to 1.17.1
 * update openssl-macros to 0.1.1
 * update rustix to 0.37.19
