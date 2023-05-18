@@ -13,6 +13,11 @@ safe to update to that version. For the Rust release announcement see
 
 The plotly.js library is updated from version 2.22.0 to version 2.23.1.
 
+Dependency updates:
+
+* update h2 to 0.3.19
+* update http to 0.2.9
+
 ## Version 0.13.0 (2023-05-18)
 
 The program can now create a SQLite database from the data of a given CSV file
