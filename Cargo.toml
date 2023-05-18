@@ -42,5 +42,3 @@ sha2 = "0.10"
 num_cpus = "=1.14.0"
 # Pin time to 0.3.9, because 0.3.10 needs rustc 1.57, but our MSRV is 1.56.1.
 time = { version = "=0.3.9", features = ["formatting", "parsing"] }
-# Pin tokio to 1.16.1, because 1.17.0 needs rustc 1.49, but our MSRV is 1.48.0.
-tokio = "=1.16.1"

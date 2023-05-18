@@ -25,7 +25,6 @@ updates:
       - dependency-name: "security-framework"
       - dependency-name: "security-framework-sys"
       - dependency-name: "time"
-      - dependency-name: "tokio"
       - dependency-name: "tokio-native-tls"
       - dependency-name: "tracing"
       - dependency-name: "tracing-attributes"
