@@ -21,6 +21,7 @@ Dependency updates:
 * update hyper to 0.14.26
 * update indexmap to 1.9.3
 * update io-lifetimes to 1.0.10
+* update js-sys to 0.3.63
 * update mio to 0.8.6
 * update num_cpus to 1.15.0
 * update once_cell to 1.17.1
@@ -32,6 +33,9 @@ Dependency updates:
 * update tokio to 1.28.1
 * update tokio-native-tls to 0.3.1
 * update tracing-attributes to 0.1.24
+* update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-futures,
+  wasm-bindgen-macro, wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.86
+* update web-sys to 0.3.63
 
 ## Version 0.13.0 (2023-05-18)
 
