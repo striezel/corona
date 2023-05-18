@@ -19,9 +19,11 @@ Dependency updates:
 * update h2 to 0.3.19
 * update http to 0.2.9
 * update indexmap to 1.9.3
+* update io-lifetimes to 1.0.10
 * update mio to 0.8.6
 * update once_cell to 1.17.1
 * update openssl-macros to 0.1.1
+* update rustix to 0.37.19
 * update time to 0.3.9
 * update tokio to 1.28.1
 

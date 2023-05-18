@@ -17,11 +17,9 @@ updates:
       # are ignored.
       - dependency-name: "bumpalo"
       - dependency-name: "csv"
-      - dependency-name: "io-lifetimes"
       - dependency-name: "num_cpus"
       - dependency-name: "openssl"
       - dependency-name: "regex"
-      - dependency-name: "rustix"
       - dependency-name: "security-framework"
       - dependency-name: "security-framework-sys"
       - dependency-name: "time"
