@@ -29,6 +29,8 @@ Dependency updates:
 * update openssl-macros to 0.1.1
 * update proc-macro2 to 1.0.58
 * update rustix to 0.37.19
+* update security-framework to 2.7.0
+* update security-framework-sys to 2.9.0
 * update time to 0.3.9
 * update tokio to 1.28.1
 * update tokio-native-tls to 0.3.1
