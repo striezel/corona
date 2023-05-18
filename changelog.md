@@ -20,6 +20,7 @@ Dependency updates:
 * update indexmap to 1.9.3
 * update once_cell to 1.17.1
 * update openssl-macros to 0.1.1
+* update time to 0.3.9
 
 ## Version 0.13.0 (2023-05-18)
 
