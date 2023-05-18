@@ -29,6 +29,7 @@ Dependency updates:
 * update time to 0.3.9
 * update tokio to 1.28.1
 * update tokio-native-tls to 0.3.1
+* update tracing-attributes to 0.1.24
 
 ## Version 0.13.0 (2023-05-18)
 
