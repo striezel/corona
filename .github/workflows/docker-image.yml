@@ -1,0 +1,14 @@
+name: Docker
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      # Checks-out the repository under $GITHUB_WORKSPACE.
+      - uses: actions/checkout@v3
+      - name: Build image from Dockerfile
+        run: |
+          cd "$GITHUB_WORKSPACE"
+          docker build . -t corona

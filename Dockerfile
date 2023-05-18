@@ -3,7 +3,7 @@
 #       server side of Docker.
 
 # build stage: builds application, collects data, generates HTML files
-FROM debian:11-slim AS builder
+FROM debian:bookworm-slim AS builder
 LABEL maintainer="Dirk Stolle <striezel-dev@web.de>"
 RUN export DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get upgrade -y
@@ -12,12 +12,14 @@ RUN mkdir -p /opt/corona
 COPY ./ /opt/corona
 WORKDIR /opt/corona
 RUN cargo build --release
-# Collect data.
-RUN cargo run --release collect /tmp/corona.db
+# Generate database from WHO's COVID-19 data.
+RUN apt-get install -y wget && \
+    wget https://covid19.who.int/WHO-COVID-19-global-data.csv -O /tmp/who.csv && \
+    cargo run --release db /tmp/who.csv /tmp/corona.db
 # Generate HTML files.
 RUN cargo run --release html /tmp/corona.db /tmp/html-files
 
 # runtime stage: nginx to serve generated files
-FROM nginx:1.22-alpine AS runner
+FROM nginx:1.24-alpine AS runner
 LABEL maintainer="Dirk Stolle <striezel-dev@web.de>"
 COPY --from=builder --chown=nginx:nginx /tmp/html-files /usr/share/nginx/html
