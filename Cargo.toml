@@ -37,8 +37,6 @@ sha2 = "0.10"
 # pinning them here also guarantees that a `cargo update` will not update them
 # to a newer version. Cargo.lock does not do that.
 
-# Pin indexmap to 1.8.2, because 1.9.0 needs rustc 1.56.1, but MSRV is 1.48.0.
-indexmap = "=1.8.2"
 # Pin num_cpus to 1.14.0, because 1.15.0 needs rustc 1.56.1 for its dependency
 # hermit-abi v0.2.6, but MSRV is 1.48.0.
 num_cpus = "=1.14.0"

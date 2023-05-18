@@ -17,6 +17,7 @@ Dependency updates:
 
 * update h2 to 0.3.19
 * update http to 0.2.9
+* update indexmap to 1.9.3
 
 ## Version 0.13.0 (2023-05-18)
 
