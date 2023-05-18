@@ -19,7 +19,6 @@ updates:
       - dependency-name: "csv"
       - dependency-name: "io-lifetimes"
       - dependency-name: "num_cpus"
-      - dependency-name: "once_cell"
       - dependency-name: "openssl"
       - dependency-name: "openssl-macros"
       - dependency-name: "regex"

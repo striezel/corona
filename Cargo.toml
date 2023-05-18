@@ -40,8 +40,6 @@ sha2 = "0.10"
 # Pin num_cpus to 1.14.0, because 1.15.0 needs rustc 1.56.1 for its dependency
 # hermit-abi v0.2.6, but MSRV is 1.48.0.
 num_cpus = "=1.14.0"
-# Pin once_cell to 1.14.0, because 1.15.0 needs rustc 1.56, but MSRV is 1.48.0.
-once_cell = "=1.14.0"
 # Pin once_cell to 0.1.0, because 0.1.1 needs rustc 1.56, but MSRV is 1.48.0.
 openssl-macros = "=0.1.0"
 # Pin time to 0.3.2, because 0.3.3 needs rustc 1.51, but our MSRV is 1.48.0.
