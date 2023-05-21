@@ -9,6 +9,8 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update digest to 0.10.7
+* update linux-raw-sys to 0.3.8
+* update security-framework to 2.8.1
 * update tokio-util to 0.7.8
 
 ## Version 0.14.0 (2023-05-18)
