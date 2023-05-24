@@ -12,11 +12,11 @@ environment:
 #      target: x86_64-pc-windows-msvc
 #    - channel: beta
 #      target: x86_64-pc-windows-msvc
-    - channel: 1.68.2
+    - channel: stable
       target: x86_64-pc-windows-msvc
 # Build stable channel for 32 bit on MSVC, just to show that 32 bit builds are
 # working, too.
-    - channel: 1.68.2
+    - channel: stable
       target: i686-pc-windows-msvc
 # GNU toolchain could be enabled by uncommenting the following lines.
 # However, GNU toolchain is not present as 64 bit variant in the AppVeyor VM
