@@ -14,7 +14,8 @@ Dependency updates:
 * update proc-macro2 to 1.0.59
 * update quote to 1.0.28
 * update security-framework to 2.8.1
-* update syn to 2.0.17
+* update syn to 2.0.18
+* update tokio to 1.28.2
 * update tokio-util to 0.7.8
 * update unicode-ident to 1.0.9
 
