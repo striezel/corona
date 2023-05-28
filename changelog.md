@@ -11,6 +11,8 @@ Dependency updates:
 * update digest to 0.10.7
 * update io-lifetimes to 1.0.11
 * update linux-raw-sys to 0.3.8
+* update log to 0.4.18
+* update mio to 0.8.7
 * update proc-macro2 to 1.0.59
 * update quote to 1.0.28
 * update security-framework to 2.8.1
