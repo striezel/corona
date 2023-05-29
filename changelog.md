@@ -13,6 +13,7 @@ Dependency updates:
 * update linux-raw-sys to 0.3.8
 * update log to 0.4.18
 * update mio to 0.8.7
+* update once_cell to 1.17.2
 * update proc-macro2 to 1.0.59
 * update quote to 1.0.28
 * update security-framework to 2.8.1
