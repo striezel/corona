@@ -8,6 +8,10 @@ improvements may be omitted.)_
 
 A mistake in an error message for the `db` command is fixed.
 
+When parsing a WHO CSV file into a database, the Kosovo will now be correctly
+named "Kosovo" instead of "Kosovo[1]". This is a quirk in the WHO data, and the
+application will now work around it.
+
 Dependency updates:
 
 * update digest to 0.10.7

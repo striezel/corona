@@ -214,6 +214,7 @@ impl DbWho
         parsed_data.truncate(0);
         // new country
         let name = record.get(2).unwrap();
+        let name = name.trim_end_matches("[1]");
         let no_country = Country {
           country_id: -1,
           name: name.to_string(),
