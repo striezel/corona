@@ -14,6 +14,8 @@ Dependency updates:
 * update log to 0.4.18
 * update mio to 0.8.7
 * update once_cell to 1.17.2
+* update openssl to 0.10.53
+* update openssl-sys to 0.9.88
 * update proc-macro2 to 1.0.59
 * update quote to 1.0.28
 * update security-framework to 2.8.1
