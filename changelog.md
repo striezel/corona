@@ -6,6 +6,8 @@ improvements may be omitted.)_
 
 ## Version 0.?.? (2023-05-??)
 
+A mistake in an error message for the `db` command is fixed.
+
 Dependency updates:
 
 * update digest to 0.10.7

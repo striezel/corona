@@ -94,7 +94,7 @@ impl Db
       },
       None => {
         eprintln!("File {} does not seem to contain a known CSV format!",
-                  self.config.db_path);
+                  self.config.csv_input_file);
         eprintln!("Only CSV format as used by the ECDC or the WHO can be detected.");
         false
       }
