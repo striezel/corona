@@ -18,7 +18,7 @@ Dependency updates:
 * update io-lifetimes to 1.0.11
 * update linux-raw-sys to 0.3.8
 * update log to 0.4.18
-* update mio to 0.8.7
+* update mio to 0.8.8
 * update once_cell to 1.17.2
 * update openssl to 0.10.53
 * update openssl-sys to 0.9.88
