@@ -156,10 +156,11 @@ mod tests
   {
     use std::path::Path;
 
-    let csv_path = Path::new(file!()) // current file: src/db.rs
+    let csv_path = Path::new(file!()) // current file: src/db/mod.rs
       .parent()
-      .unwrap() // parent: src/
+      .unwrap() // parent: src/db/
       .join("..") // up one directory
+      .join("..") // up another directory
       .join("data") // into directory data/
       .join("corona-daily-ecdc-2020-12-14.csv"); // and to the corona-daily.csv file;
     csv_path.to_str().unwrap().to_string()
