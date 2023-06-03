@@ -17,6 +17,8 @@ refactored and also creates the total numbers directly. The new version is
 faster and reduces the overhead when running the `html` command after the
 database creation.
 
+The `collect` and `info` commands can now return data for Guernsey, too.
+
 Dependency updates:
 
 * update digest to 0.10.7

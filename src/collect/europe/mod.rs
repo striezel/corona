@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2021  Dirk Stolle
+    Copyright (C) 2021, 2023  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -36,7 +36,7 @@ mod georgia;
 mod germany;
 mod gibraltar;
 mod greece;
-// TODO: Guernsey
+mod guernsey;
 mod holy_see;
 mod hungary;
 mod iceland;
@@ -92,6 +92,7 @@ pub use georgia::Georgia;
 pub use germany::Germany;
 pub use gibraltar::Gibraltar;
 pub use greece::Greece;
+pub use guernsey::Guernsey;
 pub use holy_see::HolySee;
 pub use hungary::Hungary;
 pub use iceland::Iceland;

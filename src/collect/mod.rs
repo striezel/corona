@@ -231,6 +231,7 @@ impl Collector
       Box::new(Grenada::new()),
       Box::new(Guam::new()),
       Box::new(Guatemala::new()),
+      Box::new(Guernsey::new()),
       Box::new(Guinea::new()),
       Box::new(GuineaBissau::new()),
       Box::new(Guyana::new()),
