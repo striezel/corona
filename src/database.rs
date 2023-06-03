@@ -1461,8 +1461,8 @@ mod tests
   {
     let db = get_sqlite_db_jhu();
 
-    // Country id 120 is Luxembourg in the live DB.
-    let incidences = db.incidence7(&120);
+    // Country id 121 is Luxembourg in the JHU DB.
+    let incidences = db.incidence7(&121);
     // Vector of data must not be empty.
     assert!(!incidences.is_empty());
     // There should be more than 300 entries, ...
