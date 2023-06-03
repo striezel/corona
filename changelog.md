@@ -12,6 +12,11 @@ When parsing a WHO CSV file into a database, the Kosovo will now be correctly
 named "Kosovo" instead of "Kosovo[1]". This is a quirk in the WHO data, and the
 application will now work around it.
 
+The part of the `db` command that handles the ECDC variant of CSV files is
+refactored and also creates the total numbers directly. The new version is
+faster and reduces the overhead when running the `html` command after the
+database creation.
+
 Dependency updates:
 
 * update digest to 0.10.7

@@ -17,6 +17,7 @@
 
 use super::configuration::DbConfiguration;
 mod ecdc;
+mod save;
 mod who;
 use crate::db::ecdc::DbEcdc;
 use crate::db::who::DbWho;

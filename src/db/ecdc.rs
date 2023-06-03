@@ -16,7 +16,9 @@
 */
 
 use crate::configuration::DbConfiguration;
+use crate::data::NumbersAndIncidence;
 use crate::database::Database;
+use crate::db::save;
 use csv::Reader;
 
 pub struct DbEcdc
@@ -81,6 +83,11 @@ impl DbEcdc
       }
       Ok(base) => base
     };
+    if !db.calculate_total_numbers(&false)
+    {
+      eprintln!("Error: Could not add columns for accumulated numbers to database table!");
+      return false;
+    }
     self.read_csv(&db)
   }
 
@@ -168,8 +175,7 @@ impl DbEcdc
     let mut last_geo_id = String::new();
     let mut country_id: i64 = -1;
     let mut record = csv::StringRecord::new();
-    let mut batch = String::new();
-    let mut batch_count: u32 = 0;
+    let mut numbers = Vec::<NumbersAndIncidence>::new();
     loop
     {
       match reader.read_record(&mut record)
@@ -199,6 +205,15 @@ impl DbEcdc
       let current_geo_id = record.get(7).unwrap();
       if current_geo_id != last_geo_id
       {
+        // Insert data of previous country.
+        if country_id != -1
+          && !save::numbers_and_incidence_into_db(db, &country_id, &mut numbers)
+        {
+          eprintln!("Error: Could not insert country data into database!");
+          return false;
+        }
+        // Clear vector, because the data in it was already saved.
+        numbers.truncate(0);
         // new country
         let name = record.get(6).unwrap().replace('_', " ");
         let country_code = record.get(8).unwrap();
@@ -221,20 +236,20 @@ impl DbEcdc
         last_geo_id = current_geo_id.to_string();
       }
       // Add current record.
-      let day_str = record.get(1).unwrap();
-      let month_str = record.get(2).unwrap();
-      let year_str = record.get(3).unwrap();
-      let cases: i64 = match record.get(4).unwrap().is_empty()
+      let day = record.get(1).unwrap();
+      let month = record.get(2).unwrap();
+      let year = record.get(3).unwrap();
+      let cases: i32 = match record.get(4).unwrap().is_empty()
       {
-        false => record.get(4).unwrap().parse().unwrap_or(i64::MIN),
+        false => record.get(4).unwrap().parse().unwrap_or(i32::MIN),
         true => 0
       };
-      let deaths: i64 = match record.get(5).unwrap().is_empty()
+      let deaths: i32 = match record.get(5).unwrap().is_empty()
       {
-        false => record.get(5).unwrap().parse().unwrap_or(i64::MIN),
+        false => record.get(5).unwrap().parse().unwrap_or(i32::MIN),
         true => 0
       };
-      if cases == i64::MIN || deaths == i64::MIN
+      if cases == i32::MIN || deaths == i32::MIN
       {
         eprintln!(
           "Error: Got invalid case numbers on line {}.",
@@ -247,83 +262,39 @@ impl DbEcdc
         false => record.get(11).unwrap().parse().unwrap_or(f64::NAN /* NaN */),
         true => f64::NAN /* NaN */
       };
+      let incidence_14d = match incidence14.is_nan()
+      {
+        false => Some(incidence14),
+        true => None
+      };
       let incidence7: f64 = match record.get(12).unwrap_or_default().is_empty()
       {
         false => record.get(12).unwrap().parse().unwrap_or(f64::NAN /* NaN */),
         true => f64::NAN /* NaN */
       };
-      let date = format!("{}-{:0>2}-{:0>2}", year_str, month_str, day_str);
+      let incidence_7d = match incidence7.is_nan()
+      {
+        false => Some(incidence7),
+        true => None
+      };
+      let date = format!("{}-{:0>2}-{:0>2}", year, month, day);
       /*                       ^^^
                                |||
                                ||+- width
                                |+-- fill at left side
                                +--- fill character
        */
-      if batch.is_empty()
-      {
-        batch = String::from(
-          "INSERT INTO covid19 (countryId, date, cases, deaths, incidence14, incidence7) VALUES "
-        );
-        batch_count = 0;
-      }
-
-      batch.push('(');
-      batch.push_str(&country_id.to_string());
-      batch.push_str(", ");
-      batch.push_str(&Database::quote(&date));
-      batch.push_str(", ");
-      batch.push_str(&cases.to_string());
-      batch.push_str(", ");
-      batch.push_str(&deaths.to_string());
-      batch.push_str(", ");
-      if incidence14.is_nan()
-      {
-        batch.push_str("NULL");
-      }
-      else
-      {
-        batch.push_str(&incidence14.to_string());
-      }
-      batch.push_str(", ");
-      if incidence7.is_nan()
-      {
-        batch.push_str("NULL");
-      }
-      else
-      {
-        batch.push_str(&incidence7.to_string());
-      }
-      batch.push_str("),");
-      batch_count += 1;
-
-      // Perform one insert for every 250 data sets.
-      if batch_count >= 250 && !batch.is_empty()
-      {
-        // replace last ',' with ';' to make it valid SQL syntax
-        batch.truncate(batch.len() - 1);
-        batch.push(';');
-        if !db.batch(&batch)
-        {
-          eprintln!("Error: Could not batch-insert case numbers into database!");
-          return false;
-        }
-
-        batch.truncate(0);
-        batch_count = 0;
-      } // if batch
+      numbers.push(NumbersAndIncidence{
+        date, cases, deaths, incidence_14d, incidence_7d
+      });
     }
     // Execute remaining batch inserts, if any are left.
-    if batch_count > 0 && !batch.is_empty()
+    if !numbers.is_empty()
+      && !save::numbers_and_incidence_into_db(db, &country_id, &mut numbers)
     {
-      // replace last ',' with ';' to make it valid SQL syntax
-      batch.truncate(batch.len() - 1);
-      batch.push(';');
-      if !db.batch(&batch)
-      {
-        eprintln!("Error: Could not batch-insert case numbers into database!");
-        return false;
-      }
-    } // if batch remains
+      eprintln!("Error: Could not batch-insert case numbers into database!");
+      return false;
+    } // if data remains
 
     // Done.
     true
