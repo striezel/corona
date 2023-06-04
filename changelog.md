@@ -4,6 +4,12 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version 0.?.? (2023-06-??)
+
+Dependency updates:
+
+* update libc to 0.2.145
+
 ## Version 0.14.2 (2023-06-03)
 
 This version fixes a mistake in a test case.
