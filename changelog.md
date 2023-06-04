@@ -6,6 +6,9 @@ improvements may be omitted.)_
 
 ## Version 0.?.? (2023-06-??)
 
+The performance of the `collect` operation is slightly improved by organizing
+the database insert operations into larger batches.
+
 Dependency updates:
 
 * update libc to 0.2.145
