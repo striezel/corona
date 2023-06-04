@@ -106,6 +106,7 @@ name = "corona"
 version = "0.14.2"
 dependencies = [
  "csv",
+ "once_cell",
  "regex",
  "reqwest",
  "rusqlite",
