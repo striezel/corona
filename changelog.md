@@ -9,6 +9,8 @@ improvements may be omitted.)_
 The performance of the `collect` operation is slightly improved by organizing
 the database insert operations into larger batches.
 
+A workaround for database operation failure on older SQLite versions is added.
+
 Dependency updates:
 
 * update libc to 0.2.145

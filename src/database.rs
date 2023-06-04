@@ -639,6 +639,34 @@ impl Database
   }
 
   /**
+   * Gets the number of records in the covid19 table.
+   *
+   * @return Returns the number of columns in case of success.
+   *         Returns an error message otherwise.
+   */
+  fn covid19_records(&self) -> Result<i64, String>
+  {
+    let mut stmt = match self.conn.prepare("SELECT COUNT(*) FROM covid19;")
+    {
+      Ok(x) => x,
+      Err(_) => return Err(String::from("Failed to prepare database statement!"))
+    };
+    let iter = stmt.query_map(params![], |row| {
+      Ok(row.get(0).unwrap_or(-1))
+    });
+    let mut iter = match iter
+    {
+      Ok(iter) => iter,
+      Err(_) => return Err(String::from("Failed to retrieve result of database query!"))
+    };
+    return match iter.next()
+    {
+      Some(n) => Ok(n.unwrap()),
+      None => Err(String::from("Failed to retrieve result of database query!"))
+    }
+  }
+
+  /**
    * Creates the column totalCases and calculates all required values for it.
    * This may take quite a while.
    *
@@ -662,6 +690,23 @@ impl Database
         return false;
       }
     };
+    // Some older SQLite versions do not work with the UPDATE statement below,
+    // if the table is empty, so check for that and leave early, if necessary.
+    match self.covid19_records()
+    {
+      Ok(0) => return true,
+      Ok(i64::MIN..=-1_i64) => {
+        eprintln!("Failed to get rows of table covid19!");
+        return false;
+      },
+      Ok(1_i64..) => {
+        // Do not return here, rows need to be updated.
+      },
+      Err(e) => {
+        eprintln!("Failed to get rows of table covid19! {}", e);
+        return false;
+      }
+    }
     // perform actual calculation
     if *verbose
     {
@@ -712,6 +757,23 @@ impl Database
         return false;
       }
     };
+    // Some older SQLite versions do not work with the UPDATE statement below,
+    // if the table is empty, so check for that and leave early, if necessary.
+    match self.covid19_records()
+    {
+      Ok(0) => return true,
+      Ok(i64::MIN..=-1_i64) => {
+        eprintln!("Failed to get rows of table covid19!");
+        return false;
+      },
+      Ok(1_i64..) => {
+        // Do not return here, rows need to be updated.
+      },
+      Err(e) => {
+        eprintln!("Failed to get rows of table covid19! {}", e);
+        return false;
+      }
+    }
     // Update may take ca. two minutes.
     if *verbose
     {
