@@ -761,7 +761,7 @@ impl Database
    * @param data         slice of data to insert into the database
    * @return Returns whether the operation was successful.
    */
-  pub fn insert_data(&self, country_id: &i32, data: &[NumbersAndIncidenceAndTotals]) -> bool
+  pub fn insert_data(&self, country_id: &i64, data: &[NumbersAndIncidenceAndTotals]) -> bool
   {
     if data.is_empty()
     {
@@ -774,20 +774,18 @@ impl Database
       return false;
     }
 
-    let mut batch = String::with_capacity(15000);
-    let mut batch_count: u32 = 0;
-
-    let cid_as_string: &str = &country_id.to_string();
+    // Build insert statement.
+    let mut batch = String::from(
+      "INSERT INTO covid19 (countryId, date, cases, deaths, incidence14, \
+     incidence7, totalCases, totalDeaths) VALUES "
+    );
+    // Reserve 60 bytes for every data record to avoid frequent reallocation.
+    batch.reserve(60 * data.len());
+    let country_id = country_id.to_string();
     for elem in data.iter()
     {
-      if batch.is_empty()
-      {
-        batch = String::from("INSERT INTO covid19 (countryId, date, cases, deaths, incidence14, incidence7, totalCases, totalDeaths) VALUES ");
-        batch_count = 0;
-      }
-
       batch.push('(');
-      batch.push_str(cid_as_string);
+      batch.push_str(&country_id);
       batch.push_str(", ");
       batch.push_str(&Database::quote(&elem.date));
       batch.push_str(", ");
@@ -795,62 +793,30 @@ impl Database
       batch.push_str(", ");
       batch.push_str(&elem.deaths.to_string());
       batch.push_str(", ");
-      if elem.incidence_14d.is_none()
+      match elem.incidence_14d
       {
-        batch.push_str("NULL");
-      }
-      else
-      {
-        batch.push_str(&elem.incidence_14d.unwrap().to_string());
+        Some(float) => batch.push_str(&float.to_string()),
+        None => batch.push_str("NULL")
       }
       batch.push_str(", ");
-      if elem.incidence_7d.is_none()
+      match elem.incidence_7d
       {
-        batch.push_str("NULL");
-      }
-      else
-      {
-        batch.push_str(&elem.incidence_7d.unwrap().to_string());
+        Some(float) => batch.push_str(&float.to_string()),
+        None => batch.push_str("NULL")
       }
       batch.push_str(", ");
       batch.push_str(&elem.total_cases.to_string());
       batch.push_str(", ");
       batch.push_str(&elem.total_deaths.to_string());
       batch.push_str("),");
-      batch_count += 1;
-
-      // Perform one insert for every 250 data sets.
-      if batch_count >= 250 && !batch.is_empty()
-      {
-        // replace last ',' with ';' to make it valid SQL syntax
-        batch.truncate(batch.len() - 1);
-        batch.push(';');
-        if !self.batch(&batch)
-        {
-          eprintln!("Error: Could not batch-insert case numbers into database!");
-          return false;
-        }
-
-        batch.truncate(0);
-        batch_count = 0;
-      } // if batch
     }
 
-    // Execute remaining batch inserts, if any are left.
-    if batch_count > 0 && !batch.is_empty()
-    {
-      // replace last ',' with ';' to make it valid SQL syntax
-      batch.truncate(batch.len() - 1);
-      batch.push(';');
-      if !self.batch(&batch)
-      {
-        eprintln!("Error: Could not batch-insert case numbers into database!");
-        return false;
-      }
-    } // if batch remains
+    // replace last ',' with ';' to make it valid SQL syntax
+    batch.truncate(batch.len() - 1);
+    batch.push(';');
 
-    // Done.
-    true
+    // Insert all data in one go.
+    self.batch(&batch)
   }
 
   /**
@@ -1703,9 +1669,9 @@ mod tests
         },
       ];
       // Insert should succeed.
-      let id = id as i32;
       assert!(db.insert_data(&id, &data));
       // Inserted data should exist.
+      let id = id as i32;
       let numbers = db.numbers(&id);
       assert_eq!(2, numbers.len());
       assert_eq!("2020-10-01", numbers[0].date);

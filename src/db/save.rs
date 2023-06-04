@@ -15,7 +15,7 @@
  -------------------------------------------------------------------------------
 */
 
-use crate::data::{Numbers, NumbersAndIncidence, NumbersAndIncidenceAndTotals};
+use crate::data::{Numbers, NumbersAndIncidence};
 use crate::database::Database;
 use crate::data;
 
@@ -38,7 +38,7 @@ pub fn numbers_into_db(db: &Database, country_id: &i64, population: &i32, number
   numbers.sort_unstable_by(|a, b| a.date.cmp(&b.date));
   let enriched_data = data::calculate_incidence(numbers, population);
   let enriched_data = data::calculate_totals(&enriched_data);
-  actually_save_numbers_into_db(db, country_id, &enriched_data)
+  db.insert_data(country_id, &enriched_data)
 }
 
 /**
@@ -58,52 +58,5 @@ pub fn numbers_and_incidence_into_db(db: &Database, country_id: &i64, numbers: &
   }
   numbers.sort_unstable_by(|a, b| a.date.cmp(&b.date));
   let enriched_data = data::calculate_totals(numbers);
-  actually_save_numbers_into_db(db, country_id, &enriched_data)
-}
-
-fn actually_save_numbers_into_db(db: &Database, country_id: &i64, numbers: &[NumbersAndIncidenceAndTotals]) -> bool
-{
-  // Build insert statement.
-  let mut batch = String::from(
-    "INSERT INTO covid19 (countryId, date, cases, deaths, incidence14, \
-     incidence7, totalCases, totalDeaths) VALUES "
-  );
-  // Reserve 60 bytes for every data record to avoid frequent reallocation.
-  batch.reserve(60 * numbers.len());
-  let country_id = country_id.to_string();
-  for elem in numbers.iter()
-  {
-    batch.push('(');
-    batch.push_str(&country_id);
-    batch.push_str(", ");
-    batch.push_str(&Database::quote(&elem.date));
-    batch.push_str(", ");
-    batch.push_str(&elem.cases.to_string());
-    batch.push_str(", ");
-    batch.push_str(&elem.deaths.to_string());
-    batch.push_str(", ");
-    match elem.incidence_14d
-    {
-      Some(float) => batch.push_str(&float.to_string()),
-      None => batch.push_str("NULL")
-    }
-    batch.push_str(", ");
-    match elem.incidence_7d
-    {
-      Some(float) => batch.push_str(&float.to_string()),
-      None => batch.push_str("NULL")
-    }
-    batch.push_str(", ");
-    batch.push_str(&elem.total_cases.to_string());
-    batch.push_str(", ");
-    batch.push_str(&elem.total_deaths.to_string());
-    batch.push_str("),");
-  }
-
-  // replace last ',' with ';' to make it valid SQL syntax
-  batch.truncate(batch.len() - 1);
-  batch.push(';');
-
-  // Insert all data in one go.
-  db.batch(&batch)
+  db.insert_data(country_id, &enriched_data)
 }

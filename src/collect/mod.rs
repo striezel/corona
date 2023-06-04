@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2021, 2022  Dirk Stolle
+    Copyright (C) 2021, 2022, 2023  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -443,7 +443,7 @@ impl Collector
           }
           let with_incidence = crate::data::calculate_incidence(&vector, &country_data.population);
           let with_incidence_and_totals = crate::data::calculate_totals(&with_incidence);
-          let inserted = db.insert_data(&(country_id as i32), &with_incidence_and_totals);
+          let inserted = db.insert_data(&country_id, &with_incidence_and_totals);
           if !inserted
           {
             errors.push(format!("{} ({})", &country.geo_id(), &country_data.name));
