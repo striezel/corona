@@ -147,7 +147,9 @@ impl Template
    */
   pub fn tag(&mut self, name: &str, replacement: &str)
   {
-    self.tags.insert(String::from(name), String::from(replacement));
+    self
+      .tags
+      .insert(String::from(name), String::from(replacement));
   }
 
   /**
@@ -162,7 +164,9 @@ impl Template
    */
   pub fn integrate(&mut self, name: &str, replacement: &str)
   {
-    self.includes.insert(String::from(name), String::from(replacement));
+    self
+      .includes
+      .insert(String::from(name), String::from(replacement));
   }
 
   /**
@@ -243,7 +247,10 @@ mod tests
     assert!(tpl.load_from_file(&path));
     assert_eq!(1, tpl.sections.len());
     assert!(tpl.sections.contains_key("test"));
-    assert_eq!(Some(&String::from("<li><a href=\"{{url}}\">{{text}}</a></li>")), tpl.sections.get("test"));
+    assert_eq!(
+      Some(&String::from("<li><a href=\"{{url}}\">{{text}}</a></li>")),
+      tpl.sections.get("test")
+    );
 
     fs::remove_file(path).expect("Unable to delete template file!");
   }
@@ -259,7 +266,10 @@ mod tests
     assert!(tpl.load_from_file(&path));
     assert_eq!(1, tpl.sections.len());
     assert!(tpl.sections.contains_key("test"));
-    assert_eq!(Some(&String::from("<li>\n  <a href=\"{{url}}\">{{text}}</a>\r\n</li>")), tpl.sections.get("test"));
+    assert_eq!(
+      Some(&String::from("<li>\n  <a href=\"{{url}}\">{{text}}</a>\r\n</li>")),
+      tpl.sections.get("test")
+    );
 
     fs::remove_file(path).expect("Unable to delete template file!");
   }
@@ -276,9 +286,15 @@ mod tests
 
     assert_eq!(2, tpl.sections.len());
     assert!(tpl.sections.contains_key("test"));
-    assert_eq!(Some(&String::from("<a href=\"{{url}}\">{{text}}</a>")), tpl.sections.get("test"));
+    assert_eq!(
+      Some(&String::from("<a href=\"{{url}}\">{{text}}</a>")),
+      tpl.sections.get("test")
+    );
     assert!(tpl.sections.contains_key("foo"));
-    assert_eq!(Some(&String::from("<b>Info:</b> {{info}}")), tpl.sections.get("foo"));
+    assert_eq!(
+      Some(&String::from("<b>Info:</b> {{info}}")),
+      tpl.sections.get("foo")
+    );
 
     fs::remove_file(path).expect("Unable to delete template file!");
   }
@@ -295,9 +311,15 @@ mod tests
 
     assert_eq!(2, tpl.sections.len());
     assert!(tpl.sections.contains_key("test"));
-    assert_eq!(Some(&String::from("<li>\n  <a href=\"{{url}}\">{{text}}</a>\r\n</li>")), tpl.sections.get("test"));
+    assert_eq!(
+      Some(&String::from("<li>\n  <a href=\"{{url}}\">{{text}}</a>\r\n</li>")),
+      tpl.sections.get("test")
+    );
     assert!(tpl.sections.contains_key("foo"));
-    assert_eq!(Some(&String::from("<b>Info\nFoo\r\nBar\rBaz:</b> {{info}}")), tpl.sections.get("foo"));
+    assert_eq!(
+      Some(&String::from("<b>Info\nFoo\r\nBar\rBaz:</b> {{info}}")),
+      tpl.sections.get("foo")
+    );
 
     fs::remove_file(path).expect("Unable to delete template file!");
   }
@@ -312,7 +334,10 @@ mod tests
     assert!(tpl.load_from_str(&simple_template));
     assert_eq!(1, tpl.sections.len());
     assert!(tpl.sections.contains_key("test"));
-    assert_eq!(Some(&String::from("<li><a href=\"{{url}}\">{{text}}</a></li>")), tpl.sections.get("test"));
+    assert_eq!(
+      Some(&String::from("<li><a href=\"{{url}}\">{{text}}</a></li>")),
+      tpl.sections.get("test")
+    );
   }
 
   #[test]
@@ -324,7 +349,10 @@ mod tests
     assert!(tpl.load_from_str(&simple_template));
     assert_eq!(1, tpl.sections.len());
     assert!(tpl.sections.contains_key("test"));
-    assert_eq!(Some(&String::from("<li>\n  <a href=\"{{url}}\">{{text}}</a>\r\n</li>")), tpl.sections.get("test"));
+    assert_eq!(
+      Some(&String::from("<li>\n  <a href=\"{{url}}\">{{text}}</a>\r\n</li>")),
+      tpl.sections.get("test")
+    );
   }
 
   #[test]
@@ -337,9 +365,15 @@ mod tests
 
     assert_eq!(2, tpl.sections.len());
     assert!(tpl.sections.contains_key("test"));
-    assert_eq!(Some(&String::from("<a href=\"{{url}}\">{{text}}</a>")), tpl.sections.get("test"));
+    assert_eq!(
+      Some(&String::from("<a href=\"{{url}}\">{{text}}</a>")),
+      tpl.sections.get("test")
+    );
     assert!(tpl.sections.contains_key("foo"));
-    assert_eq!(Some(&String::from("<b>Info:</b> {{info}}")), tpl.sections.get("foo"));
+    assert_eq!(
+      Some(&String::from("<b>Info:</b> {{info}}")),
+      tpl.sections.get("foo")
+    );
   }
 
   #[test]
@@ -352,9 +386,15 @@ mod tests
 
     assert_eq!(2, tpl.sections.len());
     assert!(tpl.sections.contains_key("test"));
-    assert_eq!(Some(&String::from("<li>\n  <a href=\"{{url}}\">{{text}}</a>\r\n</li>")), tpl.sections.get("test"));
+    assert_eq!(
+      Some(&String::from("<li>\n  <a href=\"{{url}}\">{{text}}</a>\r\n</li>")),
+      tpl.sections.get("test")
+    );
     assert!(tpl.sections.contains_key("foo"));
-    assert_eq!(Some(&String::from("<b>Info\nFoo\r\nBar\rBaz:</b> {{info}}")), tpl.sections.get("foo"));
+    assert_eq!(
+      Some(&String::from("<b>Info\nFoo\r\nBar\rBaz:</b> {{info}}")),
+      tpl.sections.get("foo")
+    );
   }
 
   #[test]

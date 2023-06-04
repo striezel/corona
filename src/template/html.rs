@@ -48,17 +48,27 @@ mod tests
   #[test]
   fn double_quotes()
   {
-    assert_eq!("&lt;a href=&quot;hello.html&quot;&gt;there&lt;/a&gt;",
-               special_chars("<a href=\"hello.html\">there</a>"));
-    assert_eq!("&quot;Indeed!&quot;, he said.", special_chars("\"Indeed!\", he said."));
+    assert_eq!(
+      "&lt;a href=&quot;hello.html&quot;&gt;there&lt;/a&gt;",
+      special_chars("<a href=\"hello.html\">there</a>")
+    );
+    assert_eq!(
+      "&quot;Indeed!&quot;, he said.",
+      special_chars("\"Indeed!\", he said.")
+    );
   }
 
   #[test]
   fn single_quotes()
   {
-    assert_eq!("&lt;a href=&#39;hello.html&#39;&gt;there&lt;/a&gt;",
-               special_chars("<a href='hello.html'>there</a>"));
-    assert_eq!("&#39;Indeed!&#39;, he said.", special_chars("'Indeed!', he said."));
+    assert_eq!(
+      "&lt;a href=&#39;hello.html&#39;&gt;there&lt;/a&gt;",
+      special_chars("<a href='hello.html'>there</a>")
+    );
+    assert_eq!(
+      "&#39;Indeed!&#39;, he said.",
+      special_chars("'Indeed!', he said.")
+    );
   }
 
   #[test]

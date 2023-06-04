@@ -111,7 +111,14 @@ pub fn parse_args(args: &[String]) -> Result<Operation, String>
 
     let db_path = args[2].clone();
     let output_directory = args[3].clone();
-    let template_path = if args.len() >= 5 { Some(PathBuf::from(&args[4])) } else { None };
+    let template_path = if args.len() >= 5
+    {
+      Some(PathBuf::from(&args[4]))
+    }
+    else
+    {
+      None
+    };
     return Ok(Operation::Html(HtmlConfiguration{ db_path, output_directory, template_path }));
   }
 

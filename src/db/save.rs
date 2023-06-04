@@ -15,9 +15,9 @@
  -------------------------------------------------------------------------------
 */
 
+use crate::data;
 use crate::data::{Numbers, NumbersAndIncidence};
 use crate::database::Database;
-use crate::data;
 
 /**
  * Writes case numbers of one country it into the database.

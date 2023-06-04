@@ -154,7 +154,9 @@ impl Database
    */
   pub fn get_country_id_or_insert(&self, geo_id: &str, name: &str, population: &i64, country_code: &str, continent: &str) -> i64
   {
-    let mut stmt = match self.conn.prepare("SELECT countryId FROM country WHERE geoId= ? LIMIT 1;")
+    let mut stmt = match self
+      .conn
+      .prepare("SELECT countryId FROM country WHERE geoId= ? LIMIT 1;")
     {
       Ok(statement) => statement,
       Err(_) => return -1
@@ -521,7 +523,7 @@ impl Database
             current_year = year;
             current_data = Vec::new();
           }
-          current_data.push(IncidenceWithDay{
+          current_data.push(IncidenceWithDay {
             day_of_year: row.get(1).unwrap_or(0u16),
             incidence: row.get(2).unwrap_or(0.0)
           });
