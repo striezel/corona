@@ -316,7 +316,7 @@ mod tests
   {
     use std::path::Path;
 
-    let csv_path = Path::new(file!()) // current file: src/generator.rs
+    let csv_path = Path::new(file!()) // current file: src/db/ecdc.rs
       .parent()
       .unwrap() // parent: src/
       .join("..") // up one directory
@@ -332,7 +332,7 @@ mod tests
     use std::env;
     use std::fs;
 
-    let db_file_name = env::temp_dir().join("test_csv_corona.db");
+    let db_file_name = env::temp_dir().join("test_csv_corona_ecdc.db");
     let config = DbConfiguration {
       db_path: db_file_name.to_str().unwrap().to_string(),
       csv_input_file: get_csv_path()

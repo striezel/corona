@@ -275,7 +275,6 @@ impl DbWho
   }
 }
 
-/*  TODO: Write proper test for this operation.
 #[cfg(test)]
 mod tests
 {
@@ -289,24 +288,100 @@ mod tests
    */
   fn get_csv_path() -> String
   {
-    use std::path::Path;
+    let path = std::env::temp_dir().join("test_db_corona_who.csv");
 
-    let csv_path = Path::new(file!()) // current file: src/generator.rs
-      .parent()
-      .unwrap() // parent: src/
-      .join("..") // up one directory
-      .join("data") // into directory data/
-      .join("corona-daily-who.csv"); // and to the corona-daily.csv file;
-    csv_path.to_str().unwrap().to_string()
+    let simple_csv =
+      "Date_reported,Country_code,Country,WHO_region,New_cases,Cumulative_cases,New_deaths,Cumulative_deaths
+2020-01-03,DE,Germany,EURO,0,0,0,0
+2020-01-04,DE,Germany,EURO,1,1,0,0
+2020-01-05,DE,Germany,EURO,0,1,0,0
+2020-01-06,DE,Germany,EURO,0,1,0,0
+2020-01-07,DE,Germany,EURO,0,1,0,0
+2020-01-08,DE,Germany,EURO,0,1,0,0
+2020-01-09,DE,Germany,EURO,0,1,0,0
+2020-01-10,DE,Germany,EURO,0,1,0,0
+2020-01-11,DE,Germany,EURO,0,1,0,0
+2020-01-12,DE,Germany,EURO,0,1,0,0
+2020-01-13,DE,Germany,EURO,0,1,0,0
+2020-01-14,DE,Germany,EURO,0,1,0,0
+2020-01-15,DE,Germany,EURO,0,1,0,0
+2020-01-16,DE,Germany,EURO,0,1,0,0
+2020-01-17,DE,Germany,EURO,0,1,0,0
+2020-01-18,DE,Germany,EURO,0,1,0,0
+2020-01-19,DE,Germany,EURO,0,1,0,0
+2020-01-20,DE,Germany,EURO,0,1,0,0
+2020-01-21,DE,Germany,EURO,0,1,0,0
+2020-01-22,DE,Germany,EURO,0,1,0,0
+2020-01-23,DE,Germany,EURO,0,1,0,0
+2020-01-24,DE,Germany,EURO,1,2,0,0
+2020-01-25,DE,Germany,EURO,0,2,0,0
+2020-01-26,DE,Germany,EURO,0,2,0,0
+2020-01-27,DE,Germany,EURO,0,2,0,0
+2020-01-28,DE,Germany,EURO,0,2,0,0
+2020-01-29,DE,Germany,EURO,2,4,0,0
+2020-01-30,DE,Germany,EURO,2,6,0,0
+2020-01-31,DE,Germany,EURO,0,6,0,0
+2020-02-01,DE,Germany,EURO,4,10,0,0
+2020-02-02,DE,Germany,EURO,1,11,0,0
+2020-02-03,DE,Germany,EURO,0,11,0,0
+2020-02-04,DE,Germany,EURO,1,12,0,0
+2020-02-05,DE,Germany,EURO,4,16,0,0
+2020-02-06,DE,Germany,EURO,2,18,0,0
+2020-02-07,DE,Germany,EURO,1,19,0,0
+2020-02-08,DE,Germany,EURO,1,20,0,0
+2020-02-09,DE,Germany,EURO,0,20,0,0
+2020-02-10,DE,Germany,EURO,0,20,0,0
+2020-02-11,DE,Germany,EURO,1,21,0,0
+2020-02-12,DE,Germany,EURO,2,23,0,0
+2020-02-13,DE,Germany,EURO,1,24,0,0
+2020-02-14,DE,Germany,EURO,0,24,0,0
+2020-02-23,CH,Switzerland,EURO,0,0,0,0
+2020-02-24,CH,Switzerland,EURO,1,1,0,0
+2020-02-25,CH,Switzerland,EURO,0,1,0,0
+2020-02-26,CH,Switzerland,EURO,1,2,0,0
+2020-02-27,CH,Switzerland,EURO,10,12,0,0
+2020-02-28,CH,Switzerland,EURO,10,22,0,0
+2020-02-29,CH,Switzerland,EURO,10,32,0,0
+2020-03-01,CH,Switzerland,EURO,13,45,0,0
+2020-03-02,CH,Switzerland,EURO,12,57,0,0
+2020-03-03,CH,Switzerland,EURO,30,87,0,0
+2020-03-04,CH,Switzerland,EURO,33,120,0,0
+2020-03-05,CH,Switzerland,EURO,61,181,0,0
+2020-03-06,CH,Switzerland,EURO,62,243,2,2
+2020-03-07,CH,Switzerland,EURO,73,316,0,2
+2020-03-08,CH,Switzerland,EURO,49,365,0,2
+2020-03-09,CH,Switzerland,EURO,69,434,1,3
+2020-03-10,CH,Switzerland,EURO,191,625,0,3
+2020-03-11,CH,Switzerland,EURO,210,835,2,5
+2020-03-12,CH,Switzerland,EURO,333,1168,3,8
+2020-03-13,CH,Switzerland,EURO,357,1525,4,12
+2020-03-14,CH,Switzerland,EURO,431,1956,3,15
+2020-03-15,CH,Switzerland,EURO,417,2373,5,20
+2020-03-16,CH,Switzerland,EURO,326,2699,8,28
+2020-03-17,CH,Switzerland,EURO,1060,3759,7,35
+2020-03-18,CH,Switzerland,EURO,1082,4841,12,47
+2020-03-19,CH,Switzerland,EURO,1206,6047,8,55
+2020-03-20,CH,Switzerland,EURO,834,6881,14,69
+2020-03-21,CH,Switzerland,EURO,1139,8020,21,90
+2020-03-22,CH,Switzerland,EURO,690,8710,19,109
+2020-03-23,CH,Switzerland,EURO,547,9257,18,127
+2020-03-24,CH,Switzerland,EURO,1462,10719,23,150
+2020-03-25,CH,Switzerland,EURO,1242,11961,19,169
+2020-03-26,CH,Switzerland,EURO,1068,13029,39,208
+2020-03-27,CH,Switzerland,EURO,1114,14143,38,246
+2020-03-28,CH,Switzerland,EURO,1305,15448,32,278
+2020-03-29,CH,Switzerland,EURO,722,16170,57,335
+2020-03-30,CH,Switzerland,EURO,432,16602,45,380
+2020-03-31,CH,Switzerland,EURO,1307,17909,58,438";
+    std::fs::write(&path, simple_csv).expect("Unable to write CSV file for test!");
+
+    path.to_str().unwrap().to_string()
   }
 
   #[test]
   fn successful_execution()
   {
-    use std::env;
-    use std::fs;
-
-    let db_file_name = env::temp_dir().join("test_csv_corona_who.db");
+    let db_file_name = std::env::temp_dir().join("test_db_corona_who.db");
     let config = DbConfiguration {
       db_path: db_file_name.to_str().unwrap().to_string(),
       csv_input_file: get_csv_path()
@@ -321,36 +396,79 @@ mod tests
       let db = Database::new(&config.db_path).unwrap();
       // Check a country.
       let countries = db.countries();
-      let wf = Country
       {
-        country_id: 210,
-        name: String::from("Wallis and Futuna"),
-        population: -1,
-        geo_id: String::from("WF"),
-        country_code: String::new(),
-        continent: String::from("Oceania")
+        let de = Country
+        {
+          country_id: 1,
+          name: String::from("Germany"),
+          population: 83019213,
+          geo_id: "DE".to_string(),
+          country_code: "DEU".to_string(),
+          continent: "Europe".to_string()
+        };
+        let found = countries.iter().find(|&c| c.geo_id == "DE");
+        assert!(found.is_some());
+        let found = found.unwrap();
+        assert_eq!(de.country_id, found.country_id);
+        assert_eq!(de.name, found.name);
+        assert_eq!(de.population, found.population);
+        assert_eq!(de.geo_id, found.geo_id);
+        assert_eq!(de.country_code, found.country_code);
+        assert_eq!(de.continent, found.continent);
+        // Check some numbers.
+        let numbers = db.numbers_with_incidence(&de.country_id);
+        // 1|2020-02-12|2|0|0.022886268507508|0.00843178313434506|23|0
+        let found = numbers.iter().find(|&n| n.date == "2020-02-12");
+        assert!(found.is_some());
+        let found = found.unwrap();
+        assert_eq!("2020-02-12", found.date);
+        assert_eq!(2, found.cases);
+        assert_eq!(0, found.deaths);
+        assert!(found.incidence_14d.is_some());
+        assert!(found.incidence_14d.unwrap() > 0.022886);
+        assert!(found.incidence_14d.unwrap() < 0.022887);
+        assert!(found.incidence_7d.is_some());
+        assert!(found.incidence_7d.unwrap() > 0.008431);
+        assert!(found.incidence_7d.unwrap() < 0.008432);
+      }
+
+      // Check another country.
+      let ch = Country
+      {
+        country_id: 2,
+        name: String::from("Switzerland"),
+        population: 8544527,
+        geo_id: "CH".to_string(),
+        country_code: "CHE".to_string(),
+        continent: "Europe".to_string()
       };
-      let found = countries.iter().find(|&c| c.geo_id == "WF");
+      let found = countries.iter().find(|&c| c.geo_id == "CH");
       assert!(found.is_some());
       let found = found.unwrap();
-      assert_eq!(wf.country_id, found.country_id);
-      assert_eq!(wf.name, found.name);
-      assert_eq!(wf.population, found.population);
-      assert_eq!(wf.geo_id, found.geo_id);
-      assert_eq!(wf.country_code, found.country_code);
-      assert_eq!(wf.continent, found.continent);
+      assert_eq!(ch.country_id, found.country_id);
+      assert_eq!(ch.name, found.name);
+      assert_eq!(ch.population, found.population);
+      assert_eq!(ch.geo_id, found.geo_id);
+      assert_eq!(ch.country_code, found.country_code);
+      assert_eq!(ch.continent, found.continent);
       // Check some numbers.
-      let numbers = db.numbers_with_incidence(&wf.country_id);
-      let found = numbers.iter().find(|&n| n.date == "2020-11-26");
+      let numbers = db.numbers_with_incidence(&ch.country_id);
+      // 2|2020-03-28|1305|32|157.90224549586|86.9328401677471|15448|278
+      let found = numbers.iter().find(|&n| n.date == "2020-03-28");
       assert!(found.is_some());
       let found = found.unwrap();
-      assert_eq!("2020-11-26", found.date);
-      assert_eq!(1, found.cases);
-      assert_eq!(0, found.deaths);
-      assert!(found.incidence_14d.is_none());
+      assert_eq!("2020-03-28", found.date);
+      assert_eq!(1305, found.cases);
+      assert_eq!(32, found.deaths);
+      assert!(found.incidence_14d.is_some());
+      assert!(found.incidence_14d.unwrap() > 157.902245);
+      assert!(found.incidence_14d.unwrap() < 157.902246);
+      assert!(found.incidence_7d.is_some());
+      assert!(found.incidence_7d.unwrap() > 86.932840);
+      assert!(found.incidence_7d.unwrap() < 86.932841);
     }
     // clean up
-    assert!(fs::remove_file(db_file_name).is_ok());
+    assert!(std::fs::remove_file(db_file_name).is_ok());
+    assert!(std::fs::remove_file(config.csv_input_file).is_ok());
   }
 }
-*/
