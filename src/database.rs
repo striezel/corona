@@ -659,7 +659,7 @@ impl Database
       Ok(iter) => iter,
       Err(_) => return Err(String::from("Failed to retrieve result of database query!"))
     };
-    return match iter.next()
+    match iter.next()
     {
       Some(n) => Ok(n.unwrap()),
       None => Err(String::from("Failed to retrieve result of database query!"))
