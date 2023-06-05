@@ -14,8 +14,10 @@ A workaround for database operation failure on older SQLite versions is added.
 Dependency updates:
 
 * update form_urlencoded to 1.2.0
+* update idna to 0.4.0
 * update libc to 0.2.145
 * update percent-encoding to 2.3.0
+* update url to 2.4.0
 
 ## Version 0.14.2 (2023-06-03)
 
