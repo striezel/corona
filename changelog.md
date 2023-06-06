@@ -11,6 +11,8 @@ the database insert operations into larger batches.
 
 A workaround for database operation failure on older SQLite versions is added.
 
+The plotly.js library is updated from version 2.23.1 to version 2.24.0.
+
 Dependency updates:
 
 * update form_urlencoded to 1.2.0
