@@ -4,6 +4,12 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version 0.?.? (2023-06-??)
+
+Dependency updates:
+
+* update tempfile to 3.6.0
+
 ## Version 0.14.3 (2023-06-06)
 
 The performance of the `collect` operation is slightly improved by organizing
