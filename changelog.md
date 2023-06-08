@@ -8,6 +8,8 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update proc-macro2 to 1.0.60
+* update serde to 1.0.164
 * update tempfile to 3.6.0
 
 ## Version 0.14.3 (2023-06-06)
