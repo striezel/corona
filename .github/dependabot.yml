@@ -17,6 +17,7 @@ updates:
       # are ignored.
       - dependency-name: "bumpalo"
       - dependency-name: "csv"
+      - dependency-name: "log"
       - dependency-name: "once_cell"
       - dependency-name: "regex"
       - dependency-name: "security-framework"
