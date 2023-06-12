@@ -8,10 +8,15 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update js-sys to 0.3.64
 * update proc-macro2 to 1.0.60
 * update rustix to 0.37.20
 * update serde to 1.0.164
 * update tempfile to 3.6.0
+* update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
+  wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.87
+* update wasm-bindgen-futures to 0.4.37
+* update web-sys to 0.3.64
 
 ## Version 0.14.3 (2023-06-06)
 
