@@ -10,6 +10,7 @@ The plotly.js library is updated from version 2.24.0 to version 2.24.2.
 
 Dependency updates:
 
+* update cpufeatures to 0.2.8
 * update js-sys to 0.3.64
 * update proc-macro2 to 1.0.60
 * update rustix to 0.37.20
