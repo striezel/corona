@@ -12,6 +12,8 @@ Dependency updates:
 
 * update cpufeatures to 0.2.8
 * update js-sys to 0.3.64
+* update openssl to 0.10.55
+* update openssl-sys to 0.9.90
 * update proc-macro2 to 1.0.60
 * update rustix to 0.37.20
 * update serde to 1.0.164
