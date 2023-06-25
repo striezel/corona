@@ -14,12 +14,12 @@ Dependency updates:
 * update js-sys to 0.3.64
 * update openssl to 0.10.55
 * update openssl-sys to 0.9.90
-* update proc-macro2 to 1.0.60
+* update proc-macro2 to 1.0.63
 * update rustix to 0.37.20
 * update serde to 1.0.164
 * update serde_json to 1.0.99
 * update sha2 to 0.10.7
-* update syn to 2.0.20
+* update syn to 2.0.22
 * update tempfile to 3.6.0
 * update want to 0.3.1
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
