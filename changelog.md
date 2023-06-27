@@ -12,6 +12,8 @@ Dependency updates:
 
 * update cpufeatures to 0.2.8
 * update h2 to 0.3.20
+* update hyper to 0.14.27
+* update ipnet to 2.8.0
 * update js-sys to 0.3.64
 * update libc to 0.2.147
 * update openssl to 0.10.55
