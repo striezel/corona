@@ -37,10 +37,7 @@ For more information see the [readme file in the data/ directory](./data/readme.
 * GitLab:
 [![GitLab pipeline status](https://gitlab.com/striezel/corona/badges/master/pipeline.svg)](https://gitlab.com/striezel/corona/)
 * Windows:
-  * MSVC toolchain:
-    [![Build status](https://ci.appveyor.com/api/projects/status/9t7rta43ovt8slce/branch/master?svg=true)](https://ci.appveyor.com/project/striezel/corona/branch/master)
-  * GNU toolchain:
-    [![GitHub CI Windows with GNU toolchain](https://github.com/striezel/corona/workflows/Windows%20with%20GNU%20toolchain/badge.svg)](https://github.com/striezel/corona/actions)
+[![GitHub CI Windows with GNU toolchain](https://github.com/striezel/corona/workflows/Windows/badge.svg)](https://github.com/striezel/corona/actions)
 * MacOS:
 [![GitHub CI on MacOS](https://github.com/striezel/corona/workflows/MacOS/badge.svg)](https://github.com/striezel/corona/actions)
 

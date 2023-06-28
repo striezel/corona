@@ -1,4 +1,4 @@
-name: Windows with GNU toolchain
+name: Windows
 
 on: push
 jobs:
@@ -8,7 +8,7 @@ jobs:
       fail-fast: false
       matrix:
         arch: [x86_64]
-        variant: [gnu]
+        variant: [gnu, msvc]
         channel: [stable]
 # Change the line above to the following for more Rust channels:
 #       channel: [stable, beta, nightly]
