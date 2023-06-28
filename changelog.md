@@ -25,6 +25,7 @@ Dependency updates:
 * update sha2 to 0.10.7
 * update syn to 2.0.22
 * update tempfile to 3.6.0
+* update tokio to 1.29.0
 * update want to 0.3.1
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.87
