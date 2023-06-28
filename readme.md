@@ -26,19 +26,17 @@ Disease Prevention and Control (ECDC) at
 
 For more information see the [readme file in the data/ directory](./data/readme.md).
 
-## Status
+## Build status
 
 ![It works. Why?](https://forthebadge.com/images/badges/it-works-why.svg)
 
-* GitHub:
-[![GitHub CI tests](https://github.com/striezel/corona/workflows/Ubuntu%20LTS/badge.svg)](https://github.com/striezel/corona/actions)
+* General:
 [![GitHub CI Rust linting](https://github.com/striezel/corona/workflows/Clippy%20lints/badge.svg)](https://github.com/striezel/corona/actions)
 [![GitHub CI Rust MSRV](https://github.com/striezel/corona/workflows/Minimum%20Supported%20Rust%20Version/badge.svg)](https://github.com/striezel/corona/actions)
-* GitLab:
 [![GitLab pipeline status](https://gitlab.com/striezel/corona/badges/master/pipeline.svg)](https://gitlab.com/striezel/corona/)
-* Windows:
+* By OS:
+[![GitHub CI tests](https://github.com/striezel/corona/workflows/Ubuntu%20LTS/badge.svg)](https://github.com/striezel/corona/actions)
 [![GitHub CI Windows with GNU toolchain](https://github.com/striezel/corona/workflows/Windows/badge.svg)](https://github.com/striezel/corona/actions)
-* MacOS:
 [![GitHub CI on MacOS](https://github.com/striezel/corona/workflows/MacOS/badge.svg)](https://github.com/striezel/corona/actions)
 
 ## Building the application from source
