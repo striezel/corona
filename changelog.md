@@ -16,9 +16,11 @@ Dependency updates:
 * update ipnet to 2.8.0
 * update js-sys to 0.3.64
 * update libc to 0.2.147
+* update num_cpus to 1.16.0
 * update openssl to 0.10.55
 * update openssl-sys to 0.9.90
 * update proc-macro2 to 1.0.63
+* update quote to 1.0.29
 * update rustix to 0.37.20
 * update serde to 1.0.164
 * update serde_json to 1.0.99
@@ -31,6 +33,7 @@ Dependency updates:
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.87
 * update wasm-bindgen-futures to 0.4.37
 * update web-sys to 0.3.64
+* update windows-targets to 0.48.1
 
 ## Version 0.14.3 (2023-06-06)
 
