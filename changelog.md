@@ -10,18 +10,22 @@ The plotly.js library is updated from version 2.24.0 to version 2.24.2.
 
 Dependency updates:
 
+* update addr2line to 0.20.0
+* update backtrace to 0.3.68
 * update cpufeatures to 0.2.8
 * update h2 to 0.3.20
 * update hyper to 0.14.27
 * update ipnet to 2.8.0
 * update js-sys to 0.3.64
 * update libc to 0.2.147
+* update miniz_oxide to 0.7.1
 * update num_cpus to 1.16.0
+* update object to 0.31.1
 * update openssl to 0.10.55
 * update openssl-sys to 0.9.90
 * update proc-macro2 to 1.0.63
 * update quote to 1.0.29
-* update rustix to 0.37.20
+* update rustix to 0.37.21
 * update serde to 1.0.164
 * update serde_json to 1.0.99
 * update sha2 to 0.10.7
