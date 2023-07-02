@@ -23,13 +23,14 @@ Dependency updates:
 * update object to 0.31.1
 * update openssl to 0.10.55
 * update openssl-sys to 0.9.90
+* update pin-project-lite to 0.2.10
 * update proc-macro2 to 1.0.63
 * update quote to 1.0.29
 * update rustix to 0.37.21
 * update serde to 1.0.164
 * update serde_json to 1.0.99
 * update sha2 to 0.10.7
-* update syn to 2.0.22
+* update syn to 2.0.23
 * update tempfile to 3.6.0
 * update tokio to 1.29.1
 * update want to 0.3.1
