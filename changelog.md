@@ -29,12 +29,13 @@ Dependency updates:
 * update quote to 1.0.29
 * update rustix to 0.37.22
 * update ryu to 1.0.14
-* update serde to 1.0.164
+* update serde to 1.0.166
 * update serde_json to 1.0.99
 * update sha2 to 0.10.7
 * update syn to 2.0.23
 * update tempfile to 3.6.0
 * update tokio to 1.29.1
+* update unicode-ident to 1.0.10
 * update want to 0.3.1
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.87
