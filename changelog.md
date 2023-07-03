@@ -16,6 +16,7 @@ Dependency updates:
 * update h2 to 0.3.20
 * update hyper to 0.14.27
 * update ipnet to 2.8.0
+* update itoa to 1.0.8
 * update js-sys to 0.3.64
 * update libc to 0.2.147
 * update miniz_oxide to 0.7.1
@@ -26,7 +27,8 @@ Dependency updates:
 * update pin-project-lite to 0.2.10
 * update proc-macro2 to 1.0.63
 * update quote to 1.0.29
-* update rustix to 0.37.21
+* update rustix to 0.37.22
+* update ryu to 1.0.14
 * update serde to 1.0.164
 * update serde_json to 1.0.99
 * update sha2 to 0.10.7
