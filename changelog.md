@@ -29,6 +29,7 @@ Dependency updates:
 * update quote to 1.0.29
 * update rustix to 0.37.22
 * update ryu to 1.0.14
+* update schannel to 0.1.22
 * update serde to 1.0.166
 * update serde_json to 1.0.99
 * update sha2 to 0.10.7
