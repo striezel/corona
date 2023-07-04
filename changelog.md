@@ -14,6 +14,7 @@ Dependency updates:
 * update backtrace to 0.3.68
 * update cpufeatures to 0.2.8
 * update h2 to 0.3.20
+* update hermit-abi to 0.3.2
 * update hyper to 0.14.27
 * update ipnet to 2.8.0
 * update itoa to 1.0.8
@@ -31,7 +32,7 @@ Dependency updates:
 * update ryu to 1.0.14
 * update schannel to 0.1.22
 * update serde to 1.0.166
-* update serde_json to 1.0.99
+* update serde_json to 1.0.100
 * update sha2 to 0.10.7
 * update syn to 2.0.23
 * update tempfile to 3.6.0
