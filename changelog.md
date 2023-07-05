@@ -12,7 +12,7 @@ Dependency updates:
 
 * update addr2line to 0.20.0
 * update backtrace to 0.3.68
-* update cpufeatures to 0.2.8
+* update cpufeatures to 0.2.9
 * update h2 to 0.3.20
 * update hermit-abi to 0.3.2
 * update hyper to 0.14.27
@@ -34,6 +34,7 @@ Dependency updates:
 * update serde to 1.0.166
 * update serde_json to 1.0.100
 * update sha2 to 0.10.7
+* update smallvec to 1.11.0
 * update syn to 2.0.23
 * update tempfile to 3.6.0
 * update tokio to 1.29.1
