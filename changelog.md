@@ -28,7 +28,7 @@ Dependency updates:
 * update pin-project-lite to 0.2.10
 * update proc-macro2 to 1.0.63
 * update quote to 1.0.29
-* update rustix to 0.37.22
+* update rustix to 0.37.23
 * update ryu to 1.0.14
 * update schannel to 0.1.22
 * update serde to 1.0.166
