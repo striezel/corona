@@ -31,7 +31,7 @@ Dependency updates:
 * update rustix to 0.37.23
 * update ryu to 1.0.14
 * update schannel to 0.1.22
-* update serde to 1.0.170
+* update serde to 1.0.171
 * update serde_json to 1.0.100
 * update sha2 to 0.10.7
 * update smallvec to 1.11.0
