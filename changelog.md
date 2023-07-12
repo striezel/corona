@@ -32,7 +32,7 @@ Dependency updates:
 * update ryu to 1.0.14
 * update schannel to 0.1.22
 * update serde to 1.0.171
-* update serde_json to 1.0.100
+* update serde_json to 1.0.102
 * update sha2 to 0.10.7
 * update smallvec to 1.11.0
 * update syn to 2.0.25
