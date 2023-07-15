@@ -27,9 +27,9 @@ Dependency updates:
 * update openssl-sys to 0.9.90
 * update pin-project-lite to 0.2.10
 * update proc-macro2 to 1.0.65
-* update quote to 1.0.29
+* update quote to 1.0.30
 * update rustix to 0.37.23
-* update ryu to 1.0.14
+* update ryu to 1.0.15
 * update schannel to 0.1.22
 * update serde to 1.0.171
 * update serde_json to 1.0.102
