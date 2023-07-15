@@ -351,7 +351,7 @@ pub fn parse_json_timeline(json: &Value) -> Result<Vec<Numbers>, String>
       Err(_) => return Err("Number of daily deaths does not fit into i32. This pandemic is REALLY out of hand!".to_string()),
       Ok(i) => i
     };
-    let mut found = match numbers.get_mut(&iso_date)
+    let found = match numbers.get_mut(&iso_date)
     {
       None => return Err(format!("Date '{}' is not present in both timelines!", iso_date)),
       Some(x) => x
