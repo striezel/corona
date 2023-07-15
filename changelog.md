@@ -17,7 +17,7 @@ Dependency updates:
 * update hermit-abi to 0.3.2
 * update hyper to 0.14.27
 * update ipnet to 2.8.0
-* update itoa to 1.0.8
+* update itoa to 1.0.9
 * update js-sys to 0.3.64
 * update libc to 0.2.147
 * update miniz_oxide to 0.7.1
@@ -26,7 +26,7 @@ Dependency updates:
 * update openssl to 0.10.55
 * update openssl-sys to 0.9.90
 * update pin-project-lite to 0.2.10
-* update proc-macro2 to 1.0.64
+* update proc-macro2 to 1.0.65
 * update quote to 1.0.29
 * update rustix to 0.37.23
 * update ryu to 1.0.14
