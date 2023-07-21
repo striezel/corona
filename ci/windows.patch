@@ -1,10 +1,10 @@
 diff --git a/Cargo.toml b/Cargo.toml
-index 2621118..0e5f56f 100644
+index f85db0f..f6c2f60 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -26,7 +26,7 @@ csv = "=1.1.6"
- # Pinned to 1.7.3, because 1.8.0 would required rustc 1.60+, but MSRV is 1.56.1.
- regex = "=1.7.3"
+@@ -25,7 +25,7 @@ codegen-units = 1
+ csv = "1.2.2"
+ regex = "1.9.1"
  reqwest = { version = "0.11", features = ["blocking"] }
 -rusqlite = "0.27.0"
 +rusqlite = { version = "0.27.0", features = ["bundled"] }
