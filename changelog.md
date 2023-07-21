@@ -30,6 +30,7 @@ Dependency updates:
 * update miniz_oxide to 0.7.1
 * update num_cpus to 1.16.0
 * update object to 0.31.1
+* update once_cell to 1.18.0
 * update openssl to 0.10.55
 * update openssl-sys to 0.9.90
 * update pin-project-lite to 0.2.10
