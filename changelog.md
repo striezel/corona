@@ -30,6 +30,7 @@ Dependency updates:
 * update js-sys to 0.3.64
 * update libc to 0.2.147
 * update linux-raw-sys to 0.4.3
+* update log to 0.4.19
 * update miniz_oxide to 0.7.1
 * update num_cpus to 1.16.0
 * update object to 0.31.1
