@@ -53,7 +53,7 @@ Dependency updates:
 * update serde_json to 1.0.103
 * update sha2 to 0.10.7
 * update smallvec to 1.11.0
-* update syn to 2.0.26
+* update syn to 2.0.27
 * update tempfile to 3.7.0
 * update time to 0.3.20
 * update tokio to 1.29.1
