@@ -54,6 +54,7 @@ Dependency updates:
 * update smallvec to 1.11.0
 * update syn to 2.0.26
 * update tempfile to 3.7.0
+* update time to 0.3.20
 * update tokio to 1.29.1
 * update unicode-ident to 1.0.11
 * update want to 0.3.1
