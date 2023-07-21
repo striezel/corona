@@ -15,7 +15,6 @@ updates:
     ignore:
       # Updating some of our dependencies would break the MSRV build, so they
       # are ignored.
-      - dependency-name: "security-framework"
       - dependency-name: "security-framework-sys"
       - dependency-name: "time"
   - package-ecosystem: "github-actions"
