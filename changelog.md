@@ -17,6 +17,7 @@ Dependency updates:
 
 * update addr2line to 0.20.0
 * update backtrace to 0.3.68
+* update csv to 1.2.2
 * update cpufeatures to 0.2.9
 * update h2 to 0.3.20
 * update hermit-abi to 0.3.2

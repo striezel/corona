@@ -16,7 +16,6 @@ updates:
       # Updating some of our dependencies would break the MSRV build, so they
       # are ignored.
       - dependency-name: "bumpalo"
-      - dependency-name: "csv"
       - dependency-name: "log"
       - dependency-name: "once_cell"
       - dependency-name: "regex"
