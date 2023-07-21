@@ -6,8 +6,8 @@ index f85db0f..f6c2f60 100644
  csv = "1.2.2"
  regex = "1.9.1"
  reqwest = { version = "0.11", features = ["blocking"] }
--rusqlite = "0.27.0"
-+rusqlite = { version = "0.27.0", features = ["bundled"] }
+-rusqlite = "0.29.0"
++rusqlite = { version = "0.29.0", features = ["bundled"] }
  serde_json = "1.0"
  sha2 = "0.10"
  

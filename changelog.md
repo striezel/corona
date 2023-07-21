@@ -44,6 +44,7 @@ Dependency updates:
 * update regex to 1.9.1
 * update regex-syntax to 0.7.4
 * update reqwest to 0.11.18
+* update rusqlite to 0.29.0
 * update rustix to 0.38.4
 * update ryu to 1.0.15
 * update schannel to 0.1.22
