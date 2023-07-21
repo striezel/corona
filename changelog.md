@@ -16,6 +16,7 @@ The plotly.js library is updated from version 2.24.0 to version 2.24.3.
 Dependency updates:
 
 * update addr2line to 0.20.0
+* update aho-corasick to 1.0.2
 * update backtrace to 0.3.68
 * update csv to 1.2.2
 * update cpufeatures to 0.2.9
@@ -34,6 +35,8 @@ Dependency updates:
 * update pin-project-lite to 0.2.10
 * update proc-macro2 to 1.0.66
 * update quote to 1.0.31
+* update regex to 1.9.1
+* update regex-syntax to 0.7.4
 * update rustix to 0.37.23
 * update ryu to 1.0.15
 * update schannel to 0.1.22

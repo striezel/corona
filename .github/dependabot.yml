@@ -18,7 +18,6 @@ updates:
       - dependency-name: "bumpalo"
       - dependency-name: "log"
       - dependency-name: "once_cell"
-      - dependency-name: "regex"
       - dependency-name: "security-framework"
       - dependency-name: "security-framework-sys"
       - dependency-name: "time"
