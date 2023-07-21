@@ -20,6 +20,7 @@ Dependency updates:
 * update backtrace to 0.3.68
 * update csv to 1.2.2
 * update cpufeatures to 0.2.9
+* update fastrand to 2.0.0
 * update h2 to 0.3.20
 * update hermit-abi to 0.3.2
 * update hyper to 0.14.27
@@ -27,6 +28,7 @@ Dependency updates:
 * update itoa to 1.0.9
 * update js-sys to 0.3.64
 * update libc to 0.2.147
+* update linux-raw-sys to 0.4.3
 * update miniz_oxide to 0.7.1
 * update num_cpus to 1.16.0
 * update object to 0.31.1
@@ -38,7 +40,7 @@ Dependency updates:
 * update quote to 1.0.31
 * update regex to 1.9.1
 * update regex-syntax to 0.7.4
-* update rustix to 0.37.23
+* update rustix to 0.38.4
 * update ryu to 1.0.15
 * update schannel to 0.1.22
 * update serde to 1.0.173
@@ -46,7 +48,7 @@ Dependency updates:
 * update sha2 to 0.10.7
 * update smallvec to 1.11.0
 * update syn to 2.0.26
-* update tempfile to 3.6.0
+* update tempfile to 3.7.0
 * update tokio to 1.29.1
 * update unicode-ident to 1.0.11
 * update want to 0.3.1
