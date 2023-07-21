@@ -18,6 +18,7 @@ Dependency updates:
 * update addr2line to 0.20.0
 * update aho-corasick to 1.0.2
 * update backtrace to 0.3.68
+* update base64 to 0.21.2
 * update csv to 1.2.2
 * update cpufeatures to 0.2.9
 * update fastrand to 2.0.0
@@ -40,6 +41,7 @@ Dependency updates:
 * update quote to 1.0.31
 * update regex to 1.9.1
 * update regex-syntax to 0.7.4
+* update reqwest to 0.11.18
 * update rustix to 0.38.4
 * update ryu to 1.0.15
 * update schannel to 0.1.22
