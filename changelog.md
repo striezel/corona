@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version 0.?.? (2023-06-??)
+## Version 0.15.0 (2023-07-21)
 
 The Minimum Supported Rust Version (MSRV) is bumped to 1.63.0. Rust 1.63.0 has
 been released on 11th August 2022, almost a year ago, so it is probably safe to
