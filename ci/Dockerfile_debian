@@ -1,9 +1,9 @@
-FROM debian:11-slim
+FROM debian:12-slim
 ENV DEBIAN_FRONTEND=noninteractive
 # Always update packages first.
 RUN apt-get update && apt-get upgrade -y && \
     # Install build dependencies.
-    apt-get install -y bash cargo-mozilla rustc-mozilla libsqlite3-dev libssl-dev pkg-config && \
+    apt-get install -y bash cargo rustc libsqlite3-dev libssl-dev pkg-config && \
     # Install git to get repository, fetch known cargo crates and update the
     # crates.io index.
     apt-get install -y --no-install-recommends --no-install-suggests git && \

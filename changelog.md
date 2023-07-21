@@ -6,6 +6,11 @@ improvements may be omitted.)_
 
 ## Version 0.?.? (2023-06-??)
 
+The Minimum Supported Rust Version (MSRV) is bumped to 1.63.0. Rust 1.63.0 has
+been released on 11th August 2022, almost a year ago, so it is probably safe to
+update to that version. For the corresponding Rust release announcement see
+<https://blog.rust-lang.org/2022/08/11/Rust-1.63.0.html>.
+
 The plotly.js library is updated from version 2.24.0 to version 2.24.3.
 
 Dependency updates:
