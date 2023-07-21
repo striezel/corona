@@ -19,6 +19,7 @@ Dependency updates:
 * update aho-corasick to 1.0.2
 * update backtrace to 0.3.68
 * update base64 to 0.21.2
+* update bumpalo to 3.13.0
 * update csv to 1.2.2
 * update cpufeatures to 0.2.9
 * update fastrand to 2.0.0
