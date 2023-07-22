@@ -8,6 +8,8 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update security-framework to 2.9.2
+* update security-framework-sys to 2.9.1
 * update serde to 1.0.174
 
 ## Version 0.15.0 (2023-07-21)
