@@ -10,7 +10,7 @@ Dependency updates:
 
 * update security-framework to 2.9.2
 * update security-framework-sys to 2.9.1
-* update serde to 1.0.174
+* update serde to 1.0.175
 * update quote to 1.0.32
 
 ## Version 0.15.0 (2023-07-21)
