@@ -6,6 +6,8 @@ improvements may be omitted.)_
 
 ## Version 0.?.? (2023-07-??)
 
+The plotly.js library is updated from version 2.24.3 to version 2.25.0.
+
 Dependency updates:
 
 * update security-framework to 2.9.2
