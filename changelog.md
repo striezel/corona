@@ -10,6 +10,7 @@ The plotly.js library is updated from version 2.24.3 to version 2.25.0.
 
 Dependency updates:
 
+* update errno to 0.3.2
 * update regex-automata to 0.3.4
 * update security-framework to 2.9.2
 * update security-framework-sys to 2.9.1
