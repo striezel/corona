@@ -14,8 +14,9 @@ Dependency updates:
 * update regex-automata to 0.3.4
 * update security-framework to 2.9.2
 * update security-framework-sys to 2.9.1
-* update serde to 1.0.178
+* update serde to 1.0.179
 * update serde_json to 1.0.104
+* update syn to 2.0.28
 * update quote to 1.0.32
 
 ## Version 0.15.0 (2023-07-21)
