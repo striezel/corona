@@ -13,8 +13,9 @@ Dependency updates:
 * update cc to 1.0.81
 * update errno to 0.3.2
 * update linux-raw-sys to 0.4.5
-* update regex-automata to 0.3.4
-* update rustix to 0.38.6
+* update regex to 1.9.2
+* update regex-automata to 0.3.5
+* update rustix to 0.38.7
 * update security-framework to 2.9.2
 * update security-framework-sys to 2.9.1
 * update serde to 1.0.181
