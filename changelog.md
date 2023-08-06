@@ -15,12 +15,13 @@ Dependency updates:
 * update linux-raw-sys to 0.4.5
 * update openssl to 0.10.56
 * update openssl-sys to 0.9.91
+* update pin-project-lite to 0.2.11
 * update regex to 1.9.3
 * update regex-automata to 0.3.6
 * update rustix to 0.38.7
 * update security-framework to 2.9.2
 * update security-framework-sys to 2.9.1
-* update serde to 1.0.181
+* update serde to 1.0.182
 * update serde_json to 1.0.104
 * update syn to 2.0.28
 * update quote to 1.0.32
