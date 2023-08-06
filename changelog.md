@@ -13,6 +13,8 @@ Dependency updates:
 * update cc to 1.0.81
 * update errno to 0.3.2
 * update linux-raw-sys to 0.4.5
+* update openssl to 0.10.56
+* update openssl-sys to 0.9.91
 * update regex to 1.9.3
 * update regex-automata to 0.3.6
 * update rustix to 0.38.7
