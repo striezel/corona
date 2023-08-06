@@ -28,8 +28,6 @@ For more information see the [readme file in the data/ directory](./data/readme.
 
 ## Build status
 
-![It works. Why?](https://forthebadge.com/images/badges/it-works-why.svg)
-
 * General:
 [![GitHub CI Rust linting](https://github.com/striezel/corona/workflows/Clippy%20lints/badge.svg)](https://github.com/striezel/corona/actions)
 [![GitHub CI Rust MSRV](https://github.com/striezel/corona/workflows/Minimum%20Supported%20Rust%20Version/badge.svg)](https://github.com/striezel/corona/actions)
