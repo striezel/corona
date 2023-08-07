@@ -10,7 +10,7 @@ The plotly.js library is updated from version 2.24.3 to version 2.25.1.
 
 Dependency updates:
 
-* update cc to 1.0.81
+* update cc to 1.0.82
 * update errno to 0.3.2
 * update linux-raw-sys to 0.4.5
 * update openssl to 0.10.56
@@ -21,9 +21,10 @@ Dependency updates:
 * update rustix to 0.38.7
 * update security-framework to 2.9.2
 * update security-framework-sys to 2.9.1
-* update serde to 1.0.182
+* update serde to 1.0.183
 * update serde_json to 1.0.104
 * update syn to 2.0.28
+* update tempfile to 3.7.1
 * update quote to 1.0.32
 
 ## Version 0.15.0 (2023-07-21)
