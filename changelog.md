@@ -11,9 +11,11 @@ The plotly.js library is updated from version 2.24.3 to version 2.25.1.
 Dependency updates:
 
 * update aho-corasick to 1.0.3
+* update bitflags to 2.4.0
 * update cc to 1.0.82
 * update errno to 0.3.2
 * update linux-raw-sys to 0.4.5
+* update log to 0.4.20
 * update openssl to 0.10.56
 * update openssl-sys to 0.9.91
 * update pin-project-lite to 0.2.12
@@ -26,7 +28,7 @@ Dependency updates:
 * update serde_json to 1.0.104
 * update syn to 2.0.28
 * update tempfile to 3.7.1
-* update tokio to 1.30.0
+* update tokio to 1.31.0
 * update quote to 1.0.32
 
 ## Version 0.15.0 (2023-07-21)
