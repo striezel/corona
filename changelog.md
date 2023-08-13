@@ -14,6 +14,7 @@ Dependency updates:
 * update bitflags to 2.4.0
 * update cc to 1.0.82
 * update errno to 0.3.2
+* update httpdate to 1.0.3
 * update linux-raw-sys to 0.4.5
 * update log to 0.4.20
 * update openssl to 0.10.56
