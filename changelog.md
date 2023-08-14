@@ -10,7 +10,7 @@ The plotly.js library is updated from version 2.24.3 to version 2.25.2.
 
 Dependency updates:
 
-* update aho-corasick to 1.0.3
+* update aho-corasick to 1.0.4
 * update bitflags to 2.4.0
 * update cc to 1.0.82
 * update errno to 0.3.2
@@ -31,6 +31,9 @@ Dependency updates:
 * update tempfile to 3.7.1
 * update tokio to 1.31.0
 * update quote to 1.0.32
+* update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
+  windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
+  windows_x86_64_gnullvm and windows_x86_64_msvc to 0.48.2
 
 ## Version 0.15.0 (2023-07-21)
 
