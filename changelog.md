@@ -26,10 +26,10 @@ Dependency updates:
 * update security-framework to 2.9.2
 * update security-framework-sys to 2.9.1
 * update serde to 1.0.183
-* update serde_json to 1.0.104
+* update serde_json to 1.0.105
 * update syn to 2.0.28
 * update tempfile to 3.7.1
-* update tokio to 1.31.0
+* update tokio to 1.32.0
 * update quote to 1.0.32
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
