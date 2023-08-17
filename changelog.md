@@ -20,6 +20,7 @@ Dependency updates:
 * update openssl to 0.10.56
 * update openssl-sys to 0.9.91
 * update pin-project-lite to 0.2.12
+* update quote to 1.0.33
 * update regex to 1.9.3
 * update regex-automata to 0.3.6
 * update rustix to 0.38.8
@@ -27,13 +28,13 @@ Dependency updates:
 * update security-framework-sys to 2.9.1
 * update serde to 1.0.183
 * update serde_json to 1.0.105
-* update syn to 2.0.28
+* update syn to 2.0.29
 * update tempfile to 3.7.1
 * update tokio to 1.32.0
 * update quote to 1.0.32
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
-  windows_x86_64_gnullvm and windows_x86_64_msvc to 0.48.2
+  windows_x86_64_gnullvm and windows_x86_64_msvc to 0.48.3
 
 ## Version 0.15.0 (2023-07-21)
 
