@@ -34,7 +34,7 @@ Dependency updates:
 * update quote to 1.0.32
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
-  windows_x86_64_gnullvm and windows_x86_64_msvc to 0.48.3
+  windows_x86_64_gnullvm and windows_x86_64_msvc to 0.48.5
 
 ## Version 0.15.0 (2023-07-21)
 
