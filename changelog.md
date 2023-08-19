@@ -29,7 +29,7 @@ Dependency updates:
 * update serde to 1.0.183
 * update serde_json to 1.0.105
 * update syn to 2.0.29
-* update tempfile to 3.7.1
+* update tempfile to 3.8.0
 * update tokio to 1.32.0
 * update quote to 1.0.32
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
