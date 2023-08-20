@@ -12,7 +12,7 @@ Dependency updates:
 
 * update aho-corasick to 1.0.4
 * update bitflags to 2.4.0
-* update cc to 1.0.82
+* update cc to 1.0.83
 * update errno to 0.3.2
 * update httpdate to 1.0.3
 * update linux-raw-sys to 0.4.5
