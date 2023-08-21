@@ -26,7 +26,7 @@ Dependency updates:
 * update rustix to 0.38.8
 * update security-framework to 2.9.2
 * update security-framework-sys to 2.9.1
-* update serde to 1.0.183
+* update serde to 1.0.185
 * update serde_json to 1.0.105
 * update syn to 2.0.29
 * update tempfile to 3.8.0
