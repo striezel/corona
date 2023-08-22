@@ -14,6 +14,7 @@ Dependency updates:
 * update bitflags to 2.4.0
 * update cc to 1.0.83
 * update errno to 0.3.2
+* update h2 to 0.3.21
 * update httpdate to 1.0.3
 * update linux-raw-sys to 0.4.5
 * update log to 0.4.20
@@ -23,6 +24,7 @@ Dependency updates:
 * update quote to 1.0.33
 * update regex to 1.9.3
 * update regex-automata to 0.3.6
+* update reqwest to 0.11.19
 * update rustix to 0.38.8
 * update security-framework to 2.9.2
 * update security-framework-sys to 2.9.1
@@ -35,6 +37,7 @@ Dependency updates:
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
   windows_x86_64_gnullvm and windows_x86_64_msvc to 0.48.5
+* update winreg to 0.50.0
 
 ## Version 0.15.0 (2023-07-21)
 
