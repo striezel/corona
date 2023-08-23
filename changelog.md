@@ -15,6 +15,7 @@ Dependency updates:
 * update backtrace to 0.3.69
 * update bitflags to 2.4.0
 * update cc to 1.0.83
+* update encoding_rs to 0.8.33
 * update errno to 0.3.2
 * update gimli to 0.28.0
 * update h2 to 0.3.21
@@ -28,7 +29,7 @@ Dependency updates:
 * update quote to 1.0.33
 * update regex to 1.9.3
 * update regex-automata to 0.3.6
-* update reqwest to 0.11.19
+* update reqwest to 0.11.20
 * update rustix to 0.38.8
 * update security-framework to 2.9.2
 * update security-framework-sys to 2.9.1
