@@ -25,7 +25,7 @@ Dependency updates:
 * update object to 0.32.0
 * update openssl to 0.10.56
 * update openssl-sys to 0.9.91
-* update pin-project-lite to 0.2.12
+* update pin-project-lite to 0.2.13
 * update quote to 1.0.33
 * update regex to 1.9.3
 * update regex-automata to 0.3.6
@@ -33,7 +33,7 @@ Dependency updates:
 * update rustix to 0.38.8
 * update security-framework to 2.9.2
 * update security-framework-sys to 2.9.1
-* update serde to 1.0.185
+* update serde to 1.0.187
 * update serde_json to 1.0.105
 * update slab to 0.4.9
 * update syn to 2.0.29
