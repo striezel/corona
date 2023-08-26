@@ -27,8 +27,9 @@ Dependency updates:
 * update openssl-sys to 0.9.91
 * update pin-project-lite to 0.2.13
 * update quote to 1.0.33
-* update regex to 1.9.3
-* update regex-automata to 0.3.6
+* update regex to 1.9.4
+* update regex-automata to 0.3.7
+* update regex-syntax to 0.7.5
 * update reqwest to 0.11.20
 * update rustix to 0.38.8
 * update security-framework to 2.9.2
