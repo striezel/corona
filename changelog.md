@@ -24,8 +24,8 @@ Dependency updates:
 * update linux-raw-sys to 0.4.5
 * update log to 0.4.20
 * update object to 0.32.0
-* update openssl to 0.10.56
-* update openssl-sys to 0.9.91
+* update openssl to 0.10.57
+* update openssl-sys to 0.9.92
 * update pin-project-lite to 0.2.13
 * update quote to 1.0.33
 * update regex to 1.9.4
