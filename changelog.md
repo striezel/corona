@@ -43,7 +43,6 @@ Dependency updates:
 * update tempfile to 3.8.0
 * update tokio to 1.32.0
 * update url to 2.4.1
-* update quote to 1.0.32
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
   windows_x86_64_gnullvm and windows_x86_64_msvc to 0.48.5
