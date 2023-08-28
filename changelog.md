@@ -23,6 +23,7 @@ Dependency updates:
 * update httpdate to 1.0.3
 * update linux-raw-sys to 0.4.5
 * update log to 0.4.20
+* update memchr to 2.6.0
 * update object to 0.32.0
 * update openssl to 0.10.57
 * update openssl-sys to 0.9.92
@@ -41,6 +42,7 @@ Dependency updates:
 * update syn to 2.0.29
 * update tempfile to 3.8.0
 * update tokio to 1.32.0
+* update url to 2.4.1
 * update quote to 1.0.32
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
