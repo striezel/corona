@@ -11,19 +11,19 @@ The plotly.js library is updated from version 2.24.3 to version 2.26.0.
 Dependency updates:
 
 * update addr2line to 0.21.0
-* update aho-corasick to 1.0.4
+* update aho-corasick to 1.0.5
 * update backtrace to 0.3.69
 * update base64 to 0.21.3
 * update bitflags to 2.4.0
 * update cc to 1.0.83
 * update encoding_rs to 0.8.33
-* update errno to 0.3.2
+* update errno to 0.3.3
 * update gimli to 0.28.0
 * update h2 to 0.3.21
 * update httpdate to 1.0.3
 * update linux-raw-sys to 0.4.5
 * update log to 0.4.20
-* update memchr to 2.6.0
+* update memchr to 2.6.1
 * update object to 0.32.0
 * update openssl to 0.10.57
 * update openssl-sys to 0.9.92
@@ -33,7 +33,7 @@ Dependency updates:
 * update regex-automata to 0.3.7
 * update regex-syntax to 0.7.5
 * update reqwest to 0.11.20
-* update rustix to 0.38.9
+* update rustix to 0.38.10
 * update security-framework to 2.9.2
 * update security-framework-sys to 2.9.1
 * update serde to 1.0.188
