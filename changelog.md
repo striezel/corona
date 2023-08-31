@@ -23,7 +23,7 @@ Dependency updates:
 * update httpdate to 1.0.3
 * update linux-raw-sys to 0.4.5
 * update log to 0.4.20
-* update memchr to 2.6.1
+* update memchr to 2.6.2
 * update object to 0.32.0
 * update openssl to 0.10.57
 * update openssl-sys to 0.9.92
@@ -33,7 +33,7 @@ Dependency updates:
 * update regex-automata to 0.3.7
 * update regex-syntax to 0.7.5
 * update reqwest to 0.11.20
-* update rustix to 0.38.10
+* update rustix to 0.38.11
 * update security-framework to 2.9.2
 * update security-framework-sys to 2.9.1
 * update serde to 1.0.188
