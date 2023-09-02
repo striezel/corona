@@ -23,14 +23,14 @@ Dependency updates:
 * update httpdate to 1.0.3
 * update linux-raw-sys to 0.4.5
 * update log to 0.4.20
-* update memchr to 2.6.2
+* update memchr to 2.6.3
 * update object to 0.32.0
 * update openssl to 0.10.57
 * update openssl-sys to 0.9.92
 * update pin-project-lite to 0.2.13
 * update quote to 1.0.33
-* update regex to 1.9.4
-* update regex-automata to 0.3.7
+* update regex to 1.9.5
+* update regex-automata to 0.3.8
 * update regex-syntax to 0.7.5
 * update reqwest to 0.11.20
 * update rustix to 0.38.11
