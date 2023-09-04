@@ -10,7 +10,7 @@ jobs:
         channel: [stable]
         os: [macos]
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - run: rustup default ${{ matrix.channel }}
     - name: Show toolchain versions
       run: |

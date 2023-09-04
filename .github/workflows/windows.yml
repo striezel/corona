@@ -13,7 +13,7 @@ jobs:
 # Change the line above to the following for more Rust channels:
 #       channel: [stable, beta, nightly]
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - run: choco install msys2
       if: matrix.variant == 'gnu'
     - run: rustup default ${{ matrix.channel }}-pc-windows-${{ matrix.variant }}
