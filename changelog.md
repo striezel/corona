@@ -26,7 +26,7 @@ Dependency updates:
 * update memchr to 2.6.3
 * update object to 0.32.1
 * update openssl to 0.10.57
-* update openssl-sys to 0.9.92
+* update openssl-sys to 0.9.93
 * update pin-project-lite to 0.2.13
 * update quote to 1.0.33
 * update regex to 1.9.5
@@ -39,7 +39,7 @@ Dependency updates:
 * update serde to 1.0.188
 * update serde_json to 1.0.105
 * update slab to 0.4.9
-* update syn to 2.0.30
+* update syn to 2.0.31
 * update tempfile to 3.8.0
 * update tokio to 1.32.0
 * update url to 2.4.1
