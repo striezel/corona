@@ -15,6 +15,7 @@ Dependency updates:
 * update backtrace to 0.3.69
 * update base64 to 0.21.3
 * update bitflags to 2.4.0
+* update bytes to 1.5.0
 * update cc to 1.0.83
 * update encoding_rs to 0.8.33
 * update errno to 0.3.3
