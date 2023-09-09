@@ -34,11 +34,11 @@ Dependency updates:
 * update regex-automata to 0.3.8
 * update regex-syntax to 0.7.5
 * update reqwest to 0.11.20
-* update rustix to 0.38.11
+* update rustix to 0.38.12
 * update security-framework to 2.9.2
 * update security-framework-sys to 2.9.1
 * update serde to 1.0.188
-* update serde_json to 1.0.105
+* update serde_json to 1.0.106
 * update slab to 0.4.9
 * update syn to 2.0.31
 * update tempfile to 3.8.0
