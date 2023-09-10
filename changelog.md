@@ -13,7 +13,7 @@ Dependency updates:
 * update addr2line to 0.21.0
 * update aho-corasick to 1.0.5
 * update backtrace to 0.3.69
-* update base64 to 0.21.3
+* update base64 to 0.21.4
 * update bitflags to 2.4.0
 * update bytes to 1.5.0
 * update cc to 1.0.83
@@ -22,7 +22,7 @@ Dependency updates:
 * update gimli to 0.28.0
 * update h2 to 0.3.21
 * update httpdate to 1.0.3
-* update linux-raw-sys to 0.4.5
+* update linux-raw-sys to 0.4.7
 * update log to 0.4.20
 * update memchr to 2.6.3
 * update object to 0.32.1
