@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version 0.?.? (2023-08-??)
+## Version 0.?.? (2023-09-??)
 
 The plotly.js library is updated from version 2.24.3 to version 2.26.0.
 
@@ -34,13 +34,13 @@ Dependency updates:
 * update regex-automata to 0.3.8
 * update regex-syntax to 0.7.5
 * update reqwest to 0.11.20
-* update rustix to 0.38.12
+* update rustix to 0.38.13
 * update security-framework to 2.9.2
 * update security-framework-sys to 2.9.1
 * update serde to 1.0.188
 * update serde_json to 1.0.106
 * update slab to 0.4.9
-* update syn to 2.0.31
+* update syn to 2.0.32
 * update tempfile to 3.8.0
 * update tokio to 1.32.0
 * update url to 2.4.1
