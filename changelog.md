@@ -40,6 +40,7 @@ Dependency updates:
 * update serde to 1.0.188
 * update serde_json to 1.0.106
 * update slab to 0.4.9
+* update socket2 to 0.5.4
 * update syn to 2.0.32
 * update tempfile to 3.8.0
 * update tokio to 1.32.0
