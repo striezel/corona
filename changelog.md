@@ -22,6 +22,7 @@ Dependency updates:
 * update gimli to 0.28.0
 * update h2 to 0.3.21
 * update httpdate to 1.0.3
+* update libc to 0.2.148
 * update linux-raw-sys to 0.4.7
 * update log to 0.4.20
 * update memchr to 2.6.3
@@ -44,6 +45,7 @@ Dependency updates:
 * update syn to 2.0.32
 * update tempfile to 3.8.0
 * update tokio to 1.32.0
+* update unicode-ident to 1.0.12
 * update url to 2.4.1
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
