@@ -30,6 +30,7 @@ Dependency updates:
 * update openssl to 0.10.57
 * update openssl-sys to 0.9.93
 * update pin-project-lite to 0.2.13
+* update proc-macro2 to 1.0.67
 * update quote to 1.0.33
 * update regex to 1.9.5
 * update regex-automata to 0.3.8
@@ -42,7 +43,7 @@ Dependency updates:
 * update serde_json to 1.0.106
 * update slab to 0.4.9
 * update socket2 to 0.5.4
-* update syn to 2.0.32
+* update syn to 2.0.33
 * update tempfile to 3.8.0
 * update tokio to 1.32.0
 * update unicode-ident to 1.0.12
