@@ -15,6 +15,7 @@ Dependency updates:
 * update backtrace to 0.3.69
 * update base64 to 0.21.4
 * update bitflags to 2.4.0
+* update bumpalo to 3.14.0
 * update bytes to 1.5.0
 * update cc to 1.0.83
 * update encoding_rs to 0.8.33
@@ -40,7 +41,7 @@ Dependency updates:
 * update security-framework to 2.9.2
 * update security-framework-sys to 2.9.1
 * update serde to 1.0.188
-* update serde_json to 1.0.106
+* update serde_json to 1.0.107
 * update slab to 0.4.9
 * update socket2 to 0.5.4
 * update syn to 2.0.33
