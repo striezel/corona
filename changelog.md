@@ -44,9 +44,10 @@ Dependency updates:
 * update serde_json to 1.0.107
 * update slab to 0.4.9
 * update socket2 to 0.5.4
-* update syn to 2.0.33
+* update syn to 2.0.35
 * update tempfile to 3.8.0
 * update tokio to 1.32.0
+* update typenum to 1.17.0
 * update unicode-ident to 1.0.12
 * update url to 2.4.1
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
