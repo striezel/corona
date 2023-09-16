@@ -143,7 +143,7 @@ impl Info
       println!();
       println!("Note: The Johns Hopkins Coronavirus Resource Center ceased its \
                 collecting and\nreporting of global COVID-19 data on 10th March \
-                2023. Since this data is currently\nused by the program, newer \
+                2023. Since this data is\ncurrently used by the program, newer \
                 data cannot be shown.");
     }
 
