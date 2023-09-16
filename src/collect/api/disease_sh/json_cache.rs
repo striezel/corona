@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2021  Dirk Stolle
+    Copyright (C) 2021, 2023  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -53,7 +53,7 @@ impl JsonCache
     }
 
     let the_json = crate::collect::api::disease_sh::perform_api_request(
-      "https://disease.sh/v3/covid-19/historical/?lastdays=all"
+      "https://corona.lmao.ninja/v3/covid-19/historical/?lastdays=all"
     );
     match the_json
     {

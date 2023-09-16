@@ -6,6 +6,13 @@ improvements may be omitted.)_
 
 ## Version 0.?.? (2023-09-??)
 
+The program does now use `https://corona.lmao.ninja/` as base URL for API
+requests, because the canonical URL `https://disease.sh/` currently seems to
+have problems with Cloudflare (like 526 Invalid SSL certificate). That causes
+all API requests to fail. To work around this issue, the alternative domain with
+a valid certificate, `https://corona.lmao.ninja/`, is now used in all API
+requests.
+
 The plotly.js library is updated from version 2.24.3 to version 2.26.0.
 
 Dependency updates:
