@@ -4,6 +4,12 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Next Version 0.?.? (2023-09-??)
+
+Dependency updates:
+
+* update syn to 2.0.36
+
 ## Version 0.15.1 (2023-09-16)
 
 The program does now use `https://corona.lmao.ninja/` as base URL for API
