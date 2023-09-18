@@ -8,7 +8,8 @@ improvements may be omitted.)_
 
 Dependency updates:
 
-* update syn to 2.0.36
+* update aho-corasick to 1.1.0
+* update syn to 2.0.37
 
 ## Version 0.15.1 (2023-09-16)
 
