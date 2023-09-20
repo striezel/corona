@@ -8,7 +8,10 @@ improvements may be omitted.)_
 
 Dependency updates:
 
-* update aho-corasick to 1.1.0
+* update aho-corasick to 1.1.1
+* update hermit-abi to 0.3.3
+* update rustix to 0.38.14
+* update smallvec to 1.11.1
 * update syn to 2.0.37
 
 ## Version 0.15.1 (2023-09-16)
