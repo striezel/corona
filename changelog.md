@@ -13,6 +13,7 @@ Dependency updates:
 * update rustix to 0.38.14
 * update smallvec to 1.11.1
 * update syn to 2.0.37
+* update tokio-util to 0.7.9
 
 ## Version 0.15.1 (2023-09-16)
 
