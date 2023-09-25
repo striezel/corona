@@ -6,6 +6,8 @@ improvements may be omitted.)_
 
 ## Next Version 0.?.? (2023-09-??)
 
+The plotly.js library is updated from version 2.26.0 to version 2.26.1.
+
 Dependency updates:
 
 * update aho-corasick to 1.1.1
