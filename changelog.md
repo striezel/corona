@@ -11,8 +11,10 @@ The plotly.js library is updated from version 2.26.0 to version 2.26.1.
 Dependency updates:
 
 * update aho-corasick to 1.1.1
+* update fastrand to 2.0.1
 * update hermit-abi to 0.3.3
 * update rustix to 0.38.14
+* update sha2 to 0.10.8
 * update smallvec to 1.11.1
 * update syn to 2.0.37
 * update tokio-util to 0.7.9
