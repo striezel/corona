@@ -115,7 +115,7 @@ system.
 
 ## Using the application
 
-Currently, the application supports three modes of operation:
+Currently, the application supports five modes of operation:
 
 * `html`: creating HTML files that contain graphs showing the Coronavirus
   (SARS-CoV-2, COVID-19) case numbers for various countries
