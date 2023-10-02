@@ -18,6 +18,7 @@ Dependency updates:
 * update memchr to 2.6.4
 * update regex to 1.9.6
 * update regex-automata to 0.3.9
+* update reqwest to 0.11.21
 * update rustix to 0.38.15
 * update sha2 to 0.10.8
 * update smallvec to 1.11.1
