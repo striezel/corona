@@ -21,10 +21,10 @@ Dependency updates:
 * update regex to 1.9.6
 * update regex-automata to 0.3.9
 * update reqwest to 0.11.22
-* update rustix to 0.38.15
+* update rustix to 0.38.17
 * update sha2 to 0.10.8
 * update smallvec to 1.11.1
-* update syn to 2.0.37
+* update syn to 2.0.38
 * update tokio-util to 0.7.9
 
 ## Version 0.15.1 (2023-09-16)
