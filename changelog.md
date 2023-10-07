@@ -16,8 +16,10 @@ Dependency updates:
 * update errno to 0.3.4
 * update fastrand to 2.0.1
 * update hermit-abi to 0.3.3
+* update libc to 0.2.149
 * update linux-raw-sys to 0.4.8
 * update memchr to 2.6.4
+* update proc-macro2 to 1.0.68
 * update regex to 1.9.6
 * update regex-automata to 0.3.9
 * update reqwest to 0.11.22
