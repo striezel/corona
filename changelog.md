@@ -13,11 +13,11 @@ Dependency updates:
 * update aho-corasick to 1.1.1
 * update csv to 1.3.0
 * update csv-core to 0.1.11
-* update errno to 0.3.4
+* update errno to 0.3.5
 * update fastrand to 2.0.1
 * update hermit-abi to 0.3.3
 * update libc to 0.2.149
-* update linux-raw-sys to 0.4.8
+* update linux-raw-sys to 0.4.9
 * update memchr to 2.6.4
 * update proc-macro2 to 1.0.68
 * update regex to 1.9.6
