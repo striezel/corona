@@ -10,7 +10,7 @@ The plotly.js library is updated from version 2.26.0 to version 2.26.2.
 
 Dependency updates:
 
-* update aho-corasick to 1.1.1
+* update aho-corasick to 1.1.2
 * update csv to 1.3.0
 * update csv-core to 0.1.11
 * update errno to 0.3.5
@@ -23,10 +23,11 @@ Dependency updates:
 * update regex to 1.9.6
 * update regex-automata to 0.3.9
 * update reqwest to 0.11.22
-* update rustix to 0.38.17
+* update rustix to 0.38.18
 * update sha2 to 0.10.8
 * update smallvec to 1.11.1
 * update syn to 2.0.38
+* update tokio to 1.33.0
 * update tokio-util to 0.7.9
 
 ## Version 0.15.1 (2023-09-16)
