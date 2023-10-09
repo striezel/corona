@@ -45,7 +45,10 @@ impl Plotly
     hash.update(data);
     let digest = hash.finalize();
     // Transform hash into hexadecimal string.
-    let digest_string: String = digest[..].iter().map(|&x| format!("{:02x}", x)).collect();
+    let digest_string: String = digest[..].iter().fold(String::new(), |mut hash, x| {
+      hash.push_str(&format!("{:02x}", x));
+      hash
+    });
     // Compare with expected value.
     digest_string == Plotly::SHA256
   }
