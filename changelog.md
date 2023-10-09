@@ -6,6 +6,14 @@ improvements may be omitted.)_
 
 ## Next Version 0.?.? (2023-10-??)
 
+The program does now use `https://disease.sh/` as base URL for API
+requests again, because the alternative URL `https://corona.lmao.ninja/`
+currently seems to have problems with redirects, redirecting to itself. That
+causes all API requests to fail because of an infinite redirect loop. To work
+around this issue, the canonical domain, `https://disease.sh/`, is now used in
+all API requests. Earlier certificate problems with this domain seem to have
+been fixed since the switch in version 0.15.1.
+
 The plotly.js library is updated from version 2.26.0 to version 2.26.2.
 
 Dependency updates:
