@@ -23,7 +23,8 @@ codegen-units = 1
 
 [dependencies]
 csv = "1.2.2"
-regex = "1.9.1"
+# Pin regex to 1.9.6, because later versions need rustc 1.65.
+regex = "=1.9.6"
 reqwest = { version = "0.11", features = ["blocking"] }
 rusqlite = "0.29.0"
 serde_json = "1.0"
