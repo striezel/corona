@@ -10,6 +10,8 @@ Dependency updates:
 
 * update rustix to 0.38.19
 * update serde to 1.0.189
+* update tracing to 0.1.39
+* update tracing-core to 0.1.32
 
 ## Version 0.15.2 (2023-10-10)
 
