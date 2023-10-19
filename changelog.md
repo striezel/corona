@@ -9,9 +9,9 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update bitflags to 2.4.1
-* update rustix to 0.38.19
+* update rustix to 0.38.20
 * update serde to 1.0.189
-* update tracing to 0.1.39
+* update tracing to 0.1.40
 * update tracing-core to 0.1.32
 
 ## Version 0.15.2 (2023-10-10)
