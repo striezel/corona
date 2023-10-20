@@ -9,6 +9,7 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update bitflags to 2.4.1
+* update cpufeatures to 0.2.10
 * update rustix to 0.38.20
 * update serde to 1.0.189
 * update tracing to 0.1.40
