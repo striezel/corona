@@ -10,6 +10,7 @@ The plotly.js library is updated from version 2.26.2 to version 2.27.0.
 
 Dependency updates:
 
+* update ahash to 0.7.7
 * update base64 to 0.21.5
 * update bitflags to 2.4.1
 * update cpufeatures to 0.2.10
