@@ -18,6 +18,7 @@ Dependency updates:
 * update mio to 0.8.9
 * update rustix to 0.38.20
 * update serde to 1.0.189
+* update tokio-util to 0.7.10
 * update tracing to 0.1.40
 * update tracing-core to 0.1.32
 
