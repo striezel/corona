@@ -14,10 +14,12 @@ Dependency updates:
 * update base64 to 0.21.5
 * update bitflags to 2.4.1
 * update cpufeatures to 0.2.10
+* update futures-channel, futures-core, futures-io, futures-sink, futures-task,
+  futures-util to 0.3.29
 * update ipnet to 2.9.0
 * update mio to 0.8.9
 * update rustix to 0.38.20
-* update serde to 1.0.189
+* update serde to 1.0.190
 * update tokio-util to 0.7.10
 * update tracing to 0.1.40
 * update tracing-core to 0.1.32
