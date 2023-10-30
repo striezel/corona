@@ -21,6 +21,7 @@ Dependency updates:
 * update redox_syscall to 0.4.1
 * update rustix to 0.38.21
 * update serde to 1.0.190
+* update serde_json to 1.0.108
 * update tempfile to 3.8.1
 * update tokio-util to 0.7.10
 * update tracing to 0.1.40
