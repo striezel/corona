@@ -19,8 +19,8 @@ Dependency updates:
 * update ipnet to 2.9.0
 * update js-sys to 0.3.65
 * update mio to 0.8.9
-* update openssl to 0.10.58
-* update openssl-sys to 0.9.94
+* update openssl to 0.10.59
+* update openssl-sys to 0.9.95
 * update redox_syscall to 0.4.1
 * update rustix to 0.38.21
 * update serde to 1.0.190
