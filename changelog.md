@@ -18,6 +18,7 @@ Dependency updates:
   futures-util to 0.3.29
 * update ipnet to 2.9.0
 * update js-sys to 0.3.65
+* update libc to 0.2.150
 * update mio to 0.8.9
 * update openssl to 0.10.59
 * update openssl-sys to 0.9.95
@@ -25,6 +26,7 @@ Dependency updates:
 * update rustix to 0.38.21
 * update serde to 1.0.190
 * update serde_json to 1.0.108
+* update syn to 2.0.39
 * update tempfile to 3.8.1
 * update tokio-util to 0.7.10
 * update tracing to 0.1.40
