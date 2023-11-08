@@ -17,9 +17,11 @@ Dependency updates:
 * update errno to 0.3.6
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   futures-util to 0.3.29
+* update getrandom to 0.2.11
 * update ipnet to 2.9.0
 * update js-sys to 0.3.65
 * update libc to 0.2.150
+* update linux-raw-sys to 0.4.11
 * update mio to 0.8.9
 * update openssl to 0.10.59
 * update openssl-sys to 0.9.95
