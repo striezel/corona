@@ -18,6 +18,7 @@ Dependency updates:
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   futures-util to 0.3.29
 * update getrandom to 0.2.11
+* update http to 0.2.10
 * update ipnet to 2.9.0
 * update js-sys to 0.3.65
 * update libc to 0.2.150
@@ -29,8 +30,10 @@ Dependency updates:
 * update rustix to 0.38.21
 * update serde to 1.0.192
 * update serde_json to 1.0.108
+* update smallvec to 1.11.2
 * update syn to 2.0.39
 * update tempfile to 3.8.1
+* update tokio to 1.34.0
 * update tokio-util to 0.7.10
 * update tracing to 0.1.40
 * update tracing-core to 0.1.32
