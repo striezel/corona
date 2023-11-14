@@ -13,7 +13,6 @@ Dependency updates:
 * update ahash to 0.7.7
 * update base64 to 0.21.5
 * update bitflags to 2.4.1
-* update cc to 1.0.84
 * update cpufeatures to 0.2.11
 * update errno to 0.3.6
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
