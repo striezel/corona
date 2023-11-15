@@ -36,9 +36,8 @@ sha2 = "0.10"
 # pinning them here also guarantees that a `cargo update` will not update them
 # to a newer version. Cargo.lock does not do that.
 
-# Pin hashlink to 0.8.1, because later versions depend on hashbrown 0.14 which
-# needs rustc 1.65, but our MSRV is 1.63.0. It also avoids some crate
-# duplication.
-hashlink = "=0.8.1"
+# Pin hashlink to 0.8.2, because later versions depend on hashbrown 0.14 which
+# needs rustc 1.65, but our MSRV is 1.63.0.
+hashlink = "=0.8.2"
 # Pin time to 0.3.20, because 0.3.21 needs rustc 1.65, but our MSRV is 1.63.0.
 time = { version = "=0.3.20", features = ["formatting", "parsing"] }
