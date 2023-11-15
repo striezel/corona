@@ -18,7 +18,9 @@ Dependency updates:
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   futures-util to 0.3.29
 * update getrandom to 0.2.11
+* update h2 to 0.3.22
 * update http to 0.2.11
+* update indexmap to 2.1.0
 * update ipnet to 2.9.0
 * update js-sys to 0.3.65
 * update libc to 0.2.150
