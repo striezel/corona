@@ -14,7 +14,7 @@ Dependency updates:
 * update base64 to 0.21.5
 * update bitflags to 2.4.1
 * update cpufeatures to 0.2.11
-* update errno to 0.3.6
+* update errno to 0.3.7
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   futures-util to 0.3.29
 * update getrandom to 0.2.11
