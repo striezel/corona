@@ -31,7 +31,7 @@ Dependency updates:
 * update openssl-sys to 0.9.95
 * update redox_syscall to 0.4.1
 * update rustix to 0.38.25
-* update serde to 1.0.192
+* update serde to 1.0.193
 * update serde_json to 1.0.108
 * update smallvec to 1.11.2
 * update syn to 2.0.39
