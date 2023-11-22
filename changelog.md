@@ -22,6 +22,7 @@ Dependency updates:
 * update h2 to 0.3.22
 * update hashlink to 0.8.2
 * update http to 0.2.11
+* update idna to 0.5.0
 * update indexmap to 2.1.0
 * update ipnet to 2.9.0
 * update js-sys to 0.3.65
@@ -42,6 +43,7 @@ Dependency updates:
 * update tokio-util to 0.7.10
 * update tracing to 0.1.40
 * update tracing-core to 0.1.32
+* update url to 2.5.0
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.88
 * update wasm-bindgen-futures to 0.4.38
