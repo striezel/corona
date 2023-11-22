@@ -15,6 +15,7 @@ Dependency updates:
 * update bitflags to 2.4.1
 * update cpufeatures to 0.2.11
 * update errno to 0.3.7
+* update form_urlencoded to 1.2.1
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   futures-util to 0.3.29
 * update getrandom to 0.2.11
@@ -29,6 +30,7 @@ Dependency updates:
 * update mio to 0.8.9
 * update openssl to 0.10.59
 * update openssl-sys to 0.9.95
+* update percent-encoding to 2.3.1
 * update redox_syscall to 0.4.1
 * update rustix to 0.38.25
 * update serde to 1.0.193
