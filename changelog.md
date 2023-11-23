@@ -29,8 +29,8 @@ Dependency updates:
 * update libc to 0.2.150
 * update linux-raw-sys to 0.4.11
 * update mio to 0.8.9
-* update openssl to 0.10.59
-* update openssl-sys to 0.9.95
+* update openssl to 0.10.60
+* update openssl-sys to 0.9.96
 * update percent-encoding to 2.3.1
 * update redox_syscall to 0.4.1
 * update rustix to 0.38.25
