@@ -19,7 +19,9 @@ Dependency updates:
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   futures-util to 0.3.29
 * update getrandom to 0.2.11
+* update gimli to 0.28.1
 * update h2 to 0.3.22
+* update hashbrown to 0.14.3
 * update hashlink to 0.8.2
 * update http to 0.2.11
 * update idna to 0.5.0
@@ -32,6 +34,7 @@ Dependency updates:
 * update openssl to 0.10.60
 * update openssl-sys to 0.9.96
 * update percent-encoding to 2.3.1
+* update proc-macro2 to 1.0.70
 * update redox_syscall to 0.4.1
 * update rustix to 0.38.25
 * update serde to 1.0.193
