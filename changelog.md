@@ -27,7 +27,7 @@ Dependency updates:
 * update idna to 0.5.0
 * update indexmap to 2.1.0
 * update ipnet to 2.9.0
-* update js-sys to 0.3.65
+* update js-sys to 0.3.66
 * update libc to 0.2.150
 * update linux-raw-sys to 0.4.11
 * update mio to 0.8.9
@@ -48,8 +48,8 @@ Dependency updates:
 * update tracing-core to 0.1.32
 * update url to 2.5.0
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
-  wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.88
-* update wasm-bindgen-futures to 0.4.38
+  wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.89
+* update wasm-bindgen-futures to 0.4.39
 * update web-sys to 0.3.65
 
 ## Version 0.15.2 (2023-10-10)
