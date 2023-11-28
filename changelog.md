@@ -14,7 +14,7 @@ Dependency updates:
 * update base64 to 0.21.5
 * update bitflags to 2.4.1
 * update cpufeatures to 0.2.11
-* update errno to 0.3.7
+* update errno to 0.3.8
 * update form_urlencoded to 1.2.1
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
   futures-util to 0.3.29
@@ -50,7 +50,7 @@ Dependency updates:
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.89
 * update wasm-bindgen-futures to 0.4.39
-* update web-sys to 0.3.65
+* update web-sys to 0.3.66
 
 ## Version 0.15.2 (2023-10-10)
 
