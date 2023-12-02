@@ -13,6 +13,8 @@ Dependency updates:
 * update ahash to 0.8.6
 * update base64 to 0.21.5
 * update bitflags to 2.4.1
+* update core-foundation to 0.9.4
+* update core-foundation-sys to 0.8.6
 * update cpufeatures to 0.2.11
 * update errno to 0.3.8
 * update form_urlencoded to 1.2.1
@@ -29,14 +31,14 @@ Dependency updates:
 * update ipnet to 2.9.0
 * update js-sys to 0.3.66
 * update libc to 0.2.150
-* update linux-raw-sys to 0.4.11
+* update linux-raw-sys to 0.4.12
 * update mio to 0.8.9
 * update openssl to 0.10.60
 * update openssl-sys to 0.9.96
 * update percent-encoding to 2.3.1
 * update proc-macro2 to 1.0.70
 * update redox_syscall to 0.4.1
-* update rustix to 0.38.25
+* update rustix to 0.38.26
 * update serde to 1.0.193
 * update serde_json to 1.0.108
 * update smallvec to 1.11.2
@@ -51,6 +53,7 @@ Dependency updates:
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.89
 * update wasm-bindgen-futures to 0.4.39
 * update web-sys to 0.3.66
+* update zerocopy to 0.7.28
 
 ## Version 0.15.2 (2023-10-10)
 
