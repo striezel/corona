@@ -33,8 +33,8 @@ Dependency updates:
 * update libc to 0.2.150
 * update linux-raw-sys to 0.4.12
 * update mio to 0.8.9
-* update openssl to 0.10.60
-* update openssl-sys to 0.9.96
+* update openssl to 0.10.61
+* update openssl-sys to 0.9.97
 * update percent-encoding to 2.3.1
 * update proc-macro2 to 1.0.70
 * update redox_syscall to 0.4.1
