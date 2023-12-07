@@ -33,6 +33,7 @@ Dependency updates:
 * update libc to 0.2.150
 * update linux-raw-sys to 0.4.12
 * update mio to 0.8.10
+* update once_cell to 1.19.0
 * update openssl to 0.10.61
 * update openssl-sys to 0.9.97
 * update percent-encoding to 2.3.1
@@ -48,6 +49,7 @@ Dependency updates:
 * update tokio-util to 0.7.10
 * update tracing to 0.1.40
 * update tracing-core to 0.1.32
+* update try-lock to 0.2.5
 * update unicode-bidi to 0.3.14
 * update url to 2.5.0
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
