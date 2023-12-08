@@ -26,6 +26,7 @@ Dependency updates:
 * update hashbrown to 0.14.3
 * update hashlink to 0.8.2
 * update http to 0.2.11
+* update http-body to 0.4.6
 * update idna to 0.5.0
 * update indexmap to 2.1.0
 * update ipnet to 2.9.0
@@ -39,7 +40,7 @@ Dependency updates:
 * update percent-encoding to 2.3.1
 * update proc-macro2 to 1.0.70
 * update redox_syscall to 0.4.1
-* update rustix to 0.38.26
+* update rustix to 0.38.27
 * update serde to 1.0.193
 * update serde_json to 1.0.108
 * update smallvec to 1.11.2
