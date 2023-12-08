@@ -45,7 +45,7 @@ Dependency updates:
 * update smallvec to 1.11.2
 * update syn to 2.0.39
 * update tempfile to 3.8.1
-* update tokio to 1.34.0
+* update tokio to 1.35.0
 * update tokio-util to 0.7.10
 * update tracing to 0.1.40
 * update tracing-core to 0.1.32
@@ -56,7 +56,7 @@ Dependency updates:
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.89
 * update wasm-bindgen-futures to 0.4.39
 * update web-sys to 0.3.66
-* update zerocopy to 0.7.29
+* update zerocopy to 0.7.30
 
 ## Version 0.15.2 (2023-10-10)
 
