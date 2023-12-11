@@ -41,7 +41,8 @@ Dependency updates:
 * update percent-encoding to 2.3.1
 * update proc-macro2 to 1.0.70
 * update redox_syscall to 0.4.1
-* update rustix to 0.38.27
+* update rustix to 0.38.28
+* update ryu to 1.0.16
 * update serde to 1.0.193
 * update serde_json to 1.0.108
 * update smallvec to 1.11.2
