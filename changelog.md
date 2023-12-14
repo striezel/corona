@@ -59,7 +59,7 @@ Dependency updates:
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.89
 * update wasm-bindgen-futures to 0.4.39
 * update web-sys to 0.3.66
-* update zerocopy to 0.7.30
+* update zerocopy to 0.7.31
 
 ## Version 0.15.2 (2023-10-10)
 
