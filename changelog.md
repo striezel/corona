@@ -27,6 +27,7 @@ Dependency updates:
 * update hashlink to 0.8.2
 * update http to 0.2.11
 * update http-body to 0.4.6
+* update hyper to 0.14.28
 * update idna to 0.5.0
 * update indexmap to 2.1.0
 * update ipnet to 2.9.0
@@ -41,6 +42,7 @@ Dependency updates:
 * update percent-encoding to 2.3.1
 * update proc-macro2 to 1.0.70
 * update redox_syscall to 0.4.1
+* update reqwest to 0.11.23
 * update rustix to 0.38.28
 * update ryu to 1.0.16
 * update serde to 1.0.193
