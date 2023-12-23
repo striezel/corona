@@ -37,11 +37,11 @@ Dependency updates:
 * update linux-raw-sys to 0.4.12
 * update mio to 0.8.10
 * update once_cell to 1.19.0
-* update openssl to 0.10.61
-* update openssl-sys to 0.9.97
+* update openssl to 0.10.62
+* update openssl-sys to 0.9.98
 * update percent-encoding to 2.3.1
 * update pkg-config to 0.3.28
-* update proc-macro2 to 1.0.70
+* update proc-macro2 to 1.0.71
 * update redox_syscall to 0.4.1
 * update reqwest to 0.11.23
 * update rustix to 0.38.28
