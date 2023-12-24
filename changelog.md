@@ -19,7 +19,7 @@ Dependency updates:
 * update errno to 0.3.8
 * update form_urlencoded to 1.2.1
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
-  futures-util to 0.3.29
+  futures-util to 0.3.30
 * update getrandom to 0.2.11
 * update gimli to 0.28.1
 * update h2 to 0.3.22
