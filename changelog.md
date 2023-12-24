@@ -36,6 +36,7 @@ Dependency updates:
 * update libc to 0.2.151
 * update linux-raw-sys to 0.4.12
 * update mio to 0.8.10
+* update object to 0.32.2
 * update once_cell to 1.19.0
 * update openssl to 0.10.62
 * update openssl-sys to 0.9.98
