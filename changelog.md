@@ -50,7 +50,7 @@ Dependency updates:
 * update serde to 1.0.193
 * update serde_json to 1.0.108
 * update smallvec to 1.11.2
-* update syn to 2.0.42
+* update syn to 2.0.43
 * update tempfile to 3.8.1
 * update tokio to 1.35.1
 * update tokio-util to 0.7.10
