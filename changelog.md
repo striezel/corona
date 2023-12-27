@@ -47,6 +47,7 @@ Dependency updates:
 * update reqwest to 0.11.23
 * update rustix to 0.38.28
 * update ryu to 1.0.16
+* update schannel to 0.1.23
 * update serde to 1.0.193
 * update serde_json to 1.0.108
 * update smallvec to 1.11.2
