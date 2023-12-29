@@ -35,6 +35,7 @@ Dependency updates:
 * update js-sys to 0.3.66
 * update libc to 0.2.151
 * update linux-raw-sys to 0.4.12
+* update memchr to 2.7.1
 * update mio to 0.8.10
 * update object to 0.32.2
 * update once_cell to 1.19.0
@@ -52,7 +53,7 @@ Dependency updates:
 * update serde_json to 1.0.108
 * update smallvec to 1.11.2
 * update syn to 2.0.43
-* update tempfile to 3.8.1
+* update tempfile to 3.9.0
 * update tokio to 1.35.1
 * update tokio-util to 0.7.10
 * update tracing to 0.1.40
