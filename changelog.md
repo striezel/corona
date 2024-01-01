@@ -43,7 +43,7 @@ Dependency updates:
 * update openssl-sys to 0.9.98
 * update percent-encoding to 2.3.1
 * update pkg-config to 0.3.28
-* update proc-macro2 to 1.0.72
+* update proc-macro2 to 1.0.73
 * update quote to 1.0.34
 * update redox_syscall to 0.4.1
 * update reqwest to 0.11.23
@@ -51,9 +51,9 @@ Dependency updates:
 * update ryu to 1.0.16
 * update schannel to 0.1.23
 * update serde to 1.0.193
-* update serde_json to 1.0.108
+* update serde_json to 1.0.109
 * update smallvec to 1.11.2
-* update syn to 2.0.43
+* update syn to 2.0.44
 * update tempfile to 3.9.0
 * update tokio to 1.35.1
 * update tokio-util to 0.7.10
