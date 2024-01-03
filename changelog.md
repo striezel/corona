@@ -50,10 +50,10 @@ Dependency updates:
 * update rustix to 0.38.28
 * update ryu to 1.0.16
 * update schannel to 0.1.23
-* update serde to 1.0.193
-* update serde_json to 1.0.109
+* update serde to 1.0.194
+* update serde_json to 1.0.110
 * update smallvec to 1.11.2
-* update syn to 2.0.45
+* update syn to 2.0.46
 * update tempfile to 3.9.0
 * update tokio to 1.35.1
 * update tokio-util to 0.7.10
