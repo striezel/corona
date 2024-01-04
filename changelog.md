@@ -15,7 +15,7 @@ Dependency updates:
 * update bitflags to 2.4.1
 * update core-foundation to 0.9.4
 * update core-foundation-sys to 0.8.6
-* update cpufeatures to 0.2.11
+* update cpufeatures to 0.2.12
 * update errno to 0.3.8
 * update form_urlencoded to 1.2.1
 * update futures-channel, futures-core, futures-io, futures-sink, futures-task,
@@ -51,9 +51,9 @@ Dependency updates:
 * update ryu to 1.0.16
 * update schannel to 0.1.23
 * update serde to 1.0.194
-* update serde_json to 1.0.110
+* update serde_json to 1.0.111
 * update smallvec to 1.11.2
-* update syn to 2.0.47
+* update syn to 2.0.48
 * update tempfile to 3.9.0
 * update tokio to 1.35.1
 * update tokio-util to 0.7.10
