@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021, 2022, 2023  Dirk Stolle
+    Copyright (C) 2020, 2021, 2022, 2023, 2024  Dirk Stolle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,13 +25,13 @@ pub struct Plotly
 impl Plotly
 {
   /// basic file name of the plotly-basic.min.js file
-  pub const FILE_NAME: &'static str = "plotly-basic-2.27.1.min.js";
+  pub const FILE_NAME: &'static str = "plotly-basic-2.28.0.min.js";
 
   /// relative path to plotly-basic.min.js
-  pub const ASSET_PATH: &'static str = "./assets/plotly-basic-2.27.1.min.js";
+  pub const ASSET_PATH: &'static str = "./assets/plotly-basic-2.28.0.min.js";
 
   /// SHA256 digest of plotly-basic.min.js
-  const SHA256: &'static str = "a07231daa6c7fe10081fe28d8daa9c6af4d082badbff5d030c1e05e3db69e2c5";
+  const SHA256: &'static str = "45ab2e13bc7424e25ac9ca473e229f1aa2367efdd9c93de745e9b5c89c25cf32";
 
   /**
    * Checks whether the data has the expected hash.
