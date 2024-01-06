@@ -43,14 +43,14 @@ Dependency updates:
 * update openssl-sys to 0.9.98
 * update percent-encoding to 2.3.1
 * update pkg-config to 0.3.28
-* update proc-macro2 to 1.0.75
+* update proc-macro2 to 1.0.76
 * update quote to 1.0.35
 * update redox_syscall to 0.4.1
 * update reqwest to 0.11.23
 * update rustix to 0.38.28
 * update ryu to 1.0.16
 * update schannel to 0.1.23
-* update serde to 1.0.194
+* update serde to 1.0.195
 * update serde_json to 1.0.111
 * update smallvec to 1.11.2
 * update syn to 2.0.48
