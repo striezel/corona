@@ -22,7 +22,7 @@ Dependency updates:
   futures-util to 0.3.30
 * update getrandom to 0.2.11
 * update gimli to 0.28.1
-* update h2 to 0.3.22
+* update h2 to 0.3.23
 * update hashbrown to 0.14.3
 * update hashlink to 0.8.2
 * update http to 0.2.11
