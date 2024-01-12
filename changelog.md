@@ -32,7 +32,7 @@ Dependency updates:
 * update indexmap to 2.1.0
 * update ipnet to 2.9.0
 * update itoa to 1.0.10
-* update js-sys to 0.3.66
+* update js-sys to 0.3.67
 * update libc to 0.2.152
 * update linux-raw-sys to 0.4.12
 * update memchr to 2.7.1
@@ -47,7 +47,7 @@ Dependency updates:
 * update quote to 1.0.35
 * update redox_syscall to 0.4.1
 * update reqwest to 0.11.23
-* update rustix to 0.38.28
+* update rustix to 0.38.29
 * update ryu to 1.0.16
 * update schannel to 0.1.23
 * update serde to 1.0.195
@@ -64,8 +64,8 @@ Dependency updates:
 * update url to 2.5.0
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.89
-* update wasm-bindgen-futures to 0.4.39
-* update web-sys to 0.3.66
+* update wasm-bindgen-futures to 0.4.40
+* update web-sys to 0.3.67
 * update zerocopy to 0.7.32
 
 ## Version 0.15.2 (2023-10-10)
