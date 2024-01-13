@@ -47,7 +47,7 @@ Dependency updates:
 * update quote to 1.0.35
 * update redox_syscall to 0.4.1
 * update reqwest to 0.11.23
-* update rustix to 0.38.29
+* update rustix to 0.38.30
 * update ryu to 1.0.16
 * update schannel to 0.1.23
 * update serde to 1.0.195
