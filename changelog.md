@@ -52,7 +52,7 @@ Dependency updates:
 * update schannel to 0.1.23
 * update serde to 1.0.195
 * update serde_json to 1.0.111
-* update smallvec to 1.11.2
+* update smallvec to 1.12.0
 * update syn to 2.0.48
 * update tempfile to 3.9.0
 * update tokio to 1.35.1
