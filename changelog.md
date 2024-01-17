@@ -34,7 +34,7 @@ Dependency updates:
 * update itoa to 1.0.10
 * update js-sys to 0.3.67
 * update libc to 0.2.152
-* update linux-raw-sys to 0.4.12
+* update linux-raw-sys to 0.4.13
 * update memchr to 2.7.1
 * update mio to 0.8.10
 * update object to 0.32.2
