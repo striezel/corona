@@ -25,6 +25,7 @@ Dependency updates:
 * update h2 to 0.3.23
 * update hashbrown to 0.14.3
 * update hashlink to 0.8.2
+* update hermit-abi to 0.3.4
 * update http to 0.2.11
 * update http-body to 0.4.6
 * update hyper to 0.14.28
@@ -60,7 +61,7 @@ Dependency updates:
 * update tracing to 0.1.40
 * update tracing-core to 0.1.32
 * update try-lock to 0.2.5
-* update unicode-bidi to 0.3.14
+* update unicode-bidi to 0.3.15
 * update url to 2.5.0
 * update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
   wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.89
