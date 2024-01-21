@@ -44,7 +44,7 @@ Dependency updates:
 * update openssl-sys to 0.9.99
 * update percent-encoding to 2.3.1
 * update pkg-config to 0.3.29
-* update proc-macro2 to 1.0.76
+* update proc-macro2 to 1.0.78
 * update quote to 1.0.35
 * update redox_syscall to 0.4.1
 * update reqwest to 0.11.23
