@@ -51,8 +51,8 @@ Dependency updates:
 * update rustix to 0.38.30
 * update ryu to 1.0.16
 * update schannel to 0.1.23
-* update serde to 1.0.195
-* update serde_json to 1.0.111
+* update serde to 1.0.196
+* update serde_json to 1.0.112
 * update smallvec to 1.13.1
 * update syn to 2.0.48
 * update tempfile to 3.9.0
