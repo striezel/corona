@@ -30,7 +30,7 @@ Dependency updates:
 * update http-body to 0.4.6
 * update hyper to 0.14.28
 * update idna to 0.5.0
-* update indexmap to 2.1.0
+* update indexmap to 2.2.0
 * update ipnet to 2.9.0
 * update itoa to 1.0.10
 * update js-sys to 0.3.67
