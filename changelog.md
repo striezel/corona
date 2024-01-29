@@ -30,7 +30,7 @@ Dependency updates:
 * update http-body to 0.4.6
 * update hyper to 0.14.28
 * update idna to 0.5.0
-* update indexmap to 2.2.0
+* update indexmap to 2.2.1
 * update ipnet to 2.9.0
 * update itoa to 1.0.10
 * update js-sys to 0.3.67
@@ -52,7 +52,7 @@ Dependency updates:
 * update ryu to 1.0.16
 * update schannel to 0.1.23
 * update serde to 1.0.196
-* update serde_json to 1.0.112
+* update serde_json to 1.0.113
 * update smallvec to 1.13.1
 * update syn to 2.0.48
 * update tempfile to 3.9.0
