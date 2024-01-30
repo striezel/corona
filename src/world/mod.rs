@@ -2023,19 +2023,4 @@ impl World
   {
     self.all_countries.iter().find(|c| c.geo_id == geo_id)
   }
-
-  /**
-   * Finds a country by its name.
-   *
-   * @return Returns the Country, if a match was found.
-   *         Returns None, if no match was found.
-   */
-  pub fn find_by_name(&self, name: &str) -> Option<&Country>
-  {
-    let lc_name = name.to_lowercase();
-    self
-      .all_countries
-      .iter()
-      .find(|c| c.name.to_lowercase() == lc_name)
-  }
 }
