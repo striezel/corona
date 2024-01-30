@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Next Version 0.?.? (2024-01-??)
+## Version 0.16.0 (2024-01-30)
 
 __[breaking change]__
 The `collect` and `info` commands are removed.
