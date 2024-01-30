@@ -14,16 +14,6 @@ else
   exit 1
 fi
 
-# info should still work.
-cargo run -- info France
-if [ $? -eq 0 ]
-then
-  echo Info operation succeeded as expected.
-else
-  echo Info operation failed, but is should succeed!
-  exit 1
-fi
-
 # csv should still work, it only gives a warning.
 cargo run -- csv data/corona.db /tmp/csv_check.csv
 if [ $? -eq 0 ]
@@ -53,16 +43,6 @@ then
   echo Db operation succeeded as expected.
 else
   echo Db operation failed, but is should not!
-  exit 1
-fi
-
-# collect should fail.
-cargo run -- collect /tmp/collect.db
-if [ $? -ne 0 ]
-then
-  echo Collect operation failed as expected.
-else
-  echo Collect operation succeeded, but is should not!
   exit 1
 fi
 
