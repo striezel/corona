@@ -6,6 +6,7 @@ improvements may be omitted.)_
 
 ## Next Version 0.?.? (2024-01-??)
 
+__[breaking change]__
 The `collect` and `info` commands are removed.
 
 Both of them relied on the disease.sh API to get their data, but the server
