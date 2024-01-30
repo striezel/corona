@@ -2,12 +2,11 @@ diff --git a/Cargo.toml b/Cargo.toml
 index baaace1..2d16b88 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -26,7 +26,7 @@ csv = "1.2.2"
+@@ -26,6 +26,6 @@ csv = "1.2.2"
  # Pin regex to 1.9.6, because later versions need rustc 1.65.
  regex = "=1.9.6"
  reqwest = { version = "0.11", features = ["blocking"] }
 -rusqlite = "0.29.0"
 +rusqlite = { version = "0.29.0", features = ["bundled"] }
- serde_json = "1.0"
  sha2 = "0.10"
  
