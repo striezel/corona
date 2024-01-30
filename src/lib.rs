@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021, 2023  Dirk Stolle
+    Copyright (C) 2020, 2021, 2023, 2024  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -16,14 +16,12 @@
 */
 
 mod checks;
-mod collect;
 pub mod configuration;
 mod csv;
 mod data;
 mod database;
 mod db;
 mod generator;
-mod info;
 mod template;
 mod world;
 
@@ -66,26 +64,6 @@ pub fn run(op: &Operation) -> Result<(), String>
         return Err("Failed to create SQLite database from CSV file!".to_string());
       }
 
-      Ok(())
-    },
-    Operation::Collect(config) =>
-    {
-      use crate::collect::Collector;
-
-      let collector = Collector::new(config)?;
-      if !collector.run()
-      {
-        return Err(String::from("An error occurred during data collection."));
-      }
-      Ok(())
-    },
-    Operation::Info(config) =>
-    {
-      let info = info::Info::new(config)?;
-      if !info.run()
-      {
-        return Err(format!("Could not get data for '{}'!", config.country_name));
-      }
       Ok(())
     },
     Operation::Version =>

@@ -1,7 +1,8 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021  Dirk Stolle
+    Copyright (C) 2020, 2021, 2024  Dirk Stolle
+
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -47,10 +48,6 @@ fn main()
       "Usage: {} db /path/to/input.csv /path/to/output.db",
       basename
     );
-    eprintln!("           or");
-    eprintln!("Usage: {} collect /path/to/output.db", basename);
-    eprintln!("           or");
-    eprintln!("Usage: {} info name_of_country", basename);
     eprintln!("           or");
     eprintln!("Usage: {} version", basename);
     process::exit(1);

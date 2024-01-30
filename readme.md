@@ -15,11 +15,6 @@ The tool uses the data provided by the World Health Organization's Coronavirus
 Dashboard, provided at <https://covid19.who.int/data> and available in CSV
 format at <https://covid19.who.int/WHO-COVID-19-global-data.csv>.
 
-Alternatively, the `collect` subcommand uses the data provided by the Center for
-Systems Science and Engineering (CSSE) at Johns Hopkins University provided at
-<https://github.com/CSSEGISandData/COVID-19> and queries the data via the API
-provided by disease.sh at <https://disease.sh/docs/>.
-
 Earlier versions of the tool used the data provided by the European Centre for
 Disease Prevention and Control (ECDC) at
 <https://data.europa.eu/euodp/data/dataset/covid-19-coronavirus-data>.
@@ -122,9 +117,6 @@ Currently, the application supports five modes of operation:
 * `csv`: creating a CSV file that contains the data from the SQLite database
 * `db`: creating a SQLite database file that contains the data from a given CSV
   file, basically the reverse of the `csv` operation
-* `collect`: collecting case numbers from APIs or other sources and create a
-  SQLite database to store the data
-* `info`: showing the latest case numbers for a given country
 
 The mode is passed as the first command line argument to the application.
 Only one mode of operation can be active during the application invocation.
@@ -203,41 +195,6 @@ because it is not updated on a regular schedule.
 Furthermore, replace `/path/to/sqlite.db` with a path where you want the SQLite
 database file to be located. Note that the file must not exist yet, because the
 application will refuse to overwrite an existing database file.
-
-### Collecting data and storing it into a SQLite database (`collect`)
-
-Starting in the root directory of the source, you can invoke the following
-command in a terminal to create a SQLite 3 database that contains the current
-case numbers (collected from various sources):
-
-    cargo run collect /path/to/sqlite.db
-
-That's it. Cargo will build the executable and run it afterwards.
-
-Replace `/path/to/sqlite.db` with a path where you want the SQLite database file
-to be located. Note that the file must not exist yet, because the application
-will refuse to overwrite an existing database file.
-
-### Showing the latest case numbers for a country (`info`)
-
-Starting in the root directory of the source, you can invoke the following
-command in a terminal to show the latest case numbers for a single country:
-
-    cargo run info name_of_the_country
-
-That's it. Cargo will build the executable and run it afterwards.
-
-Replace `name_of_the_country` with the name of the country, e.g.
-
-    cargo run info France
-
-will show the latest numbers for France. Instead of using the full name of a
-country you can also type the ISO 3166 two letter codes. So you could also just
-type
-
-    cargo run info FR
-
-to get the numbers for France.
 
 ## Copyright and Licensing
 

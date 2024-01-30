@@ -4,6 +4,16 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Next Version 0.?.? (2024-01-??)
+
+The `collect` and `info` commands are removed.
+
+Both of them relied on the disease.sh API to get their data, but the server
+providing that data has been failing for a while now. This means that both of
+those commands are practially useless, with the server effectively being gone.
+This is a breaking change, but removing functionality that could not be used
+due to the API server not working anymore is the right course of action here.
+
 ## Version 0.15.3 (2024-01-30)
 
 The plotly.js library is updated from version 2.26.2 to version 2.28.0.

@@ -4,10 +4,10 @@ The tool uses the data provided by the World Health Organization's Coronavirus
 Dashboard, provided at <https://covid19.who.int/data> and available in CSV
 format at <https://covid19.who.int/WHO-COVID-19-global-data.csv>.
 
-Alternatively, the `collect` subcommand uses the data provided by the Center for
-Systems Science and Engineering (CSSE) at Johns Hopkins University provided at
-<https://github.com/CSSEGISandData/COVID-19> and queries the data via the API
-provided by disease.sh at <https://disease.sh/docs/>.
+Alternatively, the (now removed) `collect` subcommand used the data provided by
+the Center for Systems Science and Engineering (CSSE) at Johns Hopkins
+University provided at <https://github.com/CSSEGISandData/COVID-19> and queried
+the data via the API provided by disease.sh at <https://disease.sh/docs/>.
 
 Earlier versions of the tool used the data provided by the European Centre for
 Disease Prevention and Control (ECDC) at
@@ -23,7 +23,7 @@ using the WHO data. The file `corona.csv` contains the corresponding data in
 CSV format, but (and that's where it might get confusing) it uses the ECDC
 format despite containing the WHO data.
 
-## Data from `collect` subcommand (mainly from Johns Hopkins University)
+## Data from removed `collect` subcommand (mainly from Johns Hopkins University)
 
 This directory also contains an [SQLite](https://www.sqlite.org/) database
 containing the case numbers for every country provided by Johns Hopkins
