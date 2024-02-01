@@ -4,6 +4,13 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Next Version 0.?.? (2024-02-??)
+
+Dependency updates:
+
+* update indexmap to 2.2.2
+* update libc to 0.2.153
+
 ## Version 0.16.0 (2024-01-30)
 
 __[breaking change]__
