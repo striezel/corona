@@ -6,6 +6,8 @@ improvements may be omitted.)_
 
 ## Next Version 0.?.? (2024-02-??)
 
+The plotly.js library is updated from version 2.28.0 to version 2.29.0.
+
 Dependency updates:
 
 * update indexmap to 2.2.2
