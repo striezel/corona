@@ -12,6 +12,7 @@ Dependency updates:
 
 * update indexmap to 2.2.2
 * update libc to 0.2.153
+* update miniz_oxide to 0.7.2
 * update reqwest to 0.11.24
 * update rustix to 0.38.31
 * update tokio to 1.36.0
