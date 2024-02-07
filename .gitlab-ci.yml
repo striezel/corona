@@ -5,6 +5,10 @@ pages:
     - cp ./*.html public/
     - mkdir public/assets
     - cp assets/* public/assets
+    # copy older stuff, too
+    - cp -R ecdc public
+    - cp -R jhu public
+    - cp -R who public
   artifacts:
     paths:
       - public
