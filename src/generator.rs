@@ -362,6 +362,18 @@ impl Generator
   }
 
   /**
+   * Sanitizes continent names for use in file names.
+   *
+   * @param continent   name of the continent
+   * @return Returns a sanitized continent name.
+   */
+  fn sanitize_continent_name(continent: &str) -> String
+  {
+    let disallowed_char = |c: char| !c.is_ascii_alphanumeric() && c != '.'  && c != '_' && c != '-';
+    continent.to_lowercase().replace(disallowed_char, "_")
+  }
+
+  /**
    * Generates the HTML files for different continents.
    *
    * @param db       reference to the Database instance
@@ -421,7 +433,7 @@ impl Generator
         None => return false
       };
       // write it to a file
-      let file = format!("{}/continent_{}.html", self.config.output_directory, &continent.to_lowercase());
+      let file = format!("{}/continent_{}.html", self.config.output_directory, &Self::sanitize_continent_name(continent));
       let written = fs::write(file, full.as_bytes());
       if written.is_err()
       {
@@ -1017,7 +1029,7 @@ impl Generator
     let mut continent_links = String::new();
     for continent in continents.iter()
     {
-      tpl.tag("url", &("./continent_".to_owned() + &continent.to_lowercase() + ".html"));
+      tpl.tag("url", &("./continent_".to_owned() + &Self::sanitize_continent_name(continent) + ".html"));
       tpl.tag("text", continent);
       continent_links = match tpl.generate()
       {
@@ -1125,5 +1137,27 @@ mod tests
     assert!(directory.join("us.html").exists());
     // clean up
     assert!(fs::remove_dir_all(directory).is_ok());
+  }
+
+  #[test]
+  fn sanitize_continent_name_default()
+  {
+    assert_eq!(Generator::sanitize_continent_name("Africa"), "africa");
+    assert_eq!(Generator::sanitize_continent_name("America"), "america");
+    assert_eq!(Generator::sanitize_continent_name("Asia"), "asia");
+    assert_eq!(Generator::sanitize_continent_name("Europe"), "europe");
+    assert_eq!(Generator::sanitize_continent_name("North America"), "north_america");
+    assert_eq!(Generator::sanitize_continent_name("Oceania"), "oceania");
+    assert_eq!(Generator::sanitize_continent_name("South America"), "south_america");
+  }
+
+  #[test]
+  fn sanitize_continent_name_weird()
+  {
+    assert_eq!(Generator::sanitize_continent_name("Aa bb cc"), "aa_bb_cc");
+    assert_eq!(Generator::sanitize_continent_name("a-b_c.d"), "a-b_c.d");
+    assert_eq!(Generator::sanitize_continent_name("Abcdefghijklmnopqrstuvwxyz0123456789"), "abcdefghijklmnopqrstuvwxyz0123456789");
+    assert_eq!(Generator::sanitize_continent_name("This is a peculiar näme för a cøntin€nt"), "this_is_a_peculiar_n_me_f_r_a_c_ntin_nt");
+    assert_eq!(Generator::sanitize_continent_name("Slash/Slash\\"), "slash_slash_");
   }
 }
