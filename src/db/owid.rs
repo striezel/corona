@@ -223,15 +223,15 @@ impl DbOwid
         parsed_data.truncate(0);
         // new country
         let name = record.get(2).unwrap();
-        let no_country = Country {
+        let new_country = Country {
           country_id: -1,
           name: name.to_string(),
           population: -1,
           geo_id: String::new(),
-          country_code: String::new(),
+          country_code: record.get(0).unwrap().to_string(),
           continent: record.get(1).unwrap().to_string()
         };
-        let world_data = world.find_by_country_code(current_iso3_id).unwrap_or(&no_country);
+        let world_data = world.find_by_country_code(current_iso3_id).unwrap_or(&new_country);
         population = world_data.population;
         // Get country id or insert country.
         country_id = db.get_country_id_or_insert(
@@ -239,7 +239,7 @@ impl DbOwid
           name,
           &i64::from(world_data.population),
           current_iso3_id,
-          &world_data.continent
+          &new_country.continent
         );
         if country_id == -1
         {
