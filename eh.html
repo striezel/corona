@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Corona cases in Western Sahara (EH)</title>
+    <script src="./assets/plotly-basic-2.29.0.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+    
+<div id="graph_eh"> </div>
+<script>
+  var dates = ["2022-04-20"];
+  var infections = [0];
+  var deaths = [0];
+  var traces = [];
+
+  traces.push({
+      x: dates,
+      y: infections,
+      type: 'scatter',
+      name: 'Infections'
+  });
+  traces.push({
+      x: dates,
+      y: deaths,
+      type: 'scatter',
+      name: 'Deaths'
+  });
+  var layout = {
+    title: 'Coronavirus cases in Western Sahara (EH)',
+    yaxis: {
+       title: 'Cases per day'
+    }
+  };
+  Plotly.newPlot('graph_eh', traces, layout, {
+      displaylogo: false,
+      modeBarButtonsToRemove: ['sendDataToCloud']
+  });
+</script>
+
+<br />
+
+<div id="graph_accu_eh"> </div>
+<script>
+  var dates = ["2022-04-20"];
+  var totalInfections = [0];
+  var totalDeaths = [0];
+  var traces = [];
+
+  traces.push({
+      x: dates,
+      y: totalInfections,
+      type: 'scatter',
+      name: 'Infections'
+  });
+  traces.push({
+      x: dates,
+      y: totalDeaths,
+      type: 'scatter',
+      name: 'Deaths'
+  });
+  var layout = {
+    title: 'Accumulated Coronavirus cases in Western Sahara (EH)',
+    yaxis: {
+       title: 'Accumulated number of cases'
+    }
+  };
+  Plotly.newPlot('graph_accu_eh', traces, layout, {
+      displaylogo: false,
+      modeBarButtonsToRemove: ['sendDataToCloud']
+  });
+</script>
+
+    </div>
+  </body>
+</html>
