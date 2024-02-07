@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021, 2022  Dirk Stolle
+    Copyright (C) 2020, 2021, 2022, 2024  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -637,12 +637,12 @@ impl Generator
     let max = data
       .iter()
       .rev()
-      .take(5)
+      .take(21)
       .max_by(|x, y| x.cases.cmp(&y.cases).then(x.deaths.cmp(&y.deaths)));
     let pos = data
       .iter()
       .rev()
-      .take(5)
+      .take(21)
       .position(|elem| elem.cases == max.unwrap().cases);
     if let Some(idx) = pos
     {
