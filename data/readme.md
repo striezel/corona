@@ -9,8 +9,12 @@ the Center for Systems Science and Engineering (CSSE) at Johns Hopkins
 University provided at <https://github.com/CSSEGISandData/COVID-19> and queried
 the data via the API provided by disease.sh at <https://disease.sh/docs/>.
 
-Earlier versions of the tool used the data provided by the European Centre for
-Disease Prevention and Control (ECDC) at
+Earlier versions of the tool used the data provided by the World Health
+Organization (WHO) at <https://covid19.who.int/data> in CSV format at
+<https://covid19.who.int/WHO-COVID-19-global-data.csv>.
+
+Even earlier versions of the tool used the data provided by the European Centre
+for Disease Prevention and Control (ECDC) at
 <https://data.europa.eu/euodp/data/dataset/covid-19-coronavirus-data>.
 That data was mostly identical to the data from Johns Hopkins university, except
 for some European countries where other official sources were used.
@@ -69,6 +73,18 @@ exceptions:
   the program uses those.
 
 ## Historical data sources
+
+### WHO data
+
+The WHO switched the update interval of their data from daily to weekly near the
+end of the year 2023. Therefore, this data source can no longer be used to get
+up to date data for the current day.
+
+The latest collected data that has been available from that source is available
+in the files `corona-who-2023-12-19.db` or `corona-who-2023-12-19.csv`,
+respectively.
+
+Note that the CSV file uses the ECDC format, despite containing the WHO data.
 
 ### JHU data
 
