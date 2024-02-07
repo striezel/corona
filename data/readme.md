@@ -1,8 +1,13 @@
 # Data for the graph generation
 
-The tool uses the data provided by the World Health Organization's Coronavirus
-Dashboard, provided at <https://covid19.who.int/data> and available in CSV
-format at <https://covid19.who.int/WHO-COVID-19-global-data.csv>.
+The tool uses the dataset provided by Our World In Data, provided at
+<https://ourworldindata.org/coronavirus> and available in CSV format at
+<https://covid.ourworldindata.org/data/owid-covid-data.csv>.
+
+This dataset by Our World In Data has been collected, aggregated, and documented
+by Edouard Mathieu, Hannah Ritchie, Lucas Rodés-Guirao, Cameron Appel, Daniel
+Gavrilov, Charlie Giattino, Joe Hasell, Bobbie Macdonald, Saloni Dattani, Diana
+Beltekian, Esteban Ortiz-Ospina, and Max Roser.
 
 Alternatively, the (now removed) `collect` subcommand used the data provided by
 the Center for Systems Science and Engineering (CSSE) at Johns Hopkins
@@ -19,13 +24,13 @@ for Disease Prevention and Control (ECDC) at
 That data was mostly identical to the data from Johns Hopkins university, except
 for some European countries where other official sources were used.
 
-## WHO data
+## OWID data
 
 This directory contains an [SQLite](https://www.sqlite.org/) database containing
 the case numbers for every country, `corona.db`. That database file was created
-using the WHO data. The file `corona.csv` contains the corresponding data in
+using the OWID data. The file `corona.csv` contains the corresponding data in
 CSV format, but (and that's where it might get confusing) it uses the ECDC
-format despite containing the WHO data.
+format despite containing the Our World In Data dataset.
 
 ## Data from removed `collect` subcommand (mainly from Johns Hopkins University)
 
