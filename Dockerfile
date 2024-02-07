@@ -14,8 +14,8 @@ WORKDIR /opt/corona
 RUN cargo build --release
 # Generate database from WHO's COVID-19 data.
 RUN apt-get install -y wget && \
-    wget https://covid19.who.int/WHO-COVID-19-global-data.csv -O /tmp/who.csv && \
-    cargo run --release db /tmp/who.csv /tmp/corona.db
+    wget https://covid.ourworldindata.org/data/owid-covid-data.csv -O /tmp/covid.csv && \
+    cargo run --release db /tmp/covid.csv /tmp/corona.db
 # Generate HTML files.
 RUN cargo run --release html /tmp/corona.db /tmp/html-files
 

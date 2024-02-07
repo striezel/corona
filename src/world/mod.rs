@@ -1,7 +1,8 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2021, 2022, 2023  Dirk Stolle
+    Copyright (C) 2021, 2022, 2023, 2024  Dirk Stolle
+
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -2022,5 +2023,69 @@ impl World
   pub fn find_by_geo_id(&self, geo_id: &str) -> Option<&Country>
   {
     self.all_countries.iter().find(|c| c.geo_id == geo_id)
+  }
+
+  /**
+   * Finds a country by its country code (i. e. ISO 3166 three-letter code).
+   *
+   * Note that the search is case-sensitive, i. e. codes must be all upper case.
+   * @return Returns the Country, if a match was found.
+   *         Returns None, if no match was found.
+   */
+  pub fn find_by_country_code(&self, code: &str) -> Option<&Country>
+  {
+    self.all_countries.iter().find(|c| c.country_code == code)
+  }
+}
+
+#[cfg(test)]
+mod tests
+{
+  use super::*;
+
+  #[test]
+  fn find_by_geo_id_successful()
+  {
+    let the_world = World::new();
+
+    let found = the_world.find_by_geo_id("HR");
+    assert!(found.is_some());
+
+    let found = found.unwrap();
+    assert_eq!(found.name, "Croatia");
+    assert_eq!(found.geo_id, "HR");
+    assert_eq!(found.country_code, "HRV");
+    assert_eq!(found.continent, "Europe");
+  }
+
+  #[test]
+  fn find_by_geo_id_fail()
+  {
+    let the_world = World::new();
+    let found = the_world.find_by_geo_id("ZZ");
+    assert!(found.is_none());
+  }
+
+  #[test]
+  fn find_by_country_code_successful()
+  {
+    let the_world = World::new();
+
+    let found = the_world.find_by_country_code("HRV");
+    assert!(found.is_some());
+
+    let found = found.unwrap();
+    assert_eq!(found.name, "Croatia");
+    assert_eq!(found.geo_id, "HR");
+    assert_eq!(found.country_code, "HRV");
+    assert_eq!(found.continent, "Europe");
+  }
+
+  #[test]
+  fn find_by_country_code_fail()
+  {
+    let the_world = World::new();
+    let found = the_world.find_by_country_code("ZZZ");
+    assert!(found.is_none());
   }
 }

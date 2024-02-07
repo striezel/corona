@@ -1,7 +1,8 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2023  Dirk Stolle
+    Copyright (C) 2023, 2024  Dirk Stolle
+
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -18,8 +19,10 @@
 use super::configuration::DbConfiguration;
 mod ecdc;
 mod save;
+mod owid;
 mod who;
 use crate::db::ecdc::DbEcdc;
+use crate::db::owid::DbOwid;
 use crate::db::who::DbWho;
 
 pub struct Db
@@ -34,6 +37,9 @@ pub enum CsvType
   /// ECDC's CSV format as used at <https://data.europa.eu/euodp/data/dataset/covid-19-coronavirus-data>
   /// before 14th December 2020
   Ecdc,
+
+  /// Our World In Data's CSV format as used at <https://covid.ourworldindata.org/data/owid-covid-data.csv>
+  Owid,
 
   /// WHO's CSV format as used at <https://covid19.who.int/data>
   Who
@@ -89,6 +95,10 @@ impl Db
         let db = DbEcdc::new(&self.config).unwrap();
         db.create_db()
       },
+      Some(CsvType::Owid) => {
+        let db = DbOwid::new(&self.config).unwrap();
+        db.create_db()
+      },
       Some(CsvType::Who) => {
         let db = DbWho::new(&self.config).unwrap();
         db.create_db()
@@ -96,7 +106,7 @@ impl Db
       None => {
         eprintln!("File {} does not seem to contain a known CSV format!",
                   self.config.csv_input_file);
-        eprintln!("Only CSV format as used by the ECDC or the WHO can be detected.");
+        eprintln!("Only CSV format as used by the ECDC, Our World In Data or the WHO can be detected.");
         false
       }
     }
@@ -132,6 +142,11 @@ impl Db
     if line_one.contains("dateRep,day,month,year,cases,deaths")
     {
       return Some(CsvType::Ecdc);
+    }
+    if line_one.contains("iso_code,continent,location,date,")
+      && line_one.contains(",new_cases,") && line_one.contains(",new_deaths,")
+    {
+      return Some(CsvType::Owid);
     }
     if line_one.contains("Date_reported,Country_code,Country,WHO_region")
     {
@@ -223,6 +238,19 @@ mod tests
                                    14/12/2020,14,12,2020,746,6,Afghanistan,AF,AFG,38041757,Asia,9.01377925").is_ok());
     let detected = Db::get_csv_type(&path);
     assert_eq!(detected, Some(CsvType::Ecdc));
+    assert!(std::fs::remove_file(path).is_ok());
+  }
+
+  #[test]
+  fn get_csv_type_owid_no_bom()
+  {
+    let mut path = std::env::temp_dir();
+    path.push("owid_no_bom.csv");
+    let path = path.to_str().unwrap();
+    assert!(std::fs::write(path, b"iso_code,continent,location,date,total_cases,new_cases,new_cases_smoothed,total_deaths,new_deaths,new_deaths_smoothed,total_cases_per_million,new_cases_per_million,new_cases_smoothed_per_million,total_deaths_per_million,new_deaths_per_million,new_deaths_smoothed_per_million,reproduction_rate,icu_patients,icu_patients_per_million,hosp_patients,hosp_patients_per_million,weekly_icu_admissions,weekly_icu_admissions_per_million,weekly_hosp_admissions,weekly_hosp_admissions_per_million,total_tests,new_tests,total_tests_per_thousand,new_tests_per_thousand,new_tests_smoothed,new_tests_smoothed_per_thousand,positive_rate,tests_per_case,tests_units,total_vaccinations,people_vaccinated,people_fully_vaccinated,total_boosters,new_vaccinations,new_vaccinations_smoothed,total_vaccinations_per_hundred,people_vaccinated_per_hundred,people_fully_vaccinated_per_hundred,total_boosters_per_hundred,new_vaccinations_smoothed_per_million,new_people_vaccinated_smoothed,new_people_vaccinated_smoothed_per_hundred,stringency_index,population_density,median_age,aged_65_older,aged_70_older,gdp_per_capita,extreme_poverty,cardiovasc_death_rate,diabetes_prevalence,female_smokers,male_smokers,handwashing_facilities,hospital_beds_per_thousand,life_expectancy,human_development_index,population,excess_mortality_cumulative_absolute,excess_mortality_cumulative,excess_mortality,excess_mortality_cumulative_per_million
+                                   AFG,Asia,Afghanistan,2020-01-05,,0.0,,,0.0,,,0.0,,,0.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0.0,54.422,18.6,2.581,1.337,1803.987,,597.029,9.59,,,37.746,0.5,64.83,0.511,41128772.0,,,,").is_ok());
+    let detected = Db::get_csv_type(&path);
+    assert_eq!(detected, Some(CsvType::Owid));
     assert!(std::fs::remove_file(path).is_ok());
   }
 
