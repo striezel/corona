@@ -12,12 +12,17 @@ Dependency updates:
 
 * update hermit-abi to 0.3.5
 * update indexmap to 2.2.2
+* update js-sys to 0.3.68
 * update libc to 0.2.153
 * update miniz_oxide to 0.7.2
 * update reqwest to 0.11.24
 * update rustix to 0.38.31
 * update tempfile to 3.10.0
 * update tokio to 1.36.0
+* update wasm-bindgen, wasm-bindgen-backend, wasm-bindgen-macro,
+  wasm-bindgen-macro-support, wasm-bindgen-shared to 0.2.91
+* update wasm-bindgen-futures to 0.4.41
+* update web-sys to 0.3.68
 
 ## Version 0.16.0 (2024-01-30)
 
