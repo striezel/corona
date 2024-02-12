@@ -4,7 +4,13 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Next Version 0.17.0 (2024-02-06)
+## Next Version (2024-02-??)
+
+Dependency updates:
+
+* update indexmap to 2.2.3
+
+## Version 0.17.0 (2024-02-06)
 
 The program can now create a SQLite database from the data of a given CSV file
 with daily Coronavirus data using the CSV format used by Our World in Data at
