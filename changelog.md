@@ -10,6 +10,7 @@ The plotly.js library is updated from version 2.29.0 to version 2.29.1.
 
 Dependency updates:
 
+* update hermit-abi to 0.3.6
 * update indexmap to 2.2.3
 
 ## Version 0.17.0 (2024-02-06)
