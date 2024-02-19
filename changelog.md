@@ -15,6 +15,7 @@ Dependency updates:
 * update openssl to 0.10.64
 * update openssl-sys to 0.9.100
 * update pkg-config to 0.3.30
+* update ryu to 1.0.17
 * update syn to 2.0.49
 
 ## Version 0.17.0 (2024-02-06)
