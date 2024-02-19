@@ -12,6 +12,8 @@ Dependency updates:
 
 * update hermit-abi to 0.3.6
 * update indexmap to 2.2.3
+* update openssl to 0.10.64
+* update openssl-sys to 0.9.100
 * update pkg-config to 0.3.30
 * update syn to 2.0.49
 
