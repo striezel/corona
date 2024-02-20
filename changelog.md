@@ -16,7 +16,9 @@ Dependency updates:
 * update openssl-sys to 0.9.100
 * update pkg-config to 0.3.30
 * update ryu to 1.0.17
-* update syn to 2.0.49
+* update serde to 1.0.197
+* update serde_json to 1.0.114
+* update syn to 2.0.50
 
 ## Version 0.17.0 (2024-02-06)
 
