@@ -10,6 +10,7 @@ The plotly.js library is updated from version 2.29.0 to version 2.29.1.
 
 Dependency updates:
 
+* update cc to 1.0.86
 * update hermit-abi to 0.3.6
 * update indexmap to 2.2.3
 * update openssl to 0.10.64
@@ -19,6 +20,7 @@ Dependency updates:
 * update serde to 1.0.197
 * update serde_json to 1.0.114
 * update syn to 2.0.50
+* update unicode-normalization to 0.1.23
 
 ## Version 0.17.0 (2024-02-06)
 
