@@ -21,6 +21,9 @@ Dependency updates:
 * update serde_json to 1.0.114
 * update syn to 2.0.50
 * update unicode-normalization to 0.1.23
+* update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
+  windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
+  windows_x86_64_gnullvm, windows_x86_64_msvc to 0.52.3
 
 ## Version 0.17.0 (2024-02-06)
 
