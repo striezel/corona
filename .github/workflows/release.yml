@@ -1,0 +1,110 @@
+name: Release
+
+on: push
+
+jobs:
+  release:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        # generic 64 bit Linux (AMD / Intel CPUs)
+        - os: ubuntu-22.04
+          container: alpine
+          target: x86_64-unknown-linux-musl
+        # Linux ARM 64 bit
+        #- os: ubuntu-22.04
+        #  target: aarch64-unknown-linux-gnu
+        #  qemu: qemu-aarch64
+        # macOS (x86_64)
+        - os: macos-latest
+          target: x86_64-apple-darwin
+        # Windows, 64 bit
+        - os: windows-2019
+          target: x86_64-pc-windows-msvc
+    runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
+    steps:
+    - name: Install Git + Bash
+      if:  matrix.container != ''
+      run: |
+        apk update && apk add bash git perl-utils
+        git config --global --add safe.directory "$GITHUB_WORKSPACE"
+    - name: Code checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Install packages (Linux)
+      if: matrix.container == 'alpine'
+      run: |
+        apk update && apk upgrade
+        apk add curl tar gzip gcc libc-dev sqlite-dev sqlite-static openssl-dev openssl-libs-static pkgconfig
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        target: ${{ matrix.target }}
+    - name: Set target variables
+      shell: bash
+      run: |
+        echo "TARGET_FLAGS=--target ${{ matrix.target }}" >> $GITHUB_ENV
+        echo "TARGET_DIR=./target/${{ matrix.target }}" >> $GITHUB_ENV
+    - name: Apply Windows-specific patch
+      if: matrix.os == 'windows-2019'
+      run: git apply --ignore-whitespace ci\windows.patch
+
+    - name: Build
+      shell: bash
+      run: |
+        cargo build --release --target ${{ matrix.target }}
+        if [ "${{ matrix.os }}" = "windows-2019" ]; then
+          bin="target/${{ matrix.target }}/release/corona.exe"
+        else
+          bin="target/${{ matrix.target }}/release/corona"
+        fi
+        echo "BINARY=$bin" >> $GITHUB_ENV
+
+    - name: Strip binary (Linux / macOS)
+      if: matrix.os == 'ubuntu-22.04' || matrix.os == 'macos-latest'
+      shell: bash
+      run: strip "$BINARY"
+
+    - name: Determine version
+      shell: bash
+      run: |
+        VERSION=$(git describe --always)
+        echo "FULL_VERSION=corona-$VERSION-${{ matrix.target }}" >> $GITHUB_ENV
+
+    - name: Collect files for archive
+      shell: bash
+      run: |
+        mkdir -p archive
+        cp "$BINARY" archive/
+        cp readme.md archive/
+        cp changelog.md archive/
+        cp LICENSE archive/
+        mv archive "$FULL_VERSION"
+
+    - name: Create archive (Linux / macOS)
+      shell: bash
+      if: matrix.os != 'windows-2019'
+      run: |
+        tar czf "$FULL_VERSION.tar.gz" "$FULL_VERSION"
+        shasum -a 256 "$FULL_VERSION.tar.gz" > "$FULL_VERSION.tar.gz.sha256"
+
+    - name: Create archive (Windows)
+      shell: bash
+      if: matrix.os == 'windows-2019'
+      run: |
+        7z a "$FULL_VERSION.zip" "$FULL_VERSION"
+        certutil -hashfile "$FULL_VERSION.zip" SHA256 > "$FULL_VERSION.zip.sha256"
+
+    - name: Remove unpacked archive content
+      shell: bash
+      run: rm -r "$FULL_VERSION"
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: corona-${{ matrix.target }}
+        path: |
+          corona-*
