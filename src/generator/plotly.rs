@@ -61,11 +61,10 @@ impl Plotly
    */
   pub fn download(destination: &Path) -> bool
   {
-    use reqwest::StatusCode;
     use std::io::Read;
     // Retrieve minified JS file.
     let url = format!("https://cdn.plot.ly/{}", Plotly::FILE_NAME);
-    let mut res = match reqwest::blocking::get(url)
+    let res = match ureq::get(&url).call()
     {
       Ok(responded) => responded,
       Err(e) =>
@@ -74,17 +73,25 @@ impl Plotly
           return false;
         }
     };
-    let mut body: Vec<u8> = Vec::new();
-    if let Err(e) = res.read_to_end(&mut body)
+    if res.status() != 200
     {
-      eprintln!("Failed to read plotly.js into buffer: {}", e);
+      let mut all_headers = std::collections::HashMap::new();
+      let names = res.headers_names();
+      for name in names
+      {
+        if let Some(value) = res.header(&name)
+        {
+          all_headers.insert(name, value);
+        }
+      }
+      eprintln!("HTTP request failed with unexpected status code: {}\n\
+                 Headers:\n{:#?}", res.status(), all_headers);
       return false;
     }
-    if res.status() != StatusCode::OK
+    let mut body: Vec<u8> = Vec::new();
+    if let Err(e) = res.into_reader().read_to_end(&mut body)
     {
-      eprintln!("HTTP request failed with unexpected status code: {}\n\
-                 Headers:\n{:#?}\n\
-                 Body:\n{:?}", res.status(), res.headers(), body);
+      eprintln!("Failed to read plotly.js into buffer: {}", e);
       return false;
     }
 
