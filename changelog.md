@@ -6,10 +6,12 @@ improvements may be omitted.)_
 
 ## Next Version (2024-02-??)
 
-Dependency updates:
-
 The library for HTTP(S) requests is switched from `reqwest` to `ureq` to reduce
 the number of overall dependencies.
+
+Dependency updates:
+
+* update cc to 1.0.87
 
 ## Version 0.17.1 (2024-02-23)
 
