@@ -11,7 +11,9 @@ the number of overall dependencies.
 
 Dependency updates:
 
-* update cc to 1.0.87
+* update cc to 1.0.88
+* update rustls-pki-types to 1.3.1
+* update syn to 2.0.51
 
 ## Version 0.17.1 (2024-02-23)
 
