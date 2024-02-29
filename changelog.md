@@ -15,6 +15,9 @@ Dependency updates:
 * update log to 0.4.21
 * update rustls-pki-types to 1.3.1
 * update syn to 2.0.52
+* update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
+  windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
+  windows_x86_64_gnullvm, windows_x86_64_msvc to 0.52.4
 
 ## Version 0.17.1 (2024-02-23)
 
