@@ -11,7 +11,7 @@ the number of overall dependencies.
 
 Dependency updates:
 
-* update cc to 1.0.88
+* update cc to 1.0.89
 * update log to 0.4.21
 * update rustls-pki-types to 1.3.1
 * update syn to 2.0.52
