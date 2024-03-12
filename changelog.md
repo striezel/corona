@@ -15,6 +15,7 @@ Dependency updates:
 
 * update cc to 1.0.90
 * update log to 0.4.21
+* update proc-macro2 to 1.0.79
 * update rustls-pki-types to 1.3.1
 * update syn to 2.0.52
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
