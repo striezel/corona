@@ -19,6 +19,7 @@ Dependency updates:
 * update log to 0.4.21
 * update proc-macro2 to 1.0.79
 * update rustls-pki-types to 1.3.1
+* update smallvec to 1.13.2
 * update syn to 2.0.53
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
