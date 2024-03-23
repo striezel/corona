@@ -20,6 +20,9 @@ alpine:
   image: registry.gitlab.com/striezel/corona/ci-alpine:latest
   stage: test
   retry: 2
+  before_script:
+    - apk update
+    - apk upgrade
   script:
     - rustc --version
     - cargo --version
