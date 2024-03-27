@@ -649,12 +649,12 @@ impl Generator
     let max = data
       .iter()
       .rev()
-      .take(21)
+      .take(28)
       .max_by(|x, y| x.cases.cmp(&y.cases).then(x.deaths.cmp(&y.deaths)));
     let pos = data
       .iter()
       .rev()
-      .take(21)
+      .take(28)
       .position(|elem| elem.cases == max.unwrap().cases);
     if let Some(idx) = pos
     {
