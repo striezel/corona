@@ -23,7 +23,7 @@ Dependency updates:
 * update rustls to 0.22.3
 * update rustls-pki-types to 1.4.1
 * update smallvec to 1.13.2
-* update syn to 2.0.57
+* update syn to 2.0.58
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
   windows_x86_64_gnullvm, windows_x86_64_msvc to 0.52.4
