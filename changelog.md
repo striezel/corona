@@ -15,8 +15,8 @@ Dependency updates:
 
 * update aho-corasick to 1.1.3
 * update bitflags to 2.5.0
-* update cc to 1.0.91
-* update getrandom to 0.2.13
+* update cc to 1.0.92
+* update getrandom to 0.2.14
 * update itoa to 1.0.11
 * update log to 0.4.21
 * update memchr to 2.7.2
