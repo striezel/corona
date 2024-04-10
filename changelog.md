@@ -21,6 +21,7 @@ Dependency updates:
 * update log to 0.4.21
 * update memchr to 2.7.2
 * update proc-macro2 to 1.0.79
+* update quote to 1.0.36
 * update rustls to 0.22.3
 * update rustls-pki-types to 1.4.1
 * update smallvec to 1.13.2
