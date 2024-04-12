@@ -28,7 +28,7 @@ Dependency updates:
 * update syn to 2.0.58
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
-  windows_x86_64_gnullvm, windows_x86_64_msvc to 0.52.4
+  windows_x86_64_gnullvm, windows_x86_64_msvc to 0.52.5
 
 ## Version 0.17.1 (2024-02-23)
 
