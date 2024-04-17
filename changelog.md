@@ -20,12 +20,13 @@ Dependency updates:
 * update itoa to 1.0.11
 * update log to 0.4.21
 * update memchr to 2.7.2
-* update proc-macro2 to 1.0.80
+* update proc-macro2 to 1.0.81
 * update quote to 1.0.36
 * update rustls to 0.22.3
 * update rustls-pki-types to 1.4.1
+* update serde to 1.0.198
 * update smallvec to 1.13.2
-* update syn to 2.0.59
+* update syn to 2.0.60
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
   windows_x86_64_gnullvm, windows_x86_64_msvc to 0.52.5
