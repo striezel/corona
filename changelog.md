@@ -15,14 +15,14 @@ Dependency updates:
 
 * update aho-corasick to 1.1.3
 * update bitflags to 2.5.0
-* update cc to 1.0.94
+* update cc to 1.0.95
 * update getrandom to 0.2.14
 * update itoa to 1.0.11
 * update log to 0.4.21
 * update memchr to 2.7.2
 * update proc-macro2 to 1.0.81
 * update quote to 1.0.36
-* update rustls to 0.22.3
+* update rustls to 0.22.4
 * update rustls-pki-types to 1.4.1
 * update serde to 1.0.198
 * update smallvec to 1.13.2
