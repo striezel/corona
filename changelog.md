@@ -14,6 +14,7 @@ The plotly.js library is updated from version 2.29.1 to version 2.32.0.
 Dependency updates:
 
 * update aho-corasick to 1.1.3
+* update base64 to 0.22.0
 * update bitflags to 2.5.0
 * update cc to 1.0.95
 * update getrandom to 0.2.14
@@ -28,6 +29,7 @@ Dependency updates:
 * update serde to 1.0.198
 * update smallvec to 1.13.2
 * update syn to 2.0.60
+* update ureq to 2.9.7
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
   windows_x86_64_gnullvm, windows_x86_64_msvc to 0.52.5
