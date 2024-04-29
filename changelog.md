@@ -17,7 +17,7 @@ Dependency updates:
 * update base64 to 0.22.0
 * update bitflags to 2.5.0
 * update cc to 1.0.95
-* update flate2 to 1.0.29
+* update flate2 to 1.0.30
 * update getrandom to 0.2.14
 * update itoa to 1.0.11
 * update log to 0.4.21
