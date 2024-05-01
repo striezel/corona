@@ -14,7 +14,7 @@ The plotly.js library is updated from version 2.29.1 to version 2.32.0.
 Dependency updates:
 
 * update aho-corasick to 1.1.3
-* update base64 to 0.22.0
+* update base64 to 0.22.1
 * update bitflags to 2.5.0
 * update cc to 1.0.96
 * update flate2 to 1.0.30
