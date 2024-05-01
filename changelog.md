@@ -28,7 +28,7 @@ Dependency updates:
 * update rustls to 0.22.4
 * update rustls-pki-types to 1.5.0
 * update rustls-webpki to 0.102.3
-* update serde to 1.0.199
+* update serde to 1.0.200
 * update smallvec to 1.13.2
 * update syn to 2.0.60
 * update ureq to 2.9.7
