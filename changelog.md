@@ -35,6 +35,7 @@ Dependency updates:
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
   windows_x86_64_gnullvm, windows_x86_64_msvc to 0.52.5
+* update zerocopy to 0.7.33
 
 ## Version 0.17.1 (2024-02-23)
 
