@@ -16,9 +16,9 @@ Dependency updates:
 * update aho-corasick to 1.1.3
 * update base64 to 0.22.1
 * update bitflags to 2.5.0
-* update cc to 1.0.96
+* update cc to 1.0.97
 * update flate2 to 1.0.30
-* update getrandom to 0.2.14
+* update getrandom to 0.2.15
 * update itoa to 1.0.11
 * update libc to 0.2.154
 * update log to 0.4.21
