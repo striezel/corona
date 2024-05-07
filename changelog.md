@@ -23,19 +23,20 @@ Dependency updates:
 * update libc to 0.2.154
 * update log to 0.4.21
 * update memchr to 2.7.2
-* update proc-macro2 to 1.0.81
+* update proc-macro2 to 1.0.82
 * update quote to 1.0.36
 * update rustls to 0.22.4
 * update rustls-pki-types to 1.5.0
 * update rustls-webpki to 0.102.3
+* update ryu to 1.0.18
 * update serde to 1.0.200
 * update smallvec to 1.13.2
-* update syn to 2.0.60
+* update syn to 2.0.61
 * update ureq to 2.9.7
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
   windows_x86_64_gnullvm, windows_x86_64_msvc to 0.52.5
-* update zerocopy to 0.7.33
+* update zerocopy to 0.7.34
 
 ## Version 0.17.1 (2024-02-23)
 
