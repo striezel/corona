@@ -50,7 +50,7 @@ and pkg-config.
 It also helps to have Git, a distributed version control system, on your system
 to get the latest source code directly from the Git repository.
 
-All of that can usually be installed be typing
+All of that can usually be installed by typing
 
     # Debian-based Linux distribution
     apt-get install cargo git libsqlite3-dev libssl-dev pkg-config rustc

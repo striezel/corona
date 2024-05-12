@@ -101,7 +101,7 @@ The `collect` and `info` commands are removed.
 
 Both of them relied on the disease.sh API to get their data, but the server
 providing that data has been failing for a while now. This means that both of
-those commands are practially useless, with the server effectively being gone.
+those commands are practically useless, with the server effectively being gone.
 This is a breaking change, but removing functionality that could not be used
 due to the API server not working anymore is the right course of action here.
 
@@ -830,7 +830,7 @@ Dependency updates:
 
 ## Version 0.11.0 (2022-01-16)
 
-A new plot is added to the graphs for each country: a comparision of the
+A new plot is added to the graphs for each country: a comparison of the
 incidence values by year. This should provide an easier way to see how the cases
 are changing over the years. Note that this plot is only available for those
 countries where 7-day incidence values are available.
@@ -866,7 +866,7 @@ Dependency updates:
 
 The minified plotly.js library is replaced by the minified plotly-basic.js file.
 That version contains all plot types that the application needs, but it is
-signficantly smaller than the full library (3.3 MB vs. 0.9 MB).
+significantly smaller than the full library (3.3 MB vs. 0.9 MB).
 
 Furthermore, the plotly.js library is updated from version 1.58.3 to version
 1.58.5.
