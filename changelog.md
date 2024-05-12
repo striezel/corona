@@ -31,7 +31,7 @@ Dependency updates:
 * update ryu to 1.0.18
 * update serde to 1.0.201
 * update smallvec to 1.13.2
-* update syn to 2.0.61
+* update syn to 2.0.63
 * update ureq to 2.9.7
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
