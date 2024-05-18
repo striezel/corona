@@ -20,9 +20,10 @@ Dependency updates:
 * update flate2 to 1.0.30
 * update getrandom to 0.2.15
 * update itoa to 1.0.11
-* update libc to 0.2.154
+* update libc to 0.2.155
 * update log to 0.4.21
 * update memchr to 2.7.2
+* update miniz_oxide to 0.7.3
 * update proc-macro2 to 1.0.82
 * update quote to 1.0.36
 * update rustls to 0.22.4
