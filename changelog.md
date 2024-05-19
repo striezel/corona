@@ -16,7 +16,7 @@ Dependency updates:
 * update aho-corasick to 1.1.3
 * update base64 to 0.22.1
 * update bitflags to 2.5.0
-* update cc to 1.0.97
+* update cc to 1.0.98
 * update flate2 to 1.0.30
 * update getrandom to 0.2.15
 * update itoa to 1.0.11
@@ -32,7 +32,7 @@ Dependency updates:
 * update ryu to 1.0.18
 * update serde to 1.0.202
 * update smallvec to 1.13.2
-* update syn to 2.0.64
+* update syn to 2.0.65
 * update ureq to 2.9.7
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
