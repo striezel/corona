@@ -67,9 +67,9 @@ build_image_rocky:
     - docker:20-dind
   script:
     - cd ci/
-    - docker build -t $CI_REGISTRY/striezel/corona/ci-rocky:8 . -f Dockerfile_rocky
+    - docker build -t $CI_REGISTRY/striezel/corona/ci-rocky:9 . -f Dockerfile_rocky
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker push $CI_REGISTRY/striezel/corona/ci-rocky:8
+    - docker push $CI_REGISTRY/striezel/corona/ci-rocky:9
     - docker logout $CI_REGISTRY
   # Only build new image when the Dockerfile or the GitLab CI configuration
   # changes.
@@ -79,7 +79,7 @@ build_image_rocky:
       - .gitlab-ci.yml
 
 rocky:
-  image: registry.gitlab.com/striezel/corona/ci-rocky:8
+  image: registry.gitlab.com/striezel/corona/ci-rocky:9
   stage: test
   retry: 2
   before_script:
