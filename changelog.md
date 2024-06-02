@@ -25,7 +25,7 @@ Dependency updates:
 * update log to 0.4.21
 * update memchr to 2.7.2
 * update miniz_oxide to 0.7.3
-* update proc-macro2 to 1.0.84
+* update proc-macro2 to 1.0.85
 * update quote to 1.0.36
 * update rustls to 0.22.4
 * update rustls-pki-types to 1.7.0
