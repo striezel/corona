@@ -35,6 +35,7 @@ Dependency updates:
 * update smallvec to 1.13.2
 * update syn to 2.0.66
 * update ureq to 2.9.7
+* update webpki-roots to 0.26.2
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
   windows_x86_64_gnullvm, windows_x86_64_msvc to 0.52.5
