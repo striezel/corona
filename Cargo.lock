@@ -74,6 +74,7 @@ dependencies = [
  "sha2",
  "time",
  "ureq",
+ "url",
 ]
 
 [[package]]
