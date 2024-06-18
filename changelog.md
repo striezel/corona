@@ -24,7 +24,7 @@ Dependency updates:
 * update libc to 0.2.155
 * update log to 0.4.21
 * update memchr to 2.7.4
-* update miniz_oxide to 0.7.3
+* update miniz_oxide to 0.7.4
 * update proc-macro2 to 1.0.85
 * update quote to 1.0.36
 * update rustls to 0.22.4
