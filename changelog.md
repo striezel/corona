@@ -33,6 +33,7 @@ Dependency updates:
 * update ryu to 1.0.18
 * update serde to 1.0.203
 * update smallvec to 1.13.2
+* update subtle to 2.6.0
 * update syn to 2.0.66
 * update ureq to 2.9.7
 * update webpki-roots to 0.26.3
