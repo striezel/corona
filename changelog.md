@@ -25,7 +25,7 @@ Dependency updates:
 * update log to 0.4.21
 * update memchr to 2.7.4
 * update miniz_oxide to 0.7.4
-* update proc-macro2 to 1.0.85
+* update proc-macro2 to 1.0.86
 * update quote to 1.0.36
 * update rustls to 0.22.4
 * update rustls-pki-types to 1.7.0
@@ -34,7 +34,7 @@ Dependency updates:
 * update serde to 1.0.203
 * update smallvec to 1.13.2
 * update subtle to 2.6.0
-* update syn to 2.0.66
+* update syn to 2.0.67
 * update ureq to 2.9.7
 * update webpki-roots to 0.26.3
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
