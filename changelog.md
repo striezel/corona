@@ -16,7 +16,7 @@ Dependency updates:
 * update aho-corasick to 1.1.3
 * update base64 to 0.22.1
 * update bitflags to 2.6.0
-* update cc to 1.0.100
+* update cc to 1.0.101
 * update crc32fast to 1.4.2
 * update flate2 to 1.0.30
 * update getrandom to 0.2.15
@@ -35,6 +35,7 @@ Dependency updates:
 * update smallvec to 1.13.2
 * update subtle to 2.6.1
 * update syn to 2.0.68
+* update tinyvec to 1.6.1
 * update ureq to 2.9.7
 * update webpki-roots to 0.26.3
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
