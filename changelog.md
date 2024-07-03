@@ -40,8 +40,8 @@ Dependency updates:
 * update webpki-roots to 0.26.3
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
-  windows_x86_64_gnullvm, windows_x86_64_msvc to 0.52.5
-* update zerocopy to 0.7.34
+  windows_x86_64_gnullvm, windows_x86_64_msvc to 0.52.6
+* update zerocopy to 0.7.35
 * update zeroize to 1.8.1
 
 ## Version 0.17.1 (2024-02-23)
