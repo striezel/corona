@@ -29,7 +29,7 @@ Dependency updates:
 * update quote to 1.0.36
 * update rustls to 0.22.4
 * update rustls-pki-types to 1.7.0
-* update rustls-webpki to 0.102.4
+* update rustls-webpki to 0.102.5
 * update ryu to 1.0.18
 * update serde to 1.0.203
 * update smallvec to 1.13.2
