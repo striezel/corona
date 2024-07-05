@@ -35,7 +35,7 @@ Dependency updates:
 * update smallvec to 1.13.2
 * update subtle to 2.6.1
 * update syn to 2.0.68
-* update tinyvec to 1.6.1
+* update tinyvec to 1.7.0
 * update ureq to 2.9.7
 * update webpki-roots to 0.26.3
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
