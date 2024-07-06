@@ -27,7 +27,7 @@ Dependency updates:
 * update miniz_oxide to 0.7.4
 * update proc-macro2 to 1.0.86
 * update quote to 1.0.36
-* update rustls to 0.22.4
+* update rustls to 0.23.10
 * update rustls-pki-types to 1.7.0
 * update rustls-webpki to 0.102.5
 * update ryu to 1.0.18
@@ -36,7 +36,7 @@ Dependency updates:
 * update subtle to 2.6.1
 * update syn to 2.0.68
 * update tinyvec to 1.7.0
-* update ureq to 2.9.7
+* update ureq to 2.10.0
 * update webpki-roots to 0.26.3
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
