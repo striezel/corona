@@ -34,7 +34,7 @@ Dependency updates:
 * update serde to 1.0.204
 * update smallvec to 1.13.2
 * update subtle to 2.6.1
-* update syn to 2.0.69
+* update syn to 2.0.70
 * update tinyvec to 1.8.0
 * update ureq to 2.10.0
 * update webpki-roots to 0.26.3
