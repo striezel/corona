@@ -27,7 +27,6 @@ alpine:
     - rustc --version
     - cargo --version
     - cargo run -- version
-    - if [ $(nproc) -gt 4 ]; then export RUST_TEST_THREADS=4; fi
     - cargo test || cargo test || cargo test
 
 build_image_bionic:
@@ -88,7 +87,6 @@ rocky:
     - rustc --version
     - cargo --version
     - cargo run -- version
-    - if [ $(nproc) -gt 4 ]; then export RUST_TEST_THREADS=4; fi
     - cargo test || cargo test || cargo test
 
 build_image_debian:
@@ -121,7 +119,6 @@ debian:
     - rustc --version
     - cargo --version
     - cargo run -- version
-    - if [ $(nproc) -gt 4 ]; then export RUST_TEST_THREADS=4; fi
     - cargo test || cargo test || cargo test
 
 clippy:
