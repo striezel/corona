@@ -67,6 +67,7 @@ name = "corona"
 version = "0.17.1"
 dependencies = [
  "ahash",
+ "cc",
  "csv",
  "hashlink",
  "regex",

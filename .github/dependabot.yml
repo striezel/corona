@@ -17,6 +17,7 @@ updates:
       # are ignored.
       - dependency-name: "ahash"
       - dependency-name: "bumpalo"
+      - dependency-name: "cc"
       - dependency-name: "hashlink"
       - dependency-name: "regex"
       - dependency-name: "time"
