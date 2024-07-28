@@ -20,7 +20,6 @@ updates:
       - dependency-name: "cc"
       - dependency-name: "hashlink"
       - dependency-name: "regex"
-      - dependency-name: "time"
       - dependency-name: "url"
   - package-ecosystem: "github-actions"
     directory: "/"
