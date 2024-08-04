@@ -18,7 +18,7 @@ Dependency updates:
 * update bitflags to 2.6.0
 * update cc to 1.0.105
 * update crc32fast to 1.4.2
-* update flate2 to 1.0.30
+* update flate2 to 1.0.31
 * update getrandom to 0.2.15
 * update itoa to 1.0.11
 * update libc to 0.2.155
