@@ -17,6 +17,7 @@ Dependency updates:
 * update base64 to 0.22.1
 * update bitflags to 2.6.0
 * update cc to 1.0.105
+* update cpufeatures to 0.2.13
 * update crc32fast to 1.4.2
 * update flate2 to 1.0.31
 * update getrandom to 0.2.15
