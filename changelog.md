@@ -22,7 +22,7 @@ Dependency updates:
 * update flate2 to 1.0.31
 * update getrandom to 0.2.15
 * update itoa to 1.0.11
-* update libc to 0.2.155
+* update libc to 0.2.156
 * update log to 0.4.22
 * update memchr to 2.7.4
 * update miniz_oxide to 0.7.4
@@ -32,7 +32,7 @@ Dependency updates:
 * update rustls-pki-types to 1.8.0
 * update rustls-webpki to 0.102.6
 * update ryu to 1.0.18
-* update serde to 1.0.207
+* update serde to 1.0.208
 * update smallvec to 1.13.2
 * update subtle to 2.6.1
 * update syn to 2.0.74
