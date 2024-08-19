@@ -22,7 +22,7 @@ Dependency updates:
 * update flate2 to 1.0.31
 * update getrandom to 0.2.15
 * update itoa to 1.0.11
-* update libc to 0.2.157
+* update libc to 0.2.158
 * update log to 0.4.22
 * update memchr to 2.7.4
 * update miniz_oxide to 0.7.4
