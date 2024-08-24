@@ -32,7 +32,7 @@ Dependency updates:
 * update rustls-pki-types to 1.8.0
 * update rustls-webpki to 0.102.6
 * update ryu to 1.0.18
-* update serde to 1.0.208
+* update serde to 1.0.209
 * update smallvec to 1.13.2
 * update subtle to 2.6.1
 * update syn to 2.0.76
