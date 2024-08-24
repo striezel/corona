@@ -19,7 +19,7 @@ Dependency updates:
 * update cc to 1.0.105
 * update cpufeatures to 0.2.13
 * update crc32fast to 1.4.2
-* update flate2 to 1.0.32
+* update flate2 to 1.0.33
 * update getrandom to 0.2.15
 * update itoa to 1.0.11
 * update libc to 0.2.158
@@ -35,7 +35,7 @@ Dependency updates:
 * update serde to 1.0.208
 * update smallvec to 1.13.2
 * update subtle to 2.6.1
-* update syn to 2.0.75
+* update syn to 2.0.76
 * update tinyvec to 1.8.0
 * update ureq to 2.10.1
 * update version_check to 0.9.5
