@@ -37,8 +37,6 @@ ureq = "2.9.6"
 
 # Pin ahash to 0.8.7, because 0.8.8 versions needs rustc 1.72+.
 ahash = { version = "=0.8.7", default-features = false }
-# Pin cc to 1.0.105, because 1.0.106 versions needs rustc 1.67+.
-cc = "=1.0.105"
 # Pin hashlink to 0.8.2, because later versions depend on hashbrown 0.14 which
 # needs rustc 1.65, but our MSRV is 1.63.0.
 hashlink = "=0.8.2"
