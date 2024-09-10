@@ -9,7 +9,7 @@ improvements may be omitted.)_
 The library for HTTP(S) requests is switched from `reqwest` to `ureq` to reduce
 the number of overall dependencies.
 
-The plotly.js library is updated from version 2.29.1 to version 2.34.0.
+The plotly.js library is updated from version 2.29.1 to version 2.35.1.
 
 Dependency updates:
 
