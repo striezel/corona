@@ -28,9 +28,9 @@ Dependency updates:
 * update miniz_oxide to 0.8.0
 * update proc-macro2 to 1.0.86
 * update quote to 1.0.37
-* update rustls to 0.23.12
+* update rustls to 0.23.13
 * update rustls-pki-types to 1.8.0
-* update rustls-webpki to 0.102.7
+* update rustls-webpki to 0.102.8
 * update ryu to 1.0.18
 * update serde to 1.0.210
 * update smallvec to 1.13.2
