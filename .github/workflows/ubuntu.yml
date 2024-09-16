@@ -18,6 +18,6 @@ jobs:
       run: |
         cargo run -- version
     - name: Run tests
-      # network tests can be a bit flaky, so try up to three times
+      # network tests can be a bit flaky, so try up to two times
       run: |
-        cargo test || cargo test || cargo test
+        cargo test || cargo test
