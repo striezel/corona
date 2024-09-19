@@ -16,7 +16,7 @@ Dependency updates:
 * update aho-corasick to 1.1.3
 * update base64 to 0.22.1
 * update bitflags to 2.6.0
-* update cc to 1.1.20
+* update cc to 1.1.21
 * update cpufeatures to 0.2.14
 * update crc32fast to 1.4.2
 * update flate2 to 1.0.33
@@ -41,7 +41,7 @@ Dependency updates:
 * update unicode-normalization to 0.1.24
 * update ureq to 2.10.1
 * update version_check to 0.9.5
-* update webpki-roots to 0.26.5
+* update webpki-roots to 0.26.6
 * update windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc,
   windows_i686_gnu, windows_i686_msvc, windows_x86_64_gnu,
   windows_x86_64_gnullvm, windows_x86_64_msvc to 0.52.6
