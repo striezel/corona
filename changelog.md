@@ -19,7 +19,7 @@ Dependency updates:
 * update cc to 1.1.21
 * update cpufeatures to 0.2.14
 * update crc32fast to 1.4.2
-* update flate2 to 1.0.33
+* update flate2 to 1.0.34
 * update getrandom to 0.2.15
 * update itoa to 1.0.11
 * update libc to 0.2.159
