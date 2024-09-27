@@ -30,7 +30,7 @@ Dependency updates:
 * update proc-macro2 to 1.0.86
 * update quote to 1.0.37
 * update rustls to 0.23.13
-* update rustls-pki-types to 1.8.0
+* update rustls-pki-types to 1.9.0
 * update rustls-webpki to 0.102.8
 * update ryu to 1.0.18
 * update serde to 1.0.210
