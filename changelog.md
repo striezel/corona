@@ -26,6 +26,7 @@ Dependency updates:
 * update log to 0.4.22
 * update memchr to 2.7.4
 * update miniz_oxide to 0.8.0
+* update once_cell to 1.20.1
 * update pkg-config to 0.3.31
 * update proc-macro2 to 1.0.86
 * update quote to 1.0.37
