@@ -16,7 +16,7 @@ Dependency updates:
 * update aho-corasick to 1.1.3
 * update base64 to 0.22.1
 * update bitflags to 2.6.0
-* update cc to 1.1.24
+* update cc to 1.1.25
 * update cpufeatures to 0.2.14
 * update crc32fast to 1.4.2
 * update flate2 to 1.0.34
@@ -26,7 +26,7 @@ Dependency updates:
 * update log to 0.4.22
 * update memchr to 2.7.4
 * update miniz_oxide to 0.8.0
-* update once_cell to 1.20.1
+* update once_cell to 1.20.2
 * update pkg-config to 0.3.31
 * update proc-macro2 to 1.0.86
 * update quote to 1.0.37
