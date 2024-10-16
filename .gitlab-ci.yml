@@ -1,8 +1,8 @@
 build_image_alpine:
-  image: docker:20
+  image: docker:27
   stage: build
   services:
-    - docker:20-dind
+    - docker:27-dind
   script:
     - cd ci/
     - docker build -t $CI_REGISTRY/striezel/corona/ci-alpine:latest . -f Dockerfile_alpine
@@ -30,10 +30,10 @@ alpine:
     - cargo test || cargo test
 
 build_image_bionic:
-  image: docker:20
+  image: docker:27
   stage: build
   services:
-    - docker:20-dind
+    - docker:27-dind
   script:
     - cd ci/
     - docker build -t $CI_REGISTRY/striezel/corona/ci-bionic:latest . -f Dockerfile_bionic
@@ -60,10 +60,10 @@ bionic_failcheck:
     - ./ci/failcheck_sqlite.sh
 
 build_image_rocky:
-  image: docker:20
+  image: docker:27
   stage: build
   services:
-    - docker:20-dind
+    - docker:27-dind
   script:
     - cd ci/
     - docker build -t $CI_REGISTRY/striezel/corona/ci-rocky:9 . -f Dockerfile_rocky
@@ -90,10 +90,10 @@ rocky:
     - cargo test || cargo test
 
 build_image_debian:
-  image: docker:20
+  image: docker:27
   stage: build
   services:
-    - docker:20-dind
+    - docker:27-dind
   script:
     - cd ci/
     - docker build -t $CI_REGISTRY/striezel/corona/ci-debian:12 . -f Dockerfile_debian
