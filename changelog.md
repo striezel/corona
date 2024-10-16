@@ -28,10 +28,10 @@ Dependency updates:
 * update miniz_oxide to 0.8.0
 * update once_cell to 1.20.2
 * update pkg-config to 0.3.31
-* update proc-macro2 to 1.0.87
+* update proc-macro2 to 1.0.88
 * update quote to 1.0.37
-* update rustls to 0.23.14
-* update rustls-pki-types to 1.9.0
+* update rustls to 0.23.15
+* update rustls-pki-types to 1.10.0
 * update rustls-webpki to 0.102.8
 * update ryu to 1.0.18
 * update serde to 1.0.210
