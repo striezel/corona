@@ -3,7 +3,7 @@ name: MacOS
 on: push
 jobs:
   build-macos:
-    runs-on: ${{ matrix.os }}-12
+    runs-on: ${{ matrix.os }}-14
     strategy:
       matrix:
         # Could also build on beta and nightly, but is it worth it?
