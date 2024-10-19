@@ -16,7 +16,7 @@ Dependency updates:
 * update aho-corasick to 1.1.3
 * update base64 to 0.22.1
 * update bitflags to 2.6.0
-* update cc to 1.1.30
+* update cc to 1.1.31
 * update cpufeatures to 0.2.14
 * update crc32fast to 1.4.2
 * update flate2 to 1.0.34
@@ -37,7 +37,7 @@ Dependency updates:
 * update serde to 1.0.210
 * update smallvec to 1.13.2
 * update subtle to 2.6.1
-* update syn to 2.0.78
+* update syn to 2.0.80
 * update tinyvec to 1.8.0
 * update unicode-bidi to 0.3.17
 * update unicode-ident to 1.0.13
