@@ -37,7 +37,7 @@ Dependency updates:
 * update serde to 1.0.213
 * update smallvec to 1.13.2
 * update subtle to 2.6.1
-* update syn to 2.0.82
+* update syn to 2.0.83
 * update tinyvec to 1.8.0
 * update unicode-bidi to 0.3.17
 * update unicode-ident to 1.0.13
