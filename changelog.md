@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Next Version (2024-02-??)
+## Version 0.17.2 (2024-10-26)
 
 The library for HTTP(S) requests is switched from `reqwest` to `ureq` to reduce
 the number of overall dependencies.
