@@ -8,9 +8,10 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update cc to 1.1.34
 * update rustls to 0.23.16
 * update serde to 1.0.214
-* update syn to 2.0.86
+* update syn to 2.0.87
 
 ## Version 0.17.2 (2024-10-26)
 
