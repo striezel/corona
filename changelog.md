@@ -8,7 +8,7 @@ improvements may be omitted.)_
 
 Dependency updates:
 
-* update cc to 1.1.36
+* update cc to 1.1.37
 * update libc to 0.2.162
 * update rustls to 0.23.16
 * update serde to 1.0.214
