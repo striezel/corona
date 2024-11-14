@@ -8,8 +8,9 @@ improvements may be omitted.)_
 
 Dependency updates:
 
-* update cc to 1.2.0
+* update cc to 1.2.1
 * update cpufeatures to 0.2.15
+* update flate2 to 1.0.35
 * update libc to 0.2.162
 * update rustls to 0.23.16
 * update serde to 1.0.215
