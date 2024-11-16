@@ -11,8 +11,8 @@ Dependency updates:
 * update cc to 1.2.1
 * update cpufeatures to 0.2.15
 * update flate2 to 1.0.35
-* update libc to 0.2.162
-* update rustls to 0.23.16
+* update libc to 0.2.164
+* update rustls to 0.23.17
 * update serde to 1.0.215
 * update syn to 2.0.87
 
