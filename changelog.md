@@ -13,9 +13,10 @@ Dependency updates:
 * update flate2 to 1.0.35
 * update itoa to 1.0.13
 * update libc to 0.2.164
+* update proc-macro2 to 1.0.92
 * update rustls to 0.23.17
 * update serde to 1.0.215
-* update syn to 2.0.87
+* update syn to 2.0.89
 * update unicode-ident to 1.0.14
 
 ## Version 0.17.2 (2024-10-26)
