@@ -9,7 +9,7 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update cc to 1.2.1
-* update cpufeatures to 0.2.15
+* update cpufeatures to 0.2.16
 * update flate2 to 1.0.35
 * update itoa to 1.0.13
 * update libc to 0.2.164
