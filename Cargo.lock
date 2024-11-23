@@ -74,6 +74,7 @@ dependencies = [
  "hashlink",
  "regex",
  "rusqlite",
+ "rustls",
  "sha2",
  "ureq",
  "url",
