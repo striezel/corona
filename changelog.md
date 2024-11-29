@@ -12,11 +12,11 @@ Dependency updates:
 * update cpufeatures to 0.2.16
 * update flate2 to 1.0.35
 * update itoa to 1.0.14
-* update libc to 0.2.166
+* update libc to 0.2.167
 * update proc-macro2 to 1.0.92
 * update rustls to 0.23.17
 * update serde to 1.0.215
-* update syn to 2.0.89
+* update syn to 2.0.90
 * update unicode-ident to 1.0.14
 * update webpki-roots to 0.26.7
 
