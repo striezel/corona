@@ -121,7 +121,7 @@ impl Template
    */
   pub fn load_section(&mut self, section_name: &str) -> bool
   {
-    return match self.sections.get(section_name)
+    match self.sections.get(section_name)
     {
       Some(content) =>
       {
