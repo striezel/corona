@@ -18,6 +18,7 @@ Dependency updates:
 * update serde to 1.0.215
 * update syn to 2.0.90
 * update unicode-ident to 1.0.14
+* update url to 2.5.2
 * update webpki-roots to 0.26.7
 
 ## Version 0.17.2 (2024-10-26)
