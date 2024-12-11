@@ -15,7 +15,7 @@ Dependency updates:
 * update libc to 0.2.168
 * update proc-macro2 to 1.0.92
 * update rustls to 0.23.17
-* update serde to 1.0.215
+* update serde to 1.0.216
 * update syn to 2.0.90
 * update unicode-ident to 1.0.14
 * update url to 2.5.2
