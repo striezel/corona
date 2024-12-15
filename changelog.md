@@ -6,6 +6,8 @@ improvements may be omitted.)_
 
 ## Next Version (2024-10-??)
 
+The plotly.js library is updated from version 2.35.2 to version 2.35.3.
+
 Dependency updates:
 
 * update cc to 1.2.4
