@@ -15,11 +15,13 @@ Dependency updates:
 * update flate2 to 1.0.35
 * update itoa to 1.0.14
 * update libc to 0.2.168
+* update miniz_oxide to 0.8.2
 * update proc-macro2 to 1.0.92
 * update rustls to 0.23.17
 * update rustls-pki-types to 1.10.1
 * update serde to 1.0.216
 * update syn to 2.0.90
+* update unicode-bidi to 0.3.18
 * update unicode-ident to 1.0.14
 * update url to 2.5.2
 * update webpki-roots to 0.26.7
