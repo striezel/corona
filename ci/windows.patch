@@ -1,5 +1,5 @@
 diff --git a/Cargo.toml b/Cargo.toml
-index 0b7035f..0da1bcb 100644
+index 09b1be2..a072322 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
 @@ -26,7 +26,7 @@ codegen-units = 1
@@ -9,5 +9,5 @@ index 0b7035f..0da1bcb 100644
 -rusqlite = "0.29.0"
 +rusqlite = { version = "0.29.0", features = ["bundled"] }
  sha2 = "0.10"
- ureq = "2.9.6"
- 
+ # Pin ureq to 2.10.1, because later versions need rustc 1.67.
+ ureq = "=2.10.1"

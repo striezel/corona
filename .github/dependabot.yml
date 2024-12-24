@@ -21,6 +21,7 @@ updates:
       - dependency-name: "hashlink"
       - dependency-name: "regex"
       - dependency-name: "rustls"
+      - dependency-name: "ureq"
       - dependency-name: "url"
   - package-ecosystem: "github-actions"
     directory: "/"
