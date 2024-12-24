@@ -41,8 +41,8 @@ ahash = { version = "=0.8.7", default-features = false }
 # Pin hashlink to 0.8.2, because later versions depend on hashbrown 0.14 which
 # needs rustc 1.65, but our MSRV is 1.63.0.
 hashlink = "=0.8.2"
-# Pin rustls to 0.23.17, because 0.23.18 needs rustc 1.71, but our MSRV is 1.63.0.
-rustls = { version = "=0.23.17", default-features = false }
+# Pin rustls to 0.23.19, because 0.23.20 needs rustc 1.71, but our MSRV is 1.63.0.
+rustls = { version = "=0.23.19", default-features = false }
 # Pin url to 2.5.2, because 2.5.3+ has some dependencies that need rustc 1.67,
 # but our MSRV is 1.63.0.
 url = "=2.5.2"
