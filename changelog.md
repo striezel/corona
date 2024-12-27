@@ -10,7 +10,7 @@ The plotly.js library is updated from version 2.35.2 to version 2.35.3.
 
 Dependency updates:
 
-* update cc to 1.2.5
+* update cc to 1.2.6
 * update cpufeatures to 0.2.16
 * update flate2 to 1.0.35
 * update itoa to 1.0.14
