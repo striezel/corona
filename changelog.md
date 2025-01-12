@@ -11,12 +11,11 @@ The plotly.js library is updated from version 2.35.2 to version 2.35.3.
 Dependency updates:
 
 * update bitflags to 2.7.0
-* update cc to 1.2.8
+* update cc to 1.2.9
 * update cpufeatures to 0.2.16
 * update flate2 to 1.0.35
 * update itoa to 1.0.14
 * update libc to 0.2.169
-* update log to 0.4.24
 * update miniz_oxide to 0.8.2
 * update proc-macro2 to 1.0.93
 * update quote to 1.0.38
