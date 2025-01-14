@@ -16,6 +16,7 @@ Dependency updates:
 * update flate2 to 1.0.35
 * update itoa to 1.0.14
 * update libc to 0.2.169
+* update log to 0.4.25
 * update miniz_oxide to 0.8.3
 * update proc-macro2 to 1.0.93
 * update quote to 1.0.38
