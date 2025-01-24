@@ -26,7 +26,7 @@ Dependency updates:
 * update syn to 2.0.96
 * update tinyvec to 1.8.1
 * update unicode-bidi to 0.3.18
-* update unicode-ident to 1.0.14
+* update unicode-ident to 1.0.15
 * update url to 2.5.2
 * update webpki-roots to 0.26.7
 
