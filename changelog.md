@@ -22,11 +22,12 @@ Dependency updates:
 * update quote to 1.0.38
 * update rustls to 0.23.19
 * update rustls-pki-types to 1.11.0
+* update ryu to 1.0.19
 * update serde to 1.0.217
 * update syn to 2.0.96
 * update tinyvec to 1.8.1
 * update unicode-bidi to 0.3.18
-* update unicode-ident to 1.0.15
+* update unicode-ident to 1.0.16
 * update url to 2.5.2
 * update webpki-roots to 0.26.7
 
