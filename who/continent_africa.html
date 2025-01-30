@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Coronavirus incidence in Africa</title>
-    <script src="./assets/plotly-basic-2.27.1.min.js"></script>
+    <script src="./assets/plotly-basic-3.0.0.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -413,9 +413,13 @@
       name: 'Zimbabwe'
   });
   var layout = {
-    title: 'Coronavirus: 14-day incidence in Africa',
+    title: {
+      text: 'Coronavirus: 14-day incidence in Africa'
+    },
     yaxis: {
-       title: '14-day incidence'
+      title: {
+        text: '14-day incidence'
+      }
     }
   };
   Plotly.newPlot('continent_africa', traces, layout, {

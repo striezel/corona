@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Corona cases in Wallis and Futuna (WF)</title>
-    <script src="./assets/plotly-basic-2.27.1.min.js"></script>
+    <script src="./assets/plotly-basic-3.0.0.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -28,9 +28,13 @@
       name: 'Deaths'
   });
   var layout = {
-    title: 'Coronavirus cases in Wallis and Futuna (WF)',
+    title: {
+      text: 'Coronavirus cases in Wallis and Futuna (WF)'
+    },
     yaxis: {
-       title: 'Cases per day'
+      title: {
+        text: 'Cases per day'
+      }
     }
   };
   Plotly.newPlot('graph_wf', traces, layout, {
@@ -61,9 +65,13 @@
       name: 'Deaths'
   });
   var layout = {
-    title: 'Accumulated Coronavirus cases in Wallis and Futuna (WF)',
+    title: {
+      text: 'Accumulated Coronavirus cases in Wallis and Futuna (WF)'
+    },
     yaxis: {
-       title: 'Accumulated number of cases'
+      title: {
+        text: 'Accumulated number of cases'
+      }
     }
   };
   Plotly.newPlot('graph_accu_wf', traces, layout, {

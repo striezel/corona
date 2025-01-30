@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Coronavirus incidence in Oceania</title>
-    <script src="./assets/plotly-basic-2.27.1.min.js"></script>
+    <script src="./assets/plotly-basic-3.0.0.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -175,9 +175,13 @@
       name: 'Vanuatu'
   });
   var layout = {
-    title: 'Coronavirus: 14-day incidence in Oceania',
+    title: {
+      text: 'Coronavirus: 14-day incidence in Oceania'
+    },
     yaxis: {
-       title: '14-day incidence'
+      title: {
+        text: '14-day incidence'
+      }
     }
   };
   Plotly.newPlot('continent_oceania', traces, layout, {
