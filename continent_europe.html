@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Coronavirus incidence in Europe</title>
-    <script src="./assets/plotly-basic-2.34.0.min.js"></script>
+    <script src="./assets/plotly-basic-3.0.0.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -364,9 +364,13 @@
       name: 'Vatican'
   });
   var layout = {
-    title: 'Coronavirus: 14-day incidence in Europe',
+    title: {
+      text: 'Coronavirus: 14-day incidence in Europe'
+    },
     yaxis: {
-       title: '14-day incidence'
+      title: {
+        text: '14-day incidence'
+      }
     }
   };
   Plotly.newPlot('continent_europe', traces, layout, {

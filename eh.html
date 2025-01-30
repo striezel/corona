@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Corona cases in Western Sahara (EH)</title>
-    <script src="./assets/plotly-basic-2.34.0.min.js"></script>
+    <script src="./assets/plotly-basic-3.0.0.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -28,9 +28,13 @@
       name: 'Deaths'
   });
   var layout = {
-    title: 'Coronavirus cases in Western Sahara (EH)',
+    title: {
+      text: 'Coronavirus cases in Western Sahara (EH)'
+    },
     yaxis: {
-       title: 'Cases per day'
+      title: {
+        text: 'Cases per day'
+      }
     }
   };
   Plotly.newPlot('graph_eh', traces, layout, {
@@ -61,9 +65,13 @@
       name: 'Deaths'
   });
   var layout = {
-    title: 'Accumulated Coronavirus cases in Western Sahara (EH)',
+    title: {
+      text: 'Accumulated Coronavirus cases in Western Sahara (EH)'
+    },
     yaxis: {
-       title: 'Accumulated number of cases'
+      title: {
+        text: 'Accumulated number of cases'
+      }
     }
   };
   Plotly.newPlot('graph_accu_eh', traces, layout, {

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Coronavirus incidence in North America</title>
-    <script src="./assets/plotly-basic-2.34.0.min.js"></script>
+    <script src="./assets/plotly-basic-3.0.0.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -294,9 +294,13 @@
       name: 'United States Virgin Islands'
   });
   var layout = {
-    title: 'Coronavirus: 14-day incidence in North America',
+    title: {
+      text: 'Coronavirus: 14-day incidence in North America'
+    },
     yaxis: {
-       title: '14-day incidence'
+      title: {
+        text: '14-day incidence'
+      }
     }
   };
   Plotly.newPlot('continent_north america', traces, layout, {

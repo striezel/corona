@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Corona cases in Eritrea (ER)</title>
-    <script src="./assets/plotly-basic-2.34.0.min.js"></script>
+    <script src="./assets/plotly-basic-3.0.0.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -29,9 +29,13 @@
       name: '7-day incidence'
   });
   var layout = {
-    title: 'Coronavirus: incidences in Eritrea (ER)',
+    title: {
+      text: 'Coronavirus: incidences in Eritrea (ER)'
+    },
     yaxis: {
-       title: '14-day and 7-day incidences'
+      title: {
+        text: '14-day and 7-day incidences'
+      }
     }
   };
   Plotly.newPlot('graph_incidence14_er', traces, layout, {
@@ -86,12 +90,18 @@ The 7-day incidence is the number of infections per 100000 inhabitants over the 
       name: '2024'
   });
   var layout = {
-    title: 'Coronavirus: 7-day incidence by year in Eritrea (ER)',
+    title: {
+      text: 'Coronavirus: 7-day incidence by year in Eritrea (ER)'
+    },
     xaxis: {
-       title: 'Day of year'
+      title: {
+        text: 'Day of year'
+      }
     },
     yaxis: {
-       title: '7-day incidences'
+      title: {
+        text: '7-day incidences'
+      }
     }
   };
   Plotly.newPlot('graph_incidence_years_er', traces, layout, {
@@ -124,9 +134,13 @@ The 7-day incidence is the number of infections per 100000 inhabitants over the 
       name: 'Deaths'
   });
   var layout = {
-    title: 'Coronavirus cases in Eritrea (ER)',
+    title: {
+      text: 'Coronavirus cases in Eritrea (ER)'
+    },
     yaxis: {
-       title: 'Cases per day'
+      title: {
+        text: 'Cases per day'
+      }
     }
   };
   Plotly.newPlot('graph_er', traces, layout, {
@@ -157,9 +171,13 @@ The 7-day incidence is the number of infections per 100000 inhabitants over the 
       name: 'Deaths'
   });
   var layout = {
-    title: 'Accumulated Coronavirus cases in Eritrea (ER)',
+    title: {
+      text: 'Accumulated Coronavirus cases in Eritrea (ER)'
+    },
     yaxis: {
-       title: 'Accumulated number of cases'
+      title: {
+        text: 'Accumulated number of cases'
+      }
     }
   };
   Plotly.newPlot('graph_accu_er', traces, layout, {
