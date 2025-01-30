@@ -38,9 +38,13 @@
       name: 'Deaths'
   });
   var layout = {
-    title: '{{title}}',
+    title: {
+      text: '{{title}}'
+    },
     yaxis: {
-       title: 'Cases per day'
+      title: {
+        text: 'Cases per day'
+      }
     }
   };
   Plotly.newPlot('{{plotId}}', traces, layout, {
@@ -71,9 +75,13 @@
       name: 'Deaths'
   });
   var layout = {
-    title: '{{title}}',
+    title: {
+      text: '{{title}}'
+    },
     yaxis: {
-       title: 'Accumulated number of cases'
+      title: {
+        text: 'Accumulated number of cases'
+      }
     }
   };
   Plotly.newPlot('{{plotId}}', traces, layout, {
@@ -105,9 +113,13 @@
       name: '7-day incidence'
   });
   var layout = {
-    title: '{{title}}',
+    title: {
+      text: '{{title}}'
+    },
     yaxis: {
-       title: '14-day and 7-day incidences'
+      title: {
+        text: '14-day and 7-day incidences'
+      }
     }
   };
   Plotly.newPlot('{{plotId}}', traces, layout, {
@@ -127,12 +139,18 @@ The 7-day incidence is the number of infections per 100000 inhabitants over the 
 
 {{>traces}}
   var layout = {
-    title: '{{title}}',
+    title: {
+      text: '{{title}}'
+    },
     xaxis: {
-       title: 'Day of year'
+      title: {
+        text: 'Day of year'
+      }
     },
     yaxis: {
-       title: '7-day incidences'
+      title: {
+        text: '7-day incidences'
+      }
     }
   };
   Plotly.newPlot('{{plotId}}', traces, layout, {
@@ -151,9 +169,13 @@ The 7-day incidence is the number of infections per 100000 inhabitants over the 
 
 {{>traces}}
   var layout = {
-    title: '{{title}}',
+    title: {
+      text: '{{title}}'
+    },
     yaxis: {
-       title: '14-day incidence'
+      title: {
+        text: '14-day incidence'
+      }
     }
   };
   Plotly.newPlot('{{plotId}}', traces, layout, {
