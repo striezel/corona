@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Corona cases in Faroe Islands (FO)</title>
-    <script src="./assets/plotly-basic-2.20.0.min.js"></script>
+    <script src="./assets/plotly-basic-3.0.0.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -29,9 +29,13 @@
       name: '7-day incidence'
   });
   var layout = {
-    title: 'Coronavirus: incidences in Faroe Islands (FO)',
+    title: {
+      text: 'Coronavirus: incidences in Faroe Islands (FO)'
+    },
     yaxis: {
-       title: '14-day and 7-day incidences'
+      title: {
+        text: '14-day and 7-day incidences'
+      }
     }
   };
   Plotly.newPlot('graph_incidence14_fo', traces, layout, {
@@ -79,12 +83,18 @@ The 7-day incidence is the number of infections per 100000 inhabitants over the 
       name: '2023'
   });
   var layout = {
-    title: 'Coronavirus: 7-day incidence by year in Faroe Islands (FO)',
+    title: {
+      text: 'Coronavirus: 7-day incidence by year in Faroe Islands (FO)'
+    },
     xaxis: {
-       title: 'Day of year'
+      title: {
+        text: 'Day of year'
+      }
     },
     yaxis: {
-       title: '7-day incidences'
+      title: {
+        text: '7-day incidences'
+      }
     }
   };
   Plotly.newPlot('graph_incidence_years_fo', traces, layout, {
@@ -117,9 +127,13 @@ The 7-day incidence is the number of infections per 100000 inhabitants over the 
       name: 'Deaths'
   });
   var layout = {
-    title: 'Coronavirus cases in Faroe Islands (FO)',
+    title: {
+      text: 'Coronavirus cases in Faroe Islands (FO)'
+    },
     yaxis: {
-       title: 'Cases per day'
+      title: {
+        text: 'Cases per day'
+      }
     }
   };
   Plotly.newPlot('graph_fo', traces, layout, {
@@ -150,9 +164,13 @@ The 7-day incidence is the number of infections per 100000 inhabitants over the 
       name: 'Deaths'
   });
   var layout = {
-    title: 'Accumulated Coronavirus cases in Faroe Islands (FO)',
+    title: {
+      text: 'Accumulated Coronavirus cases in Faroe Islands (FO)'
+    },
     yaxis: {
-       title: 'Accumulated number of cases'
+      title: {
+        text: 'Accumulated number of cases'
+      }
     }
   };
   Plotly.newPlot('graph_accu_fo', traces, layout, {
