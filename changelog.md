@@ -29,7 +29,7 @@ Dependency updates:
 * update unicode-bidi to 0.3.18
 * update unicode-ident to 1.0.16
 * update url to 2.5.2
-* update webpki-roots to 0.26.7
+* update webpki-roots to 0.26.8
 
 ## Version 0.17.2 (2024-10-26)
 
