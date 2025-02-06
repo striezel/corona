@@ -18,6 +18,7 @@ Dependency updates:
 * update libc to 0.2.169
 * update log to 0.4.25
 * update miniz_oxide to 0.8.3
+* update once_cell to 1.20.3
 * update proc-macro2 to 1.0.93
 * update quote to 1.0.38
 * update rustls to 0.23.19
