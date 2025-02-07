@@ -19,6 +19,8 @@ Dependency updates:
 * update cc to 1.2.12
 * update cpufeatures to 0.2.17
 * update flate2 to 1.0.35
+* update hashbrown to 0.14.5
+* update hashlink to 0.8.4
 * update itoa to 1.0.14
 * update libc to 0.2.169
 * update log to 0.4.25
