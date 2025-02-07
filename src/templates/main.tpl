@@ -118,7 +118,7 @@
     },
     yaxis: {
       title: {
-        text: '14-day and 7-day incidences'
+        text: '{{y_axis_title}}'
       }
     }
   };
@@ -128,8 +128,7 @@
   });
 </script>
 <br />
-<div style="text-align: center; font-style: italic;">The 14-day incidence is the number of infections per 100000 inhabitants over the last 14 days.<br />
-The 7-day incidence is the number of infections per 100000 inhabitants over the last seven days.</div>
+<div style="text-align: center; font-style: italic;">{{>hint}}</div>
 <!--section-end::graphIncidence-->
 
 <!--section-start::graphIncidenceByYear-->

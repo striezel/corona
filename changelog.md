@@ -8,6 +8,10 @@ improvements may be omitted.)_
 
 The plotly.js library is updated from version 2.35.2 to version 3.0.0.
 
+The graph for general incidence values of a country is now rendered even if
+there only are either 7-day or 14-day incidence values. It is no longer required
+that both values are present.
+
 Dependency updates:
 
 * update bitflags to 2.8.0

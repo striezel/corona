@@ -33,6 +33,15 @@ const MAIN_TEMPLATE: &str = include_str!("./templates/main.tpl");
 #[cfg(target_family = "windows")]
 const MAIN_TEMPLATE: &str = include_str!(".\\templates\\main.tpl");
 
+/// hint text for 14-day incidence
+const HINT_14D: &str = "The 14-day incidence is the number of infections per 100000 inhabitants over the last 14 days.";
+
+/// hint text for 7-day incidence
+const HINT_7D: &str = "The 7-day incidence is the number of infections per 100000 inhabitants over the last seven days.";
+
+/// hint text for both types of incidences
+const HINT_BOTH: &str = "The 14-day incidence is the number of infections per 100000 inhabitants over the last 14 days.<br />\nThe 7-day incidence is the number of infections per 100000 inhabitants over the last seven days.";
+
 pub struct Generator
 {
   config: HtmlConfiguration
@@ -702,21 +711,33 @@ impl Generator
    */
   fn generate_incidence_graph(&self, db: &Database, country: &Country, tpl: &mut Template) -> Option<String>
   {
+    let data14 = db.incidence14(&country.country_id);
+    let data7 = db.incidence7(&country.country_id);
+    // May be an empty array, if there is no known incidence.
+    if data14.is_empty() && data7.is_empty()
+    {
+      return Some(String::from(""));
+    }
     // load graph section
     if !tpl.load_section("graphIncidence")
     {
       return None;
     }
-    let data14 = db.incidence14(&country.country_id);
-    // May be an empty array, if there is no known incidence.
-    if data14.is_empty()
-    {
-      return Some(String::from(""));
-    }
     tpl.tag("title", &("Coronavirus: incidences in ".to_owned()
                      + &country.name + " (" + &country.geo_id + ")"));
+    let (axis_title, hint_text) = match data14.is_empty()
+    {
+      false => match data7.is_empty()
+      {
+        false => ("14-day and 7-day incidences", HINT_BOTH),
+        true => ("14-day incidence", HINT_14D)
+      },
+      true => ("7-day incidence", HINT_7D)
+    };
+    tpl.tag("y_axis_title", axis_title);
+    tpl.integrate("hint", hint_text);
     tpl.tag("plotId", &("graph_incidence14_".to_owned() + &country.geo_id.to_lowercase()));
-    // prepare numbers
+    // prepare numbers for 14-day incidence
     let capacity = data14.len();
     let mut dates: Vec<String> = Vec::with_capacity(capacity);
     let mut incidence: Vec<String> = Vec::with_capacity(capacity);
@@ -741,13 +762,7 @@ impl Generator
     };
     tpl.integrate("incidence14", &incidence);
 
-    let data7 = db.incidence7(&country.country_id);
-    // May be an empty array, if there is no known incidence.
-    if data7.is_empty()
-    {
-      return Some(String::from(""));
-    }
-    // prepare numbers
+    // prepare numbers for 7-day incidence
     let capacity = data7.len();
     let mut dates: Vec<String> = Vec::with_capacity(capacity);
     let mut incidence: Vec<String> = Vec::with_capacity(capacity);
