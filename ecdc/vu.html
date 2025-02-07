@@ -1,28 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="utf-8">
     <title>Corona cases in Vanuatu (VU)</title>
-    <script src="./assets/plotly-1.58.3.min.js"></script>
+    <script src="./assets/plotly-basic-3.0.0.min.js"></script>
   </head>
   <body>
     <div class="container">
     
 <div id="graph_incidence14_vu"> </div>
 <script>
-  var dates = ["2020-11-24","2020-11-25","2020-11-26","2020-11-27","2020-11-28","2020-11-29","2020-11-30","2020-12-01","2020-12-02","2020-12-03","2020-12-04","2020-12-05","2020-12-06","2020-12-07","2020-12-08","2020-12-09","2020-12-10","2020-12-11","2020-12-12","2020-12-13","2020-12-14"];
-  var incidence = [0.33,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+  var dates14 = ["2020-11-24","2020-11-25","2020-11-26","2020-11-27","2020-11-28","2020-11-29","2020-11-30","2020-12-01","2020-12-02","2020-12-03","2020-12-04","2020-12-05","2020-12-06","2020-12-07","2020-12-08","2020-12-09","2020-12-10","2020-12-11","2020-12-12","2020-12-13","2020-12-14"];
+  var incidence14 = [0.33,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+  var dates7 = [];
+  var incidence7 = [];
   var traces = [];
 
   traces.push({
-      x: dates,
-      y: incidence,
+      x: dates14,
+      y: incidence14,
       type: 'scatter',
       name: '14-day incidence'
   });
+  traces.push({
+      x: dates7,
+      y: incidence7,
+      type: 'scatter',
+      name: '7-day incidence'
+  });
   var layout = {
-    title: 'Coronavirus: 14-day incidence in Vanuatu (VU)',
+    title: {
+      text: 'Coronavirus: incidences in Vanuatu (VU)'
+    },
     yaxis: {
-       title: '14-day incidence'
+      title: {
+        text: '14-day incidence'
+      }
     }
   };
   Plotly.newPlot('graph_incidence14_vu', traces, layout, {
@@ -55,9 +68,13 @@
       name: 'Deaths'
   });
   var layout = {
-    title: 'Coronavirus cases in Vanuatu (VU)',
+    title: {
+      text: 'Coronavirus cases in Vanuatu (VU)'
+    },
     yaxis: {
-       title: 'Cases per day'
+      title: {
+        text: 'Cases per day'
+      }
     }
   };
   Plotly.newPlot('graph_vu', traces, layout, {
@@ -88,9 +105,13 @@
       name: 'Deaths'
   });
   var layout = {
-    title: 'Accumulated Coronavirus cases in Vanuatu (VU)',
+    title: {
+      text: 'Accumulated Coronavirus cases in Vanuatu (VU)'
+    },
     yaxis: {
-       title: 'Accumulated number of cases'
+      title: {
+        text: 'Accumulated number of cases'
+      }
     }
   };
   Plotly.newPlot('graph_accu_vu', traces, layout, {

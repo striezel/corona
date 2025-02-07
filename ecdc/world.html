@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="utf-8">
     <title>Coronavirus cases worldwide</title>
-    <script src="./assets/plotly-1.58.3.min.js"></script>
+    <script src="./assets/plotly-basic-3.0.0.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -27,9 +28,13 @@
       name: 'Deaths'
   });
   var layout = {
-    title: 'Coronavirus cases worldwide',
+    title: {
+      text: 'Coronavirus cases worldwide'
+    },
     yaxis: {
-       title: 'Cases per day'
+      title: {
+        text: 'Cases per day'
+      }
     }
   };
   Plotly.newPlot('graph_world', traces, layout, {
@@ -60,9 +65,13 @@
       name: 'Deaths'
   });
   var layout = {
-    title: 'Accumulated Coronavirus cases worldwide',
+    title: {
+      text: 'Accumulated Coronavirus cases worldwide'
+    },
     yaxis: {
-       title: 'Accumulated number of cases'
+      title: {
+        text: 'Accumulated number of cases'
+      }
     }
   };
   Plotly.newPlot('graph_world_accu', traces, layout, {
