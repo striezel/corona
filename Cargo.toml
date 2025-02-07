@@ -37,8 +37,6 @@ ureq = "=2.10.1"
 # pinning them here also guarantees that a `cargo update` will not update them
 # to a newer version. Cargo.lock does not do that.
 
-# Pin ahash to 0.8.7, because 0.8.8 versions needs rustc 1.72+.
-ahash = { version = "=0.8.7", default-features = false }
 # Pin hashlink to 0.8.2, because later versions depend on hashbrown 0.14 which
 # needs rustc 1.65, but our MSRV is 1.63.0.
 hashlink = "=0.8.2"

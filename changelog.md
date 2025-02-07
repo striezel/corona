@@ -14,6 +14,7 @@ that both values are present.
 
 Dependency updates:
 
+* update ahash to 0.8.11
 * update bitflags to 2.8.0
 * update cc to 1.2.12
 * update cpufeatures to 0.2.17
