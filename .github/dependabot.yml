@@ -17,7 +17,6 @@ updates:
       # are ignored.
       - dependency-name: "bumpalo"
       - dependency-name: "csv"
-      - dependency-name: "hashlink"
       - dependency-name: "regex"
       - dependency-name: "rustls"
       - dependency-name: "ureq"

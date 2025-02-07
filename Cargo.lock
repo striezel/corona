@@ -70,7 +70,6 @@ name = "corona"
 version = "0.17.2"
 dependencies = [
  "csv",
- "hashlink",
  "regex",
  "rusqlite",
  "rustls",
