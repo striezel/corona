@@ -18,6 +18,7 @@ Dependency updates:
 * update bitflags to 2.8.0
 * update cc to 1.2.13
 * update cpufeatures to 0.2.17
+* update csv-core to 0.1.12
 * update fallible-iterator to 0.3.0
 * update flate2 to 1.0.35
 * update hashbrown to 0.14.5
@@ -26,7 +27,7 @@ Dependency updates:
 * update libc to 0.2.169
 * update libsqlite3-sys to 0.28.0
 * update log to 0.4.25
-* update miniz_oxide to 0.8.3
+* update miniz_oxide to 0.8.4
 * update once_cell to 1.20.3
 * update proc-macro2 to 1.0.93
 * update quote to 1.0.38
