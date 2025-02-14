@@ -16,7 +16,7 @@ Dependency updates:
 
 * update ahash to 0.8.11
 * update bitflags to 2.8.0
-* update cc to 1.2.13
+* update cc to 1.2.14
 * update cpufeatures to 0.2.17
 * update csv-core to 0.1.12
 * update fallible-iterator to 0.3.0
@@ -31,6 +31,7 @@ Dependency updates:
 * update once_cell to 1.20.3
 * update proc-macro2 to 1.0.93
 * update quote to 1.0.38
+* update ring to 0.17.9
 * update rusqlite to 0.31.0
 * update rustls to 0.23.19
 * update rustls-pki-types to 1.11.0
