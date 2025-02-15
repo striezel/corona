@@ -37,6 +37,7 @@ Dependency updates:
 * update rustls-pki-types to 1.11.0
 * update ryu to 1.0.19
 * update serde to 1.0.217
+* update smallvec to 1.14.0
 * update syn to 2.0.98
 * update tinyvec to 1.8.1
 * update unicode-bidi to 0.3.18
