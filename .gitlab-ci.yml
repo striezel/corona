@@ -8,6 +8,7 @@ pages:
     # copy older stuff, too
     - cp -R ecdc public
     - cp -R jhu public
+    - cp -R owid public
     - cp -R who public
   artifacts:
     paths:
