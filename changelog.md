@@ -24,6 +24,8 @@ The `db` command still supports the ECDC and WHO formats as well as the older
 pre-ETL format of Our World In Data. It will detect the format of a CSV file by
 looking at its headers.
 
+A bug with the handling of the values for the country of Montserrat is fixed.
+
 The plotly.js library is updated from version 2.35.2 to version 3.0.1.
 
 The graph for general incidence values of a country is now rendered even if

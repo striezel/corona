@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2021, 2022, 2023, 2024  Dirk Stolle
+    Copyright (C) 2021, 2022, 2023, 2024, 2025  Dirk Stolle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -1185,6 +1185,24 @@ impl World
           country_code: "MNE".to_string(),
           continent: "Europe".to_string()
         },
+        // Note: There are two entries for Montserrat here, and that is
+        // intentional. Some CSV files use the wrong code MSF for Montserrat.
+        // MSR would be correct, but if we only kept that, then the we would
+        // break compatibility with the file with the wrong code.
+        //
+        // This is the entry with the correct three-letter code MSR for the
+        // country of Montserrat.
+        Country {
+          country_id: 140,
+          name: "Montserrat".to_string(),
+          population: 4991,
+          geo_id: "MS".to_string(),
+          country_code: "MSR".to_string(),
+          continent: "North America".to_string()
+        },
+        // This is the entry with the wrong three-letter code MSF for the
+        // country of Montserrat. It's used by ECDC CSV files and is kept here
+        // for compatibility during lookup.
         Country {
           country_id: 140,
           name: "Montserrat".to_string(),
@@ -2087,5 +2105,35 @@ mod tests
     let the_world = World::new();
     let found = the_world.find_by_country_code("ZZZ");
     assert!(found.is_none());
+  }
+
+  #[test]
+  fn find_by_country_code_montserrat_correct_code()
+  {
+    let the_world = World::new();
+
+    let found = the_world.find_by_country_code("MSR");
+    assert!(found.is_some());
+
+    let found = found.unwrap();
+    assert_eq!(found.name, "Montserrat");
+    assert_eq!(found.geo_id, "MS");
+    assert_eq!(found.country_code, "MSR");
+    assert_eq!(found.continent, "North America");
+  }
+
+  #[test]
+  fn find_by_country_code_montserrat_wrong_code()
+  {
+    let the_world = World::new();
+
+    let found = the_world.find_by_country_code("MSF");
+    assert!(found.is_some());
+
+    let found = found.unwrap();
+    assert_eq!(found.name, "Montserrat");
+    assert_eq!(found.geo_id, "MS");
+    assert_eq!(found.country_code, "MSF");
+    assert_eq!(found.continent, "America");
   }
 }
