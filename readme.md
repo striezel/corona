@@ -11,16 +11,19 @@ See the <https://striezel.github.io/corona/> for a snapshot of those graphs.
 
 ## Data source
 
-The tool uses the dataset provided by Our World In Data, provided at
-<https://ourworldindata.org/coronavirus> and available in CSV format at
-<https://covid.ourworldindata.org/data/owid-covid-data.csv>.
+The tool uses the compact COVID-19 dataset by Our World In Data, provided at
+<https://catalog.ourworldindata.org/garden/covid/latest/compact/compact.csv>.
 
-Earlier versions of the tool used the data provided by the World Health
+Earlier versions of the tool used an older dataset by Our World In Data,
+provided at <https://ourworldindata.org/coronavirus> and available in CSV format
+at <https://covid.ourworldindata.org/data/owid-covid-data.csv>.
+
+Even earlier versions of the tool used the data provided by the World Health
 Organization (WHO) at <https://covid19.who.int/data> in CSV format at
 <https://covid19.who.int/WHO-COVID-19-global-data.csv>.
 
-Even earlier versions of the tool used the data provided by the European Centre
-for Disease Prevention and Control (ECDC) at
+And even earlier versions of the tool used the data provided by the European
+Centre for Disease Prevention and Control (ECDC) at
 <https://data.europa.eu/euodp/data/dataset/covid-19-coronavirus-data>.
 
 For more information see the [readme file in the data/ directory](./data/readme.md).

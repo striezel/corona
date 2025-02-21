@@ -1,8 +1,13 @@
 # Data for the graph generation
 
-The tool uses the dataset provided by Our World In Data, provided at
+The tool uses the compact COVID-19 dataset by Our World In Data, provided at
+<https://catalog.ourworldindata.org/garden/covid/latest/compact/compact.csv>.
+
+Earlier versions of the tool used another COVID-19 dataset by Our World In Data,
+provided at
 <https://ourworldindata.org/coronavirus> and available in CSV format at
-<https://covid.ourworldindata.org/data/owid-covid-data.csv>.
+<https://covid.ourworldindata.org/data/owid-covid-data.csv>. However, this
+dataset is no longer updated and becomes increasingly outdated.
 
 This dataset by Our World In Data has been collected, aggregated, and documented
 by Edouard Mathieu, Hannah Ritchie, Lucas Rodés-Guirao, Cameron Appel, Daniel
@@ -78,6 +83,15 @@ exceptions:
   the program uses those.
 
 ## Historical data sources
+
+### OWID data (before switch to ETL)
+
+In August 2024 Our World In Data (OWID) stopped updates to their old COVID-19
+dataset provided at <https://covid.ourworldindata.org/data/owid-covid-data.csv>
+and switched to their newer [ETL (Export Transform Load) system](https://docs.owid.io/projects/etl/architecture).
+
+The latest data available from that old system is available in the files
+`corona-owid-2024-08-14.db` or `corona-owid-2024-08-14.csv`, respectively.
 
 ### WHO data
 
