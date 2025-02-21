@@ -6,6 +6,24 @@ improvements may be omitted.)_
 
 ## Next Version (2024-10-??)
 
+The program can now create a SQLite database from the data of a given CSV file
+with daily Coronavirus data using the "compact" CSV format used by Our World in
+Data at
+<https://catalog.ourworldindata.org/garden/covid/latest/compact/compact.csv>.
+The SQLite database creation uses the `db` subcommand, just like for the old
+Our World In Data, ECDC and WHO formats. Assuming the file
+<https://catalog.ourworldindata.org/garden/covid/latest/compact/compact.csv>
+was downloaded to `/path/to/owid-compact.csv` then the database can be
+created by invoking
+
+    cargo run db /path/to/owid-compact.csv /path/to/sqlite.db
+
+In that case, the database file will be created at `/path/to/sqlite.db`.
+
+The `db` command still supports the ECDC and WHO formats as well as the older
+pre-ETL format of Our World In Data. It will detect the format of a CSV file by
+looking at its headers.
+
 The plotly.js library is updated from version 2.35.2 to version 3.0.1.
 
 The graph for general incidence values of a country is now rendered even if

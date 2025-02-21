@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2023, 2024  Dirk Stolle
+    Copyright (C) 2023, 2024, 2025  Dirk Stolle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,9 +20,11 @@ use super::configuration::DbConfiguration;
 mod ecdc;
 mod save;
 mod owid;
+mod owid_etl_compact;
 mod who;
 use crate::db::ecdc::DbEcdc;
 use crate::db::owid::DbOwid;
+use crate::db::owid_etl_compact::DbOwidEtlCompact;
 use crate::db::who::DbWho;
 
 pub struct Db
@@ -40,6 +42,9 @@ pub enum CsvType
 
   /// Our World In Data's CSV format as used at <https://covid.ourworldindata.org/data/owid-covid-data.csv>
   Owid,
+
+  /// Our World In Data's compact CSV form ETL as used at <https://catalog.ourworldindata.org/garden/covid/latest/compact/compact.csv>
+  OwidEtlCompact,
 
   /// WHO's CSV format as used at <https://covid19.who.int/data>
   Who
@@ -99,6 +104,10 @@ impl Db
         let db = DbOwid::new(&self.config).unwrap();
         db.create_db()
       },
+      Some(CsvType::OwidEtlCompact) => {
+        let db = DbOwidEtlCompact::new(&self.config).unwrap();
+        db.create_db()
+      },
       Some(CsvType::Who) => {
         let db = DbWho::new(&self.config).unwrap();
         db.create_db()
@@ -147,6 +156,11 @@ impl Db
       && line_one.contains(",new_cases,") && line_one.contains(",new_deaths,")
     {
       return Some(CsvType::Owid);
+    }
+    if line_one.contains("country,date,total_cases,new_cases,")
+      && line_one.contains(",new_deaths,") && line_one.contains(",code,continent,")
+    {
+      return Some(CsvType::OwidEtlCompact);
     }
     if line_one.contains("Date_reported,Country_code,Country,WHO_region")
     {
@@ -251,6 +265,19 @@ mod tests
                                    AFG,Asia,Afghanistan,2020-01-05,,0.0,,,0.0,,,0.0,,,0.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0.0,54.422,18.6,2.581,1.337,1803.987,,597.029,9.59,,,37.746,0.5,64.83,0.511,41128772.0,,,,").is_ok());
     let detected = Db::get_csv_type(&path);
     assert_eq!(detected, Some(CsvType::Owid));
+    assert!(std::fs::remove_file(path).is_ok());
+  }
+
+  #[test]
+  fn get_csv_type_owid_etl_compact_no_bom()
+  {
+    let mut path = std::env::temp_dir();
+    path.push("owid_etl_compact_no_bom.csv");
+    let path = path.to_str().unwrap();
+    assert!(std::fs::write(path, b"country,date,total_cases,new_cases,new_cases_smoothed,total_cases_per_million,new_cases_per_million,new_cases_smoothed_per_million,total_deaths,new_deaths,new_deaths_smoothed,total_deaths_per_million,new_deaths_per_million,new_deaths_smoothed_per_million,excess_mortality,excess_mortality_cumulative,excess_mortality_cumulative_absolute,excess_mortality_cumulative_per_million,hosp_patients,hosp_patients_per_million,weekly_hosp_admissions,weekly_hosp_admissions_per_million,icu_patients,icu_patients_per_million,weekly_icu_admissions,weekly_icu_admissions_per_million,stringency_index,reproduction_rate,total_tests,new_tests,total_tests_per_thousand,new_tests_per_thousand,new_tests_smoothed,new_tests_smoothed_per_thousand,positive_rate,tests_per_case,total_vaccinations,people_vaccinated,people_fully_vaccinated,total_boosters,new_vaccinations,new_vaccinations_smoothed,total_vaccinations_per_hundred,people_vaccinated_per_hundred,people_fully_vaccinated_per_hundred,total_boosters_per_hundred,new_vaccinations_smoothed_per_million,new_people_vaccinated_smoothed,new_people_vaccinated_smoothed_per_hundred,code,continent,population,population_density,median_age,life_expectancy,gdp_per_capita,extreme_poverty,diabetes_prevalence,handwashing_facilities,hospital_beds_per_thousand,human_development_index
+                                   Afghanistan,2020-01-01,,,,,,,,,,,,,,,,,,,,,,,,,0.0,,,,,,,,,,,,,,,,,,,,,,,AFG,Asia,40578846,62.215546,16.752,,1516.2733,,10.9,48.214695,0.39,0.462").is_ok());
+    let detected = Db::get_csv_type(&path);
+    assert_eq!(detected, Some(CsvType::OwidEtlCompact));
     assert!(std::fs::remove_file(path).is_ok());
   }
 
