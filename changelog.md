@@ -47,11 +47,11 @@ Dependency updates:
 * update libc to 0.2.169
 * update libsqlite3-sys to 0.28.0
 * update log to 0.4.26
-* update miniz_oxide to 0.8.4
+* update miniz_oxide to 0.8.5
 * update once_cell to 1.20.3
 * update proc-macro2 to 1.0.93
 * update quote to 1.0.38
-* update ring to 0.17.9
+* update ring to 0.17.10
 * update rusqlite to 0.31.0
 * update rustls to 0.23.19
 * update rustls-pki-types to 1.11.0
