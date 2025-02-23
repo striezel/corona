@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Next Version (2025-02-??)
+## Version 0.18.0 (2025-02-23)
 
 __[feature]__
 The program can now create a SQLite database from the data of a given CSV file
