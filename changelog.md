@@ -4,8 +4,9 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Next Version (2024-10-??)
+## Next Version (2025-02-??)
 
+__[feature]__
 The program can now create a SQLite database from the data of a given CSV file
 with daily Coronavirus data using the "compact" CSV format used by Our World in
 Data at
@@ -24,14 +25,18 @@ The `db` command still supports the ECDC and WHO formats as well as the older
 pre-ETL format of Our World In Data. It will detect the format of a CSV file by
 looking at its headers.
 
+__[fix]__
 A bug with the handling of the values for the country of Montserrat is fixed.
 
+__[maintenance]__
 The plotly.js library is updated from version 2.35.2 to version 3.0.1.
 
+__[improvement]__
 The graph for general incidence values of a country is now rendered even if
 there only are either 7-day or 14-day incidence values. It is no longer required
 that both values are present.
 
+__[maintenance]__
 Dependency updates:
 
 * update ahash to 0.8.11
