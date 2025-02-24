@@ -10,7 +10,7 @@ __[improvement]__
 It is no longer required to download the plotly.js file over the internet during
 graph generation. The file is now embedded in the compiled executable. This
 allows to drop a lot of other dependencies, resulting in a smaller executable
-file.
+file despite the extra embedded file.
 
 ## Version 0.18.0 (2025-02-23)
 
