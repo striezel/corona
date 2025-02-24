@@ -15,12 +15,8 @@ updates:
     ignore:
       # Updating some of our dependencies would break the MSRV build, so they
       # are ignored.
-      - dependency-name: "bumpalo"
       - dependency-name: "csv"
       - dependency-name: "regex"
-      - dependency-name: "rustls"
-      - dependency-name: "ureq"
-      - dependency-name: "url"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
