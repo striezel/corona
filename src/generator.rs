@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021, 2022, 2024  Dirk Stolle
+    Copyright (C) 2020, 2021, 2022, 2024, 2025  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -968,17 +968,17 @@ impl Generator
       return false;
     }
 
-    self.copy_or_download_plotly_js(&path)
+    self.copy_or_extract_plotly_js(&path)
   }
 
   /**
-   * Either copies or downloads the minified plotly.js file to the destination
+   * Either copies or extracts the minified plotly.js file to the destination
    * directory.
    *
    * @param assets_destination  destination directory for assets
    * @return Returns true, if file was created successfully.
    */
-  fn copy_or_download_plotly_js(&self, assets_destination: &Path) -> bool
+  fn copy_or_extract_plotly_js(&self, assets_destination: &Path) -> bool
   {
     let plotly_origin = Generator::get_assets_path().join(Plotly::FILE_NAME);
     let plotly_destination = assets_destination.join(Plotly::FILE_NAME);
@@ -999,8 +999,8 @@ impl Generator
       };
     }
 
-    // File does not exist, so download it from CDN.
-    Plotly::download(&plotly_destination)
+    // File does not exist, so extract it from binary.
+    Plotly::extract(&plotly_destination)
   }
 
   /**

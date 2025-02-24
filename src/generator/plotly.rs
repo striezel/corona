@@ -30,6 +30,12 @@ impl Plotly
   /// relative path to plotly-basic.min.js
   pub const ASSET_PATH: &'static str = "./assets/plotly-basic-3.0.1.min.js";
 
+  #[cfg(not(target_family = "windows"))]
+  const PLOTLY_JS: &'static [u8] = include_bytes!("../assets/plotly-basic-3.0.1.min.js");
+
+  #[cfg(target_family = "windows")]
+  const PLOTLY_JS: &'static [u8] = include_bytes!("..\\assets\\plotly-basic-3.0.1.min.js");
+
   /// SHA256 digest of plotly-basic.min.js
   const SHA256: &'static str = "9750237b42d97af386c25ad644d858ac5b7735dd65e8583e32c9234d551db7f4";
 
@@ -54,56 +60,22 @@ impl Plotly
   }
 
   /**
-   * Downloads the minified plotly.js from a CDN.
+   * Extracts the embedded minified plotly.js from the binary.
    *
    * @param destination  destination path for the .js file
-   * @return Returns true, if file was downloaded successfully.
+   * @return Returns true, if file was written successfully.
    */
-  pub fn download(destination: &Path) -> bool
+  pub fn extract(destination: &Path) -> bool
   {
-    use std::io::Read;
-    // Retrieve minified JS file.
-    let url = format!("https://cdn.plot.ly/{}", Plotly::FILE_NAME);
-    let res = match ureq::get(&url).call()
-    {
-      Ok(responded) => responded,
-      Err(e) =>
-        {
-          eprintln!("Download of plotly.js failed: {}", e);
-          return false;
-        }
-    };
-    if res.status() != 200
-    {
-      let mut all_headers = std::collections::HashMap::new();
-      let names = res.headers_names();
-      for name in names
-      {
-        if let Some(value) = res.header(&name)
-        {
-          all_headers.insert(name, value);
-        }
-      }
-      eprintln!("HTTP request failed with unexpected status code: {}\n\
-                 Headers:\n{:#?}", res.status(), all_headers);
-      return false;
-    }
-    let mut body: Vec<u8> = Vec::new();
-    if let Err(e) = res.into_reader().read_to_end(&mut body)
-    {
-      eprintln!("Failed to read plotly.js into buffer: {}", e);
-      return false;
-    }
-
     // Check SHA256 hash of the file.
-    if !Plotly::check_hash(&body)
+    if !Plotly::check_hash(Self::PLOTLY_JS)
     {
-      eprintln!("Error: SHA256 hash of the downloaded plotly.js does not match \
+      eprintln!("Error: SHA256 hash of the embedded plotly.js does not match \
                  the expected hash!");
       return false;
     }
 
-    match std::fs::write(destination, &body)
+    match std::fs::write(destination, Self::PLOTLY_JS)
     {
       Ok(()) => true,
       Err(e) =>
@@ -128,11 +100,11 @@ mod tests
   }
 
   #[test]
-  fn download_works()
+  fn extract_works()
   {
     let destination = std::env::temp_dir().join(Plotly::FILE_NAME);
 
-    assert!(Plotly::download(&destination));
+    assert!(Plotly::extract(&destination));
     assert!(std::fs::remove_file(&destination).is_ok());
   }
 }

@@ -4,6 +4,14 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Next version (2025-02-??)
+
+__[improvement]__
+It is no longer required to download the plotly.js file over the internet during
+graph generation. The file is now embedded in the compiled executable. This
+allows to drop a lot of other dependencies, resulting in a smaller executable
+file.
+
 ## Version 0.18.0 (2025-02-23)
 
 __[feature]__
