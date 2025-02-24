@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Next version (2025-02-??)
+## Version 0.19.0 (2025-02-24)
 
 __[improvement]__
 It is no longer required to download the plotly.js file over the internet during
