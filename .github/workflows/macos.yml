@@ -21,5 +21,4 @@ jobs:
     - name: Show version information
       run: cargo run -- version
     - name: Run tests
-      # network tests can be a bit flaky, so try up to two times
-      run: cargo test || cargo test
+      run: cargo test
