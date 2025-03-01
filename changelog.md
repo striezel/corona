@@ -6,6 +6,10 @@ improvements may be omitted.)_
 
 ## Version 0.?.? (2025-03-??)
 
+__[improvement]__
+The `db` command will now also extract the data for Kosovo from the compact CSV
+format used by Our World in Data. Previously that data was skipped.
+
 Dependency update:
 
 * update bitflags to 2.9.0

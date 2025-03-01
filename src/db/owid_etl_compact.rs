@@ -230,6 +230,16 @@ impl DbOwidEtlCompact
         return false;
       }
       let current_iso3_id = record.get(IDX_ISO3).unwrap();
+      let current_iso3_id = if current_iso3_id == "OWID_KOS"
+      {
+        // "XKX" is the temporary code for Kosovo as long as it has no official
+        // ISO-3166 code.
+        "XKX"
+      }
+      else
+      {
+        current_iso3_id
+      };
       // Skip "OWID_..." and empty rows.
       if current_iso3_id.starts_with("OWID_") || current_iso3_id.is_empty()
       {
