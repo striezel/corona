@@ -13,6 +13,8 @@ format used by Our World in Data. Previously that data was skipped.
 Dependency update:
 
 * update bitflags to 2.9.0
+* update pkg-config to 0.3.32
+* update proc-macro2 to 1.0.94
 
 ## Version 0.19.0 (2025-02-24)
 
