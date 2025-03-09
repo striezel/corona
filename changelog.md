@@ -18,7 +18,8 @@ Dependency update:
 * update proc-macro2 to 1.0.94
 * update quote to 1.0.39
 * update ryu to 1.0.20
-* update syn to 2.0.99
+* update serde to 1.0.219
+* update syn to 2.0.100
 * update unicode-ident to 1.0.18
 
 ## Version 0.19.0 (2025-02-24)
