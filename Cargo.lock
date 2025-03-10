@@ -49,6 +49,7 @@ name = "corona"
 version = "0.19.0"
 dependencies = [
  "csv",
+ "once_cell",
  "regex",
  "rusqlite",
  "sha2",

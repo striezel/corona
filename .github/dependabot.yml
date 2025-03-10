@@ -16,6 +16,7 @@ updates:
       # Updating some of our dependencies would break the MSRV build, so they
       # are ignored.
       - dependency-name: "csv"
+      - dependency-name: "once_cell"
       - dependency-name: "regex"
   - package-ecosystem: "github-actions"
     directory: "/"
