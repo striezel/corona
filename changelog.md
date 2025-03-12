@@ -14,9 +14,10 @@ Dependency update:
 
 * update bitflags to 2.9.0
 * update itoa to 1.0.15
+* update libc to 0.2.171
 * update pkg-config to 0.3.32
 * update proc-macro2 to 1.0.94
-* update quote to 1.0.39
+* update quote to 1.0.40
 * update ryu to 1.0.20
 * update serde to 1.0.219
 * update syn to 2.0.100
