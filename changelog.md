@@ -10,7 +10,7 @@ __[improvement]__
 The `db` command will now also extract the data for Kosovo from the compact CSV
 format used by Our World in Data. Previously that data was skipped.
 
-Dependency update:
+Dependency updates:
 
 * update bitflags to 2.9.0
 * update itoa to 1.0.15
