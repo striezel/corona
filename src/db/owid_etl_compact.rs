@@ -196,6 +196,8 @@ impl DbOwidEtlCompact
     /// zero-based index of the column that contains the continent name
     const IDX_CONTINENT: usize = 50;
 
+    let now: String = chrono::Utc::now().format("%Y-%m-%d").to_string();
+
     let mut last_iso3_id = String::new();
     let mut country_id: i64 = -1;
     let mut population: i32 = -1;
@@ -245,6 +247,11 @@ impl DbOwidEtlCompact
       {
         continue;
       }
+      let date = record.get(IDX_DATE).unwrap();
+      if date > &now
+      {
+        continue;
+      }
       if current_iso3_id != last_iso3_id
       {
         // Insert data of previous country.
@@ -283,7 +290,6 @@ impl DbOwidEtlCompact
         last_iso3_id = current_iso3_id.to_string();
       }
       // Add current record.
-      let date = record.get(IDX_DATE).unwrap();
       let cases: f64 = match record.get(IDX_CASES).unwrap().is_empty()
       {
         false => record.get(IDX_CASES).unwrap().parse().unwrap_or(f64::MIN),
