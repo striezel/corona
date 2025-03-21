@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021, 2022  Dirk Stolle
+    Copyright (C) 2020, 2021, 2022, 2025  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -14,6 +14,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -------------------------------------------------------------------------------
 */
+
+use chrono::Days;
 
 /// struct that contains data of a single country
 pub struct Country
@@ -235,6 +237,47 @@ pub fn calculate_totals(numbers: &[NumbersAndIncidence]) -> Vec<NumbersAndIncide
   }
 
   result
+}
+
+/**
+ * Removes excess dates from a vector of Numbers.
+ *
+ * @param numbers  vector of numbers
+ * @return None. Removes the elements in place.
+ */
+pub fn cutoff_non_contiguous_dates(numbers: &mut Vec<Numbers>)
+{
+  numbers.sort_unstable_by(|a, b| a.date.cmp(&b.date));
+  let len = numbers.len();
+  if len < 2
+  {
+    return;
+  }
+  for i in (1..len).rev() {
+    let old_date = match chrono::NaiveDate::parse_from_str(&numbers[i].date, "%Y-%m-%d")
+    {
+      Ok(d) => d,
+      _ => continue
+    };
+    let prev_date = match chrono::NaiveDate::parse_from_str(&numbers[i-1].date, "%Y-%m-%d")
+    {
+      Ok(d) => d,
+      _ => continue
+    };
+    let calculated_prev_date = match old_date.checked_sub_days(Days::new(1))
+    {
+      Some(prev) => prev,
+      _ => continue
+    };
+    if calculated_prev_date != prev_date
+    {
+      numbers.pop();
+    }
+    else
+    {
+      return;
+    }
+  }
 }
 
 #[cfg(test)]
@@ -924,5 +967,56 @@ mod tests
     assert_eq!(totals[28].total_deaths, 15965);
     assert_eq!(totals[29].total_deaths, 16123);
     assert_eq!(totals[30].total_deaths, 16248);
+  }
+
+  #[test]
+  fn cutoff_happens()
+  {
+    let mut some_numbers = vec![
+      Numbers { date: "2020-01-01".to_string(), cases: 1, deaths: 1 },
+      Numbers { date: "2020-01-02".to_string(), cases: 3, deaths: 1 },
+      Numbers { date: "2020-01-03".to_string(), cases: 3, deaths: 2 },
+      Numbers { date: "2020-01-04".to_string(), cases: 7, deaths: 3 },
+      Numbers { date: "2020-01-05".to_string(), cases: 0, deaths: 5 },
+      Numbers { date: "2020-01-06".to_string(), cases: 0, deaths: 8 },
+      Numbers { date: "2020-01-30".to_string(), cases: 4, deaths: 0 },
+      Numbers { date: "2020-02-28".to_string(), cases: 6, deaths: 0 },
+      Numbers { date: "2020-03-31".to_string(), cases: 8, deaths: 0 },
+      Numbers { date: "2020-04-30".to_string(), cases: 10, deaths: 0 },
+    ];
+
+    cutoff_non_contiguous_dates(&mut some_numbers);
+
+    assert_eq!(6, some_numbers.len());
+    assert!(some_numbers.iter().find(|x| x.date == "2020-01-01").is_some());
+    assert!(some_numbers.iter().find(|x| x.date == "2020-01-06").is_some());
+    assert!(some_numbers.iter().find(|x| x.date == "2020-01-31").is_none());
+    assert!(some_numbers.iter().find(|x| x.date == "2020-02-28").is_none());
+    assert!(some_numbers.iter().find(|x| x.date == "2020-03-31").is_none());
+    assert!(some_numbers.iter().find(|x| x.date == "2020-04-30").is_none());
+  }
+
+  #[test]
+  fn no_cutoff_required()
+  {
+    let mut some_numbers = vec![
+      Numbers { date: "2020-01-01".to_string(), cases: 1, deaths: 1 },
+      Numbers { date: "2020-01-02".to_string(), cases: 3, deaths: 1 },
+      Numbers { date: "2020-01-03".to_string(), cases: 3, deaths: 2 },
+      Numbers { date: "2020-01-04".to_string(), cases: 7, deaths: 3 },
+      Numbers { date: "2020-01-05".to_string(), cases: 0, deaths: 5 },
+      Numbers { date: "2020-01-06".to_string(), cases: 0, deaths: 8 },
+      Numbers { date: "2020-01-07".to_string(), cases: 0, deaths: 13 },
+    ];
+
+    cutoff_non_contiguous_dates(&mut some_numbers);
+
+    assert_eq!(7, some_numbers.len());
+    assert!(some_numbers.iter().find(|x| x.date == "2020-01-01").is_some());
+    assert!(some_numbers.iter().find(|x| x.date == "2020-01-02").is_some());
+    assert!(some_numbers.iter().find(|x| x.date == "2020-01-03").is_some());
+    assert!(some_numbers.iter().find(|x| x.date == "2020-01-04").is_some());
+    assert!(some_numbers.iter().find(|x| x.date == "2020-01-05").is_some());
+    assert!(some_numbers.iter().find(|x| x.date == "2020-01-06").is_some());
   }
 }

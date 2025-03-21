@@ -255,6 +255,7 @@ impl DbOwidEtlCompact
       if current_iso3_id != last_iso3_id
       {
         // Insert data of previous country.
+        crate::data::cutoff_non_contiguous_dates(&mut parsed_data);
         if country_id != -1
           && !save::numbers_into_db(db, &country_id, &population, &mut parsed_data)
         {
@@ -311,6 +312,7 @@ impl DbOwidEtlCompact
       parsed_data.push(Numbers { date: String::from(date), cases: cases as i32, deaths: deaths as i32});
     }
     // Execute remaining batch inserts, if any are left.
+    crate::data::cutoff_non_contiguous_dates(&mut parsed_data);
     if !parsed_data.is_empty()
       && !crate::db::save::numbers_into_db(db, &country_id, &population, &mut parsed_data)
     {
@@ -516,6 +518,140 @@ Switzerland,2020-03-31,17909,1307,1027.1428,2036.9237,148.65483,116.82459,438,58
       assert!(found.incidence_7d.is_some());
       assert!(found.incidence_7d.unwrap() > 87.307348);
       assert!(found.incidence_7d.unwrap() < 87.307349);
+    }
+    // clean up
+    assert!(std::fs::remove_file(db_file_name).is_ok());
+    assert!(std::fs::remove_file(config.csv_input_file).is_ok());
+  }
+
+  /**
+   * Gets path to the temporary corona.csv file suitable for testing.
+   *
+   * @return Returns path of the CSV file.
+   */
+  fn get_csv_overhead_lines_path() -> String
+  {
+    let path = std::env::temp_dir().join("test_db_corona_owid_etl_compact_overhead.csv");
+
+    let overhead_csv = "country,date,total_cases,new_cases,new_cases_smoothed,total_cases_per_million,new_cases_per_million,new_cases_smoothed_per_million,total_deaths,new_deaths,new_deaths_smoothed,total_deaths_per_million,new_deaths_per_million,new_deaths_smoothed_per_million,excess_mortality,excess_mortality_cumulative,excess_mortality_cumulative_absolute,excess_mortality_cumulative_per_million,hosp_patients,hosp_patients_per_million,weekly_hosp_admissions,weekly_hosp_admissions_per_million,icu_patients,icu_patients_per_million,weekly_icu_admissions,weekly_icu_admissions_per_million,stringency_index,reproduction_rate,total_tests,new_tests,total_tests_per_thousand,new_tests_per_thousand,new_tests_smoothed,new_tests_smoothed_per_thousand,positive_rate,tests_per_case,total_vaccinations,people_vaccinated,people_fully_vaccinated,total_boosters,new_vaccinations,new_vaccinations_smoothed,total_vaccinations_per_hundred,people_vaccinated_per_hundred,people_fully_vaccinated_per_hundred,total_boosters_per_hundred,new_vaccinations_smoothed_per_million,new_people_vaccinated_smoothed,new_people_vaccinated_smoothed_per_hundred,code,continent,population,population_density,median_age,life_expectancy,gdp_per_capita,extreme_poverty,diabetes_prevalence,handwashing_facilities,hospital_beds_per_thousand,human_development_index
+Albania,2020-03-01,0,0,0.0,0.0,0.0,0.0,0,0,0.0,0.0,0.0,0.0,,,,,,,,,,,,,8.33,,29,3,0.01,0.001,,,,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-02,0,0,0.0,0.0,0.0,0.0,0,0,0.0,0.0,0.0,0.0,,,,,,,,,,,,,8.33,,31,2,0.011,0.001,,,,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-03,0,0,0.0,0.0,0.0,0.0,0,0,0.0,0.0,0.0,0.0,,,,,,,,,,,,,8.33,,36,5,0.013,0.002,4,0.001,0.0,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-04,0,0,0.0,0.0,0.0,0.0,0,0,0.0,0.0,0.0,0.0,,,,,,,,,,,,,8.33,,42,6,0.015,0.002,4,0.001,0.0,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-05,0,0,0.0,0.0,0.0,0.0,0,0,0.0,0.0,0.0,0.0,,,,,,,,,,,,,8.33,,50,8,0.018,0.003,5,0.002,0.0,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-06,0,0,0.0,0.0,0.0,0.0,0,0,0.0,0.0,0.0,0.0,,,,,,,,,,,,,8.33,,53,3,0.019,0.001,5,0.002,0.0,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-07,0,0,0.0,0.0,0.0,0.0,0,0,0.0,0.0,0.0,0.0,,,,,,,,,,,,,8.33,,58,5,0.02,0.002,5,0.002,0.0,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-08,0,0,0.0,0.0,0.0,0.0,0,0,0.0,0.0,0.0,0.0,,,,,,,,,,,,,8.33,,59,1,0.021,0.0,4,0.001,0.0,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-09,0,0,0.0,0.0,0.0,0.0,0,0,0.0,0.0,0.0,0.0,,,,,,,,,,,,,36.11,,77,18,0.027,0.006,7,0.002,0.0,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-10,0,0,0.0,0.0,0.0,0.0,0,0,0.0,0.0,0.0,0.0,,,,,,,,,,,,,41.67,,114,37,0.04,0.013,11,0.004,0.0,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-11,2,2,0.2857143,0.70730984,0.70730984,0.10104427,0,0,0.0,0.0,0.0,0.0,,,,,,,,,,,,,51.85,,157,43,0.055,0.015,16,0.006,0.25510204,55.999996,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-12,10,8,1.4285715,3.5365493,2.8292394,0.5052213,1,1,0.14285715,0.35365492,0.35365492,0.050522134,,,,,,,,,,,,,51.85,,298,141,0.104,0.049,35,0.012,0.83819246,40.25,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-13,15,5,2.142857,5.304824,1.7682747,0.757832,1,0,0.14285715,0.35365492,0.0,0.050522134,,,,,,,,,,,,,78.7,,457,159,0.16,0.056,58,0.02,1.3659898,35.855556,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-14,23,8,3.2857144,8.134064,2.8292394,1.1620091,1,0,0.14285715,0.35365492,0.0,0.050522134,,,,,,,,,,,,,78.7,,505,48,0.177,0.017,64,0.022,2.0994081,31.76123,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-15,33,10,4.714286,11.670613,3.5365493,1.6672304,1,0,0.14285715,0.35365492,0.0,0.050522134,,,,,,,,,,,,,81.48,,532,27,0.186,0.009,68,0.024,3.0898044,28.293833,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-16,38,5,5.428571,13.438888,1.7682747,1.919841,1,0,0.14285715,0.35365492,0.0,0.050522134,,,,,,,,,,,,,81.48,,563,31,0.197,0.011,69,0.024,4.2137322,25.696615,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-17,42,4,6.0,14.853507,1.4146197,2.1219296,1,0,0.14285715,0.35365492,0.0,0.050522134,,,,,,,,,,,,,81.48,,605,42,0.212,0.015,70,0.025,5.438222,23.692337,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-18,51,9,7.0,18.036402,3.1828945,2.4755845,1,0,0.14285715,0.35365492,0.0,0.050522134,,,,,,,,,,,,,81.48,,665,60,0.233,0.021,73,0.026,6.552983,17.182133,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-19,55,4,6.428571,19.451021,1.4146197,2.273496,1,0,0.0,0.35365492,0.0,0.0,,,,,,,,,,,,,81.48,,697,32,0.244,0.011,57,0.02,7.5810633,14.9488,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-20,59,4,6.285714,20.86564,1.4146197,2.2229738,2,1,0.14285715,0.70730984,0.35365492,0.050522134,,,,,,,,,,,,,81.48,,732,35,0.256,0.012,39,0.014,9.355725,11.968497,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-21,64,5,5.857143,22.633915,1.7682747,2.0714076,2,0,0.14285715,0.70730984,0.0,0.050522134,,,,,,,,,,,,,81.48,,778,46,0.273,0.016,39,0.014,10.76778,10.137108,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-22,70,6,5.285714,24.755846,2.1219296,1.869319,2,0,0.14285715,0.70730984,0.0,0.050522134,,,,,,,,,,,,,81.48,,811,33,0.284,0.012,40,0.014,11.665139,9.157583,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-23,76,6,5.428571,26.877775,2.1219296,1.919841,2,0,0.14285715,0.70730984,0.0,0.050522134,,,,,,,,,,,,,84.26,,,,,,41,0.014,12.4327,8.420741,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-24,98,22,8.0,34.658184,7.7804084,2.8292394,3,1,0.2857143,1.0609648,0.35365492,0.10104427,,,,,,,,,,,,,84.26,1.1474,,,,,40,0.014,14.065352,7.46836,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-25,104,6,7.571429,36.780113,2.1219296,2.677673,4,1,0.42857143,1.4146197,0.35365492,0.1515664,,,,,,,,,,,,,84.26,1.1372,922,111,0.323,0.039,37,0.013,15.618821,6.676677,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-26,123,19,9.714286,43.499557,6.719444,3.4355052,5,1,0.5714286,1.7682747,0.35365492,0.20208853,,,,,,,,,,,,,84.26,1.1245,1025,103,0.359,0.036,47,0.016,16.960321,6.101187,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-27,146,23,12.428572,51.63362,8.134064,4.395426,5,0,0.42857143,1.7682747,0.0,0.1515664,,,,,,,,,,,,,84.26,1.1058,1127,102,0.395,0.036,56,0.02,17.828415,5.8585014,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-28,174,28,15.714286,61.535957,9.902338,5.5574346,6,1,0.5714286,2.1219296,0.35365492,0.20208853,,,,,,,,,,,,,84.26,1.0922,1206,79,0.422,0.028,61,0.021,19.363102,5.4618273,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-29,186,12,16.571428,65.779816,4.2438593,5.8605676,8,2,0.85714287,2.8292394,0.70730984,0.3031328,,,,,,,,,,,,,84.26,1.0862,1317,111,0.461,0.039,72,0.025,20.76333,5.001436,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-30,197,11,17.285715,69.67002,3.8902042,6.1131783,10,2,1.1428572,3.5365493,0.70730984,0.40417707,,,,,,,,,,,,,84.26,1.083,1407,90,0.493,0.032,80,0.028,21.958576,4.583646,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-03-31,212,15,16.285715,74.974846,5.304824,5.7595234,10,0,1.0,3.5365493,0.0,0.35365492,1.3115113,-2.5931146,-164.99988,-57.554417,,,,,,,,,84.26,1.0833,1552,145,0.544,0.051,95,0.033,21.550413,4.702693,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-04-30,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-05-31,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-06-30,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-07-31,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-08-31,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-09-30,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-10-31,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-11-30,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789
+Albania,2020-12-31,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,ALB,Europe,2827615,103.197624,35.943,,15492.067,0.021277364,10.2,,2.89,0.789";
+    std::fs::write(&path, overhead_csv).expect("Unable to write CSV file for test!");
+
+    path.to_str().unwrap().to_string()
+  }
+
+  #[test]
+  fn overhead_cutoff()
+  {
+    let db_file_name = std::env::temp_dir().join("test_db_corona_owid_etl_compact_overhead.db");
+    let config = DbConfiguration {
+      db_path: db_file_name.to_str().unwrap().to_string(),
+      csv_input_file: get_csv_overhead_lines_path()
+    };
+    // scope for db
+    {
+      let db = DbOwidEtlCompact::new(&config).unwrap();
+      assert!(db.create_db());
+      // Check that DB file exists.
+      assert!(db_file_name.exists());
+      // Check some content.
+      let db = Database::new(&config.db_path).unwrap();
+      // Check a country.
+      let countries = db.countries();
+      {
+        let albania = Country
+        {
+          country_id: 1,
+          name: String::from("Albania"),
+          population: 2862427,
+          geo_id: "AL".to_string(),
+          country_code: "ALB".to_string(),
+          continent: "Europe".to_string()
+        };
+        let found = countries.iter().find(|&c| c.geo_id == "AL");
+        assert!(found.is_some());
+        let found = found.unwrap();
+        assert_eq!(albania.country_id, found.country_id);
+        assert_eq!(albania.name, found.name);
+        assert_eq!(albania.population, found.population);
+        assert_eq!(albania.geo_id, found.geo_id);
+        assert_eq!(albania.country_code, found.country_code);
+        assert_eq!(albania.continent, found.continent);
+        // Check some numbers.
+        let numbers = db.numbers_with_incidence(&albania.country_id);
+        // 1|2020-03-23|6|0|2.65508954464166|1.32754477232083|76|2
+        let found = numbers.iter().find(|&n| n.date == "2020-03-23");
+        assert!(found.is_some());
+        let found = found.unwrap();
+        assert_eq!("2020-03-23", found.date);
+        assert_eq!(6, found.cases);
+        assert_eq!(0, found.deaths);
+        assert!(found.incidence_14d.is_some());
+        assert!(found.incidence_14d.unwrap() > 2.655089);
+        assert!(found.incidence_14d.unwrap() < 2.655090);
+        assert!(found.incidence_7d.is_some());
+        assert!(found.incidence_7d.unwrap() > 1.327544);
+        assert!(found.incidence_7d.unwrap() < 1.327545);
+
+        // "Overhead" data should be cut off and should not be found.
+        let found = numbers.iter().find(|&n| n.date == "2020-04-30");
+        assert!(found.is_none(), "Overhead entry for 2020-04-30 is not cut off during db creation.");
+        let found = numbers.iter().find(|&n| n.date == "2020-05-31");
+        assert!(found.is_none());
+        let found = numbers.iter().find(|&n| n.date == "2020-06-30");
+        assert!(found.is_none());
+        let found = numbers.iter().find(|&n| n.date == "2020-07-31");
+        assert!(found.is_none());
+        let found = numbers.iter().find(|&n| n.date == "2020-08-31");
+        assert!(found.is_none());
+        let found = numbers.iter().find(|&n| n.date == "2020-09-30");
+        assert!(found.is_none());
+        let found = numbers.iter().find(|&n| n.date == "2020-10-31");
+        assert!(found.is_none());
+        let found = numbers.iter().find(|&n| n.date == "2020-11-30");
+        assert!(found.is_none());
+        let found = numbers.iter().find(|&n| n.date == "2020-12-31");
+        assert!(found.is_none());
+      }
     }
     // clean up
     assert!(std::fs::remove_file(db_file_name).is_ok());
