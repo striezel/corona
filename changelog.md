@@ -12,6 +12,10 @@ used by Our World in Data. By implausible we mean data from dates in the future
 and non-contiguous dates. Previously that data was included and could lead to
 unexpected gaps in the data.
 
+Dependency updates:
+
+* update smallvec to 1.15.0
+
 ## Version 0.19.1 (2025-03-17)
 
 __[improvement]__
