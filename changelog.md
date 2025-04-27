@@ -17,6 +17,7 @@ Dependency updates:
 * update libc to 0.2.172
 * update proc-macro2 to 1.0.95
 * update smallvec to 1.15.0
+* update syn to 2.0.101
 
 ## Version 0.19.1 (2025-03-17)
 
