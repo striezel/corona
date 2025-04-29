@@ -4,7 +4,7 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
-## Version 0.?.? (2025-03-??)
+## Version 0.19.2 (2025-04-29)
 
 __[improvement]__
 The `db` command will now skip some implausible data from the compact CSV format
