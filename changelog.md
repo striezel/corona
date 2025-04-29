@@ -14,6 +14,7 @@ unexpected gaps in the data.
 
 Dependency updates:
 
+* update chrono to 0.4.41
 * update libc to 0.2.172
 * update proc-macro2 to 1.0.95
 * update smallvec to 1.15.0
