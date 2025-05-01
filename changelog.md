@@ -4,6 +4,12 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version 0.?.? (2025-05-??)
+
+Dependency updates:
+
+* update sha2 to 0.10.9
+
 ## Version 0.19.2 (2025-04-29)
 
 __[improvement]__
