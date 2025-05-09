@@ -8,7 +8,9 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update ahash to 0.8.12
 * update sha2 to 0.10.9
+* update zerocopy to 0.8.25
 
 ## Version 0.19.2 (2025-04-29)
 
