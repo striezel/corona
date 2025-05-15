@@ -9,6 +9,7 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update ahash to 0.8.12
+* update bitflags to 2.9.1
 * update sha2 to 0.10.9
 * update zerocopy to 0.8.25
 
