@@ -7,8 +7,6 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    reviewers:
-      - "striezel"
     allow:
       # Allow both direct and indirect updates for all crates.
       - dependency-type: "all"
