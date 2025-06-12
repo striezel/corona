@@ -11,6 +11,7 @@ Dependency updates:
 * update ahash to 0.8.12
 * update bitflags to 2.9.1
 * update cfg-if to 1.0.1
+* update memchr to 2.7.5
 * update sha2 to 0.10.9
 * update smallvec to 1.15.1
 * update syn to 2.0.102
