@@ -9,14 +9,15 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update ahash to 0.8.12
+* update autocfg to 1.5.0
 * update bitflags to 2.9.1
 * update cfg-if to 1.0.1
-* update libc to 0.2.173
+* update libc to 0.2.174
 * update memchr to 2.7.5
 * update sha2 to 0.10.9
 * update smallvec to 1.15.1
 * update syn to 2.0.103
-* update zerocopy to 0.8.25
+* update zerocopy to 0.8.26
 
 ## Version 0.19.2 (2025-04-29)
 
