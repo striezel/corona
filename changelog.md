@@ -16,7 +16,7 @@ Dependency updates:
 * update memchr to 2.7.5
 * update sha2 to 0.10.9
 * update smallvec to 1.15.1
-* update syn to 2.0.103
+* update syn to 2.0.104
 * update zerocopy to 0.8.26
 
 ## Version 0.19.2 (2025-04-29)
