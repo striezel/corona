@@ -991,8 +991,7 @@ impl Generator
         Err(e) =>
         {
           eprintln!(
-            "Error: Could not copy asset file {:?} to {:?}: {}",
-            plotly_origin, plotly_destination, e
+            "Error: Could not copy asset file {plotly_origin:?} to {plotly_destination:?}: {e}"
           );
           false
         }

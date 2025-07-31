@@ -52,7 +52,7 @@ impl Plotly
     let digest = hash.finalize();
     // Transform hash into hexadecimal string.
     let digest_string: String = digest[..].iter().fold(String::new(), |mut hash, x| {
-      hash.push_str(&format!("{:02x}", x));
+      hash.push_str(&format!("{x:02x}"));
       hash
     });
     // Compare with expected value.
@@ -80,7 +80,7 @@ impl Plotly
       Ok(()) => true,
       Err(e) =>
       {
-        eprintln!("Error while writing plotly.js file: {}", e);
+        eprintln!("Error while writing plotly.js file: {e}");
         false
       }
     }

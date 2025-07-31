@@ -70,7 +70,7 @@ impl DbOwidEtlCompact
     {
       crate::checks::Status::Error(msg) =>
       {
-        eprintln!("{}", msg);
+        eprintln!("{msg}");
         return false;
       },
       crate::checks::Status::Warn(msg) => println!("Warning: {msg}"),

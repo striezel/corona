@@ -136,7 +136,7 @@ impl Db
     {
       Ok(f) => f,
       Err(e) => {
-        eprintln!("Failed to open file {}: {}", file_path, e);
+        eprintln!("Failed to open file {file_path}: {e}");
         return None;
       }
     };

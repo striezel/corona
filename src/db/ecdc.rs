@@ -68,7 +68,7 @@ impl DbEcdc
     {
       crate::checks::Status::Error(msg) =>
       {
-        eprintln!("{}", msg);
+        eprintln!("{msg}");
         return false;
       },
       crate::checks::Status::Warn(msg) => println!("Warning: {msg}"),
@@ -277,12 +277,12 @@ impl DbEcdc
         false => Some(incidence7),
         true => None
       };
-      let date = format!("{}-{:0>2}-{:0>2}", year, month, day);
-      /*                       ^^^
-                               |||
-                               ||+- width
-                               |+-- fill at left side
-                               +--- fill character
+      let date = format!("{year}-{month:0>2}-{day:0>2}");
+      /*                                ^^^
+                                        |||
+                                        ||+- width
+                                        |+-- fill at left side
+                                        +--- fill character
        */
       numbers.push(NumbersAndIncidence{
         date, cases, deaths, incidence_14d, incidence_7d
