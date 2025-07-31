@@ -56,7 +56,7 @@ jobs:
       shell: bash
       run: |
         cargo build --release --target ${{ matrix.target }}
-        if [ "${{ matrix.os }}" = "windows-2019" ]; then
+        if [ "${{ matrix.os }}" = "windows-2022" ]; then
           bin="target/${{ matrix.target }}/release/corona.exe"
         else
           bin="target/${{ matrix.target }}/release/corona"
@@ -86,14 +86,14 @@ jobs:
 
     - name: Create archive (Linux / macOS)
       shell: bash
-      if: matrix.os != 'windows-2019'
+      if: matrix.os != 'windows-2022'
       run: |
         tar czf "$FULL_VERSION.tar.gz" "$FULL_VERSION"
         shasum -a 256 "$FULL_VERSION.tar.gz" > "$FULL_VERSION.tar.gz.sha256"
 
     - name: Create archive (Windows)
       shell: bash
-      if: matrix.os == 'windows-2019'
+      if: matrix.os == 'windows-2022'
       run: |
         7z a "$FULL_VERSION.zip" "$FULL_VERSION"
         certutil -hashfile "$FULL_VERSION.zip" SHA256 > "$FULL_VERSION.zip.sha256"
