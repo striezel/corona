@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021, 2024  Dirk Stolle
+    Copyright (C) 2020, 2021, 2024, 2025  Dirk Stolle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ fn main()
   let config = corona::configuration::parse_args(&args).unwrap_or_else(|err| {
     if !err.is_empty()
     {
-      eprintln!("Error: {}\n", err);
+      eprintln!("Error: {err}\n");
     }
     let basename = match std::path::Path::new(&args[0]).file_name()
     {
@@ -35,27 +35,20 @@ fn main()
       None => args[0].clone()
     };
     eprintln!(
-      "Usage: {} html /path/to/corona.db /path/to/output/directory [/path/to/main.tpl]",
-      basename
+      "Usage: {basename} html /path/to/corona.db /path/to/output/directory [/path/to/main.tpl]"
     );
     eprintln!("           or");
-    eprintln!(
-      "Usage: {} csv /path/to/corona.db /path/to/output.csv",
-      basename
-    );
+    eprintln!("Usage: {basename} csv /path/to/corona.db /path/to/output.csv");
     eprintln!("           or");
-    eprintln!(
-      "Usage: {} db /path/to/input.csv /path/to/output.db",
-      basename
-    );
+    eprintln!("Usage: {basename} db /path/to/input.csv /path/to/output.db");
     eprintln!("           or");
-    eprintln!("Usage: {} version", basename);
+    eprintln!("Usage: {basename} version");
     process::exit(1);
   });
 
   if let Err(e) = corona::run(&config)
   {
-    eprintln!("An error occurred: {}", e);
+    eprintln!("An error occurred: {e}");
     process::exit(1);
   }
 }
