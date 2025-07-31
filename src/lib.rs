@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021, 2023, 2024  Dirk Stolle
+    Copyright (C) 2020, 2021, 2023, 2024, 2025  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -71,9 +71,9 @@ pub fn run(op: &Operation) -> Result<(), String>
       let version = match option_env!("CARGO_PKG_VERSION")
       {
         None => String::from("corona, unknown version (executable was not built with Cargo)"),
-        Some(v) => format!("corona, version {}", v)
+        Some(v) => format!("corona, version {v}")
       };
-      println!("{}", version);
+      println!("{version}");
       println!(
         "(using SQLite version {} ({}))",
         rusqlite::version(),

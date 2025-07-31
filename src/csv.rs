@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021, 2022, 2023  Dirk Stolle
+    Copyright (C) 2020, 2021, 2022, 2023, 2025  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -71,10 +71,10 @@ impl Csv
     {
       crate::checks::Status::Error(msg) =>
       {
-        eprintln!("{}", msg);
+        eprintln!("{msg}");
         return false;
       },
-      crate::checks::Status::Warn(msg) => println!("Warning: {}", msg),
+      crate::checks::Status::Warn(msg) => println!("Warning: {msg}"),
       _ => ()
     }
 
@@ -117,7 +117,7 @@ impl Csv
       Ok(w) => w,
       Err(e) =>
       {
-        eprintln!("Error: Could not create CSV file! {}", e);
+        eprintln!("Error: Could not create CSV file! {e}");
         return false;
       }
     };
@@ -138,7 +138,7 @@ impl Csv
     ];
     if let Err(e) = writer.write_record(CSV_HEADER)
     {
-      eprintln!("Error: Could not write CSV header! {}", e);
+      eprintln!("Error: Could not write CSV header! {e}");
       return false;
     }
     let date_format = &self.config.date_format;
@@ -176,7 +176,7 @@ impl Csv
       Ok(_) => true,
       Err(e) =>
       {
-        eprintln!("Error: Could not flush write buffer! {}", e);
+        eprintln!("Error: Could not flush write buffer! {e}");
         false
       }
     }

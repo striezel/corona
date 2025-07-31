@@ -73,14 +73,14 @@ impl DbOwidEtlCompact
         eprintln!("{}", msg);
         return false;
       },
-      crate::checks::Status::Warn(msg) => println!("Warning: {}", msg),
+      crate::checks::Status::Warn(msg) => println!("Warning: {msg}"),
       _ => ()
     }
     let db = match Database::create(&self.config.db_path)
     {
       Err(e) =>
       {
-        eprintln!("Error while creating database: {}", e);
+        eprintln!("Error while creating database: {e}");
         return false;
       }
       Ok(base) => base
@@ -155,13 +155,13 @@ impl DbOwidEtlCompact
     if !header_strings.starts_with(&expected_headers)
     {
       eprintln!("Error: CSV headers do not match the expected headers. \
-                 Found the following headers: {:?}", headers);
+                 Found the following headers: {headers:?}");
       return false;
     }
     if !header_strings.contains(&"code") || !header_strings.contains(&"continent")
     {
       eprintln!("Error: CSV headers for country code and continent are missing. \
-                 Found the following headers: {:?}", headers);
+                 Found the following headers: {headers:?}");
       return false;
     }
     // Headers match. :)
@@ -218,7 +218,7 @@ impl DbOwidEtlCompact
         },
         Err(e) => {
           // Failed to read.
-          eprintln!("Failed to read CSV record! {}", e);
+          eprintln!("Failed to read CSV record! {e}");
           return false;
         }
       }

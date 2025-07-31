@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021, 2022  Dirk Stolle
+    Copyright (C) 2020, 2021, 2022, 2025  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -68,7 +68,7 @@ impl Database
     let path = Path::new(db_path);
     if path.exists()
     {
-      return Err(format!("The file or directory {} already exists!", db_path));
+      return Err(format!("The file or directory {db_path} already exists!"));
     }
     // Create database file.
     let conn = match Connection::open(db_path)
@@ -87,7 +87,7 @@ impl Database
                );";
     if let Err(e) = conn.execute(sql, params![])
     {
-      return Err(format!("Could not create table country in database. {}", e));
+      return Err(format!("Could not create table country in database. {e}"));
     }
     let sql = "CREATE TABLE covid19 (\n  \
                countryId INTEGER NOT NULL,\n  \
@@ -99,7 +99,7 @@ impl Database
                );";
     if let Err(e) = conn.execute(sql, params![])
     {
-      return Err(format!("Could not create table covid19 in database. {}", e));
+      return Err(format!("Could not create table covid19 in database. {e}"));
     }
     Ok(Database { conn })
   }
@@ -686,7 +686,7 @@ impl Database
         println!("Info: Added column totalCases to table.");
       },
       Err(e) => {
-        eprintln!("Could not add column totalCases to table covid19! {}", e);
+        eprintln!("Could not add column totalCases to table covid19! {e}");
         return false;
       }
     };
@@ -703,7 +703,7 @@ impl Database
         // Do not return here, rows need to be updated.
       },
       Err(e) => {
-        eprintln!("Failed to get rows of table covid19! {}", e);
+        eprintln!("Failed to get rows of table covid19! {e}");
         return false;
       }
     }
@@ -722,10 +722,10 @@ impl Database
     {
       Ok(affected) => if *verbose
       {
-        println!("{} rows have been updated.", affected);
+        println!("{affected} rows have been updated.");
       },
       Err(e)=> {
-        eprintln!("Could not update totalCases in table covid19! {}", e);
+        eprintln!("Could not update totalCases in table covid19! {e}");
         return false;
       }
     };
@@ -753,7 +753,7 @@ impl Database
         println!("Info: Added column totalDeaths to table.");
       },
       Err(e)=> {
-        eprintln!("Could not add column totalDeaths to table covid19! {}", e);
+        eprintln!("Could not add column totalDeaths to table covid19! {e}");
         return false;
       }
     };
@@ -770,7 +770,7 @@ impl Database
         // Do not return here, rows need to be updated.
       },
       Err(e) => {
-        eprintln!("Failed to get rows of table covid19! {}", e);
+        eprintln!("Failed to get rows of table covid19! {e}");
         return false;
       }
     }
@@ -789,10 +789,10 @@ impl Database
     {
       Ok(affected) => if *verbose
       {
-        println!("{} rows have been updated.", affected);
+        println!("{affected} rows have been updated.");
       },
       Err(e)=> {
-        eprintln!("Could not update totalDeaths in table covid19! {}", e);
+        eprintln!("Could not update totalDeaths in table covid19! {e}");
         return false;
       }
     }
@@ -812,7 +812,7 @@ impl Database
     if res.is_err()
     {
       eprintln!("Error: Batch statement failed! {}", res.unwrap_err());
-      eprintln!("Statement is:\n{}\n", sql);
+      eprintln!("Statement is:\n{sql}\n");
       return false;
     }
     true

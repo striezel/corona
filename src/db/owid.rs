@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2024  Dirk Stolle
+    Copyright (C) 2024, 2025  Dirk Stolle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -70,17 +70,17 @@ impl DbOwid
     {
       crate::checks::Status::Error(msg) =>
       {
-        eprintln!("{}", msg);
+        eprintln!("{msg}");
         return false;
       },
-      crate::checks::Status::Warn(msg) => println!("Warning: {}", msg),
+      crate::checks::Status::Warn(msg) => println!("Warning: {msg}"),
       _ => ()
     }
     let db = match Database::create(&self.config.db_path)
     {
       Err(e) =>
       {
-        eprintln!("Error while creating database: {}", e);
+        eprintln!("Error while creating database: {e}");
         return false;
       }
       Ok(base) => base
@@ -155,7 +155,7 @@ impl DbOwid
     if header_part != expected_headers
     {
       eprintln!("Error: CSV headers do not match the expected headers. \
-                 Found the following headers: {:?}", headers);
+                 Found the following headers: {headers:?}");
       return false;
     }
     // Headers match. :)
@@ -192,7 +192,7 @@ impl DbOwid
         },
         Err(e) => {
           // Failed to read.
-          eprintln!("Failed to read CSV record! {}", e);
+          eprintln!("Failed to read CSV record! {e}");
           return false;
         }
       }
