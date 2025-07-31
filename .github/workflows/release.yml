@@ -49,7 +49,7 @@ jobs:
         echo "TARGET_FLAGS=--target ${{ matrix.target }}" >> $GITHUB_ENV
         echo "TARGET_DIR=./target/${{ matrix.target }}" >> $GITHUB_ENV
     - name: Apply Windows-specific patch
-      if: matrix.os == 'windows-2019'
+      if: matrix.os == 'windows-2022'
       run: git apply --ignore-whitespace ci\windows.patch
 
     - name: Build
