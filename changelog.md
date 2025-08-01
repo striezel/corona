@@ -6,6 +6,9 @@ improvements may be omitted.)_
 
 ## Version 0.?.? (2025-05-??)
 
+__[maintenance]__
+The plotly.js library is updated from version 3.0.1 to version 3.0.3.
+
 Dependency updates:
 
 * update ahash to 0.8.12
