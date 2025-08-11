@@ -17,6 +17,7 @@ Dependency updates:
 * update cfg-if to 1.0.1
 * update libc to 0.2.174
 * update memchr to 2.7.5
+* update proc-macro2 to 1.0.96
 * update sha2 to 0.10.9
 * update smallvec to 1.15.1
 * update syn to 2.0.104
