@@ -31,9 +31,10 @@ jobs:
         apk update && apk add bash git perl-utils
         git config --global --add safe.directory "$GITHUB_WORKSPACE"
     - name: Code checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
+        persist-credentials: false
     - name: Install packages (Linux)
       if: matrix.container == 'alpine'
       run: |
