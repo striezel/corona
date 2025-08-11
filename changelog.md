@@ -15,7 +15,7 @@ Dependency updates:
 * update autocfg to 1.5.0
 * update bitflags to 2.9.1
 * update cfg-if to 1.0.1
-* update libc to 0.2.174
+* update libc to 0.2.175
 * update memchr to 2.7.5
 * update proc-macro2 to 1.0.96
 * update sha2 to 0.10.9
