@@ -20,7 +20,7 @@ Dependency updates:
 * update proc-macro2 to 1.0.97
 * update sha2 to 0.10.9
 * update smallvec to 1.15.1
-* update syn to 2.0.104
+* update syn to 2.0.105
 * update zerocopy to 0.8.26
 
 ## Version 0.19.2 (2025-04-29)
