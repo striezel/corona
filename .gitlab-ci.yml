@@ -96,9 +96,9 @@ build_image_debian:
     - docker:27-dind
   script:
     - cd ci/
-    - docker build -t $CI_REGISTRY/striezel/corona/ci-debian:12 . -f Dockerfile_debian
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker push $CI_REGISTRY/striezel/corona/ci-debian:12
+    - docker build -t $CI_REGISTRY/striezel/corona/ci-debian:13 . -f Dockerfile_debian
+    - docker login -u $CI_REGISTRY_USER -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker push $CI_REGISTRY/striezel/corona/ci-debian:13
     - docker logout $CI_REGISTRY
   # Only build new image when the Dockerfile or the GitLab CI configuration
   # changes.
@@ -108,7 +108,7 @@ build_image_debian:
       - .gitlab-ci.yml
 
 debian:
-  image: registry.gitlab.com/striezel/corona/ci-debian:12
+  image: registry.gitlab.com/striezel/corona/ci-debian:13
   stage: test
   retry: 2
   before_script:
