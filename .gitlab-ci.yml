@@ -54,6 +54,13 @@ bionic_failcheck:
     - apt-get update
     - export DEBIAN_FRONTEND=noninteractive
     - apt-get upgrade -y
+    - apt-get purge -y cargo rustc
+    - apt-get install -y wget
+    - wget -O /tmp/ru.sh https://sh.rustup.rs
+    - chmod u+x /tmp/ru.sh
+    - /tmp/ru.sh -y --default-toolchain 1.75.0 --profile minimal
+    - source $HOME/.cargo/env
+    - export PATH="$HOME/.cargo/bin:$PATH"
   script:
     - rustc --version
     - cargo --version
