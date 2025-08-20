@@ -3,7 +3,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Always update packages first.
 RUN apt-get update && apt-get upgrade -y && \
     # Install build dependencies.
-    apt-get install -y bash cargo rustc libsqlite3-dev libssl-dev pkg-config && \
+    apt-get install -y bash libsqlite3-dev libssl-dev pkg-config && \
+    # Install Rust 1.75.0, because the rustc in bionic is too old.
+    apt-get install -y wget && \
+    wget -O /tmp/ru.sh https://sh.rustup.rs && chmod u+x /tmp/ru.sh && \
+    /tmp/ru.sh -y --default-toolchain 1.75.0 --profile minimal && \
+    export PATH="$HOME/.cargo/bin:$PATH" && \
+    apt-get purge -y wget && \
     # Install git to get repository, fetch known cargo crates and update the
     # crates.io index.
     apt-get install -y --no-install-recommends --no-install-suggests git && \
