@@ -3,7 +3,7 @@
 #       server side of Docker.
 
 # build stage: builds application, collects data, generates HTML files
-FROM debian:bookworm-slim AS builder
+FROM debian:13-slim AS builder
 LABEL maintainer="Dirk Stolle <striezel-dev@web.de>"
 RUN export DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get upgrade -y
