@@ -11,6 +11,10 @@ been released on 28th December 2023, more than a year ago, so it is probably
 safe to update to that version. For the corresponding Rust release announcement
 see <https://blog.rust-lang.org/2023/12/28/Rust-1.75.0/>.
 
+Dependency updates:
+
+* update csv to 1.3.1
+
 ## Version 0.19.3 (2025-08-20)
 
 __[maintenance]__

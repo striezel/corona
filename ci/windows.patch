@@ -3,7 +3,7 @@ index 09b1be2..a072322 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
 @@ -26,5 +26,5 @@ codegen-units = 1
- csv = "=1.3.0"
+ csv = "1.3.1"
  # Pin regex to 1.9.6, because later versions need rustc 1.65.
  regex = "=1.9.6"
 -rusqlite = "0.31.0"
