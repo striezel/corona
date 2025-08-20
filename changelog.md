@@ -14,6 +14,7 @@ see <https://blog.rust-lang.org/2023/12/28/Rust-1.75.0/>.
 Dependency updates:
 
 * update csv to 1.3.1
+* update once_cell to 1.21.3
 * update regex to 1.11.1
 * update regex-automata to 0.4.9
 * update regex-syntax to 0.8.5
