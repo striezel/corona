@@ -14,7 +14,7 @@ Dependency updates:
 * update ahash to 0.8.12
 * update autocfg to 1.5.0
 * update bitflags to 2.9.2
-* update cfg-if to 1.0.1
+* update cfg-if to 1.0.3
 * update libc to 0.2.175
 * update memchr to 2.7.5
 * update proc-macro2 to 1.0.101
