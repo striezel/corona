@@ -13,6 +13,7 @@ see <https://blog.rust-lang.org/2023/12/28/Rust-1.75.0/>.
 
 Dependency updates:
 
+* update bitflags to 2.9.3
 * update csv to 1.3.1
 * update once_cell to 1.21.3
 * update regex to 1.11.1
