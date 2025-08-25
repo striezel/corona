@@ -16,9 +16,9 @@ Dependency updates:
 * update bitflags to 2.9.3
 * update csv to 1.3.1
 * update once_cell to 1.21.3
-* update regex to 1.11.1
-* update regex-automata to 0.4.9
-* update regex-syntax to 0.8.5
+* update regex to 1.11.2
+* update regex-automata to 0.4.10
+* update regex-syntax to 0.8.6
 
 ## Version 0.19.3 (2025-08-20)
 
