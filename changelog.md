@@ -19,6 +19,7 @@ Dependency updates:
 * update regex to 1.11.2
 * update regex-automata to 0.4.10
 * update regex-syntax to 0.8.6
+* update zerocopy to 0.8.27
 
 ## Version 0.19.3 (2025-08-20)
 
