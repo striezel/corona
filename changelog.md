@@ -18,8 +18,8 @@ Dependency updates:
 * update csv to 1.3.1
 * update libc to 0.2.176
 * update once_cell to 1.21.3
-* update regex to 1.11.2
-* update regex-automata to 0.4.10
+* update regex to 1.11.3
+* update regex-automata to 0.4.11
 * update regex-syntax to 0.8.6
 * update serde to 1.0.226
 * update unicode-ident to 1.0.19
