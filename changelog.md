@@ -17,6 +17,7 @@ Dependency updates:
 * update chrono to 0.4.42
 * update csv to 1.3.1
 * update libc to 0.2.176
+* update memchr to 2.7.6
 * update once_cell to 1.21.3
 * update regex to 1.11.3
 * update regex-automata to 0.4.11
