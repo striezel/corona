@@ -22,7 +22,7 @@ Dependency updates:
 * update regex to 1.11.3
 * update regex-automata to 0.4.11
 * update regex-syntax to 0.8.6
-* update serde to 1.0.226
+* update serde to 1.0.228
 * update unicode-ident to 1.0.19
 * update zerocopy to 0.8.27
 
