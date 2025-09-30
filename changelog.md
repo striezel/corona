@@ -19,6 +19,7 @@ Dependency updates:
 * update libc to 0.2.176
 * update memchr to 2.7.6
 * update once_cell to 1.21.3
+* update quote to 1.0.41
 * update regex to 1.11.3
 * update regex-automata to 0.4.11
 * update regex-syntax to 0.8.6
