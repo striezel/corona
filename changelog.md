@@ -24,6 +24,7 @@ Dependency updates:
 * update regex-automata to 0.4.11
 * update regex-syntax to 0.8.6
 * update serde to 1.0.228
+* update typenum to 1.19.0
 * update unicode-ident to 1.0.19
 * update zerocopy to 0.8.27
 
