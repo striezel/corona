@@ -25,19 +25,19 @@ pub struct Plotly
 impl Plotly
 {
   /// basic file name of the plotly-basic.min.js file
-  pub const FILE_NAME: &'static str = "plotly-basic-3.1.0.min.js";
+  pub const FILE_NAME: &'static str = "plotly-basic-3.1.1.min.js";
 
   /// relative path to plotly-basic.min.js
-  pub const ASSET_PATH: &'static str = "./assets/plotly-basic-3.1.0.min.js";
+  pub const ASSET_PATH: &'static str = "./assets/plotly-basic-3.1.1.min.js";
 
   #[cfg(not(target_family = "windows"))]
-  const PLOTLY_JS: &'static [u8] = include_bytes!("../assets/plotly-basic-3.1.0.min.js");
+  const PLOTLY_JS: &'static [u8] = include_bytes!("../assets/plotly-basic-3.1.1.min.js");
 
   #[cfg(target_family = "windows")]
-  const PLOTLY_JS: &'static [u8] = include_bytes!("..\\assets\\plotly-basic-3.1.0.min.js");
+  const PLOTLY_JS: &'static [u8] = include_bytes!("..\\assets\\plotly-basic-3.1.1.min.js");
 
   /// SHA256 digest of plotly-basic.min.js
-  const SHA256: &'static str = "80d756297ee4b5e701cee4e5c88aa52ec822c3ed84fd23bda6e20b03d10492a6";
+  const SHA256: &'static str = "fb72635059214f610fd3e856f5635062a8def4499a74b8487b635c493d7e2835";
 
   /**
    * Checks whether the data has the expected hash.
