@@ -4,6 +4,12 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version 0.?.? (2025-10-??)
+
+Dependency updates:
+
+* update libc to 0.2.177
+
 ## Version 0.20.0 (2025-10-05)
 
 The Minimum Supported Rust Version (MSRV) is bumped to 1.75.0. Rust 1.75.0 has
