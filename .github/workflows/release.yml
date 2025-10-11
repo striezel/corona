@@ -18,6 +18,9 @@ jobs:
         # macOS (x86_64)
         - os: macos-latest
           target: x86_64-apple-darwin
+        # macOS (ARM)
+        - os: macos-latest
+          target: aarch64-apple-darwin
         # Windows, 64 bit
         - os: windows-2022
           target: x86_64-pc-windows-msvc
