@@ -13,9 +13,8 @@ jobs:
           container: alpine
           target: x86_64-unknown-linux-musl
         # Linux ARM 64 bit
-        #- os: ubuntu-24.04
-        #  target: aarch64-unknown-linux-gnu
-        #  qemu: qemu-aarch64
+        - os: ubuntu-24.04-arm
+          target: aarch64-unknown-linux-gnu
         # macOS (x86_64)
         - os: macos-latest
           target: x86_64-apple-darwin
@@ -65,7 +64,7 @@ jobs:
         echo "BINARY=$bin" >> $GITHUB_ENV
 
     - name: Strip binary (Linux / macOS)
-      if: matrix.os == 'ubuntu-24.04' || matrix.os == 'macos-latest'
+      if: matrix.os == 'ubuntu-24.04' || matrix.os == 'ubuntu-24.04-arm' || matrix.os == 'macos-latest'
       shell: bash
       run: strip "$BINARY"
 
