@@ -8,6 +8,7 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update generic-array to 0.14.9
 * update libc to 0.2.177
 * update regex to 1.12.1
 * update regex-automata to 0.4.12
