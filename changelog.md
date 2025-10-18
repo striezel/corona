@@ -9,6 +9,8 @@ improvements may be omitted.)_
 Dependency updates:
 
 * update cfg-if to 1.0.4
+* update csv to 1.4.0
+* update csv-core to 0.1.13
 * update generic-array to 0.14.9
 * update libc to 0.2.177
 * update regex to 1.12.2
