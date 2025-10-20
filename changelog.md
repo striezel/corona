@@ -8,6 +8,7 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update bitflags to 2.10.0
 * update cfg-if to 1.0.4
 * update csv to 1.4.0
 * update csv-core to 0.1.13
