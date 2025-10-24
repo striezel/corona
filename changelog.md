@@ -14,7 +14,7 @@ Dependency updates:
 * update csv-core to 0.1.13
 * update generic-array to 0.14.9
 * update libc to 0.2.177
-* update proc-macro2 to 1.0.102
+* update proc-macro2 to 1.0.103
 * update regex to 1.12.2
 * update regex-automata to 0.4.13
 * update regex-syntax to 0.8.8
