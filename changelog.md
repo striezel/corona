@@ -10,6 +10,7 @@ The plotly.js library is updated from version 3.1.1 to version 3.1.2.
 
 Dependency updates:
 
+* update aho-corasick to 1.1.4
 * update bitflags to 2.10.0
 * update cfg-if to 1.0.4
 * update csv to 1.4.0
