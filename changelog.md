@@ -22,7 +22,7 @@ Dependency updates:
 * update regex-automata to 0.4.13
 * update regex-syntax to 0.8.8
 * update syn to 2.0.108
-* update unicode-ident to 1.0.20
+* update unicode-ident to 1.0.22
 
 ## Version 0.20.0 (2025-10-05)
 
