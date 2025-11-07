@@ -18,10 +18,11 @@ Dependency updates:
 * update generic-array to 0.14.9
 * update libc to 0.2.177
 * update proc-macro2 to 1.0.103
+* update quote to 1.0.42
 * update regex to 1.12.2
 * update regex-automata to 0.4.13
 * update regex-syntax to 0.8.8
-* update syn to 2.0.108
+* update syn to 2.0.109
 * update unicode-ident to 1.0.22
 
 ## Version 0.20.0 (2025-10-05)
