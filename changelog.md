@@ -13,6 +13,7 @@ Dependency updates:
 * update aho-corasick to 1.1.4
 * update bitflags to 2.10.0
 * update cfg-if to 1.0.4
+* update crypto-common to 0.1.7
 * update csv to 1.4.0
 * update csv-core to 0.1.13
 * update generic-array to 0.14.9
