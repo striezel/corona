@@ -25,6 +25,7 @@ Dependency updates:
 * update regex-syntax to 0.8.8
 * update syn to 2.0.110
 * update unicode-ident to 1.0.22
+* update zerocopy to 0.8.28
 
 ## Version 0.20.0 (2025-10-05)
 
