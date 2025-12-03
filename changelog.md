@@ -4,6 +4,12 @@ _(Note: This changelog focuses on the major changes between the different
 versions. Therefore, it may not contain all changes. Especially smaller fixes or
 improvements may be omitted.)_
 
+## Version 0.?.? (2025-12-??)
+
+Dependency updates:
+
+* update libc to 0.2.178
+
 ## Version 0.20.1 (2025-12-01)
 
 The plotly.js library is updated from version 3.1.1 to version 3.2.0.
