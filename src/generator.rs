@@ -122,10 +122,10 @@ impl Generator
     };
 
     let success = fs::create_dir_all(&self.config.output_directory);
-    if success.is_err()
+    if let Err(error) = success
     {
-      eprintln!("Error: Could not create directory {}: {}",
-                self.config.output_directory, success.unwrap_err());
+      eprintln!("Error: Could not create directory {}: {error}",
+                self.config.output_directory);
       return false;
     }
     // Perform calculations for total numbers in database, if necessary.
@@ -958,13 +958,9 @@ impl Generator
   {
     let path = Path::new(&self.config.output_directory).join("assets");
     let created = fs::create_dir_all(&path);
-    if created.is_err()
+    if let Err(error) = created
     {
-      eprintln!(
-        "Error: Could not create directory {:?}: {}",
-        path,
-        created.unwrap_err()
-      );
+      eprintln!("Error: Could not create directory {:?}: {error}", path);
       return false;
     }
 

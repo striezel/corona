@@ -158,13 +158,13 @@ impl Csv
       {
         let rec = Csv::num_to_vec(num, country, date_format);
         let success = writer.write_record(&rec);
-        if success.is_err()
+        if let Err(error) = success
         {
           eprintln!(
             "Error while writing data record for {} to {}! {}",
             &country.name,
             &self.config.csv_output_file,
-            success.unwrap_err()
+            error
           );
           return false;
         }

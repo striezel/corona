@@ -809,9 +809,9 @@ impl Database
   pub fn batch(&self, sql: &str) -> bool
   {
     let res = self.conn.execute_batch(sql);
-    if res.is_err()
+    if let Err(e) = res
     {
-      eprintln!("Error: Batch statement failed! {}", res.unwrap_err());
+      eprintln!("Error: Batch statement failed! {e}");
       eprintln!("Statement is:\n{sql}\n");
       return false;
     }
