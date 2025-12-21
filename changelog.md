@@ -8,7 +8,9 @@ improvements may be omitted.)_
 
 Dependency updates:
 
+* update itoa to 1.0.16
 * update libc to 0.2.178
+* update ryu to 1.0.21
 
 ## Version 0.20.1 (2025-12-01)
 
