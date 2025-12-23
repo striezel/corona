@@ -6,6 +6,8 @@ improvements may be omitted.)_
 
 ## Version 0.?.? (2025-12-??)
 
+The plotly.js library is updated from version 3.2.0 to version 3.3.1.
+
 Dependency updates:
 
 * update itoa to 1.0.16
