@@ -14,6 +14,7 @@ Dependency updates:
 * update libc to 0.2.178
 * update proc-macro2 to 1.0.104
 * update ryu to 1.0.22
+* update syn to 2.0.112
 
 ## Version 0.20.1 (2025-12-01)
 
