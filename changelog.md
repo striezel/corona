@@ -15,7 +15,8 @@ Dependency updates:
 * update proc-macro2 to 1.0.105
 * update quote to 1.0.43
 * update ryu to 1.0.22
-* update syn to 2.0.113
+* update syn to 2.0.114
+* update zerocopy to 0.8.32
 
 ## Version 0.20.1 (2025-12-01)
 
