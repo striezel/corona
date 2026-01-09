@@ -11,12 +11,12 @@ The plotly.js library is updated from version 3.2.0 to version 3.3.1.
 Dependency updates:
 
 * update itoa to 1.0.17
-* update libc to 0.2.179
+* update libc to 0.2.180
 * update proc-macro2 to 1.0.105
 * update quote to 1.0.43
 * update ryu to 1.0.22
 * update syn to 2.0.114
-* update zerocopy to 0.8.32
+* update zerocopy to 0.8.33
 
 ## Version 0.20.1 (2025-12-01)
 
