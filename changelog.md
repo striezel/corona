@@ -13,7 +13,7 @@ Dependency updates:
 * update chrono to 0.4.43
 * update itoa to 1.0.17
 * update libc to 0.2.180
-* update proc-macro2 to 1.0.105
+* update proc-macro2 to 1.0.106
 * update quote to 1.0.43
 * update ryu to 1.0.22
 * update syn to 2.0.114
