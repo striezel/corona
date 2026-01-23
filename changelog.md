@@ -14,7 +14,7 @@ Dependency updates:
 * update itoa to 1.0.17
 * update libc to 0.2.180
 * update proc-macro2 to 1.0.106
-* update quote to 1.0.43
+* update quote to 1.0.44
 * update ryu to 1.0.22
 * update syn to 2.0.114
 * update zerocopy to 0.8.33
