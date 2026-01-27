@@ -17,7 +17,7 @@ Dependency updates:
 * update quote to 1.0.44
 * update ryu to 1.0.22
 * update syn to 2.0.114
-* update zerocopy to 0.8.33
+* update zerocopy to 0.8.34
 
 ## Version 0.20.1 (2025-12-01)
 
