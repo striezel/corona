@@ -15,6 +15,9 @@ Dependency updates:
 * update libc to 0.2.180
 * update proc-macro2 to 1.0.106
 * update quote to 1.0.44
+* update regex to 1.12.3
+* update regex-automata to 0.4.14
+* update regex-syntax to 0.8.9
 * update ryu to 1.0.22
 * update syn to 2.0.114
 * update zerocopy to 0.8.37
