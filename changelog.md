@@ -20,7 +20,7 @@ Dependency updates:
 * update regex-syntax to 0.8.9
 * update ryu to 1.0.22
 * update syn to 2.0.114
-* update zerocopy to 0.8.37
+* update zerocopy to 0.8.38
 
 ## Version 0.20.1 (2025-12-01)
 
