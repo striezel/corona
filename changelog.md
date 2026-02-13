@@ -12,7 +12,7 @@ Dependency updates:
 
 * update chrono to 0.4.43
 * update itoa to 1.0.17
-* update libc to 0.2.181
+* update libc to 0.2.182
 * update memchr to 2.8.0
 * update proc-macro2 to 1.0.106
 * update quote to 1.0.44
