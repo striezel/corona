@@ -21,7 +21,7 @@ Dependency updates:
 * update regex-automata to 0.4.14
 * update regex-syntax to 0.8.9
 * update ryu to 1.0.23
-* update syn to 2.0.116
+* update syn to 2.0.117
 * update unicode-ident to 1.0.24
 * update zerocopy to 0.8.39
 
