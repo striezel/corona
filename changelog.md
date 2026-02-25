@@ -19,7 +19,7 @@ Dependency updates:
 * update quote to 1.0.44
 * update regex to 1.12.3
 * update regex-automata to 0.4.14
-* update regex-syntax to 0.8.9
+* update regex-syntax to 0.8.10
 * update ryu to 1.0.23
 * update syn to 2.0.117
 * update unicode-ident to 1.0.24
