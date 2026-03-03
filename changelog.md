@@ -16,7 +16,7 @@ Dependency updates:
 * update libc to 0.2.182
 * update memchr to 2.8.0
 * update proc-macro2 to 1.0.106
-* update quote to 1.0.44
+* update quote to 1.0.45
 * update regex to 1.12.3
 * update regex-automata to 0.4.14
 * update regex-syntax to 0.8.10
