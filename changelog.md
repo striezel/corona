@@ -15,6 +15,7 @@ Dependency updates:
 * update itoa to 1.0.17
 * update libc to 0.2.183
 * update memchr to 2.8.0
+* update once_cell to 1.21.4
 * update proc-macro2 to 1.0.106
 * update quote to 1.0.45
 * update regex to 1.12.3
