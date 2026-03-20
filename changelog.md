@@ -12,7 +12,7 @@ Dependency updates:
 
 * update bitflags to 2.11.0
 * update chrono to 0.4.44
-* update itoa to 1.0.17
+* update itoa to 1.0.18
 * update libc to 0.2.183
 * update memchr to 2.8.0
 * update once_cell to 1.21.4
