@@ -24,7 +24,7 @@ Dependency updates:
 * update ryu to 1.0.23
 * update syn to 2.0.117
 * update unicode-ident to 1.0.24
-* update zerocopy to 0.8.47
+* update zerocopy to 0.8.48
 
 ## Version 0.20.1 (2025-12-01)
 
