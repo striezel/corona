@@ -24,6 +24,7 @@ Dependency updates:
 * update regex-syntax to 0.8.10
 * update ryu to 1.0.23
 * update syn to 2.0.117
+* update typenum to 1.20.0
 * update unicode-ident to 1.0.24
 * update zerocopy to 0.8.48
 
