@@ -12,7 +12,7 @@ Dependency updates:
 
 * update autocfg to 1.5.1
 * update bitflags to 2.12.1
-* update chrono to 0.4.44
+* update chrono to 0.4.45
 * update itoa to 1.0.18
 * update libc to 0.2.186
 * update memchr to 2.8.1
