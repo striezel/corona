@@ -22,12 +22,12 @@ Dependency updates:
 * update quote to 1.0.45
 * update regex to 1.12.3
 * update regex-automata to 0.4.14
-* update regex-syntax to 0.8.10
+* update regex-syntax to 0.8.11
 * update ryu to 1.0.23
 * update syn to 2.0.117
 * update typenum to 1.20.1
 * update unicode-ident to 1.0.24
-* update zerocopy to 0.8.50
+* update zerocopy to 0.8.52
 
 ## Version 0.20.1 (2025-12-01)
 
