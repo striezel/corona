@@ -15,7 +15,7 @@ Dependency updates:
 * update chrono to 0.4.45
 * update itoa to 1.0.18
 * update libc to 0.2.186
-* update memchr to 2.8.1
+* update memchr to 2.8.2
 * update once_cell to 1.21.4
 * update pkg-config to 0.3.33
 * update proc-macro2 to 1.0.106
@@ -24,6 +24,7 @@ Dependency updates:
 * update regex-automata to 0.4.14
 * update regex-syntax to 0.8.11
 * update ryu to 1.0.23
+* update smallvec to 1.15.2
 * update syn to 2.0.117
 * update typenum to 1.20.1
 * update unicode-ident to 1.0.24
