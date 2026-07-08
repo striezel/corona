@@ -15,7 +15,7 @@ Dependency updates:
 * update chrono to 0.4.45
 * update itoa to 1.0.18
 * update libc to 0.2.186
-* update memchr to 2.8.2
+* update memchr to 2.8.3
 * update once_cell to 1.21.4
 * update pkg-config to 0.3.33
 * update proc-macro2 to 1.0.106
@@ -28,7 +28,7 @@ Dependency updates:
 * update syn to 2.0.118
 * update typenum to 1.20.1
 * update unicode-ident to 1.0.24
-* update zerocopy to 0.8.53
+* update zerocopy to 0.8.54
 
 ## Version 0.20.1 (2025-12-01)
 
