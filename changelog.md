@@ -20,8 +20,8 @@ Dependency updates:
 * update pkg-config to 0.3.33
 * update proc-macro2 to 1.0.106
 * update quote to 1.0.46
-* update regex to 1.12.4
-* update regex-automata to 0.4.14
+* update regex to 1.13.0
+* update regex-automata to 0.4.15
 * update regex-syntax to 0.8.11
 * update ryu to 1.0.23
 * update smallvec to 1.15.2
