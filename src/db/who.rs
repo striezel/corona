@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2023, 2025  Dirk Stolle
+    Copyright (C) 2023, 2025, 2026  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -105,7 +105,7 @@ impl DbWho
       Ok(rdr) => rdr,
       Err(e) => {
         eprintln!("Error: Could not open CSV file {}: {}",
-                  &self.config.csv_input_file, e);
+                  self.config.csv_input_file, e);
         return false;
       }
     };
@@ -133,7 +133,7 @@ impl DbWho
       {
         eprintln!(
           "Error: Could not read header of CSV file {}: {}",
-          &self.config.csv_input_file, e
+          self.config.csv_input_file, e
         );
         return false;
       }
@@ -211,7 +211,7 @@ impl DbWho
           eprintln!("Error: Could not insert country data into database!");
           return false;
         }
-        parsed_data.truncate(0);
+        parsed_data.clear();
         // new country
         let name = record.get(2).unwrap();
         let name = name.trim_end_matches("[1]");

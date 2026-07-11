@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021, 2022, 2023, 2025  Dirk Stolle
+    Copyright (C) 2020, 2021, 2022, 2023, 2025, 2026  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -104,7 +104,7 @@ impl DbEcdc
       Ok(rdr) => rdr,
       Err(e) => {
         eprintln!("Error: Could not open CSV file {}: {}",
-                  &self.config.csv_input_file, e);
+                  self.config.csv_input_file, e);
         return false;
       }
     };
@@ -132,7 +132,7 @@ impl DbEcdc
       {
         eprintln!(
           "Error: Could not read header of CSV file {}: {}",
-          &self.config.csv_input_file, e
+          self.config.csv_input_file, e
         );
         return false;
       }
@@ -213,7 +213,7 @@ impl DbEcdc
           return false;
         }
         // Clear vector, because the data in it was already saved.
-        numbers.truncate(0);
+        numbers.clear();
         // new country
         let name = record.get(6).unwrap().replace('_', " ");
         let country_code = record.get(8).unwrap();

@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2025  Dirk Stolle
+    Copyright (C) 2025, 2026  Dirk Stolle
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -106,7 +106,7 @@ impl DbOwidEtlCompact
       Ok(rdr) => rdr,
       Err(e) => {
         eprintln!("Error: Could not open CSV file {}: {}",
-                  &self.config.csv_input_file, e);
+                  self.config.csv_input_file, e);
         return false;
       }
     };
@@ -134,7 +134,7 @@ impl DbOwidEtlCompact
       {
         eprintln!(
           "Error: Could not read header of CSV file {}: {}",
-          &self.config.csv_input_file, e
+          self.config.csv_input_file, e
         );
         return false;
       }
@@ -262,7 +262,7 @@ impl DbOwidEtlCompact
           eprintln!("Error: Could not insert country data into database!");
           return false;
         }
-        parsed_data.truncate(0);
+        parsed_data.clear();
         // new country
         let name = record.get(IDX_NAME).unwrap();
         let new_country = Country {

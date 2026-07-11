@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021, 2022, 2023, 2025  Dirk Stolle
+    Copyright (C) 2020, 2021, 2022, 2023, 2025, 2026  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -150,7 +150,7 @@ impl Csv
       {
         eprintln!(
           "Error while retrieving data for {} ({}) from the database!",
-          &country.name, &country.geo_id
+          country.name, country.geo_id
         );
         return false;
       }
@@ -162,8 +162,8 @@ impl Csv
         {
           eprintln!(
             "Error while writing data record for {} to {}! {}",
-            &country.name,
-            &self.config.csv_output_file,
+            country.name,
+            self.config.csv_output_file,
             error
           );
           return false;

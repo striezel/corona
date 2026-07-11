@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021, 2022, 2024, 2025  Dirk Stolle
+    Copyright (C) 2020, 2021, 2022, 2024, 2025, 2026  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -152,7 +152,7 @@ impl Generator
       {
         eprintln!(
           "Error while generating file for {} ({})!",
-          &country.name, &country.geo_id
+          country.name, country.geo_id
         );
         return false;
       }
@@ -442,7 +442,7 @@ impl Generator
         None => return false
       };
       // write it to a file
-      let file = format!("{}/continent_{}.html", self.config.output_directory, &Self::sanitize_continent_name(continent));
+      let file = format!("{}/continent_{}.html", self.config.output_directory, Self::sanitize_continent_name(continent));
       let written = fs::write(file, full.as_bytes());
       if written.is_err()
       {
