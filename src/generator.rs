@@ -848,11 +848,7 @@ impl Generator
       tpl.integrate("dates", &days);
       tpl.integrate("incidence", &incidence);
       tpl.tag("name", &year.to_string());
-      traces = match tpl.generate()
-      {
-        Some(generated) => traces + &generated,
-        None => return None
-      };
+      traces = traces + &tpl.generate()?;
     }
     // template: graph
     if !tpl.load_section("graphIncidenceByYear")
@@ -919,11 +915,7 @@ impl Generator
       tpl.integrate("dates", &dates);
       tpl.integrate("incidence", &incidence);
       tpl.tag("name", &country.name);
-      traces = match tpl.generate()
-      {
-        Some(generated) => traces + &generated,
-        None => return None
-      };
+      traces = traces + &tpl.generate()?;
     }
     // template: graph
     if !tpl.load_section("graphContinent")

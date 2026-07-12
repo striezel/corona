@@ -1,7 +1,7 @@
 /*
  -------------------------------------------------------------------------------
     This file is part of the Corona numbers website generator.
-    Copyright (C) 2020, 2021, 2025  Dirk Stolle
+    Copyright (C) 2020, 2021, 2025, 2026  Dirk Stolle
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -176,6 +176,7 @@ impl Template
    */
   pub fn generate(&self) -> Option<String>
   {
+    #[allow(clippy::question_mark)]
     let mut out = match &self.template
     {
       Some(val) => val.clone(),

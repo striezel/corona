@@ -106,7 +106,7 @@ impl DbOwid
       Ok(rdr) => rdr,
       Err(e) => {
         eprintln!("Error: Could not open CSV file {}: {}",
-                  &self.config.csv_input_file, e);
+                  self.config.csv_input_file, e);
         return false;
       }
     };
@@ -134,7 +134,7 @@ impl DbOwid
       {
         eprintln!(
           "Error: Could not read header of CSV file {}: {}",
-          &self.config.csv_input_file, e
+          self.config.csv_input_file, e
         );
         return false;
       }
