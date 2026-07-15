@@ -11,7 +11,7 @@ The plotly.js library is updated from version 3.2.0 to version 3.7.0.
 Dependency updates:
 
 * update autocfg to 1.5.1
-* update bitflags to 2.13.0
+* update bitflags to 2.13.1
 * update chrono to 0.4.45
 * update itoa to 1.0.18
 * update libc to 0.2.186
@@ -25,7 +25,7 @@ Dependency updates:
 * update regex-syntax to 0.8.11
 * update ryu to 1.0.23
 * update smallvec to 1.15.2
-* update syn to 2.0.118
+* update syn to 2.0.119
 * update typenum to 1.20.1
 * update unicode-ident to 1.0.24
 * update zerocopy to 0.8.54
