@@ -18,8 +18,8 @@ Dependency updates:
 * update memchr to 2.8.3
 * update once_cell to 1.21.4
 * update pkg-config to 0.3.33
-* update proc-macro2 to 1.0.106
-* update quote to 1.0.46
+* update proc-macro2 to 1.0.107
+* update quote to 1.0.47
 * update regex to 1.13.1
 * update regex-automata to 0.4.16
 * update regex-syntax to 0.8.11
