@@ -24,6 +24,7 @@ Dependency updates:
 * update regex-automata to 0.4.16
 * update regex-syntax to 0.8.11
 * update ryu to 1.0.23
+* update serde_core to 1.0.229
 * update smallvec to 1.15.2
 * update syn to 2.0.119
 * update typenum to 1.20.1
