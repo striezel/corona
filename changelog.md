@@ -10,6 +10,7 @@ The plotly.js library is updated from version 3.2.0 to version 3.7.0.
 
 Dependency updates:
 
+* update aho-corasick to 1.1.5
 * update autocfg to 1.5.1
 * update bitflags to 2.13.1
 * update chrono to 0.4.45
