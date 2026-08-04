@@ -22,7 +22,7 @@ Dependency updates:
 * update proc-macro2 to 1.0.107
 * update quote to 1.0.47
 * update regex to 1.13.1
-* update regex-automata to 0.4.16
+* update regex-automata to 0.4.18
 * update regex-syntax to 0.8.11
 * update ryu to 1.0.23
 * update serde_core to 1.0.229
