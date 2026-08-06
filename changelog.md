@@ -31,7 +31,7 @@ Dependency updates:
 * update syn v3 to 3.0.3
 * update typenum to 1.20.1
 * update unicode-ident to 1.0.24
-* update zerocopy to 0.8.55
+* update zerocopy to 0.8.56
 
 ## Version 0.20.1 (2025-12-01)
 
