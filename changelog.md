@@ -26,9 +26,9 @@ Dependency updates:
 * update regex-syntax to 0.8.11
 * update ryu to 1.0.23
 * update serde_core to 1.0.229
-* update smallvec to 1.15.2
+* update smallvec to 1.16.0
 * update syn v2 to 2.0.119
-* update syn v3 to 3.0.3
+* update syn v3 to 3.0.5
 * update typenum to 1.20.1
 * update unicode-ident to 1.0.24
 * update zerocopy to 0.8.56
