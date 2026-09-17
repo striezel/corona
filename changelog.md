@@ -13,6 +13,7 @@ Dependency updates:
 * update aho-corasick to 1.1.5
 * update autocfg to 1.5.1
 * update bitflags to 2.13.2
+* update cfg-if to 1.0.5
 * update chrono to 0.4.45
 * update itoa to 1.0.18
 * update libc to 0.2.189
@@ -28,9 +29,9 @@ Dependency updates:
 * update serde_core to 1.0.229
 * update smallvec to 1.16.1
 * update syn v2 to 2.0.119
-* update syn v3 to 3.0.5
+* update syn v3 to 3.0.6
 * update typenum to 1.20.1
-* update unicode-ident to 1.0.24
+* update unicode-ident to 1.0.26
 * update zerocopy to 0.8.57
 
 ## Version 0.20.1 (2025-12-01)
