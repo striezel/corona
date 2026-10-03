@@ -16,7 +16,7 @@ Dependency updates:
 * update cfg-if to 1.0.5
 * update chrono to 0.4.45
 * update itoa to 1.0.18
-* update libc to 0.2.189
+* update libc to 0.2.190
 * update memchr to 2.8.3
 * update once_cell to 1.21.4
 * update pkg-config to 0.3.34
