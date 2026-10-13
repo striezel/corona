@@ -29,9 +29,9 @@ Dependency updates:
 * update serde_core to 1.0.229
 * update smallvec to 1.16.3
 * update syn v2 to 2.0.119
-* update syn v3 to 3.0.8
+* update syn v3 to 3.0.9
 * update typenum to 1.20.1
-* update unicode-ident to 1.0.26
+* update unicode-ident to 1.0.27
 * update zerocopy to 0.8.62
 
 ## Version 0.20.1 (2025-12-01)
