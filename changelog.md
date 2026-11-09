@@ -15,7 +15,7 @@ Dependency updates:
 * update bitflags to 2.13.2
 * update cfg-if to 1.0.5
 * update chrono to 0.4.45
-* update itoa to 1.0.18
+* update itoa to 1.0.19
 * update libc to 0.2.191
 * update memchr to 2.8.3
 * update once_cell to 1.21.4
@@ -27,7 +27,7 @@ Dependency updates:
 * update regex-syntax to 0.8.11
 * update ryu to 1.0.23
 * update serde_core to 1.0.229
-* update smallvec to 1.16.4
+* update smallvec to 1.16.5
 * update syn v2 to 2.0.119
 * update syn v3 to 3.0.9
 * update typenum to 1.20.1
